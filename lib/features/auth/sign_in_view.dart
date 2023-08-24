@@ -31,10 +31,13 @@ class SignInView extends ConsumerWidget {
               const SizedBox(height: 24),
               const AuthEmailTextFieldWidget(),
               const AuthPasswordTextFieldWidget(),
+              ref.watch(authProvider).error != null
+                  ? const AuthErrorTextWidget()
+                  : const SizedBox(),
               AuthSignInUpButtonWidget(
                 text: signInTitleString,
                 onPressed: () async {
-                  await ref.read(authProvider.notifier).signIn();
+                  await ref.read(authProvider.notifier).signIn(context);
                 },
               ),
             ],

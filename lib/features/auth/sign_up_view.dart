@@ -14,6 +14,10 @@ class SignUpView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isValid = ref.watch(authProvider).password ==
+            ref.watch(authProvider).confirmPassword &&
+        ref.watch(authProvider).password.isNotEmpty;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -32,12 +36,15 @@ class SignUpView extends ConsumerWidget {
               const AuthEmailTextFieldWidget(),
               const AuthPasswordTextFieldWidget(),
               const AuthConfirmPasswordTextFieldWidget(),
-              AuthSignInUpButtonWidget(
-                text: signUpTitleString,
-                onPressed: () async {
-                  await ref.read(authProvider.notifier).signUp();
-                },
-              ),
+              const AuthErrorTextWidget(),
+              isValid
+                  ? AuthSignInUpButtonWidget(
+                      text: signUpTitleString,
+                      onPressed: () async {
+                        await ref.read(authProvider.notifier).signUp(context);
+                      },
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),

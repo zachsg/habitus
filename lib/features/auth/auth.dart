@@ -1,6 +1,10 @@
+import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../services/database.dart';
+import '../bottom_nav/bottom_nav_view.dart';
 import 'auth_model.dart';
 
 part 'auth.g.dart';
@@ -19,29 +23,57 @@ class Auth extends _$Auth {
   }
 
   void setConfirmPassword(String password) {
+    if (password != state.password) {
+      state = state.copyWith(error: 'Passwords don\'t match');
+    } else {
+      state = state.copyWith(error: null);
+    }
+
     state = state.copyWith(confirmPassword: password);
   }
 
-  Future<void> signUp() async {
+  Future<void> signUp(BuildContext context) async {
     state = state.copyWith(loading: true);
 
-    await supabase.auth.signUp(
-      email: state.email,
-      password: state.password,
-    );
+    try {
+      await supabase.auth.signUp(
+        email: state.email,
+        password: state.password,
+      );
+    } on AuthException catch (e) {
+      state = state.copyWith(error: e.message);
+      state = state.copyWith(loading: false);
+      return;
+    }
 
     state = state.copyWith(loading: false);
+
+    if (context.mounted) {
+      context.goNamed(BottomNavView.routeName);
+    }
   }
 
-  Future<void> signIn() async {
+  Future<void> signIn(BuildContext context) async {
     state = state.copyWith(loading: true);
 
-    await supabase.auth.signInWithPassword(
-      email: state.email,
-      password: state.password,
-    );
+    state = state.copyWith(error: null);
+
+    try {
+      await supabase.auth.signInWithPassword(
+        email: state.email,
+        password: state.password,
+      );
+    } on AuthException catch (e) {
+      state = state.copyWith(error: e.message);
+      state = state.copyWith(loading: false);
+      return;
+    }
 
     state = state.copyWith(loading: false);
+
+    if (context.mounted) {
+      context.goNamed(BottomNavView.routeName);
+    }
   }
 
   void setLoading(bool loading) {

@@ -11,6 +11,7 @@ _$_AuthModel _$$_AuthModelFromJson(Map<String, dynamic> json) => _$_AuthModel(
       password: json['password'] as String? ?? '',
       confirmPassword: json['confirmPassword'] as String? ?? '',
       loading: json['loading'] as bool? ?? false,
+      error: json['error'] as String?,
     );
 
 Map<String, dynamic> _$$_AuthModelToJson(_$_AuthModel instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$$_AuthModelToJson(_$_AuthModel instance) =>
       'password': instance.password,
       'confirmPassword': instance.confirmPassword,
       'loading': instance.loading,
+      'error': instance.error,
     };

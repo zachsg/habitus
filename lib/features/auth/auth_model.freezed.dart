@@ -24,6 +24,7 @@ mixin _$AuthModel {
   String get password => throw _privateConstructorUsedError;
   String get confirmPassword => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,11 @@ abstract class $AuthModelCopyWith<$Res> {
       _$AuthModelCopyWithImpl<$Res, AuthModel>;
   @useResult
   $Res call(
-      {String email, String password, String confirmPassword, bool loading});
+      {String email,
+      String password,
+      String confirmPassword,
+      bool loading,
+      String? error});
 }
 
 /// @nodoc
@@ -57,6 +62,7 @@ class _$AuthModelCopyWithImpl<$Res, $Val extends AuthModel>
     Object? password = null,
     Object? confirmPassword = null,
     Object? loading = null,
+    Object? error = freezed,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -75,6 +81,10 @@ class _$AuthModelCopyWithImpl<$Res, $Val extends AuthModel>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -87,7 +97,11 @@ abstract class _$$_AuthModelCopyWith<$Res> implements $AuthModelCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String email, String password, String confirmPassword, bool loading});
+      {String email,
+      String password,
+      String confirmPassword,
+      bool loading,
+      String? error});
 }
 
 /// @nodoc
@@ -105,6 +119,7 @@ class __$$_AuthModelCopyWithImpl<$Res>
     Object? password = null,
     Object? confirmPassword = null,
     Object? loading = null,
+    Object? error = freezed,
   }) {
     return _then(_$_AuthModel(
       email: null == email
@@ -123,6 +138,10 @@ class __$$_AuthModelCopyWithImpl<$Res>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -134,7 +153,8 @@ class _$_AuthModel implements _AuthModel {
       {this.email = '',
       this.password = '',
       this.confirmPassword = '',
-      this.loading = false});
+      this.loading = false,
+      this.error});
 
   factory _$_AuthModel.fromJson(Map<String, dynamic> json) =>
       _$$_AuthModelFromJson(json);
@@ -151,10 +171,12 @@ class _$_AuthModel implements _AuthModel {
   @override
   @JsonKey()
   final bool loading;
+  @override
+  final String? error;
 
   @override
   String toString() {
-    return 'AuthModel(email: $email, password: $password, confirmPassword: $confirmPassword, loading: $loading)';
+    return 'AuthModel(email: $email, password: $password, confirmPassword: $confirmPassword, loading: $loading, error: $error)';
   }
 
   @override
@@ -167,13 +189,14 @@ class _$_AuthModel implements _AuthModel {
                 other.password == password) &&
             (identical(other.confirmPassword, confirmPassword) ||
                 other.confirmPassword == confirmPassword) &&
-            (identical(other.loading, loading) || other.loading == loading));
+            (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, email, password, confirmPassword, loading);
+  int get hashCode => Object.hash(
+      runtimeType, email, password, confirmPassword, loading, error);
 
   @JsonKey(ignore: true)
   @override
@@ -194,7 +217,8 @@ abstract class _AuthModel implements AuthModel {
       {final String email,
       final String password,
       final String confirmPassword,
-      final bool loading}) = _$_AuthModel;
+      final bool loading,
+      final String? error}) = _$_AuthModel;
 
   factory _AuthModel.fromJson(Map<String, dynamic> json) =
       _$_AuthModel.fromJson;
@@ -207,6 +231,8 @@ abstract class _AuthModel implements AuthModel {
   String get confirmPassword;
   @override
   bool get loading;
+  @override
+  String? get error;
   @override
   @JsonKey(ignore: true)
   _$$_AuthModelCopyWith<_$_AuthModel> get copyWith =>
