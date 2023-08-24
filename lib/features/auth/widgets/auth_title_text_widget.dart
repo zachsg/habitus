@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AuthTitleTextFieldWidget extends ConsumerWidget {
-  const AuthTitleTextFieldWidget({super.key, required this.text});
+class AuthTitleTextWidget extends ConsumerWidget {
+  const AuthTitleTextWidget({super.key, required this.text});
 
   final String text;
 

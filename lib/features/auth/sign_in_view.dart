@@ -23,7 +23,7 @@ class SignInView extends ConsumerWidget {
               const SizedBox(height: 24),
               const AuthHeaderWidget(),
               const SizedBox(height: 24),
-              const AuthTitleTextFieldWidget(text: signInTitleString),
+              const AuthTitleTextWidget(text: signInTitleString),
               AuthToggleSignInUpButtonWidget(
                 text: needAccountString,
                 onPressed: () => context.goNamed(SignUpView.routeName),
