@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../helpers/strings.dart';
+import 'auth.dart';
+import 'sign_in_view.dart';
 import 'widgets/xwidgets.dart';
 
 class SignUpView extends ConsumerWidget {
@@ -10,13 +14,32 @@ class SignUpView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            AuthHeaderWidget(),
-            AuthEmailTextFieldWidget(),
-          ],
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 24),
+              const AuthHeaderWidget(),
+              const SizedBox(height: 24),
+              const AuthTitleTextFieldWidget(text: signUpTitleString),
+              AuthToggleSignInUpButtonWidget(
+                text: alreadyHaveAccountString,
+                onPressed: () => context.goNamed(SignInView.routeName),
+              ),
+              const SizedBox(height: 24),
+              const AuthEmailTextFieldWidget(),
+              const AuthPasswordTextFieldWidget(),
+              const AuthConfirmPasswordTextFieldWidget(),
+              AuthSignInUpButtonWidget(
+                text: signUpTitleString,
+                onPressed: () async {
+                  await ref.read(authProvider.notifier).signUp();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

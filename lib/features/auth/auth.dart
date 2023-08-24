@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../services/database.dart';
 import 'auth_model.dart';
 
 part 'auth.g.dart';
@@ -19,5 +20,31 @@ class Auth extends _$Auth {
 
   void setConfirmPassword(String password) {
     state = state.copyWith(confirmPassword: password);
+  }
+
+  Future<void> signUp() async {
+    state = state.copyWith(loading: true);
+
+    await supabase.auth.signUp(
+      email: state.email,
+      password: state.password,
+    );
+
+    state = state.copyWith(loading: false);
+  }
+
+  Future<void> signIn() async {
+    state = state.copyWith(loading: true);
+
+    await supabase.auth.signInWithPassword(
+      email: state.email,
+      password: state.password,
+    );
+
+    state = state.copyWith(loading: false);
+  }
+
+  void setLoading(bool loading) {
+    state = state.copyWith(loading: loading);
   }
 }

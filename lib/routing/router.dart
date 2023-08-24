@@ -2,10 +2,20 @@ import 'package:go_router/go_router.dart';
 
 import '../features/auth/sign_in_view.dart';
 import '../features/auth/sign_up_view.dart';
+import '../features/bottom_nav/bottom_nav_view.dart';
+import '../features/profile/profile_view.dart';
+import '../features/settings/settings_view.dart';
+import '../features/splash/splash_view.dart';
+import '../features/teams/teams_view.dart';
 
 final router = GoRouter(
-  initialLocation: SignUpView.routeName,
+  initialLocation: SplashView.routeName,
   routes: [
+    GoRoute(
+      path: SplashView.routeName,
+      name: SplashView.routeName,
+      builder: (context, state) => const SplashView(),
+    ),
     GoRoute(
       path: SignUpView.routeName,
       name: SignUpView.routeName,
@@ -15,6 +25,26 @@ final router = GoRouter(
       path: SignInView.routeName,
       name: SignInView.routeName,
       builder: (context, state) => const SignInView(),
+    ),
+    GoRoute(
+      path: BottomNavView.routeName,
+      name: BottomNavView.routeName,
+      builder: (context, state) => const BottomNavView(),
+    ),
+    GoRoute(
+      path: TeamsView.routeName,
+      name: TeamsView.routeName,
+      builder: (context, state) => const TeamsView(),
+    ),
+    GoRoute(
+      path: ProfileView.routeName,
+      name: ProfileView.routeName,
+      builder: (context, state) => const ProfileView(),
+    ),
+    GoRoute(
+      path: SettingsView.routeName,
+      name: SettingsView.routeName,
+      builder: (context, state) => const SettingsView(),
     ),
   ],
 );

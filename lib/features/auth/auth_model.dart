@@ -9,6 +9,7 @@ class AuthModel with _$AuthModel {
     @Default('') String email,
     @Default('') String password,
     @Default('') String confirmPassword,
+    @Default(false) bool loading,
   }) = _AuthModel;
 
   factory AuthModel.fromJson(Map<String, Object?> json) =>

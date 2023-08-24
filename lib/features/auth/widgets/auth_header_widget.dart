@@ -12,28 +12,25 @@ class AuthHeaderWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.all(20),
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              habitusLogoSvg,
-              semanticsLabel: habitusLogoString,
-              width: 28,
-              height: 28,
-              colorFilter: ColorFilter.mode(
-                Theme.of(context).colorScheme.onBackground,
-                BlendMode.srcIn,
-              ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            habitusLogoSvg,
+            semanticsLabel: habitusLogoString,
+            width: 28,
+            height: 28,
+            colorFilter: ColorFilter.mode(
+              Theme.of(context).colorScheme.onBackground,
+              BlendMode.srcIn,
             ),
-            const SizedBox(width: 4),
-            Text(
-              appNameString,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            appNameString,
+            style: Theme.of(context).textTheme.displaySmall,
+          ),
+        ],
       ),
     );
   }

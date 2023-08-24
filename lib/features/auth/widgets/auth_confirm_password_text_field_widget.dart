@@ -4,21 +4,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../helpers/strings.dart';
 import '../auth.dart';
 
-class AuthEmailTextFieldWidget extends ConsumerStatefulWidget {
-  const AuthEmailTextFieldWidget({super.key});
+class AuthConfirmPasswordTextFieldWidget extends ConsumerStatefulWidget {
+  const AuthConfirmPasswordTextFieldWidget({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _AuthEmailTextFieldWidgetState();
+      _AuthConfirmPasswordTextFieldWidgetState();
 }
 
-class _AuthEmailTextFieldWidgetState
-    extends ConsumerState<AuthEmailTextFieldWidget> {
+class _AuthConfirmPasswordTextFieldWidgetState
+    extends ConsumerState<AuthConfirmPasswordTextFieldWidget> {
   final _controller = TextEditingController();
 
   @override
   void initState() {
-    _controller.text = ref.read(authProvider).email;
+    _controller.text = ref.read(authProvider).confirmPassword;
     super.initState();
   }
 
@@ -28,16 +28,19 @@ class _AuthEmailTextFieldWidgetState
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
       child: TextField(
         controller: _controller,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.visiblePassword,
+        obscureText: true,
         decoration: const InputDecoration(
-          labelText: emailString,
-          hintText: typeEmailString,
+          labelText: passwordAgainString,
+          hintText: confirmPasswordString,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(16.0)),
           ),
         ),
-        onChanged: (email) => ref.read(authProvider.notifier).setEmail(email),
-        onSubmitted: (email) => ref.read(authProvider.notifier).setEmail(email),
+        onChanged: (password) =>
+            ref.read(authProvider.notifier).setConfirmPassword(password),
+        onSubmitted: (password) =>
+            ref.read(authProvider.notifier).setConfirmPassword(password),
       ),
     );
   }
