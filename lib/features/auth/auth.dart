@@ -33,16 +33,15 @@ class Auth extends _$Auth {
   }
 
   Future<void> signUp(BuildContext context) async {
-    state = state.copyWith(loading: true);
+    state = state.copyWith(loading: true, error: null);
 
     try {
       await supabase.auth.signUp(
         email: state.email,
         password: state.password,
       );
-    } on AuthException catch (e) {
-      state = state.copyWith(error: e.message);
-      state = state.copyWith(loading: false);
+    } on AuthException catch (error) {
+      state = state.copyWith(error: error.message, loading: false);
       return;
     }
 
@@ -54,18 +53,15 @@ class Auth extends _$Auth {
   }
 
   Future<void> signIn(BuildContext context) async {
-    state = state.copyWith(loading: true);
-
-    state = state.copyWith(error: null);
+    state = state.copyWith(loading: true, error: null);
 
     try {
       await supabase.auth.signInWithPassword(
         email: state.email,
         password: state.password,
       );
-    } on AuthException catch (e) {
-      state = state.copyWith(error: e.message);
-      state = state.copyWith(loading: false);
+    } on AuthException catch (error) {
+      state = state.copyWith(error: error.message, loading: false);
       return;
     }
 
