@@ -21,10 +21,13 @@ HUProfileModel _$HUProfileModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$HUProfileModel {
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  DateTime get updatedAt => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get handle => throw _privateConstructorUsedError;
-  String? get error => throw _privateConstructorUsedError;
+  String get bio => throw _privateConstructorUsedError;
+  String get avatar => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,7 +42,13 @@ abstract class $HUProfileModelCopyWith<$Res> {
       _$HUProfileModelCopyWithImpl<$Res, HUProfileModel>;
   @useResult
   $Res call(
-      {String id, String name, String email, String handle, String? error});
+      {String id,
+      @JsonKey(name: 'updated_at') DateTime updatedAt,
+      String name,
+      String email,
+      String handle,
+      String bio,
+      String avatar});
 }
 
 /// @nodoc
@@ -56,16 +65,22 @@ class _$HUProfileModelCopyWithImpl<$Res, $Val extends HUProfileModel>
   @override
   $Res call({
     Object? id = null,
+    Object? updatedAt = null,
     Object? name = null,
     Object? email = null,
     Object? handle = null,
-    Object? error = freezed,
+    Object? bio = null,
+    Object? avatar = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -78,10 +93,14 @@ class _$HUProfileModelCopyWithImpl<$Res, $Val extends HUProfileModel>
           ? _value.handle
           : handle // ignore: cast_nullable_to_non_nullable
               as String,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String?,
+      bio: null == bio
+          ? _value.bio
+          : bio // ignore: cast_nullable_to_non_nullable
+              as String,
+      avatar: null == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -95,7 +114,13 @@ abstract class _$$_HUProfileModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id, String name, String email, String handle, String? error});
+      {String id,
+      @JsonKey(name: 'updated_at') DateTime updatedAt,
+      String name,
+      String email,
+      String handle,
+      String bio,
+      String avatar});
 }
 
 /// @nodoc
@@ -110,16 +135,22 @@ class __$$_HUProfileModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? updatedAt = null,
     Object? name = null,
     Object? email = null,
     Object? handle = null,
-    Object? error = freezed,
+    Object? bio = null,
+    Object? avatar = null,
   }) {
     return _then(_$_HUProfileModel(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -132,10 +163,14 @@ class __$$_HUProfileModelCopyWithImpl<$Res>
           ? _value.handle
           : handle // ignore: cast_nullable_to_non_nullable
               as String,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String?,
+      bio: null == bio
+          ? _value.bio
+          : bio // ignore: cast_nullable_to_non_nullable
+              as String,
+      avatar: null == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -145,16 +180,21 @@ class __$$_HUProfileModelCopyWithImpl<$Res>
 class _$_HUProfileModel implements _HUProfileModel {
   _$_HUProfileModel(
       {required this.id,
+      @JsonKey(name: 'updated_at') required this.updatedAt,
       this.name = '',
       this.email = '',
       this.handle = '',
-      this.error});
+      this.bio = '',
+      this.avatar = ''});
 
   factory _$_HUProfileModel.fromJson(Map<String, dynamic> json) =>
       _$$_HUProfileModelFromJson(json);
 
   @override
   final String id;
+  @override
+  @JsonKey(name: 'updated_at')
+  final DateTime updatedAt;
   @override
   @JsonKey()
   final String name;
@@ -165,11 +205,15 @@ class _$_HUProfileModel implements _HUProfileModel {
   @JsonKey()
   final String handle;
   @override
-  final String? error;
+  @JsonKey()
+  final String bio;
+  @override
+  @JsonKey()
+  final String avatar;
 
   @override
   String toString() {
-    return 'HUProfileModel(id: $id, name: $name, email: $email, handle: $handle, error: $error)';
+    return 'HUProfileModel(id: $id, updatedAt: $updatedAt, name: $name, email: $email, handle: $handle, bio: $bio, avatar: $avatar)';
   }
 
   @override
@@ -178,15 +222,19 @@ class _$_HUProfileModel implements _HUProfileModel {
         (other.runtimeType == runtimeType &&
             other is _$_HUProfileModel &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.handle, handle) || other.handle == handle) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.bio, bio) || other.bio == bio) &&
+            (identical(other.avatar, avatar) || other.avatar == avatar));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, email, handle, error);
+  int get hashCode =>
+      Object.hash(runtimeType, id, updatedAt, name, email, handle, bio, avatar);
 
   @JsonKey(ignore: true)
   @override
@@ -205,10 +253,12 @@ class _$_HUProfileModel implements _HUProfileModel {
 abstract class _HUProfileModel implements HUProfileModel {
   factory _HUProfileModel(
       {required final String id,
+      @JsonKey(name: 'updated_at') required final DateTime updatedAt,
       final String name,
       final String email,
       final String handle,
-      final String? error}) = _$_HUProfileModel;
+      final String bio,
+      final String avatar}) = _$_HUProfileModel;
 
   factory _HUProfileModel.fromJson(Map<String, dynamic> json) =
       _$_HUProfileModel.fromJson;
@@ -216,13 +266,18 @@ abstract class _HUProfileModel implements HUProfileModel {
   @override
   String get id;
   @override
+  @JsonKey(name: 'updated_at')
+  DateTime get updatedAt;
+  @override
   String get name;
   @override
   String get email;
   @override
   String get handle;
   @override
-  String? get error;
+  String get bio;
+  @override
+  String get avatar;
   @override
   @JsonKey(ignore: true)
   _$$_HUProfileModelCopyWith<_$_HUProfileModel> get copyWith =>

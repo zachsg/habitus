@@ -14,17 +14,15 @@ class ProfileView extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(profileTitleString),
-        actions: [
-          IconButton(
-            onPressed: () =>
-                ref.read(profileProvider.notifier).signOut(context),
-            icon: const Icon(Icons.logout),
-          ),
-        ],
       ),
-      body: const SafeArea(
+      body: SafeArea(
         child: Center(
-          child: Text(profileTitleString),
+          child: ref.watch(profileProvider).loading
+              ? const CircularProgressIndicator()
+              : TextButton(
+                  onPressed: ref.read(profileProvider.notifier).updateProfile,
+                  child: const Text('Update Profile'),
+                ),
         ),
       ),
     );

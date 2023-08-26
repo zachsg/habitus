@@ -1,22 +1,36 @@
-import 'package:flutter/widgets.dart';
-import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
-import '../auth/sign_in_view.dart';
 import 'profile_model.dart';
 
 part 'profile.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Profile extends _$Profile {
   @override
   ProfileModel build() => ProfileModel(
-      profile: HUProfileModel(id: supabase.auth.currentUser?.id ?? ''));
+        profile: HUProfileModel(
+          id: supabase.auth.currentUser?.id ?? '',
+          updatedAt: DateTime.now(),
+        ),
+      );
 
-  void signOut(BuildContext context) {
-    supabase.auth.signOut();
-    context.goNamed(SignInView.routeName);
+  Future<void> updateProfile() async {
+    final profile = state.profile.copyWith(
+      updatedAt: DateTime.now(),
+      name: 'zach',
+      email: supabase.auth.currentUser?.email ?? '',
+      handle: 'zachhandle',
+      bio: 'This is my bio for you to read about and whatnot',
+    );
+
+    state = state.copyWith(profile: profile);
+
+    state = state.copyWith(loading: true);
+
+    await Database.updateProfile(profile);
+
+    state = state.copyWith(loading: false);
   }
 }

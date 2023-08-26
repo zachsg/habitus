@@ -22,3 +22,12 @@ const profileTitleString = 'Profile';
 
 // Settings
 const settingsTitleString = 'Settings';
+const signOutString = 'Sign Out';
+const personalDetailsString = 'Personal info';
+const nameString = 'Name';
+const handleString = 'Handle';
+const bioString = 'Bio';
+const avatarString = 'Avatar';
+const typeNameString = 'Enter your name';
+const typeHandleString = 'Choose your handle';
+const typeBioString = 'Write your bio';

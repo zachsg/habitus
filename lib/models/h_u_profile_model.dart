@@ -7,10 +7,12 @@ part 'h_u_profile_model.g.dart';
 class HUProfileModel with _$HUProfileModel {
   factory HUProfileModel({
     required String id,
+    @JsonKey(name: 'updated_at') required DateTime updatedAt,
     @Default('') String name,
     @Default('') String email,
     @Default('') String handle,
-    String? error,
+    @Default('') String bio,
+    @Default('') String avatar,
   }) = _HUProfileModel;
 
   factory HUProfileModel.fromJson(Map<String, Object?> json) =>
