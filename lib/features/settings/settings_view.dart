@@ -16,61 +16,23 @@ class SettingsView extends ConsumerWidget {
       appBar: AppBar(
         title: const Text(settingsTitleString),
       ),
-      body: SafeArea(
+      body: const SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 16.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 4.0,
-                  horizontal: 24.0,
-                ),
-                child: Row(
-                  children: [
-                    Text(personalDetailsString.toUpperCase()),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 4.0,
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onBackground
-                        .withOpacity(0.05),
-                    borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  ),
-                  child: const Column(
-                    children: [
-                      SettingsNameTextButtonRowWidget(),
-                      SettingsSectionDividerWidget(),
-                      SettingsHandleTextButtonRowWidget(),
-                      SettingsSectionDividerWidget(),
-                      SettingsBioTextButtonRowWidget(),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 32),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              SizedBox(height: 16.0),
+              SettingsSectionHeaderWidget(text: personalDetailsString),
+              SettingsSectionWidget(
                 children: [
-                  TextButton(
-                    onPressed: () =>
-                        ref.read(settingsProvider.notifier).signOut(context),
-                    child: Text(
-                      signOutString,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.error),
-                    ),
-                  ),
+                  SettingsNameTextButtonRowWidget(),
+                  SettingsSectionDividerWidget(),
+                  SettingsHandleTextButtonRowWidget(),
+                  SettingsSectionDividerWidget(),
+                  SettingsBioTextButtonRowWidget(),
                 ],
-              )
+              ),
+              SizedBox(height: 32),
+              SettingsSignOutButtonWidget(),
             ],
           ),
         ),
