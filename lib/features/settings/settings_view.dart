@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../helpers/strings.dart';
-import 'settings.dart';
 import 'widgets/xwidgets.dart';
 
 class SettingsView extends ConsumerWidget {
@@ -31,7 +30,7 @@ class SettingsView extends ConsumerWidget {
                   SettingsBioTextButtonRowWidget(),
                 ],
               ),
-              SizedBox(height: 32),
+              SizedBox(height: 32.0),
               SettingsSignOutButtonWidget(),
             ],
           ),

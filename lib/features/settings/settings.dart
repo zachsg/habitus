@@ -25,6 +25,10 @@ class Settings extends _$Settings {
     state = state.copyWith(profile: profile);
   }
 
+  Future<void> saveName() async {
+    // TODO: Save profile to database.
+  }
+
   void setHandle(String handle) {
     final profile = state.profile.copyWith(handle: handle);
     state = state.copyWith(profile: profile);
