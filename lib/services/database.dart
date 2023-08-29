@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../helpers/exceptions.dart';
 import '../models/xmodels.dart';
 
 const supabaseUrl = 'https://avxqghvyhbpdggvuxaxh.supabase.co';
@@ -68,5 +69,21 @@ class Database {
     }
 
     return true;
+  }
+
+  static Future<HUProfileModel> profile() async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    final id = user.id;
+    try {
+      final profileJson =
+          await supabase.from(profiles).select().eq('id', id).single();
+      return HUProfileModel.fromJson(profileJson);
+    } on Exception catch (e) {
+      throw UserNotFoundException(e.toString());
+    }
   }
 }

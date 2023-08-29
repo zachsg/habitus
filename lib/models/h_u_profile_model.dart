@@ -13,6 +13,9 @@ class HUProfileModel with _$HUProfileModel {
     @Default('') String handle,
     @Default('') String bio,
     @Default('') String avatar,
+    @Default([]) List<String> teams,
+    @Default([]) List<String> friends,
+    @Default(false) @JsonKey(name: 'is_pro') bool isPro,
   }) = _HUProfileModel;
 
   factory HUProfileModel.fromJson(Map<String, Object?> json) =>

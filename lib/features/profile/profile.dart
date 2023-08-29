@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../helpers/exceptions.dart';
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
 import 'profile_model.dart';
@@ -15,6 +16,15 @@ class Profile extends _$Profile {
           updatedAt: DateTime.now(),
         ),
       );
+
+  Future<void> loadProfile() async {
+    try {
+      final profile = await Database.profile();
+      state = state.copyWith(profile: profile);
+    } on Exception catch (e) {
+      throw UserNotFoundException(e.toString());
+    }
+  }
 
   Future<void> updateProfile() async {
     final profile = state.profile.copyWith(

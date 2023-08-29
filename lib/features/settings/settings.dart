@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../helpers/exceptions.dart';
 import '../../helpers/strings.dart';
 import '../../services/database.dart';
 import '../auth/sign_in_view.dart';
@@ -15,6 +16,15 @@ class Settings extends _$Settings {
   @override
   SettingsModel build() =>
       SettingsModel(profile: ref.read(profileProvider).profile);
+
+  Future<void> loadProfile() async {
+    try {
+      final profile = await Database.profile();
+      state = state.copyWith(profile: profile);
+    } on Exception catch (e) {
+      throw UserNotFoundException(e.toString());
+    }
+  }
 
   void signOut(BuildContext context) {
     supabase.auth.signOut();

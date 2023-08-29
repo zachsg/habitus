@@ -4,27 +4,36 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../helpers/strings.dart';
 import 'profile.dart';
 
-class ProfileView extends ConsumerWidget {
+class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key});
 
   static const routeName = '/profile';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends ConsumerState<ProfileView> {
+  @override
+  void initState() {
+    ref.read(profileProvider.notifier).loadProfile();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final profile = ref.watch(profileProvider).profile;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(profileTitleString),
       ),
       body: SafeArea(
-        child: Center(
-          child: ref.watch(profileProvider).loading
-              ? const CircularProgressIndicator()
-              : TextButton(
-                  onPressed: ref.read(profileProvider.notifier).updateProfile,
-                  child: const Text('Update Profile'),
-                ),
-        ),
-      ),
+          child: Column(
+        children: [
+          Text(profile.name),
+        ],
+      )),
     );
   }
 }

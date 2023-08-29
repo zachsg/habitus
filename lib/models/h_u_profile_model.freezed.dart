@@ -28,6 +28,10 @@ mixin _$HUProfileModel {
   String get handle => throw _privateConstructorUsedError;
   String get bio => throw _privateConstructorUsedError;
   String get avatar => throw _privateConstructorUsedError;
+  List<String> get teams => throw _privateConstructorUsedError;
+  List<String> get friends => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_pro')
+  bool get isPro => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,7 +52,10 @@ abstract class $HUProfileModelCopyWith<$Res> {
       String email,
       String handle,
       String bio,
-      String avatar});
+      String avatar,
+      List<String> teams,
+      List<String> friends,
+      @JsonKey(name: 'is_pro') bool isPro});
 }
 
 /// @nodoc
@@ -71,6 +78,9 @@ class _$HUProfileModelCopyWithImpl<$Res, $Val extends HUProfileModel>
     Object? handle = null,
     Object? bio = null,
     Object? avatar = null,
+    Object? teams = null,
+    Object? friends = null,
+    Object? isPro = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -101,6 +111,18 @@ class _$HUProfileModelCopyWithImpl<$Res, $Val extends HUProfileModel>
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String,
+      teams: null == teams
+          ? _value.teams
+          : teams // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      friends: null == friends
+          ? _value.friends
+          : friends // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      isPro: null == isPro
+          ? _value.isPro
+          : isPro // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -120,7 +142,10 @@ abstract class _$$_HUProfileModelCopyWith<$Res>
       String email,
       String handle,
       String bio,
-      String avatar});
+      String avatar,
+      List<String> teams,
+      List<String> friends,
+      @JsonKey(name: 'is_pro') bool isPro});
 }
 
 /// @nodoc
@@ -141,6 +166,9 @@ class __$$_HUProfileModelCopyWithImpl<$Res>
     Object? handle = null,
     Object? bio = null,
     Object? avatar = null,
+    Object? teams = null,
+    Object? friends = null,
+    Object? isPro = null,
   }) {
     return _then(_$_HUProfileModel(
       id: null == id
@@ -171,6 +199,18 @@ class __$$_HUProfileModelCopyWithImpl<$Res>
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String,
+      teams: null == teams
+          ? _value._teams
+          : teams // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      friends: null == friends
+          ? _value._friends
+          : friends // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      isPro: null == isPro
+          ? _value.isPro
+          : isPro // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -185,7 +225,12 @@ class _$_HUProfileModel implements _HUProfileModel {
       this.email = '',
       this.handle = '',
       this.bio = '',
-      this.avatar = ''});
+      this.avatar = '',
+      final List<String> teams = const [],
+      final List<String> friends = const [],
+      @JsonKey(name: 'is_pro') this.isPro = false})
+      : _teams = teams,
+        _friends = friends;
 
   factory _$_HUProfileModel.fromJson(Map<String, dynamic> json) =>
       _$$_HUProfileModelFromJson(json);
@@ -210,10 +255,31 @@ class _$_HUProfileModel implements _HUProfileModel {
   @override
   @JsonKey()
   final String avatar;
+  final List<String> _teams;
+  @override
+  @JsonKey()
+  List<String> get teams {
+    if (_teams is EqualUnmodifiableListView) return _teams;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_teams);
+  }
+
+  final List<String> _friends;
+  @override
+  @JsonKey()
+  List<String> get friends {
+    if (_friends is EqualUnmodifiableListView) return _friends;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_friends);
+  }
+
+  @override
+  @JsonKey(name: 'is_pro')
+  final bool isPro;
 
   @override
   String toString() {
-    return 'HUProfileModel(id: $id, updatedAt: $updatedAt, name: $name, email: $email, handle: $handle, bio: $bio, avatar: $avatar)';
+    return 'HUProfileModel(id: $id, updatedAt: $updatedAt, name: $name, email: $email, handle: $handle, bio: $bio, avatar: $avatar, teams: $teams, friends: $friends, isPro: $isPro)';
   }
 
   @override
@@ -228,13 +294,26 @@ class _$_HUProfileModel implements _HUProfileModel {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.handle, handle) || other.handle == handle) &&
             (identical(other.bio, bio) || other.bio == bio) &&
-            (identical(other.avatar, avatar) || other.avatar == avatar));
+            (identical(other.avatar, avatar) || other.avatar == avatar) &&
+            const DeepCollectionEquality().equals(other._teams, _teams) &&
+            const DeepCollectionEquality().equals(other._friends, _friends) &&
+            (identical(other.isPro, isPro) || other.isPro == isPro));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, updatedAt, name, email, handle, bio, avatar);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      updatedAt,
+      name,
+      email,
+      handle,
+      bio,
+      avatar,
+      const DeepCollectionEquality().hash(_teams),
+      const DeepCollectionEquality().hash(_friends),
+      isPro);
 
   @JsonKey(ignore: true)
   @override
@@ -258,7 +337,10 @@ abstract class _HUProfileModel implements HUProfileModel {
       final String email,
       final String handle,
       final String bio,
-      final String avatar}) = _$_HUProfileModel;
+      final String avatar,
+      final List<String> teams,
+      final List<String> friends,
+      @JsonKey(name: 'is_pro') final bool isPro}) = _$_HUProfileModel;
 
   factory _HUProfileModel.fromJson(Map<String, dynamic> json) =
       _$_HUProfileModel.fromJson;
@@ -278,6 +360,13 @@ abstract class _HUProfileModel implements HUProfileModel {
   String get bio;
   @override
   String get avatar;
+  @override
+  List<String> get teams;
+  @override
+  List<String> get friends;
+  @override
+  @JsonKey(name: 'is_pro')
+  bool get isPro;
   @override
   @JsonKey(ignore: true)
   _$$_HUProfileModelCopyWith<_$_HUProfileModel> get copyWith =>
