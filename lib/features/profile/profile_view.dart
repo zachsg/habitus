@@ -69,11 +69,12 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                 ),
                 ProfileStatWidget(
                   title: teamsLabelString,
-                  value: profile.friends.length.toString(),
+                  value: profile.teams.length.toString(),
                 ),
                 ProfileStatWidget(
                   title: streakLabelString,
-                  value: profile.friends.length.toString(),
+                  // TODO: Change this to show the current streak for the user
+                  value: profile.updatedAt.minute.toString(),
                 ),
               ],
             ),

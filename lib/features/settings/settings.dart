@@ -32,14 +32,15 @@ class Settings extends _$Settings {
   }
 
   void setName(String name) {
-    final profile = state.profile.copyWith(name: name);
+    final updatedAt = DateTime.now();
+    final profile = state.profile.copyWith(updatedAt: updatedAt, name: name);
     state = state.copyWith(profile: profile);
   }
 
   Future<void> saveName(BuildContext context) async {
     state = state.copyWith(loading: true);
 
-    final success = await Database.saveProfileName(state.profile.name);
+    final success = await Database.saveProfileName(state.profile);
 
     state = state.copyWith(loading: false);
 
@@ -54,14 +55,18 @@ class Settings extends _$Settings {
   }
 
   void setHandle(String handle) {
-    final profile = state.profile.copyWith(handle: handle);
+    final updatedAt = DateTime.now();
+    final profile = state.profile.copyWith(
+      updatedAt: updatedAt,
+      handle: handle,
+    );
     state = state.copyWith(profile: profile);
   }
 
   Future<void> saveHandle(BuildContext context) async {
     state = state.copyWith(loading: true);
 
-    final success = await Database.saveProfileHandle(state.profile.handle);
+    final success = await Database.saveProfileHandle(state.profile);
 
     state = state.copyWith(loading: false);
 
@@ -77,14 +82,15 @@ class Settings extends _$Settings {
   }
 
   void setBio(String bio) {
-    final profile = state.profile.copyWith(bio: bio);
+    final updatedAt = DateTime.now();
+    final profile = state.profile.copyWith(updatedAt: updatedAt, bio: bio);
     state = state.copyWith(profile: profile);
   }
 
   Future<void> saveBio(BuildContext context) async {
     state = state.copyWith(loading: true);
 
-    final success = await Database.saveProfileBio(state.profile.bio);
+    final success = await Database.saveProfileBio(state.profile);
 
     state = state.copyWith(loading: false);
 

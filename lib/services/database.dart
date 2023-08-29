@@ -24,14 +24,17 @@ class Database {
     return true;
   }
 
-  static Future<bool> saveProfileName(String name) async {
+  static Future<bool> saveProfileName(HUProfileModel profile) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       return false;
     }
 
     try {
-      await supabase.from(profiles).update({'name': name}).eq('id', user.id);
+      await supabase.from(profiles).update({
+        'updated_at': profile.updatedAt.toIso8601String(),
+        'name': profile.name,
+      }).eq('id', user.id);
     } on Exception catch (_) {
       return false;
     }
@@ -39,16 +42,17 @@ class Database {
     return true;
   }
 
-  static Future<bool> saveProfileHandle(String handle) async {
+  static Future<bool> saveProfileHandle(HUProfileModel profile) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       return false;
     }
 
     try {
-      await supabase
-          .from(profiles)
-          .update({'handle': handle}).eq('id', user.id);
+      await supabase.from(profiles).update({
+        'updated_at': profile.updatedAt.toIso8601String(),
+        'handle': profile.handle,
+      }).eq('id', user.id);
     } on Exception catch (_) {
       return false;
     }
@@ -56,14 +60,17 @@ class Database {
     return true;
   }
 
-  static Future<bool> saveProfileBio(String bio) async {
+  static Future<bool> saveProfileBio(HUProfileModel profile) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       return false;
     }
 
     try {
-      await supabase.from(profiles).update({'bio': bio}).eq('id', user.id);
+      await supabase.from(profiles).update({
+        'updated_at': profile.updatedAt.toIso8601String(),
+        'bio': profile.bio,
+      }).eq('id', user.id);
     } on Exception catch (_) {
       return false;
     }
