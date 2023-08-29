@@ -9,10 +9,12 @@ class SettingsBottomSheetWidget extends ConsumerWidget {
     super.key,
     required this.title,
     required this.child,
+    required this.onPressed,
   });
 
   final String title;
   final Widget child;
+  final Future<void> Function() onPressed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,7 +59,7 @@ class SettingsBottomSheetWidget extends ConsumerWidget {
                 ),
                 child: child,
               ),
-              if (ref.watch(settingsProvider).error == null)
+              if (ref.watch(settingsProvider).error != null)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: Row(
@@ -74,10 +76,8 @@ class SettingsBottomSheetWidget extends ConsumerWidget {
               ref.watch(settingsProvider).loading
                   ? const CircularProgressIndicator()
                   : ElevatedButton(
+                      onPressed: onPressed,
                       child: const Text('Save'),
-                      onPressed: () async => await ref
-                          .read(settingsProvider.notifier)
-                          .saveName(context),
                     ),
             ],
           ),

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../helpers/strings.dart';
 import '../settings.dart';
+import 'xwidgets.dart';
 
 class SettingsBioTextButtonRowWidget extends ConsumerWidget {
   const SettingsBioTextButtonRowWidget({super.key});
@@ -11,7 +12,18 @@ class SettingsBioTextButtonRowWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return TextButton(
       onPressed: () {
-        // TODO: Open bottom sheet to edit bio
+        showModalBottomSheet<void>(
+          context: context,
+          isScrollControlled: true,
+          builder: (BuildContext context) {
+            return SettingsBottomSheetWidget(
+              title: editBioString,
+              child: const SettingsBioTextFieldWidget(),
+              onPressed: () async =>
+                  await ref.read(settingsProvider.notifier).saveBio(context),
+            );
+          },
+        );
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

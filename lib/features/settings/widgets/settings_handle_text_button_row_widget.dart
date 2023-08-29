@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../helpers/strings.dart';
 import '../settings.dart';
+import 'xwidgets.dart';
 
 class SettingsHandleTextButtonRowWidget extends ConsumerWidget {
   const SettingsHandleTextButtonRowWidget({super.key});
@@ -11,7 +12,18 @@ class SettingsHandleTextButtonRowWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return TextButton(
       onPressed: () {
-        // TODO: Open bottom sheet to edit handle
+        showModalBottomSheet<void>(
+          context: context,
+          isScrollControlled: true,
+          builder: (BuildContext context) {
+            return SettingsBottomSheetWidget(
+              title: editHandleString,
+              child: const SettingsHandleTextFieldWidget(),
+              onPressed: () async =>
+                  await ref.read(settingsProvider.notifier).saveHandle(context),
+            );
+          },
+        );
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
