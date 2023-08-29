@@ -52,39 +52,3 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
     );
   }
 }
-
-// class SettingsView extends ConsumerWidget {
-//   const SettingsView({super.key});
-
-//   static const routeName = '/settings';
-
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text(settingsTitleString),
-//       ),
-//       body: const SafeArea(
-//         child: SingleChildScrollView(
-//           child: Column(
-//             children: [
-//               SizedBox(height: 16.0),
-//               SettingsSectionHeaderWidget(text: personalDetailsString),
-//               SettingsSectionWidget(
-//                 children: [
-//                   SettingsNameTextButtonRowWidget(),
-//                   SettingsSectionDividerWidget(),
-//                   SettingsHandleTextButtonRowWidget(),
-//                   SettingsSectionDividerWidget(),
-//                   SettingsBioTextButtonRowWidget(),
-//                 ],
-//               ),
-//               SizedBox(height: 32.0),
-//               SettingsSignOutButtonWidget(),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

@@ -19,6 +19,10 @@ const teamsTitleString = 'Teams';
 
 // Profile
 const profileTitleString = 'Profile';
+const friendsLabelString = 'Friends';
+const teamsLabelString = 'Teams';
+const streakLabelString = 'Streak';
+const bioLabelString = 'Bio';
 
 // Settings
 const settingsTitleString = 'Settings';
