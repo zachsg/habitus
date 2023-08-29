@@ -14,30 +14,11 @@ class SettingsNameTextButtonRowWidget extends ConsumerWidget {
       onPressed: () {
         showModalBottomSheet<void>(
           context: context,
+          isScrollControlled: true,
           builder: (BuildContext context) {
-            return Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    nameString,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  const SizedBox(height: 16),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 8.0,
-                    ),
-                    child: SettingsNameTextFieldWidget(),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    child: const Text('Save'),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
-              ),
+            return const SettingsBottomSheetWidget(
+              title: editNameString,
+              child: SettingsNameTextFieldWidget(),
             );
           },
         );

@@ -32,7 +32,7 @@ class _SettingsNameTextFieldWidgetState
   Widget build(BuildContext context) {
     return TextField(
       controller: _controller,
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.name,
       decoration: const InputDecoration(
         labelText: nameString,
         hintText: typeNameString,

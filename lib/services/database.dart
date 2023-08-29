@@ -22,4 +22,51 @@ class Database {
 
     return true;
   }
+
+  static Future<bool> saveProfileName(String name) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      return false;
+    }
+
+    try {
+      await supabase.from(profiles).update({'name': name}).eq('id', user.id);
+    } on Exception catch (_) {
+      return false;
+    }
+
+    return true;
+  }
+
+  static Future<bool> saveProfileHandle(String handle) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      return false;
+    }
+
+    try {
+      await supabase
+          .from(profiles)
+          .update({'handle': handle}).eq('id', user.id);
+    } on Exception catch (_) {
+      return false;
+    }
+
+    return true;
+  }
+
+  static Future<bool> saveProfileBio(String bio) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      return false;
+    }
+
+    try {
+      await supabase.from(profiles).update({'bio': bio}).eq('id', user.id);
+    } on Exception catch (_) {
+      return false;
+    }
+
+    return true;
+  }
 }
