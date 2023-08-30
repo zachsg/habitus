@@ -6,10 +6,12 @@ class ProfileStatWidget extends ConsumerWidget {
     super.key,
     required this.title,
     required this.value,
+    required this.onPressed,
   });
 
   final String title;
   final String value;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,12 +22,15 @@ class ProfileStatWidget extends ConsumerWidget {
           title.toUpperCase(),
           style: Theme.of(context).textTheme.bodyMedium,
         ),
-        Text(
-          value,
-          style: Theme.of(context)
-              .textTheme
-              .displaySmall
-              ?.copyWith(fontWeight: FontWeight.bold),
+        TextButton(
+          onPressed: onPressed,
+          child: Text(
+            value,
+            style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+          ),
         ),
       ],
     );

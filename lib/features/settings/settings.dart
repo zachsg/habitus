@@ -21,9 +21,7 @@ class Settings extends _$Settings {
     try {
       final profile = await Database.profile();
       state = state.copyWith(profile: profile);
-    } on Exception catch (e) {
-      throw UserNotFoundException(e.toString());
-    }
+    } on Exception catch (_) {}
   }
 
   void signOut(BuildContext context) {

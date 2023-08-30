@@ -13,7 +13,7 @@ class Database {
   static const profiles = 'profiles';
 
   /// Create or update user profile: Return true if no errors, false if errors.
-  static Future<bool> updateProfile(HUProfileModel profile) async {
+  static Future<bool> createProfile(HUProfileModel profile) async {
     final profileJson = profile.toJson();
     try {
       await supabase.from(profiles).upsert(profileJson);

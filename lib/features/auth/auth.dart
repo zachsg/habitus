@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../models/xmodels.dart';
 import '../../services/database.dart';
 import '../bottom_nav/bottom_nav_view.dart';
 import 'auth_model.dart';
@@ -40,6 +41,7 @@ class Auth extends _$Auth {
         email: state.email,
         password: state.password,
       );
+      await _createProfile();
     } on AuthException catch (error) {
       state = state.copyWith(error: error.message, loading: false);
       return;
@@ -49,6 +51,21 @@ class Auth extends _$Auth {
 
     if (context.mounted) {
       context.goNamed(BottomNavView.routeName);
+    }
+  }
+
+  Future<void> _createProfile() async {
+    final id = supabase.auth.currentUser?.id;
+    if (id == null) {
+      return;
+    } else {
+      final email = supabase.auth.currentUser?.email ?? '';
+      final profile = HUProfileModel(
+        id: id,
+        updatedAt: DateTime.now(),
+        email: email,
+      );
+      await Database.createProfile(profile);
     }
   }
 

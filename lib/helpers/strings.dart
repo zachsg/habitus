@@ -21,7 +21,7 @@ const teamsTitleString = 'Teams';
 const profileTitleString = 'Profile';
 const friendsLabelString = 'Friends';
 const teamsLabelString = 'Teams';
-const streakLabelString = 'Streak';
+const streakLabelString = 'Days Old';
 const bioLabelString = 'Bio';
 
 // Settings
