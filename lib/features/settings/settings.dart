@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../helpers/exceptions.dart';
 import '../../helpers/strings.dart';
 import '../../services/database.dart';
 import '../auth/sign_in_view.dart';

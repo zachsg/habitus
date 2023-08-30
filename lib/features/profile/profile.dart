@@ -1,6 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../helpers/exceptions.dart';
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
 import 'profile_model.dart';
