@@ -11,9 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.5
+  cupertino_icons: ^1.0.6
   flutter_svg: ^2.0.7
-  go_router: ^10.1.1
+  go_router: ^10.1.2
   supabase_flutter: ^1.10.14
   flutter_riverpod: ^2.3.10
   riverpod_annotation: ^2.1.4

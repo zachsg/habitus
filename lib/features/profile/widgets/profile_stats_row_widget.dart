@@ -12,6 +12,7 @@ class ProfileStatsRowWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(profileProvider).profile;
+    final daysOld = ref.read(profileProvider.notifier).daysOld();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -19,17 +20,20 @@ class ProfileStatsRowWidget extends ConsumerWidget {
         ProfileStatWidget(
           title: friendsLabelString,
           value: profile.friends.length.toString(),
+          // TODO: Show bottom sheet with list of user's friends
           onPressed: () => context.showSnackBar(message: friendsLabelString),
         ),
         ProfileStatWidget(
           title: teamsLabelString,
           value: profile.teams.length.toString(),
+          // TODO: Show bottom sheet with list of user's teams
           onPressed: () => context.showSnackBar(message: teamsLabelString),
         ),
         ProfileStatWidget(
           title: streakLabelString,
-          value: ref.read(profileProvider.notifier).daysOld().toString(),
-          onPressed: () => context.showSnackBar(message: streakLabelString),
+          value: daysOld.toString(),
+          onPressed: () =>
+              context.showSnackBar(message: 'You are $daysOld days old.'),
         ),
       ],
     );
