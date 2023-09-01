@@ -28,6 +28,7 @@ mixin _$HUProfileModel {
   String get handle => throw _privateConstructorUsedError;
   String get bio => throw _privateConstructorUsedError;
   String get avatar => throw _privateConstructorUsedError;
+  List<int> get badges => throw _privateConstructorUsedError;
   List<String> get teams => throw _privateConstructorUsedError;
   List<String> get friends => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_pro')
@@ -53,6 +54,7 @@ abstract class $HUProfileModelCopyWith<$Res> {
       String handle,
       String bio,
       String avatar,
+      List<int> badges,
       List<String> teams,
       List<String> friends,
       @JsonKey(name: 'is_pro') bool isPro});
@@ -78,6 +80,7 @@ class _$HUProfileModelCopyWithImpl<$Res, $Val extends HUProfileModel>
     Object? handle = null,
     Object? bio = null,
     Object? avatar = null,
+    Object? badges = null,
     Object? teams = null,
     Object? friends = null,
     Object? isPro = null,
@@ -111,6 +114,10 @@ class _$HUProfileModelCopyWithImpl<$Res, $Val extends HUProfileModel>
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String,
+      badges: null == badges
+          ? _value.badges
+          : badges // ignore: cast_nullable_to_non_nullable
+              as List<int>,
       teams: null == teams
           ? _value.teams
           : teams // ignore: cast_nullable_to_non_nullable
@@ -143,6 +150,7 @@ abstract class _$$_HUProfileModelCopyWith<$Res>
       String handle,
       String bio,
       String avatar,
+      List<int> badges,
       List<String> teams,
       List<String> friends,
       @JsonKey(name: 'is_pro') bool isPro});
@@ -166,6 +174,7 @@ class __$$_HUProfileModelCopyWithImpl<$Res>
     Object? handle = null,
     Object? bio = null,
     Object? avatar = null,
+    Object? badges = null,
     Object? teams = null,
     Object? friends = null,
     Object? isPro = null,
@@ -199,6 +208,10 @@ class __$$_HUProfileModelCopyWithImpl<$Res>
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String,
+      badges: null == badges
+          ? _value._badges
+          : badges // ignore: cast_nullable_to_non_nullable
+              as List<int>,
       teams: null == teams
           ? _value._teams
           : teams // ignore: cast_nullable_to_non_nullable
@@ -226,10 +239,12 @@ class _$_HUProfileModel implements _HUProfileModel {
       this.handle = '',
       this.bio = '',
       this.avatar = '',
+      final List<int> badges = const [],
       final List<String> teams = const [],
       final List<String> friends = const [],
       @JsonKey(name: 'is_pro') this.isPro = false})
-      : _teams = teams,
+      : _badges = badges,
+        _teams = teams,
         _friends = friends;
 
   factory _$_HUProfileModel.fromJson(Map<String, dynamic> json) =>
@@ -255,6 +270,15 @@ class _$_HUProfileModel implements _HUProfileModel {
   @override
   @JsonKey()
   final String avatar;
+  final List<int> _badges;
+  @override
+  @JsonKey()
+  List<int> get badges {
+    if (_badges is EqualUnmodifiableListView) return _badges;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_badges);
+  }
+
   final List<String> _teams;
   @override
   @JsonKey()
@@ -279,7 +303,7 @@ class _$_HUProfileModel implements _HUProfileModel {
 
   @override
   String toString() {
-    return 'HUProfileModel(id: $id, updatedAt: $updatedAt, name: $name, email: $email, handle: $handle, bio: $bio, avatar: $avatar, teams: $teams, friends: $friends, isPro: $isPro)';
+    return 'HUProfileModel(id: $id, updatedAt: $updatedAt, name: $name, email: $email, handle: $handle, bio: $bio, avatar: $avatar, badges: $badges, teams: $teams, friends: $friends, isPro: $isPro)';
   }
 
   @override
@@ -295,6 +319,7 @@ class _$_HUProfileModel implements _HUProfileModel {
             (identical(other.handle, handle) || other.handle == handle) &&
             (identical(other.bio, bio) || other.bio == bio) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
+            const DeepCollectionEquality().equals(other._badges, _badges) &&
             const DeepCollectionEquality().equals(other._teams, _teams) &&
             const DeepCollectionEquality().equals(other._friends, _friends) &&
             (identical(other.isPro, isPro) || other.isPro == isPro));
@@ -311,6 +336,7 @@ class _$_HUProfileModel implements _HUProfileModel {
       handle,
       bio,
       avatar,
+      const DeepCollectionEquality().hash(_badges),
       const DeepCollectionEquality().hash(_teams),
       const DeepCollectionEquality().hash(_friends),
       isPro);
@@ -338,6 +364,7 @@ abstract class _HUProfileModel implements HUProfileModel {
       final String handle,
       final String bio,
       final String avatar,
+      final List<int> badges,
       final List<String> teams,
       final List<String> friends,
       @JsonKey(name: 'is_pro') final bool isPro}) = _$_HUProfileModel;
@@ -360,6 +387,8 @@ abstract class _HUProfileModel implements HUProfileModel {
   String get bio;
   @override
   String get avatar;
+  @override
+  List<int> get badges;
   @override
   List<String> get teams;
   @override
