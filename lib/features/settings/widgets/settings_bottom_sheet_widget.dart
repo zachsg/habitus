@@ -74,7 +74,7 @@ class SettingsBottomSheetWidget extends ConsumerWidget {
                 ),
               const SizedBox(height: 16),
               ref.watch(settingsProvider).loading
-                  ? const CircularProgressIndicator()
+                  ? const CircularProgressIndicator.adaptive()
                   : ElevatedButton(
                       onPressed: onPressed,
                       child: const Text('Save'),

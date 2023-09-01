@@ -27,7 +27,9 @@ class AuthSignInUpButtonWidget extends ConsumerWidget {
           children: [
             Padding(
               padding: EdgeInsets.all(loading ? 16.0 : 24.0),
-              child: loading ? const CircularProgressIndicator() : Text(text),
+              child: loading
+                  ? const CircularProgressIndicator.adaptive()
+                  : Text(text),
             ),
           ],
         ),

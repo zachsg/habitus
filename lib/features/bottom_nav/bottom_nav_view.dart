@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,6 +18,7 @@ class BottomNavView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final index = ref.watch(bottomNavProvider).index;
+    final isIOS = Platform.isIOS;
 
     final body = index == 0
         ? const TeamsView()
@@ -29,20 +33,32 @@ class BottomNavView extends ConsumerWidget {
             ref.read(bottomNavProvider.notifier).setPage(index),
         selectedIndex: ref.watch(bottomNavProvider).index,
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            selectedIcon: Icon(Icons.group),
-            icon: Icon(Icons.group_outlined),
+            selectedIcon: isIOS
+                ? const Icon(CupertinoIcons.group_solid)
+                : const Icon(Icons.group),
+            icon: isIOS
+                ? const Icon(CupertinoIcons.group)
+                : const Icon(Icons.group_outlined),
             label: teamsTitleString,
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.face),
-            icon: Icon(Icons.face_outlined),
+            selectedIcon: isIOS
+                ? const Icon(CupertinoIcons.person_alt_circle_fill)
+                : const Icon(Icons.face),
+            icon: isIOS
+                ? const Icon(CupertinoIcons.person_alt_circle)
+                : const Icon(Icons.face_outlined),
             label: profileTitleString,
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.settings),
-            icon: Icon(Icons.settings_outlined),
+            selectedIcon: isIOS
+                ? const Icon(CupertinoIcons.settings_solid)
+                : const Icon(Icons.settings),
+            icon: isIOS
+                ? const Icon(CupertinoIcons.settings)
+                : const Icon(Icons.settings_outlined),
             label: settingsTitleString,
           ),
         ],
