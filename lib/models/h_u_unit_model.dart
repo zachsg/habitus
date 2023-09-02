@@ -1,5 +1,5 @@
 enum Unit {
-  distance,
+  miles,
   steps,
-  time,
+  minutes,
 }

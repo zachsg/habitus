@@ -21,7 +21,7 @@ Map<String, dynamic> _$$_HUGoalModelToJson(_$_HUGoalModel instance) =>
     };
 
 const _$UnitEnumMap = {
-  Unit.distance: 'distance',
+  Unit.miles: 'miles',
   Unit.steps: 'steps',
-  Unit.time: 'time',
+  Unit.minutes: 'minutes',
 };

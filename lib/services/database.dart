@@ -10,13 +10,14 @@ const supabasePublicKey =
 final supabase = Supabase.instance.client;
 
 class Database {
-  static const profiles = 'profiles';
+  static const profilesTable = 'profiles';
+  static const teamsTable = 'teams';
 
   /// Create or update user profile: Return true if no errors, false if errors.
   static Future<bool> createProfile(HUProfileModel profile) async {
     final profileJson = profile.toJson();
     try {
-      await supabase.from(profiles).upsert(profileJson);
+      await supabase.from(profilesTable).upsert(profileJson);
     } on Exception catch (_) {
       return false;
     }
@@ -31,7 +32,7 @@ class Database {
     }
 
     try {
-      await supabase.from(profiles).update({
+      await supabase.from(profilesTable).update({
         'updated_at': profile.updatedAt.toIso8601String(),
         'name': profile.name,
       }).eq('id', user.id);
@@ -49,7 +50,7 @@ class Database {
     }
 
     try {
-      await supabase.from(profiles).update({
+      await supabase.from(profilesTable).update({
         'updated_at': profile.updatedAt.toIso8601String(),
         'handle': profile.handle,
       }).eq('id', user.id);
@@ -67,7 +68,7 @@ class Database {
     }
 
     try {
-      await supabase.from(profiles).update({
+      await supabase.from(profilesTable).update({
         'updated_at': profile.updatedAt.toIso8601String(),
         'bio': profile.bio,
       }).eq('id', user.id);
@@ -87,8 +88,31 @@ class Database {
     final id = user.id;
     try {
       final profileJson =
-          await supabase.from(profiles).select().eq('id', id).single();
+          await supabase.from(profilesTable).select().eq('id', id).single();
       return HUProfileModel.fromJson(profileJson);
+    } on Exception catch (e) {
+      throw UserNotFoundException(e.toString());
+    }
+  }
+
+  static Future<List<HUTeamModel>> teams() async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    final id = user.id;
+    try {
+      final listOfTeamsJsons = await supabase
+          .from(teamsTable)
+          .select()
+          .or('creator_id.eq.$id,admins.cs.{$id},members.cs.{$id}');
+      final List<HUTeamModel> teams = [];
+      for (final teamsJson in listOfTeamsJsons) {
+        final team = HUTeamModel.fromJson(teamsJson);
+        teams.add(team);
+      }
+      return teams;
     } on Exception catch (e) {
       throw UserNotFoundException(e.toString());
     }

@@ -14,6 +14,7 @@ class Profile extends _$Profile {
           id: supabase.auth.currentUser?.id ?? '',
           updatedAt: DateTime.now(),
         ),
+        loading: true,
       );
 
   int daysOld() {
@@ -32,7 +33,7 @@ class Profile extends _$Profile {
   Future<void> loadProfile() async {
     try {
       final profile = await Database.profile();
-      state = state.copyWith(profile: profile);
+      state = state.copyWith(profile: profile, loading: false);
     } on Exception catch (_) {}
   }
 }

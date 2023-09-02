@@ -6,7 +6,7 @@ import '../features/bottom_nav/bottom_nav_view.dart';
 import '../features/profile/profile_view.dart';
 import '../features/settings/settings_view.dart';
 import '../features/splash/splash_view.dart';
-import '../features/teams/teams_view.dart';
+import '../features/home/home_view.dart';
 
 final router = GoRouter(
   initialLocation: SplashView.routeName,
@@ -32,9 +32,9 @@ final router = GoRouter(
       builder: (context, state) => const BottomNavView(),
     ),
     GoRoute(
-      path: TeamsView.routeName,
-      name: TeamsView.routeName,
-      builder: (context, state) => const TeamsView(),
+      path: HomeView.routeName,
+      name: HomeView.routeName,
+      builder: (context, state) => const HomeView(),
     ),
     GoRoute(
       path: ProfileView.routeName,

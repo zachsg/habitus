@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../helpers/strings.dart';
 import '../profile/profile_view.dart';
 import '../settings/settings_view.dart';
-import '../teams/teams_view.dart';
+import '../home/home_view.dart';
 import 'bottom_nav.dart';
 
 class BottomNavView extends ConsumerWidget {
@@ -21,7 +21,7 @@ class BottomNavView extends ConsumerWidget {
     final isIOS = Platform.isIOS;
 
     final body = index == 0
-        ? const TeamsView()
+        ? const HomeView()
         : index == 1
             ? const ProfileView()
             : const SettingsView();
@@ -41,7 +41,7 @@ class BottomNavView extends ConsumerWidget {
             icon: isIOS
                 ? const Icon(CupertinoIcons.group)
                 : const Icon(Icons.group_outlined),
-            label: teamsTitleString,
+            label: homeTitleString,
           ),
           NavigationDestination(
             selectedIcon: isIOS

@@ -22,23 +22,24 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      // appBar: AppBar(
-      //   title: const Text(profileTitleString),
-      // ),
+    final loading = ref.watch(profileProvider).loading;
+
+    return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              SizedBox(height: 32),
-              ProfileHeaderWidget(),
-              SizedBox(height: 32),
-              ProfileStatsRowWidget(),
-              SizedBox(height: 32),
-              ProfileBioWidget(),
-            ],
-          ),
+          padding: const EdgeInsets.all(16.0),
+          child: loading
+              ? const Center(child: CircularProgressIndicator.adaptive())
+              : const Column(
+                  children: [
+                    SizedBox(height: 32),
+                    ProfileHeaderWidget(),
+                    SizedBox(height: 32),
+                    ProfileStatsRowWidget(),
+                    SizedBox(height: 32),
+                    ProfileBioWidget(),
+                  ],
+                ),
         ),
       ),
     );

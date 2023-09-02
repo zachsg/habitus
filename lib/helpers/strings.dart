@@ -14,8 +14,10 @@ const createPasswordString = 'Create a password';
 const confirmPasswordString = 'Confirm your password';
 const typePasswordString = 'Enter your password';
 
-// Teams
-const teamsTitleString = 'Teams';
+// Home
+const homeTitleString = 'Home';
+const homeEmptyString = 'You don\'t have any habits yet.\nStart or Join one!';
+const newHabitString = 'New Habit';
 
 // Profile
 const profileTitleString = 'Profile';
