@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../helpers/strings.dart';
 import '../join_team.dart';
 
 class JoinTeamAvailableTeamsWidget extends ConsumerWidget {
@@ -17,9 +16,7 @@ class JoinTeamAvailableTeamsWidget extends ConsumerWidget {
     final isIOS = Platform.isIOS;
 
     return error != null && teams.isEmpty
-        ? Center(
-            child: Text(error),
-          )
+        ? Center(child: Text(error))
         : ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,

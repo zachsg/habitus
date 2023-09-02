@@ -14,14 +14,16 @@ class JoinTeamShowTeamsButtonWidget extends ConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ElevatedButton(
-          onPressed: loading
-              ? null
-              : ref.read(joinTeamProvider.notifier).findMatchingTeams,
-          child: loading
-              ? const CircularProgressIndicator.adaptive()
-              : const Text(showTeamsString),
-        ),
+        loading
+            ? const SizedBox(
+                height: 48,
+                child: CircularProgressIndicator.adaptive(),
+              )
+            : ElevatedButton(
+                onPressed:
+                    ref.read(joinTeamProvider.notifier).findMatchingTeams,
+                child: const Text(showTeamsString),
+              ),
       ],
     );
   }
