@@ -46,7 +46,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
           children: [
             const Text(newHabitString),
             const SizedBox(width: 4),
-            Icon(Platform.isIOS ? CupertinoIcons.add : Icons.add),
+            Icon(
+                Platform.isIOS ? CupertinoIcons.add_circled : Icons.add_circle),
           ],
         ),
       ),

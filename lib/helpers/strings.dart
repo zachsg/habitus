@@ -17,7 +17,7 @@ const typePasswordString = 'Enter your password';
 // Home
 const homeTitleString = 'Home';
 const homeEmptyString = 'You don\'t have any habits yet.\nStart or Join one!';
-const newHabitString = 'New Habit';
+const newHabitString = 'Add Habit';
 
 // Profile
 const profileTitleString = 'Profile';
