@@ -1,9 +1,8 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../helpers/constants.dart';
 import '../../helpers/strings.dart';
 import 'home.dart';
 import 'widgets/xwidgets.dart';
@@ -45,9 +44,17 @@ class _HomeViewState extends ConsumerState<HomeView> {
         label: Row(
           children: [
             const Text(newHabitString),
-            const SizedBox(width: 4),
-            Icon(
-                Platform.isIOS ? CupertinoIcons.add_circled : Icons.add_circle),
+            const SizedBox(width: 8),
+            SvgPicture.asset(
+              habitusLogoSvg,
+              semanticsLabel: habitusLogoString,
+              width: 24,
+              height: 24,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).colorScheme.onPrimaryContainer,
+                BlendMode.srcIn,
+              ),
+            ),
           ],
         ),
       ),

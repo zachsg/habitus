@@ -97,7 +97,7 @@ class __$$_BottomNavModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_BottomNavModel implements _BottomNavModel {
-  _$_BottomNavModel({this.index = 0});
+  _$_BottomNavModel({this.index = 1});
 
   factory _$_BottomNavModel.fromJson(Map<String, dynamic> json) =>
       _$$_BottomNavModelFromJson(json);

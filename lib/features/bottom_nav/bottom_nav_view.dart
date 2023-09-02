@@ -21,9 +21,9 @@ class BottomNavView extends ConsumerWidget {
     final isIOS = Platform.isIOS;
 
     final body = index == 0
-        ? const HomeView()
+        ? const ProfileView()
         : index == 1
-            ? const ProfileView()
+            ? const HomeView()
             : const SettingsView();
 
     return Scaffold(
@@ -36,21 +36,21 @@ class BottomNavView extends ConsumerWidget {
         destinations: [
           NavigationDestination(
             selectedIcon: isIOS
-                ? const Icon(CupertinoIcons.group_solid)
-                : const Icon(Icons.group),
-            icon: isIOS
-                ? const Icon(CupertinoIcons.group)
-                : const Icon(Icons.group_outlined),
-            label: homeTitleString,
-          ),
-          NavigationDestination(
-            selectedIcon: isIOS
                 ? const Icon(CupertinoIcons.person_alt_circle_fill)
                 : const Icon(Icons.face),
             icon: isIOS
                 ? const Icon(CupertinoIcons.person_alt_circle)
                 : const Icon(Icons.face_outlined),
             label: profileTitleString,
+          ),
+          NavigationDestination(
+            selectedIcon: isIOS
+                ? const Icon(CupertinoIcons.group_solid)
+                : const Icon(Icons.group),
+            icon: isIOS
+                ? const Icon(CupertinoIcons.group)
+                : const Icon(Icons.group_outlined),
+            label: homeTitleString,
           ),
           NavigationDestination(
             selectedIcon: isIOS
