@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../features/auth/sign_in_view.dart';
 import '../features/auth/sign_up_view.dart';
 import '../features/bottom_nav/bottom_nav_view.dart';
+import '../features/join_team/join_team_view.dart';
 import '../features/profile/profile_view.dart';
 import '../features/settings/settings_view.dart';
 import '../features/splash/splash_view.dart';
@@ -35,6 +36,13 @@ final router = GoRouter(
       path: HomeView.routeName,
       name: HomeView.routeName,
       builder: (context, state) => const HomeView(),
+      routes: [
+        GoRoute(
+          path: JoinTeamView.routeName,
+          name: JoinTeamView.routeName,
+          builder: (context, state) => const JoinTeamView(),
+        ),
+      ],
     ),
     GoRoute(
       path: ProfileView.routeName,

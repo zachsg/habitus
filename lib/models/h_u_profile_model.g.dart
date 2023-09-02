@@ -18,9 +18,8 @@ _$_HUProfileModel _$$_HUProfileModelFromJson(Map<String, dynamic> json) =>
       badges:
           (json['badges'] as List<dynamic>?)?.map((e) => e as int).toList() ??
               const [],
-      teams:
-          (json['teams'] as List<dynamic>?)?.map((e) => e as String).toList() ??
-              const [],
+      teams: (json['teams'] as List<dynamic>?)?.map((e) => e as int).toList() ??
+          const [],
       friends: (json['friends'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??

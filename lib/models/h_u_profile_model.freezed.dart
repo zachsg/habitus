@@ -29,7 +29,7 @@ mixin _$HUProfileModel {
   String get bio => throw _privateConstructorUsedError;
   String get avatar => throw _privateConstructorUsedError;
   List<int> get badges => throw _privateConstructorUsedError;
-  List<String> get teams => throw _privateConstructorUsedError;
+  List<int> get teams => throw _privateConstructorUsedError;
   List<String> get friends => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_pro')
   bool get isPro => throw _privateConstructorUsedError;
@@ -55,7 +55,7 @@ abstract class $HUProfileModelCopyWith<$Res> {
       String bio,
       String avatar,
       List<int> badges,
-      List<String> teams,
+      List<int> teams,
       List<String> friends,
       @JsonKey(name: 'is_pro') bool isPro});
 }
@@ -121,7 +121,7 @@ class _$HUProfileModelCopyWithImpl<$Res, $Val extends HUProfileModel>
       teams: null == teams
           ? _value.teams
           : teams // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<int>,
       friends: null == friends
           ? _value.friends
           : friends // ignore: cast_nullable_to_non_nullable
@@ -151,7 +151,7 @@ abstract class _$$_HUProfileModelCopyWith<$Res>
       String bio,
       String avatar,
       List<int> badges,
-      List<String> teams,
+      List<int> teams,
       List<String> friends,
       @JsonKey(name: 'is_pro') bool isPro});
 }
@@ -215,7 +215,7 @@ class __$$_HUProfileModelCopyWithImpl<$Res>
       teams: null == teams
           ? _value._teams
           : teams // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<int>,
       friends: null == friends
           ? _value._friends
           : friends // ignore: cast_nullable_to_non_nullable
@@ -240,7 +240,7 @@ class _$_HUProfileModel implements _HUProfileModel {
       this.bio = '',
       this.avatar = '',
       final List<int> badges = const [],
-      final List<String> teams = const [],
+      final List<int> teams = const [],
       final List<String> friends = const [],
       @JsonKey(name: 'is_pro') this.isPro = false})
       : _badges = badges,
@@ -279,10 +279,10 @@ class _$_HUProfileModel implements _HUProfileModel {
     return EqualUnmodifiableListView(_badges);
   }
 
-  final List<String> _teams;
+  final List<int> _teams;
   @override
   @JsonKey()
-  List<String> get teams {
+  List<int> get teams {
     if (_teams is EqualUnmodifiableListView) return _teams;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_teams);
@@ -365,7 +365,7 @@ abstract class _HUProfileModel implements HUProfileModel {
       final String bio,
       final String avatar,
       final List<int> badges,
-      final List<String> teams,
+      final List<int> teams,
       final List<String> friends,
       @JsonKey(name: 'is_pro') final bool isPro}) = _$_HUProfileModel;
 
@@ -390,7 +390,7 @@ abstract class _HUProfileModel implements HUProfileModel {
   @override
   List<int> get badges;
   @override
-  List<String> get teams;
+  List<int> get teams;
   @override
   List<String> get friends;
   @override

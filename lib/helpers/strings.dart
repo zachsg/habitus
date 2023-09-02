@@ -19,6 +19,16 @@ const homeTitleString = 'Home';
 const homeEmptyString = 'You don\'t have any habits yet.\nStart or Join one!';
 const newHabitString = 'Add Habit';
 
+// Join Team
+const joinTeamTitleString = 'Adopt A Habit';
+const joinTeamHabitString = 'Habit';
+const joinTeamGoalString = 'Goal';
+const readString = 'Read';
+const exerciseString = 'Exercise';
+const meditateString = 'Meditate';
+const showTeamsString = 'Show Matching Teams';
+const noTeamsFoundString = 'No Matching Teams Found';
+
 // Profile
 const profileTitleString = 'Profile';
 const friendsLabelString = 'Friends';

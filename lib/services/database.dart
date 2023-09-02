@@ -117,4 +117,33 @@ class Database {
       throw UserNotFoundException(e.toString());
     }
   }
+
+  static Future<List<HUTeamModel>> teamsWithNamesContaining(String name) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    final id = user.id;
+    try {
+      final profileJson =
+          await supabase.from(profilesTable).select().eq('id', id).single();
+      final profile = HUProfileModel.fromJson(profileJson);
+
+      final listOfTeamsJsons = await supabase
+          .from(teamsTable)
+          .select()
+          .like('name', '%$name%')
+          .not('id', 'in', profile.teams);
+
+      final List<HUTeamModel> teams = [];
+      for (final teamsJson in listOfTeamsJsons) {
+        final team = HUTeamModel.fromJson(teamsJson);
+        teams.add(team);
+      }
+      return teams;
+    } on Exception catch (e) {
+      throw GenericErrorException(e.toString());
+    }
+  }
 }

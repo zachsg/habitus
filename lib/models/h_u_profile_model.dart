@@ -14,7 +14,7 @@ class HUProfileModel with _$HUProfileModel {
     @Default('') String bio,
     @Default('') String avatar,
     @Default([]) List<int> badges,
-    @Default([]) List<String> teams,
+    @Default([]) List<int> teams,
     @Default([]) List<String> friends,
     @Default(false) @JsonKey(name: 'is_pro') bool isPro,
   }) = _HUProfileModel;

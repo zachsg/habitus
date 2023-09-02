@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../helpers/constants.dart';
 import '../../helpers/strings.dart';
+import '../join_team/join_team_view.dart';
 import 'home.dart';
 import 'widgets/xwidgets.dart';
 
@@ -40,7 +42,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                 : Center(child: Text(teams.first.name)),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () => context.pushNamed(JoinTeamView.routeName),
         label: Row(
           children: [
             const Text(newHabitString),
