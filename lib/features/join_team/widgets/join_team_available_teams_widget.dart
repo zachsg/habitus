@@ -34,6 +34,8 @@ class JoinTeamAvailableTeamsWidget extends ConsumerWidget {
                 ),
                 onTap: () {
                   // TODO: Have user join team
+                  // Add user to team's members
+                  // Add team & new goal to user profile ('teams' and 'goals')
                 },
               );
             },

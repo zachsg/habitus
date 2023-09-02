@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:habitus/models/xmodels.dart';
 
 part 'h_u_profile_model.freezed.dart';
 part 'h_u_profile_model.g.dart';
@@ -15,6 +16,7 @@ class HUProfileModel with _$HUProfileModel {
     @Default('') String avatar,
     @Default([]) List<int> badges,
     @Default([]) List<int> teams,
+    @Default([]) List<HUGoalModel> goals,
     @Default([]) List<String> friends,
     @Default(false) @JsonKey(name: 'is_pro') bool isPro,
   }) = _HUProfileModel;
