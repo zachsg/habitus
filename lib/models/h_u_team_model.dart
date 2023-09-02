@@ -13,12 +13,9 @@ class HUTeamModel with _$HUTeamModel {
     @JsonKey(name: 'creator_id') required String creatorId,
     @Default('') String name,
     @Default('') String header,
-    required String habit,
-    required Unit unit,
-    required int value,
+    required HUGoalModel goal,
     @Default([]) List<String> admins,
     @Default([]) List<String> members,
-    @Default([]) List<String> actions,
     @JsonKey(name: 'is_open') @Default(true) bool isOpen,
   }) = _HUTeamModel;
 

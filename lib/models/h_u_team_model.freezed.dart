@@ -27,12 +27,9 @@ mixin _$HUTeamModel {
   String get creatorId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get header => throw _privateConstructorUsedError;
-  String get habit => throw _privateConstructorUsedError;
-  Unit get unit => throw _privateConstructorUsedError;
-  int get value => throw _privateConstructorUsedError;
+  HUGoalModel get goal => throw _privateConstructorUsedError;
   List<String> get admins => throw _privateConstructorUsedError;
   List<String> get members => throw _privateConstructorUsedError;
-  List<String> get actions => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_open')
   bool get isOpen => throw _privateConstructorUsedError;
 
@@ -54,13 +51,12 @@ abstract class $HUTeamModelCopyWith<$Res> {
       @JsonKey(name: 'creator_id') String creatorId,
       String name,
       String header,
-      String habit,
-      Unit unit,
-      int value,
+      HUGoalModel goal,
       List<String> admins,
       List<String> members,
-      List<String> actions,
       @JsonKey(name: 'is_open') bool isOpen});
+
+  $HUGoalModelCopyWith<$Res> get goal;
 }
 
 /// @nodoc
@@ -81,12 +77,9 @@ class _$HUTeamModelCopyWithImpl<$Res, $Val extends HUTeamModel>
     Object? creatorId = null,
     Object? name = null,
     Object? header = null,
-    Object? habit = null,
-    Object? unit = null,
-    Object? value = null,
+    Object? goal = null,
     Object? admins = null,
     Object? members = null,
-    Object? actions = null,
     Object? isOpen = null,
   }) {
     return _then(_value.copyWith(
@@ -110,18 +103,10 @@ class _$HUTeamModelCopyWithImpl<$Res, $Val extends HUTeamModel>
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
               as String,
-      habit: null == habit
-          ? _value.habit
-          : habit // ignore: cast_nullable_to_non_nullable
-              as String,
-      unit: null == unit
-          ? _value.unit
-          : unit // ignore: cast_nullable_to_non_nullable
-              as Unit,
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as int,
+      goal: null == goal
+          ? _value.goal
+          : goal // ignore: cast_nullable_to_non_nullable
+              as HUGoalModel,
       admins: null == admins
           ? _value.admins
           : admins // ignore: cast_nullable_to_non_nullable
@@ -130,15 +115,19 @@ class _$HUTeamModelCopyWithImpl<$Res, $Val extends HUTeamModel>
           ? _value.members
           : members // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      actions: null == actions
-          ? _value.actions
-          : actions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       isOpen: null == isOpen
           ? _value.isOpen
           : isOpen // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $HUGoalModelCopyWith<$Res> get goal {
+    return $HUGoalModelCopyWith<$Res>(_value.goal, (value) {
+      return _then(_value.copyWith(goal: value) as $Val);
+    });
   }
 }
 
@@ -156,13 +145,13 @@ abstract class _$$_HUTeamModelCopyWith<$Res>
       @JsonKey(name: 'creator_id') String creatorId,
       String name,
       String header,
-      String habit,
-      Unit unit,
-      int value,
+      HUGoalModel goal,
       List<String> admins,
       List<String> members,
-      List<String> actions,
       @JsonKey(name: 'is_open') bool isOpen});
+
+  @override
+  $HUGoalModelCopyWith<$Res> get goal;
 }
 
 /// @nodoc
@@ -181,12 +170,9 @@ class __$$_HUTeamModelCopyWithImpl<$Res>
     Object? creatorId = null,
     Object? name = null,
     Object? header = null,
-    Object? habit = null,
-    Object? unit = null,
-    Object? value = null,
+    Object? goal = null,
     Object? admins = null,
     Object? members = null,
-    Object? actions = null,
     Object? isOpen = null,
   }) {
     return _then(_$_HUTeamModel(
@@ -210,18 +196,10 @@ class __$$_HUTeamModelCopyWithImpl<$Res>
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
               as String,
-      habit: null == habit
-          ? _value.habit
-          : habit // ignore: cast_nullable_to_non_nullable
-              as String,
-      unit: null == unit
-          ? _value.unit
-          : unit // ignore: cast_nullable_to_non_nullable
-              as Unit,
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as int,
+      goal: null == goal
+          ? _value.goal
+          : goal // ignore: cast_nullable_to_non_nullable
+              as HUGoalModel,
       admins: null == admins
           ? _value._admins
           : admins // ignore: cast_nullable_to_non_nullable
@@ -229,10 +207,6 @@ class __$$_HUTeamModelCopyWithImpl<$Res>
       members: null == members
           ? _value._members
           : members // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      actions: null == actions
-          ? _value._actions
-          : actions // ignore: cast_nullable_to_non_nullable
               as List<String>,
       isOpen: null == isOpen
           ? _value.isOpen
@@ -251,16 +225,12 @@ class _$_HUTeamModel implements _HUTeamModel {
       @JsonKey(name: 'creator_id') required this.creatorId,
       this.name = '',
       this.header = '',
-      required this.habit,
-      required this.unit,
-      required this.value,
+      required this.goal,
       final List<String> admins = const [],
       final List<String> members = const [],
-      final List<String> actions = const [],
       @JsonKey(name: 'is_open') this.isOpen = true})
       : _admins = admins,
-        _members = members,
-        _actions = actions;
+        _members = members;
 
   factory _$_HUTeamModel.fromJson(Map<String, dynamic> json) =>
       _$$_HUTeamModelFromJson(json);
@@ -280,11 +250,7 @@ class _$_HUTeamModel implements _HUTeamModel {
   @JsonKey()
   final String header;
   @override
-  final String habit;
-  @override
-  final Unit unit;
-  @override
-  final int value;
+  final HUGoalModel goal;
   final List<String> _admins;
   @override
   @JsonKey()
@@ -303,22 +269,13 @@ class _$_HUTeamModel implements _HUTeamModel {
     return EqualUnmodifiableListView(_members);
   }
 
-  final List<String> _actions;
-  @override
-  @JsonKey()
-  List<String> get actions {
-    if (_actions is EqualUnmodifiableListView) return _actions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_actions);
-  }
-
   @override
   @JsonKey(name: 'is_open')
   final bool isOpen;
 
   @override
   String toString() {
-    return 'HUTeamModel(id: $id, updatedAt: $updatedAt, creatorId: $creatorId, name: $name, header: $header, habit: $habit, unit: $unit, value: $value, admins: $admins, members: $members, actions: $actions, isOpen: $isOpen)';
+    return 'HUTeamModel(id: $id, updatedAt: $updatedAt, creatorId: $creatorId, name: $name, header: $header, goal: $goal, admins: $admins, members: $members, isOpen: $isOpen)';
   }
 
   @override
@@ -333,12 +290,9 @@ class _$_HUTeamModel implements _HUTeamModel {
                 other.creatorId == creatorId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.header, header) || other.header == header) &&
-            (identical(other.habit, habit) || other.habit == habit) &&
-            (identical(other.unit, unit) || other.unit == unit) &&
-            (identical(other.value, value) || other.value == value) &&
+            (identical(other.goal, goal) || other.goal == goal) &&
             const DeepCollectionEquality().equals(other._admins, _admins) &&
             const DeepCollectionEquality().equals(other._members, _members) &&
-            const DeepCollectionEquality().equals(other._actions, _actions) &&
             (identical(other.isOpen, isOpen) || other.isOpen == isOpen));
   }
 
@@ -351,12 +305,9 @@ class _$_HUTeamModel implements _HUTeamModel {
       creatorId,
       name,
       header,
-      habit,
-      unit,
-      value,
+      goal,
       const DeepCollectionEquality().hash(_admins),
       const DeepCollectionEquality().hash(_members),
-      const DeepCollectionEquality().hash(_actions),
       isOpen);
 
   @JsonKey(ignore: true)
@@ -380,12 +331,9 @@ abstract class _HUTeamModel implements HUTeamModel {
       @JsonKey(name: 'creator_id') required final String creatorId,
       final String name,
       final String header,
-      required final String habit,
-      required final Unit unit,
-      required final int value,
+      required final HUGoalModel goal,
       final List<String> admins,
       final List<String> members,
-      final List<String> actions,
       @JsonKey(name: 'is_open') final bool isOpen}) = _$_HUTeamModel;
 
   factory _HUTeamModel.fromJson(Map<String, dynamic> json) =
@@ -404,17 +352,11 @@ abstract class _HUTeamModel implements HUTeamModel {
   @override
   String get header;
   @override
-  String get habit;
-  @override
-  Unit get unit;
-  @override
-  int get value;
+  HUGoalModel get goal;
   @override
   List<String> get admins;
   @override
   List<String> get members;
-  @override
-  List<String> get actions;
   @override
   @JsonKey(name: 'is_open')
   bool get isOpen;

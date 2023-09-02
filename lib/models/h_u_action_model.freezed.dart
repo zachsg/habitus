@@ -21,13 +21,13 @@ HUActionModel _$HUActionModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$HUActionModel {
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'team_id')
+  int get teamId => throw _privateConstructorUsedError;
   @JsonKey(name: 'owner_id')
   String get ownerId => throw _privateConstructorUsedError;
-  String get habit => throw _privateConstructorUsedError;
-  Unit get unit => throw _privateConstructorUsedError;
-  int get value => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  HUGoalModel get goal => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,11 +43,12 @@ abstract class $HUActionModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'team_id') int teamId,
       @JsonKey(name: 'owner_id') String ownerId,
-      String habit,
-      Unit unit,
-      int value});
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      HUGoalModel goal});
+
+  $HUGoalModelCopyWith<$Res> get goal;
 }
 
 /// @nodoc
@@ -64,38 +65,41 @@ class _$HUActionModelCopyWithImpl<$Res, $Val extends HUActionModel>
   @override
   $Res call({
     Object? id = null,
-    Object? createdAt = null,
+    Object? teamId = null,
     Object? ownerId = null,
-    Object? habit = null,
-    Object? unit = null,
-    Object? value = null,
+    Object? createdAt = null,
+    Object? goal = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+      teamId: null == teamId
+          ? _value.teamId
+          : teamId // ignore: cast_nullable_to_non_nullable
+              as int,
       ownerId: null == ownerId
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
               as String,
-      habit: null == habit
-          ? _value.habit
-          : habit // ignore: cast_nullable_to_non_nullable
-              as String,
-      unit: null == unit
-          ? _value.unit
-          : unit // ignore: cast_nullable_to_non_nullable
-              as Unit,
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      goal: null == goal
+          ? _value.goal
+          : goal // ignore: cast_nullable_to_non_nullable
+              as HUGoalModel,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $HUGoalModelCopyWith<$Res> get goal {
+    return $HUGoalModelCopyWith<$Res>(_value.goal, (value) {
+      return _then(_value.copyWith(goal: value) as $Val);
+    });
   }
 }
 
@@ -109,11 +113,13 @@ abstract class _$$_HUActionModelCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'team_id') int teamId,
       @JsonKey(name: 'owner_id') String ownerId,
-      String habit,
-      Unit unit,
-      int value});
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      HUGoalModel goal});
+
+  @override
+  $HUGoalModelCopyWith<$Res> get goal;
 }
 
 /// @nodoc
@@ -128,37 +134,32 @@ class __$$_HUActionModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? createdAt = null,
+    Object? teamId = null,
     Object? ownerId = null,
-    Object? habit = null,
-    Object? unit = null,
-    Object? value = null,
+    Object? createdAt = null,
+    Object? goal = null,
   }) {
     return _then(_$_HUActionModel(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+      teamId: null == teamId
+          ? _value.teamId
+          : teamId // ignore: cast_nullable_to_non_nullable
+              as int,
       ownerId: null == ownerId
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
               as String,
-      habit: null == habit
-          ? _value.habit
-          : habit // ignore: cast_nullable_to_non_nullable
-              as String,
-      unit: null == unit
-          ? _value.unit
-          : unit // ignore: cast_nullable_to_non_nullable
-              as Unit,
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      goal: null == goal
+          ? _value.goal
+          : goal // ignore: cast_nullable_to_non_nullable
+              as HUGoalModel,
     ));
   }
 }
@@ -168,11 +169,10 @@ class __$$_HUActionModelCopyWithImpl<$Res>
 class _$_HUActionModel implements _HUActionModel {
   _$_HUActionModel(
       {required this.id,
-      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'team_id') required this.teamId,
       @JsonKey(name: 'owner_id') required this.ownerId,
-      required this.habit,
-      required this.unit,
-      required this.value});
+      @JsonKey(name: 'created_at') required this.createdAt,
+      required this.goal});
 
   factory _$_HUActionModel.fromJson(Map<String, dynamic> json) =>
       _$$_HUActionModelFromJson(json);
@@ -180,21 +180,20 @@ class _$_HUActionModel implements _HUActionModel {
   @override
   final int id;
   @override
-  @JsonKey(name: 'created_at')
-  final DateTime createdAt;
+  @JsonKey(name: 'team_id')
+  final int teamId;
   @override
   @JsonKey(name: 'owner_id')
   final String ownerId;
   @override
-  final String habit;
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
   @override
-  final Unit unit;
-  @override
-  final int value;
+  final HUGoalModel goal;
 
   @override
   String toString() {
-    return 'HUActionModel(id: $id, createdAt: $createdAt, ownerId: $ownerId, habit: $habit, unit: $unit, value: $value)';
+    return 'HUActionModel(id: $id, teamId: $teamId, ownerId: $ownerId, createdAt: $createdAt, goal: $goal)';
   }
 
   @override
@@ -203,18 +202,17 @@ class _$_HUActionModel implements _HUActionModel {
         (other.runtimeType == runtimeType &&
             other is _$_HUActionModel &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.teamId, teamId) || other.teamId == teamId) &&
+            (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
-            (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
-            (identical(other.habit, habit) || other.habit == habit) &&
-            (identical(other.unit, unit) || other.unit == unit) &&
-            (identical(other.value, value) || other.value == value));
+            (identical(other.goal, goal) || other.goal == goal));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, createdAt, ownerId, habit, unit, value);
+      Object.hash(runtimeType, id, teamId, ownerId, createdAt, goal);
 
   @JsonKey(ignore: true)
   @override
@@ -233,11 +231,10 @@ class _$_HUActionModel implements _HUActionModel {
 abstract class _HUActionModel implements HUActionModel {
   factory _HUActionModel(
       {required final int id,
-      @JsonKey(name: 'created_at') required final DateTime createdAt,
+      @JsonKey(name: 'team_id') required final int teamId,
       @JsonKey(name: 'owner_id') required final String ownerId,
-      required final String habit,
-      required final Unit unit,
-      required final int value}) = _$_HUActionModel;
+      @JsonKey(name: 'created_at') required final DateTime createdAt,
+      required final HUGoalModel goal}) = _$_HUActionModel;
 
   factory _HUActionModel.fromJson(Map<String, dynamic> json) =
       _$_HUActionModel.fromJson;
@@ -245,17 +242,16 @@ abstract class _HUActionModel implements HUActionModel {
   @override
   int get id;
   @override
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt;
+  @JsonKey(name: 'team_id')
+  int get teamId;
   @override
   @JsonKey(name: 'owner_id')
   String get ownerId;
   @override
-  String get habit;
+  @JsonKey(name: 'created_at')
+  DateTime get createdAt;
   @override
-  Unit get unit;
-  @override
-  int get value;
+  HUGoalModel get goal;
   @override
   @JsonKey(ignore: true)
   _$$_HUActionModelCopyWith<_$_HUActionModel> get copyWith =>

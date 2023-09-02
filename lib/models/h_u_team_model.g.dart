@@ -13,18 +13,12 @@ _$_HUTeamModel _$$_HUTeamModelFromJson(Map<String, dynamic> json) =>
       creatorId: json['creator_id'] as String,
       name: json['name'] as String? ?? '',
       header: json['header'] as String? ?? '',
-      habit: json['habit'] as String,
-      unit: $enumDecode(_$UnitEnumMap, json['unit']),
-      value: json['value'] as int,
+      goal: HUGoalModel.fromJson(json['goal'] as Map<String, dynamic>),
       admins: (json['admins'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
       members: (json['members'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
-      actions: (json['actions'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
@@ -38,17 +32,8 @@ Map<String, dynamic> _$$_HUTeamModelToJson(_$_HUTeamModel instance) =>
       'creator_id': instance.creatorId,
       'name': instance.name,
       'header': instance.header,
-      'habit': instance.habit,
-      'unit': _$UnitEnumMap[instance.unit]!,
-      'value': instance.value,
+      'goal': instance.goal,
       'admins': instance.admins,
       'members': instance.members,
-      'actions': instance.actions,
       'is_open': instance.isOpen,
     };
-
-const _$UnitEnumMap = {
-  Unit.distance: 'distance',
-  Unit.steps: 'steps',
-  Unit.time: 'time',
-};
