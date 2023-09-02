@@ -11,7 +11,7 @@ _$_HUActionModel _$$_HUActionModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int,
       createdAt: DateTime.parse(json['created_at'] as String),
       ownerId: json['owner_id'] as String,
-      name: json['name'] as String,
+      habit: json['habit'] as String,
       unit: $enumDecode(_$UnitEnumMap, json['unit']),
       value: json['value'] as int,
     );
@@ -21,7 +21,7 @@ Map<String, dynamic> _$$_HUActionModelToJson(_$_HUActionModel instance) =>
       'id': instance.id,
       'created_at': instance.createdAt.toIso8601String(),
       'owner_id': instance.ownerId,
-      'name': instance.name,
+      'habit': instance.habit,
       'unit': _$UnitEnumMap[instance.unit]!,
       'value': instance.value,
     };

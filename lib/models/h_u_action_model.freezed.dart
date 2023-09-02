@@ -25,7 +25,7 @@ mixin _$HUActionModel {
   DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'owner_id')
   String get ownerId => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get habit => throw _privateConstructorUsedError;
   Unit get unit => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
 
@@ -45,7 +45,7 @@ abstract class $HUActionModelCopyWith<$Res> {
       {int id,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'owner_id') String ownerId,
-      String name,
+      String habit,
       Unit unit,
       int value});
 }
@@ -66,7 +66,7 @@ class _$HUActionModelCopyWithImpl<$Res, $Val extends HUActionModel>
     Object? id = null,
     Object? createdAt = null,
     Object? ownerId = null,
-    Object? name = null,
+    Object? habit = null,
     Object? unit = null,
     Object? value = null,
   }) {
@@ -83,9 +83,9 @@ class _$HUActionModelCopyWithImpl<$Res, $Val extends HUActionModel>
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      habit: null == habit
+          ? _value.habit
+          : habit // ignore: cast_nullable_to_non_nullable
               as String,
       unit: null == unit
           ? _value.unit
@@ -111,7 +111,7 @@ abstract class _$$_HUActionModelCopyWith<$Res>
       {int id,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'owner_id') String ownerId,
-      String name,
+      String habit,
       Unit unit,
       int value});
 }
@@ -130,7 +130,7 @@ class __$$_HUActionModelCopyWithImpl<$Res>
     Object? id = null,
     Object? createdAt = null,
     Object? ownerId = null,
-    Object? name = null,
+    Object? habit = null,
     Object? unit = null,
     Object? value = null,
   }) {
@@ -147,9 +147,9 @@ class __$$_HUActionModelCopyWithImpl<$Res>
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      habit: null == habit
+          ? _value.habit
+          : habit // ignore: cast_nullable_to_non_nullable
               as String,
       unit: null == unit
           ? _value.unit
@@ -170,7 +170,7 @@ class _$_HUActionModel implements _HUActionModel {
       {required this.id,
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'owner_id') required this.ownerId,
-      required this.name,
+      required this.habit,
       required this.unit,
       required this.value});
 
@@ -186,7 +186,7 @@ class _$_HUActionModel implements _HUActionModel {
   @JsonKey(name: 'owner_id')
   final String ownerId;
   @override
-  final String name;
+  final String habit;
   @override
   final Unit unit;
   @override
@@ -194,7 +194,7 @@ class _$_HUActionModel implements _HUActionModel {
 
   @override
   String toString() {
-    return 'HUActionModel(id: $id, createdAt: $createdAt, ownerId: $ownerId, name: $name, unit: $unit, value: $value)';
+    return 'HUActionModel(id: $id, createdAt: $createdAt, ownerId: $ownerId, habit: $habit, unit: $unit, value: $value)';
   }
 
   @override
@@ -206,7 +206,7 @@ class _$_HUActionModel implements _HUActionModel {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.habit, habit) || other.habit == habit) &&
             (identical(other.unit, unit) || other.unit == unit) &&
             (identical(other.value, value) || other.value == value));
   }
@@ -214,7 +214,7 @@ class _$_HUActionModel implements _HUActionModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, createdAt, ownerId, name, unit, value);
+      Object.hash(runtimeType, id, createdAt, ownerId, habit, unit, value);
 
   @JsonKey(ignore: true)
   @override
@@ -235,7 +235,7 @@ abstract class _HUActionModel implements HUActionModel {
       {required final int id,
       @JsonKey(name: 'created_at') required final DateTime createdAt,
       @JsonKey(name: 'owner_id') required final String ownerId,
-      required final String name,
+      required final String habit,
       required final Unit unit,
       required final int value}) = _$_HUActionModel;
 
@@ -251,7 +251,7 @@ abstract class _HUActionModel implements HUActionModel {
   @JsonKey(name: 'owner_id')
   String get ownerId;
   @override
-  String get name;
+  String get habit;
   @override
   Unit get unit;
   @override

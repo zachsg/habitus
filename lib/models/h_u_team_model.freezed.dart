@@ -27,6 +27,9 @@ mixin _$HUTeamModel {
   String get creatorId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get header => throw _privateConstructorUsedError;
+  String get habit => throw _privateConstructorUsedError;
+  Unit get unit => throw _privateConstructorUsedError;
+  int get value => throw _privateConstructorUsedError;
   List<String> get admins => throw _privateConstructorUsedError;
   List<String> get members => throw _privateConstructorUsedError;
   List<String> get actions => throw _privateConstructorUsedError;
@@ -51,6 +54,9 @@ abstract class $HUTeamModelCopyWith<$Res> {
       @JsonKey(name: 'creator_id') String creatorId,
       String name,
       String header,
+      String habit,
+      Unit unit,
+      int value,
       List<String> admins,
       List<String> members,
       List<String> actions,
@@ -75,6 +81,9 @@ class _$HUTeamModelCopyWithImpl<$Res, $Val extends HUTeamModel>
     Object? creatorId = null,
     Object? name = null,
     Object? header = null,
+    Object? habit = null,
+    Object? unit = null,
+    Object? value = null,
     Object? admins = null,
     Object? members = null,
     Object? actions = null,
@@ -101,6 +110,18 @@ class _$HUTeamModelCopyWithImpl<$Res, $Val extends HUTeamModel>
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
               as String,
+      habit: null == habit
+          ? _value.habit
+          : habit // ignore: cast_nullable_to_non_nullable
+              as String,
+      unit: null == unit
+          ? _value.unit
+          : unit // ignore: cast_nullable_to_non_nullable
+              as Unit,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as int,
       admins: null == admins
           ? _value.admins
           : admins // ignore: cast_nullable_to_non_nullable
@@ -135,6 +156,9 @@ abstract class _$$_HUTeamModelCopyWith<$Res>
       @JsonKey(name: 'creator_id') String creatorId,
       String name,
       String header,
+      String habit,
+      Unit unit,
+      int value,
       List<String> admins,
       List<String> members,
       List<String> actions,
@@ -157,6 +181,9 @@ class __$$_HUTeamModelCopyWithImpl<$Res>
     Object? creatorId = null,
     Object? name = null,
     Object? header = null,
+    Object? habit = null,
+    Object? unit = null,
+    Object? value = null,
     Object? admins = null,
     Object? members = null,
     Object? actions = null,
@@ -183,6 +210,18 @@ class __$$_HUTeamModelCopyWithImpl<$Res>
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
               as String,
+      habit: null == habit
+          ? _value.habit
+          : habit // ignore: cast_nullable_to_non_nullable
+              as String,
+      unit: null == unit
+          ? _value.unit
+          : unit // ignore: cast_nullable_to_non_nullable
+              as Unit,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as int,
       admins: null == admins
           ? _value._admins
           : admins // ignore: cast_nullable_to_non_nullable
@@ -212,6 +251,9 @@ class _$_HUTeamModel implements _HUTeamModel {
       @JsonKey(name: 'creator_id') required this.creatorId,
       this.name = '',
       this.header = '',
+      required this.habit,
+      required this.unit,
+      required this.value,
       final List<String> admins = const [],
       final List<String> members = const [],
       final List<String> actions = const [],
@@ -237,6 +279,12 @@ class _$_HUTeamModel implements _HUTeamModel {
   @override
   @JsonKey()
   final String header;
+  @override
+  final String habit;
+  @override
+  final Unit unit;
+  @override
+  final int value;
   final List<String> _admins;
   @override
   @JsonKey()
@@ -270,7 +318,7 @@ class _$_HUTeamModel implements _HUTeamModel {
 
   @override
   String toString() {
-    return 'HUTeamModel(id: $id, updatedAt: $updatedAt, creatorId: $creatorId, name: $name, header: $header, admins: $admins, members: $members, actions: $actions, isOpen: $isOpen)';
+    return 'HUTeamModel(id: $id, updatedAt: $updatedAt, creatorId: $creatorId, name: $name, header: $header, habit: $habit, unit: $unit, value: $value, admins: $admins, members: $members, actions: $actions, isOpen: $isOpen)';
   }
 
   @override
@@ -285,6 +333,9 @@ class _$_HUTeamModel implements _HUTeamModel {
                 other.creatorId == creatorId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.header, header) || other.header == header) &&
+            (identical(other.habit, habit) || other.habit == habit) &&
+            (identical(other.unit, unit) || other.unit == unit) &&
+            (identical(other.value, value) || other.value == value) &&
             const DeepCollectionEquality().equals(other._admins, _admins) &&
             const DeepCollectionEquality().equals(other._members, _members) &&
             const DeepCollectionEquality().equals(other._actions, _actions) &&
@@ -300,6 +351,9 @@ class _$_HUTeamModel implements _HUTeamModel {
       creatorId,
       name,
       header,
+      habit,
+      unit,
+      value,
       const DeepCollectionEquality().hash(_admins),
       const DeepCollectionEquality().hash(_members),
       const DeepCollectionEquality().hash(_actions),
@@ -326,6 +380,9 @@ abstract class _HUTeamModel implements HUTeamModel {
       @JsonKey(name: 'creator_id') required final String creatorId,
       final String name,
       final String header,
+      required final String habit,
+      required final Unit unit,
+      required final int value,
       final List<String> admins,
       final List<String> members,
       final List<String> actions,
@@ -346,6 +403,12 @@ abstract class _HUTeamModel implements HUTeamModel {
   String get name;
   @override
   String get header;
+  @override
+  String get habit;
+  @override
+  Unit get unit;
+  @override
+  int get value;
   @override
   List<String> get admins;
   @override

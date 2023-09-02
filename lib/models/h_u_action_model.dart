@@ -11,7 +11,7 @@ class HUActionModel with _$HUActionModel {
     required int id,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'owner_id') required String ownerId,
-    required String name,
+    required String habit,
     required Unit unit,
     required int value,
   }) = _HUActionModel;
