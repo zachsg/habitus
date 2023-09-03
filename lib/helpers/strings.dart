@@ -30,6 +30,12 @@ const showTeamsString = 'Show Matching Teams';
 const noTeamsFoundString = 'No Matching Teams Found';
 const joinTeamString = 'Join';
 
+// Team
+const chartSliceErrorString = 'Chart error';
+const teammatesString = 'Teammates';
+const teamActivityString = 'Team Activity';
+const takeActionString = 'Grow';
+
 // Profile
 const profileTitleString = 'Profile';
 const friendsLabelString = 'Friends';

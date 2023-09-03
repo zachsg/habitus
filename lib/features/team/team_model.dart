@@ -9,6 +9,8 @@ part 'team_model.g.dart';
 class TeamModel with _$TeamModel {
   factory TeamModel({
     required HUTeamModel team,
+    @Default([]) List<HUProfileModel> profiles,
+    @Default([]) List<HUActionModel> actions,
     @Default(false) bool loading,
     String? error,
   }) = _TeamModel;

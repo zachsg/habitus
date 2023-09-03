@@ -12,6 +12,7 @@ final supabase = Supabase.instance.client;
 class Database {
   static const profilesTable = 'profiles';
   static const teamsTable = 'teams';
+  static const actionsTable = 'actions';
 
   /// Create or update user profile: Return true if no errors, false if errors.
   static Future<bool> createProfile(HUProfileModel profile) async {
@@ -92,6 +93,50 @@ class Database {
       return HUProfileModel.fromJson(profileJson);
     } on Exception catch (e) {
       throw UserNotFoundException(e.toString());
+    }
+  }
+
+  static Future<List<HUProfileModel>> profilesWithIds(List<String> ids) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    try {
+      final profilesJson =
+          await supabase.from(profilesTable).select().in_('id', ids);
+
+      List<HUProfileModel> profiles = [];
+      for (final profileJson in profilesJson) {
+        final profile = HUProfileModel.fromJson(profileJson);
+        profiles.add(profile);
+      }
+
+      return profiles;
+    } on Exception catch (e) {
+      throw GenericErrorException(e.toString());
+    }
+  }
+
+  static Future<List<HUActionModel>> actionsWithTeamId(int id) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    try {
+      final actionsJson =
+          await supabase.from(actionsTable).select().eq('team_id', id);
+
+      List<HUActionModel> actions = [];
+      for (final actionJson in actionsJson) {
+        final action = HUActionModel.fromJson(actionJson);
+        actions.add(action);
+      }
+
+      return actions;
+    } on Exception catch (e) {
+      throw GenericErrorException(e.toString());
     }
   }
 

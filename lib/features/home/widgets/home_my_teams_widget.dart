@@ -33,7 +33,7 @@ class HomeMyTeamsWidget extends ConsumerWidget {
                   children: [
                     Text(
                       team.name,
-                      style: Theme.of(context).textTheme.titleLarge,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
                 ),

@@ -21,6 +21,8 @@ TeamModel _$TeamModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TeamModel {
   HUTeamModel get team => throw _privateConstructorUsedError;
+  List<HUProfileModel> get profiles => throw _privateConstructorUsedError;
+  List<HUActionModel> get actions => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -35,7 +37,12 @@ abstract class $TeamModelCopyWith<$Res> {
   factory $TeamModelCopyWith(TeamModel value, $Res Function(TeamModel) then) =
       _$TeamModelCopyWithImpl<$Res, TeamModel>;
   @useResult
-  $Res call({HUTeamModel team, bool loading, String? error});
+  $Res call(
+      {HUTeamModel team,
+      List<HUProfileModel> profiles,
+      List<HUActionModel> actions,
+      bool loading,
+      String? error});
 
   $HUTeamModelCopyWith<$Res> get team;
 }
@@ -54,6 +61,8 @@ class _$TeamModelCopyWithImpl<$Res, $Val extends TeamModel>
   @override
   $Res call({
     Object? team = null,
+    Object? profiles = null,
+    Object? actions = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -62,6 +71,14 @@ class _$TeamModelCopyWithImpl<$Res, $Val extends TeamModel>
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
               as HUTeamModel,
+      profiles: null == profiles
+          ? _value.profiles
+          : profiles // ignore: cast_nullable_to_non_nullable
+              as List<HUProfileModel>,
+      actions: null == actions
+          ? _value.actions
+          : actions // ignore: cast_nullable_to_non_nullable
+              as List<HUActionModel>,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -89,7 +106,12 @@ abstract class _$$_TeamModelCopyWith<$Res> implements $TeamModelCopyWith<$Res> {
       __$$_TeamModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({HUTeamModel team, bool loading, String? error});
+  $Res call(
+      {HUTeamModel team,
+      List<HUProfileModel> profiles,
+      List<HUActionModel> actions,
+      bool loading,
+      String? error});
 
   @override
   $HUTeamModelCopyWith<$Res> get team;
@@ -107,6 +129,8 @@ class __$$_TeamModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? team = null,
+    Object? profiles = null,
+    Object? actions = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -115,6 +139,14 @@ class __$$_TeamModelCopyWithImpl<$Res>
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
               as HUTeamModel,
+      profiles: null == profiles
+          ? _value._profiles
+          : profiles // ignore: cast_nullable_to_non_nullable
+              as List<HUProfileModel>,
+      actions: null == actions
+          ? _value._actions
+          : actions // ignore: cast_nullable_to_non_nullable
+              as List<HUActionModel>,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -130,13 +162,38 @@ class __$$_TeamModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_TeamModel implements _TeamModel {
-  _$_TeamModel({required this.team, this.loading = false, this.error});
+  _$_TeamModel(
+      {required this.team,
+      final List<HUProfileModel> profiles = const [],
+      final List<HUActionModel> actions = const [],
+      this.loading = false,
+      this.error})
+      : _profiles = profiles,
+        _actions = actions;
 
   factory _$_TeamModel.fromJson(Map<String, dynamic> json) =>
       _$$_TeamModelFromJson(json);
 
   @override
   final HUTeamModel team;
+  final List<HUProfileModel> _profiles;
+  @override
+  @JsonKey()
+  List<HUProfileModel> get profiles {
+    if (_profiles is EqualUnmodifiableListView) return _profiles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_profiles);
+  }
+
+  final List<HUActionModel> _actions;
+  @override
+  @JsonKey()
+  List<HUActionModel> get actions {
+    if (_actions is EqualUnmodifiableListView) return _actions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_actions);
+  }
+
   @override
   @JsonKey()
   final bool loading;
@@ -145,7 +202,7 @@ class _$_TeamModel implements _TeamModel {
 
   @override
   String toString() {
-    return 'TeamModel(team: $team, loading: $loading, error: $error)';
+    return 'TeamModel(team: $team, profiles: $profiles, actions: $actions, loading: $loading, error: $error)';
   }
 
   @override
@@ -154,13 +211,21 @@ class _$_TeamModel implements _TeamModel {
         (other.runtimeType == runtimeType &&
             other is _$_TeamModel &&
             (identical(other.team, team) || other.team == team) &&
+            const DeepCollectionEquality().equals(other._profiles, _profiles) &&
+            const DeepCollectionEquality().equals(other._actions, _actions) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, team, loading, error);
+  int get hashCode => Object.hash(
+      runtimeType,
+      team,
+      const DeepCollectionEquality().hash(_profiles),
+      const DeepCollectionEquality().hash(_actions),
+      loading,
+      error);
 
   @JsonKey(ignore: true)
   @override
@@ -179,6 +244,8 @@ class _$_TeamModel implements _TeamModel {
 abstract class _TeamModel implements TeamModel {
   factory _TeamModel(
       {required final HUTeamModel team,
+      final List<HUProfileModel> profiles,
+      final List<HUActionModel> actions,
       final bool loading,
       final String? error}) = _$_TeamModel;
 
@@ -187,6 +254,10 @@ abstract class _TeamModel implements TeamModel {
 
   @override
   HUTeamModel get team;
+  @override
+  List<HUProfileModel> get profiles;
+  @override
+  List<HUActionModel> get actions;
   @override
   bool get loading;
   @override
