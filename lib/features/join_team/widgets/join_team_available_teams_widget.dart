@@ -1,9 +1,7 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../helpers/strings.dart';
 import '../join_team.dart';
 
 class JoinTeamAvailableTeamsWidget extends ConsumerWidget {
@@ -11,9 +9,9 @@ class JoinTeamAvailableTeamsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loading = ref.watch(joinTeamProvider).loading;
     final teams = ref.watch(joinTeamProvider).teams;
     final error = ref.watch(joinTeamProvider).error;
-    final isIOS = Platform.isIOS;
 
     return error != null && teams.isEmpty
         ? Center(child: Text(error))
@@ -27,16 +25,18 @@ class JoinTeamAvailableTeamsWidget extends ConsumerWidget {
                 visualDensity: VisualDensity.adaptivePlatformDensity,
                 title: Text(team.name),
                 subtitle: Text(
-                  '${team.admins.length} admins, ${team.members.length} members',
+                  team.admins.isEmpty
+                      ? '${team.admins.length + team.members.length} members'
+                      : '${team.admins.length + team.members.length} members (${team.admins.length} admins)',
                 ),
-                trailing: Icon(
-                  isIOS ? CupertinoIcons.chevron_forward : Icons.chevron_right,
-                ),
-                onTap: () {
-                  // TODO: Have user join team
-                  // Add user to team's members
-                  // Add team & new goal to user profile ('teams' and 'goals')
-                },
+                trailing: loading
+                    ? const CircularProgressIndicator.adaptive()
+                    : FilledButton(
+                        child: const Text(joinTeamString),
+                        onPressed: () => ref
+                            .read(joinTeamProvider.notifier)
+                            .joinTeam(context, team),
+                      ),
               );
             },
           );

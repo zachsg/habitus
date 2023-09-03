@@ -8,6 +8,8 @@ import '../features/profile/profile_view.dart';
 import '../features/settings/settings_view.dart';
 import '../features/splash/splash_view.dart';
 import '../features/home/home_view.dart';
+import '../features/team/team_view.dart';
+import '../models/xmodels.dart';
 
 final router = GoRouter(
   initialLocation: SplashView.routeName,
@@ -41,6 +43,13 @@ final router = GoRouter(
           path: JoinTeamView.routeName,
           name: JoinTeamView.routeName,
           builder: (context, state) => const JoinTeamView(),
+        ),
+        GoRoute(
+          path: '${TeamView.routeName}/:id',
+          name: TeamView.routeName,
+          builder: (context, state) => TeamView(
+            team: state.extra as HUTeamModel,
+          ),
         ),
       ],
     ),

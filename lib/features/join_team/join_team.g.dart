@@ -6,7 +6,7 @@ part of 'join_team.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$joinTeamHash() => r'4e5dc192e220e2c06cfea425c04cc84a209a7f95';
+String _$joinTeamHash() => r'dc06d2dfa3241ac7a2f6b23429a1fcb0760250c5';
 
 /// See also [JoinTeam].
 @ProviderFor(JoinTeam)

@@ -39,7 +39,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
             ? const Center(child: CircularProgressIndicator.adaptive())
             : teams.isEmpty
                 ? const HomeEmptyStateWidget()
-                : Center(child: Text(teams.first.name)),
+                : const HomeMyTeamsWidget(),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.pushNamed(JoinTeamView.routeName),

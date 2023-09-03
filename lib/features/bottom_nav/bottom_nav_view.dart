@@ -5,18 +5,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../helpers/strings.dart';
+import '../profile/profile.dart';
 import '../profile/profile_view.dart';
 import '../settings/settings_view.dart';
 import '../home/home_view.dart';
 import 'bottom_nav.dart';
 
-class BottomNavView extends ConsumerWidget {
+class BottomNavView extends ConsumerStatefulWidget {
   const BottomNavView({super.key});
 
   static const routeName = '/bottom_nav';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _BottomNavViewState();
+}
+
+class _BottomNavViewState extends ConsumerState<BottomNavView> {
+  @override
+  void initState() {
+    ref.read(profileProvider.notifier).loadProfile();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final index = ref.watch(bottomNavProvider).index;
     final isIOS = Platform.isIOS;
 

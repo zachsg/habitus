@@ -28,6 +28,7 @@ const exerciseString = 'Exercise';
 const meditateString = 'Meditate';
 const showTeamsString = 'Show Matching Teams';
 const noTeamsFoundString = 'No Matching Teams Found';
+const joinTeamString = 'Join';
 
 // Profile
 const profileTitleString = 'Profile';

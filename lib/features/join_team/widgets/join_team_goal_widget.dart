@@ -16,7 +16,6 @@ class JoinTeamGoalWidget extends ConsumerWidget {
     final isIOS = Platform.isIOS;
 
     return Row(
-      // mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           joinTeamGoalString,

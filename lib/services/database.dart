@@ -146,4 +146,40 @@ class Database {
       throw GenericErrorException(e.toString());
     }
   }
+
+  static Future<bool> joinTeam(HUTeamModel team) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    final members = [...team.members, user.id];
+
+    try {
+      await supabase.from(teamsTable).update({
+        'members': members,
+      }).eq('id', team.id);
+      return true;
+    } on Exception catch (e) {
+      throw GenericErrorException(e.toString());
+    }
+  }
+
+  static Future<bool> updateProfileTeamsAndGoals(HUProfileModel profile) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    final id = user.id;
+    try {
+      await supabase.from(profilesTable).update({
+        'teams': profile.teams,
+        'goals': profile.goals,
+      }).eq('id', id);
+      return true;
+    } on Exception catch (e) {
+      throw GenericErrorException(e.toString());
+    }
+  }
 }
