@@ -1,7 +1,17 @@
 # habitus
 Habitus app.
 
-## Building
+## Building for production
+Android:
+- Build app bundle: `flutter build appbundle`
+
+iOS:
+- Open XCWorkspace file in ios/ directory in Xcode
+- Set build target to "Any iOS device (arm64)"
+- Product > Archive
+- Go through distribution flow once built to send to Appstore Connect
+
+## Building for development
 To clean project: `flutter clean`
 To get packages: `flutter pub get`
 To build and run application: `flutter run`
