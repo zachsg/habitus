@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../team/team_view.dart';
 import '../home.dart';
+import 'xwidgets.dart';
 
 class HomeMyTeamsWidget extends ConsumerWidget {
   const HomeMyTeamsWidget({super.key});
@@ -31,9 +32,15 @@ class HomeMyTeamsWidget extends ConsumerWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      team.name,
-                      style: Theme.of(context).textTheme.titleMedium,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          team.name,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const HomeTakeActionButtonWidget(),
+                      ],
                     ),
                   ],
                 ),
