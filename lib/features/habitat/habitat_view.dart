@@ -39,7 +39,12 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
-              const PieChartSample3(),
+              const SizedBox(height: 16.0),
+              Text(
+                habitatGoalString.toUpperCase(),
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              HabitatGoalProgressChartWidget(habitat: widget.habitat),
               const SizedBox(height: 8.0),
               HabitatHabitmatesWidget(habitat: widget.habitat),
               const SizedBox(height: 32.0),

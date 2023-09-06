@@ -17,6 +17,7 @@ _$_HabitatModel _$$_HabitatModelFromJson(Map<String, dynamic> json) =>
               ?.map((e) => HUActionModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      percentage: json['percentage'] as int? ?? 0,
       loading: json['loading'] as bool? ?? false,
       error: json['error'] as String?,
     );
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$_HabitatModelToJson(_$_HabitatModel instance) =>
       'habitat': instance.habitat,
       'profiles': instance.profiles,
       'actions': instance.actions,
+      'percentage': instance.percentage,
       'loading': instance.loading,
       'error': instance.error,
     };

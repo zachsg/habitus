@@ -11,6 +11,7 @@ class HabitatModel with _$HabitatModel {
     required HUHabitatModel habitat,
     @Default([]) List<HUProfileModel> profiles,
     @Default([]) List<HUActionModel> actions,
+    @Default(0) int percentage,
     @Default(false) bool loading,
     String? error,
   }) = _HabitatModel;

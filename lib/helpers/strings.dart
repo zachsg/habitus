@@ -35,6 +35,7 @@ const chartSliceErrorString = 'Chart error';
 const habitmatesString = 'Habitmates';
 const habitatActivityString = 'Habitat Activity';
 const takeActionString = 'Grow';
+const habitatGoalString = 'Habitat Goal';
 
 // Profile
 const profileTitleString = 'Profile';

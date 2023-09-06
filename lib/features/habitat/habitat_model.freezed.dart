@@ -23,6 +23,7 @@ mixin _$HabitatModel {
   HUHabitatModel get habitat => throw _privateConstructorUsedError;
   List<HUProfileModel> get profiles => throw _privateConstructorUsedError;
   List<HUActionModel> get actions => throw _privateConstructorUsedError;
+  int get percentage => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -42,6 +43,7 @@ abstract class $HabitatModelCopyWith<$Res> {
       {HUHabitatModel habitat,
       List<HUProfileModel> profiles,
       List<HUActionModel> actions,
+      int percentage,
       bool loading,
       String? error});
 
@@ -64,6 +66,7 @@ class _$HabitatModelCopyWithImpl<$Res, $Val extends HabitatModel>
     Object? habitat = null,
     Object? profiles = null,
     Object? actions = null,
+    Object? percentage = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -80,6 +83,10 @@ class _$HabitatModelCopyWithImpl<$Res, $Val extends HabitatModel>
           ? _value.actions
           : actions // ignore: cast_nullable_to_non_nullable
               as List<HUActionModel>,
+      percentage: null == percentage
+          ? _value.percentage
+          : percentage // ignore: cast_nullable_to_non_nullable
+              as int,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -112,6 +119,7 @@ abstract class _$$_HabitatModelCopyWith<$Res>
       {HUHabitatModel habitat,
       List<HUProfileModel> profiles,
       List<HUActionModel> actions,
+      int percentage,
       bool loading,
       String? error});
 
@@ -133,6 +141,7 @@ class __$$_HabitatModelCopyWithImpl<$Res>
     Object? habitat = null,
     Object? profiles = null,
     Object? actions = null,
+    Object? percentage = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -149,6 +158,10 @@ class __$$_HabitatModelCopyWithImpl<$Res>
           ? _value._actions
           : actions // ignore: cast_nullable_to_non_nullable
               as List<HUActionModel>,
+      percentage: null == percentage
+          ? _value.percentage
+          : percentage // ignore: cast_nullable_to_non_nullable
+              as int,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -168,6 +181,7 @@ class _$_HabitatModel implements _HabitatModel {
       {required this.habitat,
       final List<HUProfileModel> profiles = const [],
       final List<HUActionModel> actions = const [],
+      this.percentage = 0,
       this.loading = false,
       this.error})
       : _profiles = profiles,
@@ -198,13 +212,16 @@ class _$_HabitatModel implements _HabitatModel {
 
   @override
   @JsonKey()
+  final int percentage;
+  @override
+  @JsonKey()
   final bool loading;
   @override
   final String? error;
 
   @override
   String toString() {
-    return 'HabitatModel(habitat: $habitat, profiles: $profiles, actions: $actions, loading: $loading, error: $error)';
+    return 'HabitatModel(habitat: $habitat, profiles: $profiles, actions: $actions, percentage: $percentage, loading: $loading, error: $error)';
   }
 
   @override
@@ -215,6 +232,8 @@ class _$_HabitatModel implements _HabitatModel {
             (identical(other.habitat, habitat) || other.habitat == habitat) &&
             const DeepCollectionEquality().equals(other._profiles, _profiles) &&
             const DeepCollectionEquality().equals(other._actions, _actions) &&
+            (identical(other.percentage, percentage) ||
+                other.percentage == percentage) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
   }
@@ -226,6 +245,7 @@ class _$_HabitatModel implements _HabitatModel {
       habitat,
       const DeepCollectionEquality().hash(_profiles),
       const DeepCollectionEquality().hash(_actions),
+      percentage,
       loading,
       error);
 
@@ -248,6 +268,7 @@ abstract class _HabitatModel implements HabitatModel {
       {required final HUHabitatModel habitat,
       final List<HUProfileModel> profiles,
       final List<HUActionModel> actions,
+      final int percentage,
       final bool loading,
       final String? error}) = _$_HabitatModel;
 
@@ -260,6 +281,8 @@ abstract class _HabitatModel implements HabitatModel {
   List<HUProfileModel> get profiles;
   @override
   List<HUActionModel> get actions;
+  @override
+  int get percentage;
   @override
   bool get loading;
   @override

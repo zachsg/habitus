@@ -31,4 +31,8 @@ class Habitat extends _$Habitat {
 
     state = state.copyWith(actions: actions, loading: false);
   }
+
+  void setHabitatPercentage(int percentage) {
+    state = state.copyWith(percentage: percentage);
+  }
 }

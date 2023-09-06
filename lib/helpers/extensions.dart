@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_colors.dart';
+
 extension ShowSnackBar on BuildContext {
   void showSnackBar({
     required String message,
@@ -56,6 +58,33 @@ extension IntExtension on int {
         return 'December';
       default:
         return DateTime.now().month.toString();
+    }
+  }
+
+  Color toColor() {
+    switch (this) {
+      case 0:
+        return AppColors.one;
+      case 1:
+        return AppColors.two;
+      case 2:
+        return AppColors.three;
+      case 3:
+        return AppColors.four;
+      case 4:
+        return AppColors.five;
+      case 5:
+        return AppColors.six;
+      case 6:
+        return AppColors.seven;
+      case 7:
+        return AppColors.eight;
+      case 8:
+        return AppColors.nine;
+      case 9:
+        return AppColors.ten;
+      default:
+        return AppColors.eleven.withOpacity(0.2);
     }
   }
 

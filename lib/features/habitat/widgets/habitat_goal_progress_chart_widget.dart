@@ -1,21 +1,22 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:habitus/helpers/extensions.dart';
 
-import '../../../helpers/app_colors.dart';
+import '../../../models/xmodels.dart';
+import '../habitat.dart';
 
-class PieChartSample3 extends StatefulWidget {
-  const PieChartSample3({super.key});
+class HabitatGoalProgressChartWidget extends ConsumerWidget {
+  const HabitatGoalProgressChartWidget({super.key, required this.habitat});
 
-  @override
-  State<StatefulWidget> createState() => PieChartSample3State();
-}
-
-class PieChartSample3State extends State {
-  int touchedIndex = 0;
+  final HUHabitatModel habitat;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final profiles = ref.watch(habitatProvider(habitat)).profiles;
+    final actions = ref.watch(habitatProvider(habitat)).actions;
+
     return AspectRatio(
       aspectRatio: 1.3,
       child: AspectRatio(
@@ -23,18 +24,7 @@ class PieChartSample3State extends State {
         child: PieChart(
           PieChartData(
             pieTouchData: PieTouchData(
-              touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                setState(() {
-                  if (!event.isInterestedForInteractions ||
-                      pieTouchResponse == null ||
-                      pieTouchResponse.touchedSection == null) {
-                    touchedIndex = -1;
-                    return;
-                  }
-                  touchedIndex =
-                      pieTouchResponse.touchedSection!.touchedSectionIndex;
-                });
-              },
+              touchCallback: (FlTouchEvent event, pieTouchResponse) {},
             ),
             borderData: FlBorderData(
               show: false,
@@ -42,7 +32,14 @@ class PieChartSample3State extends State {
             sectionsSpace: 0,
             centerSpaceRadius: 0,
             sections: showingSections(
-                context: context, goal: 100, avatar: 'images/habitus_logo.svg'),
+              context: context,
+              ref: ref,
+              habitat: habitat,
+              goal: habitat.goal.value.toDouble(),
+              profiles: profiles,
+              actions: actions,
+              avatar: 'images/habitus_logo.svg',
+            ),
           ),
         ),
       ),
@@ -51,59 +48,57 @@ class PieChartSample3State extends State {
 
   List<PieChartSectionData> showingSections({
     required BuildContext context,
+    required WidgetRef ref,
+    required HUHabitatModel habitat,
     required double goal,
+    required List<HUProfileModel> profiles,
+    required List<HUActionModel> actions,
     String avatar = 'images/habitus_logo.svg',
   }) {
-    // TODO: replace 'list' with list of 'profiles + progress towards goals'
-    List<int> list = [10, 15, 30, 20];
     final List<PieChartSectionData> pie = [];
     int count = 0;
     double total = 0;
+    double percentage = 0;
+    double cumulativePercentage = 0;
 
-    for (var element in list) {
-      total += element;
+    for (var action in actions) {
+      total += action.goal.value;
     }
 
-    list.add(0);
-
-    for (final i in list) {
-      double value = i.toDouble();
-      final Color color;
-
-      if (count == list.length - 1) {
-        count = 10;
-        value = goal - total;
-        avatar = '';
+    for (final profile in profiles) {
+      double value = 0.0;
+      for (final action in actions) {
+        if (action.ownerId == profile.id) {
+          value += action.goal.value;
+        }
       }
 
-      switch (count) {
-        case 0:
-          color = AppColors.one;
-        case 1:
-          color = AppColors.two;
-        case 2:
-          color = AppColors.three;
-        case 3:
-          color = AppColors.four;
-        case 4:
-          color = AppColors.five;
-        case 5:
-          color = AppColors.six;
-        case 6:
-          color = AppColors.seven;
-        case 7:
-          color = AppColors.eight;
-        case 8:
-          color = AppColors.nine;
-        case 9:
-          color = AppColors.ten;
-        default:
-          color = Theme.of(context).colorScheme.onBackground.withOpacity(0.2);
-      }
+      percentage = value / goal * 100;
+      cumulativePercentage += percentage.round();
 
-      pie.add(pieChartSectionData(value: value, color: color, avatar: avatar));
+      if (percentage != 0) {
+        pie.add(
+          pieChartSectionData(
+            value: value,
+            percentage: percentage,
+            color: count.toColor(),
+            avatar: avatar,
+          ),
+        );
+      }
 
       count++;
+    }
+
+    if (cumulativePercentage < 100) {
+      pie.add(
+        pieChartSectionData(
+          value: goal - total,
+          percentage: 100 - cumulativePercentage,
+          color: 11.toColor(),
+          avatar: '',
+        ),
+      );
     }
 
     return pie;
@@ -111,30 +106,25 @@ class PieChartSample3State extends State {
 
   PieChartSectionData pieChartSectionData({
     required double value,
+    required double percentage,
     required Color color,
     String avatar = '',
   }) {
-    final isTouched = value == touchedIndex;
-    final fontSize = isTouched ? 18.0 : 14.0;
-    final radius = isTouched ? 110.0 : 100.0;
-    final widgetSize = isTouched ? 55.0 : 40.0;
-    const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
-
     return PieChartSectionData(
       color: color,
       value: value,
-      title: '${value.round()}%',
-      radius: radius,
-      titleStyle: TextStyle(
-        fontSize: fontSize,
+      title: '${percentage.round()}%',
+      radius: 100.0,
+      titleStyle: const TextStyle(
+        fontSize: 14.0,
         fontWeight: FontWeight.bold,
-        color: const Color(0xffffffff),
-        shadows: shadows,
+        color: Color(0xffffffff),
+        shadows: [Shadow(color: Colors.black, blurRadius: 2)],
       ),
       badgeWidget: avatar.isNotEmpty
           ? _Badge(
               avatar,
-              size: widgetSize,
+              size: 40.0,
               borderColor: Colors.black,
             )
           : const SizedBox(),
