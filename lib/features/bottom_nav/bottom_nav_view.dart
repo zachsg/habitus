@@ -8,7 +8,7 @@ import '../../helpers/strings.dart';
 import '../profile/profile.dart';
 import '../profile/profile_view.dart';
 import '../settings/settings_view.dart';
-import '../home/home_view.dart';
+import '../habitats/habitats_view.dart';
 import 'bottom_nav.dart';
 
 class BottomNavView extends ConsumerStatefulWidget {
@@ -35,7 +35,7 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
     final body = index == 0
         ? const ProfileView()
         : index == 1
-            ? const HomeView()
+            ? const HabitatsView()
             : const SettingsView();
 
     return Scaffold(

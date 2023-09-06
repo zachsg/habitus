@@ -9,7 +9,7 @@ part 'h_u_action_model.g.dart';
 class HUActionModel with _$HUActionModel {
   factory HUActionModel({
     required int id,
-    @JsonKey(name: 'team_id') required int teamId,
+    @JsonKey(name: 'habitat_id') required int habitatId,
     @JsonKey(name: 'owner_id') required String ownerId,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     required HUGoalModel goal,

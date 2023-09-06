@@ -15,31 +15,31 @@ const confirmPasswordString = 'Confirm your password';
 const typePasswordString = 'Enter your password';
 
 // Home
-const homeTitleString = 'Home';
+const homeTitleString = 'Habitats';
 const homeEmptyString = 'You don\'t have any habits yet.\nStart or Join one!';
 const newHabitString = 'Add Habit';
 
-// Join Team
-const joinTeamTitleString = 'Adopt A Habit';
-const joinTeamHabitString = 'Habit';
-const joinTeamGoalString = 'Goal';
+// Join Habitat
+const joinHabitatTitleString = 'Adopt A Habit';
+const joinHabitatHabitString = 'Habit';
+const joinHabitGoalString = 'Goal';
 const readString = 'Read';
 const exerciseString = 'Exercise';
 const meditateString = 'Meditate';
-const showTeamsString = 'Show Matching Teams';
-const noTeamsFoundString = 'No Matching Teams Found';
-const joinTeamString = 'Join';
+const showHabitatsString = 'Show Matching Habitats';
+const noHabitatsFoundString = 'No Matching Habitats Found';
+const joinHabitatsString = 'Join';
 
-// Team
+// Habitat
 const chartSliceErrorString = 'Chart error';
-const teammatesString = 'Teammates';
-const teamActivityString = 'Team Activity';
+const habitmatesString = 'Habitmates';
+const habitatActivityString = 'Habitat Activity';
 const takeActionString = 'Grow';
 
 // Profile
 const profileTitleString = 'Profile';
 const friendsLabelString = 'Friends';
-const teamsLabelString = 'Teams';
+const habitatsLabelString = 'Habitats';
 const streakLabelString = 'Days Old';
 const bioLabelString = 'Bio';
 

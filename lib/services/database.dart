@@ -11,7 +11,7 @@ final supabase = Supabase.instance.client;
 
 class Database {
   static const profilesTable = 'profiles';
-  static const teamsTable = 'teams';
+  static const habitatsTable = 'habitats';
   static const actionsTable = 'actions';
 
   /// Create or update user profile: Return true if no errors, false if errors.
@@ -118,7 +118,7 @@ class Database {
     }
   }
 
-  static Future<List<HUActionModel>> actionsWithTeamId(int id) async {
+  static Future<List<HUActionModel>> actionsWithHabitatId(int id) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();
@@ -126,7 +126,7 @@ class Database {
 
     try {
       final actionsJson =
-          await supabase.from(actionsTable).select().eq('team_id', id);
+          await supabase.from(actionsTable).select().eq('habitat_id', id);
 
       List<HUActionModel> actions = [];
       for (final actionJson in actionsJson) {
@@ -140,7 +140,7 @@ class Database {
     }
   }
 
-  static Future<List<HUTeamModel>> teams() async {
+  static Future<List<HUHabitatModel>> habitats() async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();
@@ -148,22 +148,23 @@ class Database {
 
     final id = user.id;
     try {
-      final listOfTeamsJsons = await supabase
-          .from(teamsTable)
+      final listOfHabitatsJsons = await supabase
+          .from(habitatsTable)
           .select()
           .or('creator_id.eq.$id,admins.cs.{$id},members.cs.{$id}');
-      final List<HUTeamModel> teams = [];
-      for (final teamsJson in listOfTeamsJsons) {
-        final team = HUTeamModel.fromJson(teamsJson);
-        teams.add(team);
+      final List<HUHabitatModel> habitats = [];
+      for (final habitatsJson in listOfHabitatsJsons) {
+        final habitat = HUHabitatModel.fromJson(habitatsJson);
+        habitats.add(habitat);
       }
-      return teams;
+      return habitats;
     } on Exception catch (e) {
       throw UserNotFoundException(e.toString());
     }
   }
 
-  static Future<List<HUTeamModel>> teamsWithNamesContaining(String name) async {
+  static Future<List<HUHabitatModel>> habitatsWithNamesContaining(
+      String name) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();
@@ -175,42 +176,43 @@ class Database {
           await supabase.from(profilesTable).select().eq('id', id).single();
       final profile = HUProfileModel.fromJson(profileJson);
 
-      final listOfTeamsJsons = await supabase
-          .from(teamsTable)
+      final listOfHabitatsJsons = await supabase
+          .from(habitatsTable)
           .select()
           .like('name', '%$name%')
-          .not('id', 'in', profile.teams);
+          .not('id', 'in', profile.habitats);
 
-      final List<HUTeamModel> teams = [];
-      for (final teamsJson in listOfTeamsJsons) {
-        final team = HUTeamModel.fromJson(teamsJson);
-        teams.add(team);
+      final List<HUHabitatModel> habitats = [];
+      for (final habitatsJson in listOfHabitatsJsons) {
+        final habitat = HUHabitatModel.fromJson(habitatsJson);
+        habitats.add(habitat);
       }
-      return teams;
+      return habitats;
     } on Exception catch (e) {
       throw GenericErrorException(e.toString());
     }
   }
 
-  static Future<bool> joinTeam(HUTeamModel team) async {
+  static Future<bool> joinHabitat(HUHabitatModel habitat) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();
     }
 
-    final members = [...team.members, user.id];
+    final members = [...habitat.members, user.id];
 
     try {
-      await supabase.from(teamsTable).update({
+      await supabase.from(habitatsTable).update({
         'members': members,
-      }).eq('id', team.id);
+      }).eq('id', habitat.id);
       return true;
     } on Exception catch (e) {
       throw GenericErrorException(e.toString());
     }
   }
 
-  static Future<bool> updateProfileTeamsAndGoals(HUProfileModel profile) async {
+  static Future<bool> updateProfileHabitatsAndGoals(
+      HUProfileModel profile) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();
@@ -219,7 +221,7 @@ class Database {
     final id = user.id;
     try {
       await supabase.from(profilesTable).update({
-        'teams': profile.teams,
+        'habitats': profile.habitats,
         'goals': profile.goals,
       }).eq('id', id);
       return true;

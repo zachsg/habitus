@@ -24,10 +24,10 @@ class ProfileStatsRowWidget extends ConsumerWidget {
           onPressed: () => context.showSnackBar(message: friendsLabelString),
         ),
         ProfileStatWidget(
-          title: teamsLabelString,
-          value: profile.teams.length.toString(),
-          // TODO: Show bottom sheet with list of user's teams
-          onPressed: () => context.showSnackBar(message: teamsLabelString),
+          title: habitatsLabelString,
+          value: profile.habitats.length.toString(),
+          // TODO: Show bottom sheet with list of user's habitats
+          onPressed: () => context.showSnackBar(message: habitatsLabelString),
         ),
         ProfileStatWidget(
           title: streakLabelString,

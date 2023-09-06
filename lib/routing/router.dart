@@ -3,12 +3,12 @@ import 'package:go_router/go_router.dart';
 import '../features/auth/sign_in_view.dart';
 import '../features/auth/sign_up_view.dart';
 import '../features/bottom_nav/bottom_nav_view.dart';
-import '../features/join_team/join_team_view.dart';
+import '../features/join_habitat/join_habitat_view.dart';
 import '../features/profile/profile_view.dart';
 import '../features/settings/settings_view.dart';
 import '../features/splash/splash_view.dart';
-import '../features/home/home_view.dart';
-import '../features/team/team_view.dart';
+import '../features/habitats/habitats_view.dart';
+import '../features/habitat/habitat_view.dart';
 import '../models/xmodels.dart';
 
 final router = GoRouter(
@@ -35,20 +35,20 @@ final router = GoRouter(
       builder: (context, state) => const BottomNavView(),
     ),
     GoRoute(
-      path: HomeView.routeName,
-      name: HomeView.routeName,
-      builder: (context, state) => const HomeView(),
+      path: HabitatsView.routeName,
+      name: HabitatsView.routeName,
+      builder: (context, state) => const HabitatsView(),
       routes: [
         GoRoute(
-          path: JoinTeamView.routeName,
-          name: JoinTeamView.routeName,
-          builder: (context, state) => const JoinTeamView(),
+          path: JoinHabitatView.routeName,
+          name: JoinHabitatView.routeName,
+          builder: (context, state) => const JoinHabitatView(),
         ),
         GoRoute(
-          path: '${TeamView.routeName}/:id',
-          name: TeamView.routeName,
-          builder: (context, state) => TeamView(
-            team: state.extra as HUTeamModel,
+          path: '${HabitatView.routeName}/:id',
+          name: HabitatView.routeName,
+          builder: (context, state) => HabitatView(
+            habitat: state.extra as HUHabitatModel,
           ),
         ),
       ],

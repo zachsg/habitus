@@ -21,8 +21,8 @@ HUActionModel _$HUActionModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$HUActionModel {
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'team_id')
-  int get teamId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'habitat_id')
+  int get habitatId => throw _privateConstructorUsedError;
   @JsonKey(name: 'owner_id')
   String get ownerId => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
@@ -43,7 +43,7 @@ abstract class $HUActionModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: 'team_id') int teamId,
+      @JsonKey(name: 'habitat_id') int habitatId,
       @JsonKey(name: 'owner_id') String ownerId,
       @JsonKey(name: 'created_at') DateTime createdAt,
       HUGoalModel goal});
@@ -65,7 +65,7 @@ class _$HUActionModelCopyWithImpl<$Res, $Val extends HUActionModel>
   @override
   $Res call({
     Object? id = null,
-    Object? teamId = null,
+    Object? habitatId = null,
     Object? ownerId = null,
     Object? createdAt = null,
     Object? goal = null,
@@ -75,9 +75,9 @@ class _$HUActionModelCopyWithImpl<$Res, $Val extends HUActionModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      teamId: null == teamId
-          ? _value.teamId
-          : teamId // ignore: cast_nullable_to_non_nullable
+      habitatId: null == habitatId
+          ? _value.habitatId
+          : habitatId // ignore: cast_nullable_to_non_nullable
               as int,
       ownerId: null == ownerId
           ? _value.ownerId
@@ -113,7 +113,7 @@ abstract class _$$_HUActionModelCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: 'team_id') int teamId,
+      @JsonKey(name: 'habitat_id') int habitatId,
       @JsonKey(name: 'owner_id') String ownerId,
       @JsonKey(name: 'created_at') DateTime createdAt,
       HUGoalModel goal});
@@ -134,7 +134,7 @@ class __$$_HUActionModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? teamId = null,
+    Object? habitatId = null,
     Object? ownerId = null,
     Object? createdAt = null,
     Object? goal = null,
@@ -144,9 +144,9 @@ class __$$_HUActionModelCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      teamId: null == teamId
-          ? _value.teamId
-          : teamId // ignore: cast_nullable_to_non_nullable
+      habitatId: null == habitatId
+          ? _value.habitatId
+          : habitatId // ignore: cast_nullable_to_non_nullable
               as int,
       ownerId: null == ownerId
           ? _value.ownerId
@@ -169,7 +169,7 @@ class __$$_HUActionModelCopyWithImpl<$Res>
 class _$_HUActionModel implements _HUActionModel {
   _$_HUActionModel(
       {required this.id,
-      @JsonKey(name: 'team_id') required this.teamId,
+      @JsonKey(name: 'habitat_id') required this.habitatId,
       @JsonKey(name: 'owner_id') required this.ownerId,
       @JsonKey(name: 'created_at') required this.createdAt,
       required this.goal});
@@ -180,8 +180,8 @@ class _$_HUActionModel implements _HUActionModel {
   @override
   final int id;
   @override
-  @JsonKey(name: 'team_id')
-  final int teamId;
+  @JsonKey(name: 'habitat_id')
+  final int habitatId;
   @override
   @JsonKey(name: 'owner_id')
   final String ownerId;
@@ -193,7 +193,7 @@ class _$_HUActionModel implements _HUActionModel {
 
   @override
   String toString() {
-    return 'HUActionModel(id: $id, teamId: $teamId, ownerId: $ownerId, createdAt: $createdAt, goal: $goal)';
+    return 'HUActionModel(id: $id, habitatId: $habitatId, ownerId: $ownerId, createdAt: $createdAt, goal: $goal)';
   }
 
   @override
@@ -202,7 +202,8 @@ class _$_HUActionModel implements _HUActionModel {
         (other.runtimeType == runtimeType &&
             other is _$_HUActionModel &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.teamId, teamId) || other.teamId == teamId) &&
+            (identical(other.habitatId, habitatId) ||
+                other.habitatId == habitatId) &&
             (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -212,7 +213,7 @@ class _$_HUActionModel implements _HUActionModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, teamId, ownerId, createdAt, goal);
+      Object.hash(runtimeType, id, habitatId, ownerId, createdAt, goal);
 
   @JsonKey(ignore: true)
   @override
@@ -231,7 +232,7 @@ class _$_HUActionModel implements _HUActionModel {
 abstract class _HUActionModel implements HUActionModel {
   factory _HUActionModel(
       {required final int id,
-      @JsonKey(name: 'team_id') required final int teamId,
+      @JsonKey(name: 'habitat_id') required final int habitatId,
       @JsonKey(name: 'owner_id') required final String ownerId,
       @JsonKey(name: 'created_at') required final DateTime createdAt,
       required final HUGoalModel goal}) = _$_HUActionModel;
@@ -242,8 +243,8 @@ abstract class _HUActionModel implements HUActionModel {
   @override
   int get id;
   @override
-  @JsonKey(name: 'team_id')
-  int get teamId;
+  @JsonKey(name: 'habitat_id')
+  int get habitatId;
   @override
   @JsonKey(name: 'owner_id')
   String get ownerId;
