@@ -10,6 +10,8 @@ class GrowModel with _$GrowModel {
   factory GrowModel({
     required HUHabitatModel habitat,
     @Default(false) bool loading,
+    @Default(0) int elapsed,
+    @Default(false) bool isPaused,
     String? error,
   }) = _GrowModel;
 

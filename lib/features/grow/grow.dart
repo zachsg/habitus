@@ -12,4 +12,12 @@ class Grow extends _$Grow {
         habitat: habitat,
         loading: true,
       );
+
+  void setElapsed(int elapsed) {
+    state = state.copyWith(elapsed: elapsed);
+  }
+
+  void setPaused(bool paused) {
+    state = state.copyWith(isPaused: paused);
+  }
 }

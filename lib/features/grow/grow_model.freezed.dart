@@ -22,6 +22,8 @@ GrowModel _$GrowModelFromJson(Map<String, dynamic> json) {
 mixin _$GrowModel {
   HUHabitatModel get habitat => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
+  int get elapsed => throw _privateConstructorUsedError;
+  bool get isPaused => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +37,12 @@ abstract class $GrowModelCopyWith<$Res> {
   factory $GrowModelCopyWith(GrowModel value, $Res Function(GrowModel) then) =
       _$GrowModelCopyWithImpl<$Res, GrowModel>;
   @useResult
-  $Res call({HUHabitatModel habitat, bool loading, String? error});
+  $Res call(
+      {HUHabitatModel habitat,
+      bool loading,
+      int elapsed,
+      bool isPaused,
+      String? error});
 
   $HUHabitatModelCopyWith<$Res> get habitat;
 }
@@ -55,6 +62,8 @@ class _$GrowModelCopyWithImpl<$Res, $Val extends GrowModel>
   $Res call({
     Object? habitat = null,
     Object? loading = null,
+    Object? elapsed = null,
+    Object? isPaused = null,
     Object? error = freezed,
   }) {
     return _then(_value.copyWith(
@@ -65,6 +74,14 @@ class _$GrowModelCopyWithImpl<$Res, $Val extends GrowModel>
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      elapsed: null == elapsed
+          ? _value.elapsed
+          : elapsed // ignore: cast_nullable_to_non_nullable
+              as int,
+      isPaused: null == isPaused
+          ? _value.isPaused
+          : isPaused // ignore: cast_nullable_to_non_nullable
               as bool,
       error: freezed == error
           ? _value.error
@@ -89,7 +106,12 @@ abstract class _$$_GrowModelCopyWith<$Res> implements $GrowModelCopyWith<$Res> {
       __$$_GrowModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({HUHabitatModel habitat, bool loading, String? error});
+  $Res call(
+      {HUHabitatModel habitat,
+      bool loading,
+      int elapsed,
+      bool isPaused,
+      String? error});
 
   @override
   $HUHabitatModelCopyWith<$Res> get habitat;
@@ -108,6 +130,8 @@ class __$$_GrowModelCopyWithImpl<$Res>
   $Res call({
     Object? habitat = null,
     Object? loading = null,
+    Object? elapsed = null,
+    Object? isPaused = null,
     Object? error = freezed,
   }) {
     return _then(_$_GrowModel(
@@ -118,6 +142,14 @@ class __$$_GrowModelCopyWithImpl<$Res>
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      elapsed: null == elapsed
+          ? _value.elapsed
+          : elapsed // ignore: cast_nullable_to_non_nullable
+              as int,
+      isPaused: null == isPaused
+          ? _value.isPaused
+          : isPaused // ignore: cast_nullable_to_non_nullable
               as bool,
       error: freezed == error
           ? _value.error
@@ -130,7 +162,12 @@ class __$$_GrowModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_GrowModel implements _GrowModel {
-  _$_GrowModel({required this.habitat, this.loading = false, this.error});
+  _$_GrowModel(
+      {required this.habitat,
+      this.loading = false,
+      this.elapsed = 0,
+      this.isPaused = false,
+      this.error});
 
   factory _$_GrowModel.fromJson(Map<String, dynamic> json) =>
       _$$_GrowModelFromJson(json);
@@ -141,11 +178,17 @@ class _$_GrowModel implements _GrowModel {
   @JsonKey()
   final bool loading;
   @override
+  @JsonKey()
+  final int elapsed;
+  @override
+  @JsonKey()
+  final bool isPaused;
+  @override
   final String? error;
 
   @override
   String toString() {
-    return 'GrowModel(habitat: $habitat, loading: $loading, error: $error)';
+    return 'GrowModel(habitat: $habitat, loading: $loading, elapsed: $elapsed, isPaused: $isPaused, error: $error)';
   }
 
   @override
@@ -155,12 +198,16 @@ class _$_GrowModel implements _GrowModel {
             other is _$_GrowModel &&
             (identical(other.habitat, habitat) || other.habitat == habitat) &&
             (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.elapsed, elapsed) || other.elapsed == elapsed) &&
+            (identical(other.isPaused, isPaused) ||
+                other.isPaused == isPaused) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, habitat, loading, error);
+  int get hashCode =>
+      Object.hash(runtimeType, habitat, loading, elapsed, isPaused, error);
 
   @JsonKey(ignore: true)
   @override
@@ -180,6 +227,8 @@ abstract class _GrowModel implements GrowModel {
   factory _GrowModel(
       {required final HUHabitatModel habitat,
       final bool loading,
+      final int elapsed,
+      final bool isPaused,
       final String? error}) = _$_GrowModel;
 
   factory _GrowModel.fromJson(Map<String, dynamic> json) =
@@ -189,6 +238,10 @@ abstract class _GrowModel implements GrowModel {
   HUHabitatModel get habitat;
   @override
   bool get loading;
+  @override
+  int get elapsed;
+  @override
+  bool get isPaused;
   @override
   String? get error;
   @override

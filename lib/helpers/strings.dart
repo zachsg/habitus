@@ -40,6 +40,7 @@ const creatorString = '👑';
 const adminString = '🪄';
 
 // Grow
+const pauseString = 'Done';
 
 // Profile
 const profileTitleString = 'Profile';
