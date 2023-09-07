@@ -11,7 +11,6 @@ class Habitats extends _$Habitats {
   HabitatsModel build() => HabitatsModel(habitats: [], loading: true);
 
   Future<void> loadHabitats() async {
-    // state = state.copyWith(loading: true);
     try {
       final habitats = await Database.habitats();
       state = state.copyWith(habitats: habitats, loading: false);

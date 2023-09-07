@@ -19,7 +19,10 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
         final habitat = habitats[index];
 
         return Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16.0,
+            vertical: 8.0,
+          ),
           child: GestureDetector(
             onTap: () => context.pushNamed(
               HabitatView.routeName,
@@ -28,18 +31,27 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
             ),
             child: Card(
               child: Padding(
-                padding: const EdgeInsets.all(32.0),
+                padding: const EdgeInsets.all(24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          habitat.name,
-                          style: Theme.of(context).textTheme.titleMedium,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              habitat.name,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            Text(
+                              '${habitat.members.length + habitat.admins.length + 1} habitmates',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ],
                         ),
-                        const HabitatsTakeActionButtonWidget(),
+                        HabitatsTakeActionButtonWidget(habitat: habitat),
                       ],
                     ),
                   ],
