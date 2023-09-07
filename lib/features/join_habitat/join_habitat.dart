@@ -91,6 +91,8 @@ class JoinHabitat extends _$JoinHabitat {
 
     await ref.read(habitatsProvider.notifier).loadHabitats();
 
+    await ref.read(profileProvider.notifier).loadProfile();
+
     state = state.copyWith(loading: false);
 
     if (context.mounted) {

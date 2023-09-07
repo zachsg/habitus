@@ -18,6 +18,11 @@ class HabitatActivityWidget extends ConsumerWidget {
 
     final DateFormat formatter = DateFormat('h:mm a');
 
+    final List<HUActionModel> actionsSorted = List.from(actions);
+    if (actions.isNotEmpty) {
+      actionsSorted.sort((a, b) => a.createdAt.isAfter(b.createdAt) ? 1 : 0);
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -29,9 +34,9 @@ class HabitatActivityWidget extends ConsumerWidget {
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: actions.length,
+          itemCount: actionsSorted.length,
           itemBuilder: (context, index) {
-            final action = actions[index];
+            final action = actionsSorted[index];
             final profile =
                 profiles.firstWhere((profile) => profile.id == action.ownerId);
 

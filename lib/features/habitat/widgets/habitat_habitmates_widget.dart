@@ -26,7 +26,8 @@ class HabitatHabitmatesWidget extends ConsumerWidget {
         ),
         const SizedBox(height: 4.0),
         Wrap(
-          spacing: 16,
+          spacing: 16.0,
+          runSpacing: 16.0,
           children: _habitmates(context, habitat, profiles, actions),
         ),
       ],
