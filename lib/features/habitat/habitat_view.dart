@@ -22,9 +22,13 @@ class HabitatView extends ConsumerStatefulWidget {
 class _HabitatViewState extends ConsumerState<HabitatView> {
   @override
   void initState() {
-    ref.read(habitatProvider(widget.habitat).notifier).loadProfiles();
-    ref.read(habitatProvider(widget.habitat).notifier).loadActions();
+    _initialDataLoad();
     super.initState();
+  }
+
+  Future<void> _initialDataLoad() async {
+    await ref.read(habitatProvider(widget.habitat).notifier).loadProfiles();
+    await ref.read(habitatProvider(widget.habitat).notifier).loadActions();
   }
 
   @override
@@ -49,6 +53,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
               HabitatHabitmatesWidget(habitat: widget.habitat),
               const SizedBox(height: 32.0),
               HabitatActivityWidget(habitat: widget.habitat),
+              const SizedBox(height: 96),
             ],
           ),
         ),

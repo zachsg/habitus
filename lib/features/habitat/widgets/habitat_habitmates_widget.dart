@@ -61,10 +61,38 @@ class HabitatHabitmatesWidget extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(profile.name),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    profile.name,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  habitat.creatorId == profile.id
+                      ? Padding(
+                          padding: const EdgeInsets.only(left: 2.0),
+                          child: Text(
+                            creatorString,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        )
+                      : habitat.admins.contains(profile.id)
+                          ? Padding(
+                              padding: const EdgeInsets.only(left: 2.0),
+                              child: Text(
+                                adminString,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            )
+                          : const SizedBox(),
+                ],
+              ),
               Text(
                 '@${profile.handle}',
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(fontWeight: FontWeight.bold),
               ),
             ],
           ),

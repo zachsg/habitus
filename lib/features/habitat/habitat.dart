@@ -16,12 +16,32 @@ class Habitat extends _$Habitat {
 
   Future<void> loadProfiles() async {
     final ids = [
-      ...state.habitat.members,
-      ...state.habitat.admins,
       state.habitat.creatorId,
+      ...state.habitat.admins,
+      ...state.habitat.members,
     ];
 
     final profiles = await Database.profilesWithIds(ids);
+
+    profiles.sort((a, b) {
+      if (a.id == state.habitat.creatorId) {
+        return 0;
+      }
+
+      if (b.id == state.habitat.creatorId) {
+        return 1;
+      }
+
+      if (state.habitat.admins.contains(a.id)) {
+        return 0;
+      }
+
+      if (state.habitat.admins.contains(b.id)) {
+        return 1;
+      }
+
+      return 0;
+    });
 
     state = state.copyWith(profiles: profiles, loading: false);
   }

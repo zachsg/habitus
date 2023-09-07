@@ -38,7 +38,6 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
               goal: habitat.goal.value.toDouble(),
               profiles: profiles,
               actions: actions,
-              avatar: 'images/habitus_logo.svg',
             ),
           ),
         ),
@@ -53,13 +52,13 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
     required double goal,
     required List<HUProfileModel> profiles,
     required List<HUActionModel> actions,
-    String avatar = 'images/habitus_logo.svg',
   }) {
     final List<PieChartSectionData> pie = [];
     int count = 0;
     double total = 0;
     double percentage = 0;
     double cumulativePercentage = 0;
+    String avatar = '';
 
     for (var action in actions) {
       total += action.goal.value;
@@ -76,6 +75,16 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
       percentage = value / goal * 100;
       cumulativePercentage += percentage.round();
 
+      final isSvg = avatar.isEmpty ? false : true;
+      if (profile.avatar.isNotEmpty) {
+        avatar = profile.avatar;
+      } else {
+        final nameArray = profile.name.split(' ');
+        for (final name in nameArray) {
+          avatar += name[0].toUpperCase();
+        }
+      }
+
       if (percentage != 0) {
         pie.add(
           pieChartSectionData(
@@ -83,10 +92,12 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
             percentage: percentage,
             color: count.toColor(),
             avatar: avatar,
+            isSvg: isSvg,
           ),
         );
       }
 
+      avatar = '';
       count++;
     }
 
@@ -97,6 +108,7 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
           percentage: 100 - cumulativePercentage,
           color: 11.toColor(),
           avatar: '',
+          isSvg: true,
         ),
       );
     }
@@ -108,6 +120,7 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
     required double value,
     required double percentage,
     required Color color,
+    required bool isSvg,
     String avatar = '',
   }) {
     return PieChartSectionData(
@@ -126,6 +139,7 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
               avatar,
               size: 40.0,
               borderColor: Colors.black,
+              isSvg: isSvg,
             )
           : const SizedBox(),
       badgePositionPercentageOffset: .98,
@@ -138,10 +152,12 @@ class _Badge extends StatelessWidget {
     this.svgAsset, {
     required this.size,
     required this.borderColor,
+    required this.isSvg,
   });
   final String svgAsset;
   final double size;
   final Color borderColor;
+  final bool isSvg;
 
   @override
   Widget build(BuildContext context) {
@@ -166,9 +182,11 @@ class _Badge extends StatelessWidget {
       ),
       padding: EdgeInsets.all(size * .15),
       child: Center(
-        child: SvgPicture.asset(
-          svgAsset,
-        ),
+        child: isSvg
+            ? SvgPicture.asset(
+                svgAsset,
+              )
+            : Text(svgAsset),
       ),
     );
   }

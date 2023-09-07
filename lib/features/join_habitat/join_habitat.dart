@@ -99,4 +99,10 @@ class JoinHabitat extends _$JoinHabitat {
       context.goNamed(BottomNavView.routeName);
     }
   }
+
+  Future<void> createHabitat(BuildContext context) async {
+    // TODO: Create new habitat in DB
+    // 1. Ensure user is set as creator of habitat
+    // 2. Add newly created habitat ID to user's profile 'habitats' and 'goals'
+  }
 }
