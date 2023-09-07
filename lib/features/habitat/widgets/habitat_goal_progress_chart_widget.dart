@@ -126,7 +126,7 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
     return PieChartSectionData(
       color: color,
       value: value,
-      title: '${percentage.round()}%',
+      title: percentage == 100 ? '0%' : '${percentage.round()}%',
       radius: 100.0,
       titleStyle: const TextStyle(
         fontSize: 14.0,

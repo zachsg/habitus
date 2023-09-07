@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../helpers/constants.dart';
 import '../../helpers/strings.dart';
 import '../../models/xmodels.dart';
+import '../grow/grow_view.dart';
 import 'habitat.dart';
 import 'widgets/xwidget.dart';
 
@@ -59,9 +61,14 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // TODO: Start timer and show timer view
-        },
+        onPressed: () => context.pushNamed(
+          GrowView.routeName,
+          pathParameters: {
+            'id': widget.habitat.id.toString(),
+            'habitat_id': widget.habitat.id.toString(),
+          },
+          extra: widget.habitat,
+        ),
         label: Row(
           children: [
             const Text(takeActionString),

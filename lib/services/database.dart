@@ -125,8 +125,12 @@ class Database {
     }
 
     try {
-      final actionsJson =
-          await supabase.from(actionsTable).select().eq('habitat_id', id);
+      final now = DateTime.now().copyWith(hour: 0, minute: 0);
+      final actionsJson = await supabase
+          .from(actionsTable)
+          .select()
+          .eq('habitat_id', id)
+          .gt('created_at', now.toUtc());
 
       List<HUActionModel> actions = [];
       for (final actionJson in actionsJson) {

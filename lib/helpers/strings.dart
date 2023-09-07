@@ -39,6 +39,8 @@ const habitatGoalString = 'Daily Habitat Goal Progress';
 const creatorString = '👑';
 const adminString = '🪄';
 
+// Grow
+
 // Profile
 const profileTitleString = 'Profile';
 const friendsLabelString = 'Friends';

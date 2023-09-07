@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'habitat.dart';
+part of 'grow.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$habitatHash() => r'1401fc9541fd49f7e14233890f3ed17555fdd5ea';
+String _$growHash() => r'53564de7941cf3f9da6648b0784d559768670459';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,35 +29,35 @@ class _SystemHash {
   }
 }
 
-abstract class _$Habitat extends BuildlessAutoDisposeNotifier<HabitatModel> {
+abstract class _$Grow extends BuildlessAutoDisposeNotifier<GrowModel> {
   late final HUHabitatModel habitat;
 
-  HabitatModel build(
+  GrowModel build(
     HUHabitatModel habitat,
   );
 }
 
-/// See also [Habitat].
-@ProviderFor(Habitat)
-const habitatProvider = HabitatFamily();
+/// See also [Grow].
+@ProviderFor(Grow)
+const growProvider = GrowFamily();
 
-/// See also [Habitat].
-class HabitatFamily extends Family<HabitatModel> {
-  /// See also [Habitat].
-  const HabitatFamily();
+/// See also [Grow].
+class GrowFamily extends Family<GrowModel> {
+  /// See also [Grow].
+  const GrowFamily();
 
-  /// See also [Habitat].
-  HabitatProvider call(
+  /// See also [Grow].
+  GrowProvider call(
     HUHabitatModel habitat,
   ) {
-    return HabitatProvider(
+    return GrowProvider(
       habitat,
     );
   }
 
   @override
-  HabitatProvider getProviderOverride(
-    covariant HabitatProvider provider,
+  GrowProvider getProviderOverride(
+    covariant GrowProvider provider,
   ) {
     return call(
       provider.habitat,
@@ -76,29 +76,26 @@ class HabitatFamily extends Family<HabitatModel> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'habitatProvider';
+  String? get name => r'growProvider';
 }
 
-/// See also [Habitat].
-class HabitatProvider
-    extends AutoDisposeNotifierProviderImpl<Habitat, HabitatModel> {
-  /// See also [Habitat].
-  HabitatProvider(
+/// See also [Grow].
+class GrowProvider extends AutoDisposeNotifierProviderImpl<Grow, GrowModel> {
+  /// See also [Grow].
+  GrowProvider(
     HUHabitatModel habitat,
   ) : this._internal(
-          () => Habitat()..habitat = habitat,
-          from: habitatProvider,
-          name: r'habitatProvider',
+          () => Grow()..habitat = habitat,
+          from: growProvider,
+          name: r'growProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$habitatHash,
-          dependencies: HabitatFamily._dependencies,
-          allTransitiveDependencies: HabitatFamily._allTransitiveDependencies,
+              const bool.fromEnvironment('dart.vm.product') ? null : _$growHash,
+          dependencies: GrowFamily._dependencies,
+          allTransitiveDependencies: GrowFamily._allTransitiveDependencies,
           habitat: habitat,
         );
 
-  HabitatProvider._internal(
+  GrowProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -111,8 +108,8 @@ class HabitatProvider
   final HUHabitatModel habitat;
 
   @override
-  HabitatModel runNotifierBuild(
-    covariant Habitat notifier,
+  GrowModel runNotifierBuild(
+    covariant Grow notifier,
   ) {
     return notifier.build(
       habitat,
@@ -120,10 +117,10 @@ class HabitatProvider
   }
 
   @override
-  Override overrideWith(Habitat Function() create) {
+  Override overrideWith(Grow Function() create) {
     return ProviderOverride(
       origin: this,
-      override: HabitatProvider._internal(
+      override: GrowProvider._internal(
         () => create()..habitat = habitat,
         from: from,
         name: null,
@@ -136,13 +133,13 @@ class HabitatProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<Habitat, HabitatModel> createElement() {
-    return _HabitatProviderElement(this);
+  AutoDisposeNotifierProviderElement<Grow, GrowModel> createElement() {
+    return _GrowProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is HabitatProvider && other.habitat == habitat;
+    return other is GrowProvider && other.habitat == habitat;
   }
 
   @override
@@ -154,18 +151,17 @@ class HabitatProvider
   }
 }
 
-mixin HabitatRef on AutoDisposeNotifierProviderRef<HabitatModel> {
+mixin GrowRef on AutoDisposeNotifierProviderRef<GrowModel> {
   /// The parameter `habitat` of this provider.
   HUHabitatModel get habitat;
 }
 
-class _HabitatProviderElement
-    extends AutoDisposeNotifierProviderElement<Habitat, HabitatModel>
-    with HabitatRef {
-  _HabitatProviderElement(super.provider);
+class _GrowProviderElement
+    extends AutoDisposeNotifierProviderElement<Grow, GrowModel> with GrowRef {
+  _GrowProviderElement(super.provider);
 
   @override
-  HUHabitatModel get habitat => (origin as HabitatProvider).habitat;
+  HUHabitatModel get habitat => (origin as GrowProvider).habitat;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -1,1 +1,1 @@
-const habitusLogoSvg = 'images/habitus_logo.svg';
+const habitusLogoSvg = 'assets/images/habitus_logo.svg';

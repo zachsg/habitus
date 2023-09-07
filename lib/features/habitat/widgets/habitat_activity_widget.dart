@@ -23,59 +23,76 @@ class HabitatActivityWidget extends ConsumerWidget {
       actionsSorted.sort((a, b) => a.createdAt.isAfter(b.createdAt) ? 1 : 0);
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Row(),
-        Text(
-          habitatActivityString.toUpperCase(),
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: actionsSorted.length,
-          itemBuilder: (context, index) {
-            final action = actionsSorted[index];
-            final profile =
-                profiles.firstWhere((profile) => profile.id == action.ownerId);
+    return actionsSorted.isEmpty
+        ? const SizedBox()
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(),
+              Text(
+                habitatActivityString.toUpperCase(),
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: actionsSorted.length,
+                itemBuilder: (context, index) {
+                  final action = actionsSorted[index];
+                  final profile = profiles
+                      .firstWhere((profile) => profile.id == action.ownerId);
 
-            return Column(
-              children: [
-                const SizedBox(height: 8.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Wrap(
+                  return Column(
+                    children: [
+                      const SizedBox(height: 8.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            '@${profile.handle}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.bold),
+                          Expanded(
+                            child: Wrap(
+                              children: [
+                                Text(
+                                  '@${profile.handle}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(width: 4.0),
+                                Text(
+                                  '${_actionName(action.goal)} '
+                                  'for ${action.goal.value} '
+                                  '${action.goal.unit.name}',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(width: 4.0),
                           Text(
-                            '${action.goal.habit.toLowerCase()} for ${action.goal.value} ${action.goal.unit.name}',
-                            style: Theme.of(context).textTheme.bodyMedium,
+                            formatter.format(action.createdAt.toLocal()),
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
                       ),
-                    ),
-                    Text(
-                      formatter.format(action.createdAt.toLocal()),
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8.0),
-              ],
-            );
-          },
-        )
-      ],
-    );
+                      const SizedBox(height: 8.0),
+                    ],
+                  );
+                },
+              ),
+            ],
+          );
+  }
+
+  String _actionName(HUGoalModel goal) {
+    switch (goal.habit) {
+      case 'Read':
+        return 'read';
+      case 'Exercise':
+        return 'exercised';
+      case 'Meditate':
+        return 'meditated';
+      default:
+        return 'grew';
+    }
   }
 }
