@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wakelock/wakelock.dart';
 
 import '../../helpers/constants.dart';
 import '../../helpers/strings.dart';
@@ -61,14 +62,18 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => context.pushNamed(
-          GrowView.routeName,
-          pathParameters: {
-            'id': widget.habitat.id.toString(),
-            'habitat_id': widget.habitat.id.toString(),
-          },
-          extra: widget.habitat,
-        ),
+        onPressed: () {
+          Wakelock.enable();
+
+          context.pushNamed(
+            GrowView.routeName,
+            pathParameters: {
+              'id': widget.habitat.id.toString(),
+              'habitat_id': widget.habitat.id.toString(),
+            },
+            extra: widget.habitat,
+          );
+        },
         label: Row(
           children: [
             const Text(takeActionString),

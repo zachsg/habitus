@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wakelock/wakelock.dart';
 
 import '../../models/xmodels.dart';
 import '../../helpers/strings.dart';
@@ -18,29 +19,39 @@ class GrowView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(profileProvider).profile;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_habitType()),
-      ),
-      body: Column(
-        children: [
-          GrowTimerWidget(
-            profile: profile,
-            habitat: habitat,
-            finished: () {},
-          ),
-          ElevatedButton(
-            onPressed: () =>
-                ref.read(growProvider(habitat).notifier).setPaused(true),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 20.0,
-              ),
-              child: Text('$pauseString ${_habitType()}'),
+    Future<bool> disableWakeLock() async {
+      Wakelock.disable();
+      return true;
+    }
+
+    return WillPopScope(
+      onWillPop: disableWakeLock,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(_habitType()),
+        ),
+        body: Column(
+          children: [
+            GrowTimerWidget(
+              profile: profile,
+              habitat: habitat,
+              finished: () {},
             ),
-          ),
-        ],
+            ElevatedButton(
+              onPressed: () {
+                Wakelock.disable();
+                ref.read(growProvider(habitat).notifier).setPaused(true);
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 20.0,
+                ),
+                child: Text('$pauseString ${_habitType()}'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
