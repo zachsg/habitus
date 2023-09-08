@@ -88,6 +88,7 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
       if (percentage != 0) {
         pie.add(
           pieChartSectionData(
+            context: context,
             value: value,
             percentage: percentage,
             color: count.toColor(),
@@ -104,6 +105,7 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
     if (cumulativePercentage < 100) {
       pie.add(
         pieChartSectionData(
+          context: context,
           value: goal - total,
           percentage: 100 - cumulativePercentage,
           color: 11.toColor(),
@@ -117,6 +119,7 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
   }
 
   PieChartSectionData pieChartSectionData({
+    required BuildContext context,
     required double value,
     required double percentage,
     required Color color,
@@ -128,17 +131,16 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
       value: value,
       title: percentage == 100 ? '0%' : '${percentage.round()}%',
       radius: 100.0,
-      titleStyle: const TextStyle(
-        fontSize: 14.0,
-        fontWeight: FontWeight.bold,
-        color: Color(0xffffffff),
-        shadows: [Shadow(color: Colors.black, blurRadius: 2)],
-      ),
+      titleStyle: Theme.of(context)
+          .textTheme
+          .titleSmall
+          ?.copyWith(fontWeight: FontWeight.bold),
       badgeWidget: avatar.isNotEmpty
           ? _Badge(
+              context,
               avatar,
               size: 40.0,
-              borderColor: Colors.black,
+              borderColor: Theme.of(context).colorScheme.onBackground,
               isSvg: isSvg,
             )
           : const SizedBox(),
@@ -149,6 +151,7 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
 
 class _Badge extends StatelessWidget {
   const _Badge(
+    BuildContext context,
     this.svgAsset, {
     required this.size,
     required this.borderColor,
@@ -166,15 +169,15 @@ class _Badge extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.background,
         shape: BoxShape.circle,
         border: Border.all(
           color: borderColor,
           width: 2,
         ),
-        boxShadow: <BoxShadow>[
+        boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.5),
+            color: Theme.of(context).colorScheme.onBackground.withOpacity(0.2),
             offset: const Offset(3, 3),
             blurRadius: 3,
           ),
@@ -182,11 +185,7 @@ class _Badge extends StatelessWidget {
       ),
       padding: EdgeInsets.all(size * .15),
       child: Center(
-        child: isSvg
-            ? SvgPicture.asset(
-                svgAsset,
-              )
-            : Text(svgAsset),
+        child: isSvg ? SvgPicture.asset(svgAsset) : Text(svgAsset),
       ),
     );
   }
