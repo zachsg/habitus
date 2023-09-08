@@ -28,7 +28,7 @@ class HabitatHabitmatesWidget extends ConsumerWidget {
         Wrap(
           spacing: 16.0,
           runSpacing: 16.0,
-          children: _habitmates(context, habitat, profiles, actions),
+          children: _habitmates(context, ref, habitat, profiles, actions),
         ),
       ],
     );
@@ -36,6 +36,7 @@ class HabitatHabitmatesWidget extends ConsumerWidget {
 
   List<Widget> _habitmates(
     BuildContext context,
+    WidgetRef ref,
     HUHabitatModel habitat,
     List<HUProfileModel> profiles,
     List<HUActionModel> actions,
