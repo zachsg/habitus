@@ -8,7 +8,7 @@ import 'widgets/xwidgets.dart';
 class SettingsView extends ConsumerStatefulWidget {
   const SettingsView({super.key});
 
-  static const routeName = '/settings';
+  static const routeName = 'settings';
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _SettingsViewState();

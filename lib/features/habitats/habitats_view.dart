@@ -12,7 +12,7 @@ import 'widgets/xwidgets.dart';
 class HabitatsView extends ConsumerStatefulWidget {
   const HabitatsView({super.key});
 
-  static const routeName = '/habitats';
+  static const routeName = 'habitats';
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _HomeViewState();

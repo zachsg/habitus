@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
+import '../habitat/habitat.dart';
 import '../profile/profile.dart';
 import 'grow_model.dart';
 
@@ -46,6 +47,13 @@ class Grow extends _$Grow {
     );
 
     final success = await Database.saveAction(action);
+    if (success) {
+      await ref.read(habitatProvider(state.habitat).notifier).loadProfiles();
+      await ref.read(habitatProvider(state.habitat).notifier).loadActions();
+      await ref
+          .read(habitatProvider(state.habitat).notifier)
+          .loadHabitatWithId(state.habitat.id);
+    }
 
     state = state.copyWith(loading: false);
 

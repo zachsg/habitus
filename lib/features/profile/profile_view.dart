@@ -7,7 +7,7 @@ import 'widgets/xwidgets.dart';
 class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key});
 
-  static const routeName = '/profile';
+  static const routeName = 'profile';
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ProfileViewState();

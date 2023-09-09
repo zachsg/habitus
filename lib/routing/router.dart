@@ -34,44 +34,46 @@ final router = GoRouter(
       path: BottomNavView.routeName,
       name: BottomNavView.routeName,
       builder: (context, state) => const BottomNavView(),
-    ),
-    GoRoute(
-      path: HabitatsView.routeName,
-      name: HabitatsView.routeName,
-      builder: (context, state) => const HabitatsView(),
       routes: [
         GoRoute(
-          path: JoinHabitatView.routeName,
-          name: JoinHabitatView.routeName,
-          builder: (context, state) => const JoinHabitatView(),
-        ),
-        GoRoute(
-          path: '${HabitatView.routeName}/:id',
-          name: HabitatView.routeName,
-          builder: (context, state) => HabitatView(
-            habitat: state.extra as HUHabitatModel,
-          ),
+          path: HabitatsView.routeName,
+          name: HabitatsView.routeName,
+          builder: (context, state) => const HabitatsView(),
           routes: [
             GoRoute(
-              path: '${GrowView.routeName}/:habitat_id',
-              name: GrowView.routeName,
-              builder: (context, state) => GrowView(
-                habitatAndAction: state.extra as HUHabitatAndActionModel,
+              path: JoinHabitatView.routeName,
+              name: JoinHabitatView.routeName,
+              builder: (context, state) => const JoinHabitatView(),
+            ),
+            GoRoute(
+              path: '${HabitatView.routeName}/:id',
+              name: HabitatView.routeName,
+              builder: (context, state) => HabitatView(
+                habitat: state.extra as HUHabitatModel,
               ),
+              routes: [
+                GoRoute(
+                  path: '${GrowView.routeName}/:habitat_id',
+                  name: GrowView.routeName,
+                  builder: (context, state) => GrowView(
+                    habitatAndAction: state.extra as HUHabitatAndActionModel,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
+        GoRoute(
+          path: ProfileView.routeName,
+          name: ProfileView.routeName,
+          builder: (context, state) => const ProfileView(),
+        ),
+        GoRoute(
+          path: SettingsView.routeName,
+          name: SettingsView.routeName,
+          builder: (context, state) => const SettingsView(),
+        ),
       ],
-    ),
-    GoRoute(
-      path: ProfileView.routeName,
-      name: ProfileView.routeName,
-      builder: (context, state) => const ProfileView(),
-    ),
-    GoRoute(
-      path: SettingsView.routeName,
-      name: SettingsView.routeName,
-      builder: (context, state) => const SettingsView(),
     ),
   ],
 );

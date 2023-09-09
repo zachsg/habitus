@@ -166,13 +166,15 @@ class GrowView extends ConsumerWidget {
 
                           if (context.mounted) {
                             Navigator.of(context).pop();
-                            context.goNamed(
-                              HabitatView.routeName,
-                              pathParameters: {
-                                'id': habitatAndAction.habitat.id.toString()
-                              },
-                              extra: habitatAndAction.habitat,
-                            );
+
+                            Navigator.of(context).pop();
+                            // context.goNamed(
+                            //   HabitatView.routeName,
+                            //   pathParameters: {
+                            //     'id': habitatAndAction.habitat.id.toString()
+                            //   },
+                            //   extra: habitatAndAction.habitat,
+                            // );
                           }
                         },
                       ),

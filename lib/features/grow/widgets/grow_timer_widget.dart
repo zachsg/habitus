@@ -43,13 +43,15 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget> {
 
     var elapsed = 0;
 
-    LocalNotificationService().addNotification(
-      '${_habitType()} Done',
-      'You completed your ${_habitType().toLowerCase()} goal',
-      DateTime.now().millisecondsSinceEpoch +
-          (goal - (widget.habitatAndAction.elapsed * 60) * 1000),
-      channel: _habitType().toLowerCase(),
-    );
+    final notificationSeconds = goal - (widget.habitatAndAction.elapsed * 60);
+    if (notificationSeconds > 0) {
+      LocalNotificationService().addNotification(
+        '${_habitType()} Done',
+        'You completed your ${_habitType().toLowerCase()} goal',
+        DateTime.now().millisecondsSinceEpoch + (notificationSeconds * 1000),
+        channel: _habitType().toLowerCase(),
+      );
+    }
 
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (ref.watch(growProvider(widget.habitatAndAction)).isPaused) {
