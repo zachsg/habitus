@@ -88,6 +88,7 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget> {
     final habitatIndex =
         profile.habitats.indexOf(widget.habitatAndAction.habitat.id);
     final goal = profile.goals[habitatIndex].value * 60;
+
     final duration = goal * 1000;
 
     final goneBy = goal - elapsed;
@@ -157,19 +158,6 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget> {
         return 'Meditating';
       default:
         return 'Growing';
-    }
-  }
-
-  String _habitTypePast() {
-    switch (widget.habitatAndAction.habitat.goal.habit) {
-      case 'Read':
-        return 'Read';
-      case 'Exercise':
-        return 'Exercised';
-      case 'Meditate':
-        return 'Meditated';
-      default:
-        return 'Grew';
     }
   }
 }
