@@ -6,7 +6,7 @@ part of 'grow.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$growHash() => r'2a71dfd2bef63ba3c035d347b37dd8cf4b09e09d';
+String _$growHash() => r'696324af72c2f0fc63656facc154cbdaeb694d77';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,10 +30,10 @@ class _SystemHash {
 }
 
 abstract class _$Grow extends BuildlessAutoDisposeNotifier<GrowModel> {
-  late final HUHabitatModel habitat;
+  late final HUHabitatAndActionModel habitatAndAction;
 
   GrowModel build(
-    HUHabitatModel habitat,
+    HUHabitatAndActionModel habitatAndAction,
   );
 }
 
@@ -48,10 +48,10 @@ class GrowFamily extends Family<GrowModel> {
 
   /// See also [Grow].
   GrowProvider call(
-    HUHabitatModel habitat,
+    HUHabitatAndActionModel habitatAndAction,
   ) {
     return GrowProvider(
-      habitat,
+      habitatAndAction,
     );
   }
 
@@ -60,7 +60,7 @@ class GrowFamily extends Family<GrowModel> {
     covariant GrowProvider provider,
   ) {
     return call(
-      provider.habitat,
+      provider.habitatAndAction,
     );
   }
 
@@ -83,16 +83,16 @@ class GrowFamily extends Family<GrowModel> {
 class GrowProvider extends AutoDisposeNotifierProviderImpl<Grow, GrowModel> {
   /// See also [Grow].
   GrowProvider(
-    HUHabitatModel habitat,
+    HUHabitatAndActionModel habitatAndAction,
   ) : this._internal(
-          () => Grow()..habitat = habitat,
+          () => Grow()..habitatAndAction = habitatAndAction,
           from: growProvider,
           name: r'growProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product') ? null : _$growHash,
           dependencies: GrowFamily._dependencies,
           allTransitiveDependencies: GrowFamily._allTransitiveDependencies,
-          habitat: habitat,
+          habitatAndAction: habitatAndAction,
         );
 
   GrowProvider._internal(
@@ -102,17 +102,17 @@ class GrowProvider extends AutoDisposeNotifierProviderImpl<Grow, GrowModel> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.habitat,
+    required this.habitatAndAction,
   }) : super.internal();
 
-  final HUHabitatModel habitat;
+  final HUHabitatAndActionModel habitatAndAction;
 
   @override
   GrowModel runNotifierBuild(
     covariant Grow notifier,
   ) {
     return notifier.build(
-      habitat,
+      habitatAndAction,
     );
   }
 
@@ -121,13 +121,13 @@ class GrowProvider extends AutoDisposeNotifierProviderImpl<Grow, GrowModel> {
     return ProviderOverride(
       origin: this,
       override: GrowProvider._internal(
-        () => create()..habitat = habitat,
+        () => create()..habitatAndAction = habitatAndAction,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        habitat: habitat,
+        habitatAndAction: habitatAndAction,
       ),
     );
   }
@@ -139,21 +139,21 @@ class GrowProvider extends AutoDisposeNotifierProviderImpl<Grow, GrowModel> {
 
   @override
   bool operator ==(Object other) {
-    return other is GrowProvider && other.habitat == habitat;
+    return other is GrowProvider && other.habitatAndAction == habitatAndAction;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, habitat.hashCode);
+    hash = _SystemHash.combine(hash, habitatAndAction.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
 mixin GrowRef on AutoDisposeNotifierProviderRef<GrowModel> {
-  /// The parameter `habitat` of this provider.
-  HUHabitatModel get habitat;
+  /// The parameter `habitatAndAction` of this provider.
+  HUHabitatAndActionModel get habitatAndAction;
 }
 
 class _GrowProviderElement
@@ -161,7 +161,8 @@ class _GrowProviderElement
   _GrowProviderElement(super.provider);
 
   @override
-  HUHabitatModel get habitat => (origin as GrowProvider).habitat;
+  HUHabitatAndActionModel get habitatAndAction =>
+      (origin as GrowProvider).habitatAndAction;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

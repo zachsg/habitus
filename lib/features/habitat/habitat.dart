@@ -55,4 +55,9 @@ class Habitat extends _$Habitat {
   void setHabitatPercentage(int percentage) {
     state = state.copyWith(percentage: percentage);
   }
+
+  Future<void> loadHabitatWithId(int id) async {
+    final habitat = await Database.habitatWithId(id);
+    state = state.copyWith(habitat: habitat);
+  }
 }

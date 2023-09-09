@@ -56,7 +56,7 @@ final router = GoRouter(
               path: '${GrowView.routeName}/:habitat_id',
               name: GrowView.routeName,
               builder: (context, state) => GrowView(
-                habitat: state.extra as HUHabitatModel,
+                habitatAndAction: state.extra as HUHabitatAndActionModel,
               ),
             ),
           ],

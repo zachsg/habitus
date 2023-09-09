@@ -17,6 +17,7 @@ class Database {
   /// Create or update user profile: Return true if no errors, false if errors.
   static Future<bool> createProfile(HUProfileModel profile) async {
     final profileJson = profile.toJson();
+
     try {
       await supabase.from(profilesTable).upsert(profileJson);
     } on Exception catch (_) {
@@ -167,6 +168,22 @@ class Database {
     }
   }
 
+  static Future<HUHabitatModel> habitatWithId(int id) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    try {
+      final habitatJson =
+          await supabase.from(habitatsTable).select().eq('id', id).single();
+      final habitat = HUHabitatModel.fromJson(habitatJson);
+      return habitat;
+    } on Exception catch (e) {
+      throw UserNotFoundException(e.toString());
+    }
+  }
+
   static Future<List<HUHabitatModel>> habitatsWithNamesContaining(
       String name) async {
     final user = supabase.auth.currentUser;
@@ -232,5 +249,19 @@ class Database {
     } on Exception catch (e) {
       throw GenericErrorException(e.toString());
     }
+  }
+
+  static Future<bool> saveAction(HUActionModel action) async {
+    final actionJson = action.toJson();
+
+    actionJson.removeWhere((key, value) => key == 'id');
+
+    try {
+      await supabase.from(actionsTable).upsert(actionJson);
+    } on Exception catch (_) {
+      return false;
+    }
+
+    return true;
   }
 }

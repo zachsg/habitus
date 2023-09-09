@@ -8,6 +8,7 @@ import '../../helpers/constants.dart';
 import '../../helpers/strings.dart';
 import '../../models/xmodels.dart';
 import '../grow/grow_view.dart';
+import '../profile/profile.dart';
 import 'habitat.dart';
 import 'widgets/xwidget.dart';
 
@@ -32,10 +33,25 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
   Future<void> _initialDataLoad() async {
     await ref.read(habitatProvider(widget.habitat).notifier).loadProfiles();
     await ref.read(habitatProvider(widget.habitat).notifier).loadActions();
+    await ref
+        .read(habitatProvider(widget.habitat).notifier)
+        .loadHabitatWithId(widget.habitat.id);
   }
 
   @override
   Widget build(BuildContext context) {
+    final profile = ref.watch(profileProvider).profile;
+    final actions = ref
+        .watch(habitatProvider(widget.habitat))
+        .actions
+        .where((action) => action.ownerId == profile.id)
+        .toList();
+
+    int elapsed = 0;
+    for (final action in actions) {
+      elapsed += action.goal.value;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.habitat.name),
@@ -71,7 +87,10 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
               'id': widget.habitat.id.toString(),
               'habitat_id': widget.habitat.id.toString(),
             },
-            extra: widget.habitat,
+            extra: HUHabitatAndActionModel(
+              habitat: widget.habitat,
+              elapsed: elapsed,
+            ),
           );
         },
         label: Row(

@@ -7,17 +7,19 @@ import '../../../models/xmodels.dart';
 import '../../../services/local_notification_service.dart';
 import '../../profile/profile.dart';
 import '../grow.dart';
+import '../grow_stopwatch.dart';
 import 'xwidgets.dart';
 
 class GrowTimerWidget extends ConsumerStatefulWidget {
-  const GrowTimerWidget(
-      {super.key,
-      required this.profile,
-      required this.habitat,
-      required this.finished});
+  const GrowTimerWidget({
+    super.key,
+    required this.profile,
+    required this.habitatAndAction,
+    required this.finished,
+  });
 
   final HUProfileModel profile;
-  final HUHabitatModel habitat;
+  final HUHabitatAndActionModel habitatAndAction;
   final VoidCallback finished;
 
   @override
@@ -27,26 +29,29 @@ class GrowTimerWidget extends ConsumerStatefulWidget {
 
 class _CountDownWidgetState extends ConsumerState<GrowTimerWidget> {
   late Timer _timer;
-  late Stopwatch _stopwatch;
+  late GrowStopwatch _stopwatch;
 
   @override
   void initState() {
-    _stopwatch = Stopwatch()..start();
+    _stopwatch = GrowStopwatch(
+      initialOffset: Duration(minutes: widget.habitatAndAction.elapsed),
+    )..start();
 
-    final habitatIndex = widget.profile.habitats.indexOf(widget.habitat.id);
+    final habitatIndex =
+        widget.profile.habitats.indexOf(widget.habitatAndAction.habitat.id);
     final goal = widget.profile.goals[habitatIndex].value * 60;
 
     var elapsed = 0;
 
     LocalNotificationService().addNotification(
-      'Meditation Done',
-      'You completed your meditation goal',
+      '${_habitType()} Done',
+      'You completed your ${_habitType().toLowerCase()} goal',
       DateTime.now().millisecondsSinceEpoch + (goal * 1000),
-      channel: 'meditation',
+      channel: _habitType().toLowerCase(),
     );
 
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      if (ref.watch(growProvider(widget.habitat)).isPaused) {
+      if (ref.watch(growProvider(widget.habitatAndAction)).isPaused) {
         _stopwatch
           ..stop()
           ..reset();
@@ -54,7 +59,9 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget> {
         elapsed = _stopwatch.elapsed.inSeconds;
       }
 
-      ref.read(growProvider(widget.habitat).notifier).setElapsed(elapsed);
+      ref
+          .read(growProvider(widget.habitatAndAction).notifier)
+          .setElapsed(elapsed);
 
       if (goal <= elapsed) {
         widget.finished();
@@ -73,9 +80,10 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final elapsed = ref.watch(growProvider(widget.habitat)).elapsed;
+    final elapsed = ref.watch(growProvider(widget.habitatAndAction)).elapsed;
     final profile = ref.watch(profileProvider).profile;
-    final habitatIndex = profile.habitats.indexOf(widget.habitat.id);
+    final habitatIndex =
+        profile.habitats.indexOf(widget.habitatAndAction.habitat.id);
     final goal = profile.goals[habitatIndex].value * 60;
     final duration = goal * 1000;
 
@@ -90,7 +98,9 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget> {
     final seconds = minutes == 0 ? goneBy : goneBy - minutes * 60;
     final secondsText = seconds < 10 ? '0$seconds' : '$seconds';
 
-    final isPaused = ref.watch(growProvider(widget.habitat)).isPaused;
+    final isPaused = ref.watch(growProvider(widget.habitatAndAction)).isPaused;
+
+    final habitatAndAction = widget.habitatAndAction;
 
     return Stack(
       children: [
@@ -112,13 +122,51 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget> {
             ? const SizedBox()
             : Positioned.fill(
                 child: Align(
-                  child: Text(
-                    '$minutes:$secondsText',
-                    style: Theme.of(context).textTheme.displayLarge,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '$minutes:$secondsText',
+                        style: Theme.of(context).textTheme.displayLarge,
+                      ),
+                      habitatAndAction.elapsed == 0
+                          ? const SizedBox()
+                          : Text(
+                              'You did ${habitatAndAction.elapsed} '
+                              'min of your goal ealier today',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            )
+                    ],
                   ),
                 ),
               ),
       ],
     );
+  }
+
+  String _habitType() {
+    switch (widget.habitatAndAction.habitat.goal.habit) {
+      case 'Read':
+        return 'Reading';
+      case 'Exercise':
+        return 'Exercising';
+      case 'Meditate':
+        return 'Meditating';
+      default:
+        return 'Growing';
+    }
+  }
+
+  String _habitTypePast() {
+    switch (widget.habitatAndAction.habitat.goal.habit) {
+      case 'Read':
+        return 'Read';
+      case 'Exercise':
+        return 'Exercised';
+      case 'Meditate':
+        return 'Meditated';
+      default:
+        return 'Grew';
+    }
   }
 }
