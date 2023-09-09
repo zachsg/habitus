@@ -22,39 +22,69 @@ class GrowView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(profileProvider).profile;
+    final habitatIndex = profile.habitats.indexOf(habitatAndAction.habitat.id);
+    final goal = profile.goals[habitatIndex];
 
-    Future<bool> saveOrDelete() async {
-      Wakelock.disable();
-      ref.read(growProvider(habitatAndAction).notifier).setPaused(true);
-      _showSessionCompleteDialog(ref, context, habitatAndAction);
-      return true;
-    }
+    final goalMet = habitatAndAction.elapsed >= goal.value;
 
     return WillPopScope(
-      onWillPop: saveOrDelete,
+      onWillPop: () => saveOrDelete(ref, context, goalMet),
       child: Scaffold(
         appBar: AppBar(
           title: Text(_habitType()),
         ),
         body: Column(
           children: [
-            GrowTimerWidget(
-              profile: profile,
-              habitatAndAction: habitatAndAction,
-              finished: () {
-                ref
-                    .read(growProvider(habitatAndAction).notifier)
-                    .setPaused(true);
-                _showSessionCompleteDialog(ref, context, habitatAndAction);
-              },
-            ),
+            goalMet
+                ? GrowStopwatchWidget(
+                    profile: profile,
+                    habitatAndAction: habitatAndAction,
+                    finished: () {
+                      ref
+                          .read(growProvider(habitatAndAction).notifier)
+                          .setPaused(true);
+
+                      _playTone();
+
+                      _showSessionCompleteDialog(
+                        ref,
+                        context,
+                        habitatAndAction,
+                        goalMet,
+                      );
+                    },
+                  )
+                : GrowTimerWidget(
+                    profile: profile,
+                    habitatAndAction: habitatAndAction,
+                    finished: () {
+                      ref
+                          .read(growProvider(habitatAndAction).notifier)
+                          .setPaused(true);
+
+                      _playTone();
+
+                      _showSessionCompleteDialog(
+                        ref,
+                        context,
+                        habitatAndAction,
+                        goalMet,
+                      );
+                    },
+                  ),
             ElevatedButton(
               onPressed: () {
                 Wakelock.disable();
                 ref
                     .read(growProvider(habitatAndAction).notifier)
                     .setPaused(true);
-                _showSessionCompleteDialog(ref, context, habitatAndAction);
+
+                _showSessionCompleteDialog(
+                  ref,
+                  context,
+                  habitatAndAction,
+                  goalMet,
+                );
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -68,6 +98,19 @@ class GrowView extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  Future<bool> saveOrDelete(
+      WidgetRef ref, BuildContext context, bool goalMet) async {
+    Wakelock.disable();
+    ref.read(growProvider(habitatAndAction).notifier).setPaused(true);
+    _showSessionCompleteDialog(
+      ref,
+      context,
+      habitatAndAction,
+      goalMet,
+    );
+    return true;
   }
 
   String _habitType() {
@@ -103,6 +146,7 @@ class GrowView extends ConsumerWidget {
     WidgetRef ref,
     BuildContext context,
     HUHabitatAndActionModel habitatAndAction,
+    bool goalMet,
   ) async {
     final grow = ref.watch(growProvider(habitatAndAction));
 
@@ -110,10 +154,13 @@ class GrowView extends ConsumerWidget {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
+        final elapsed = goalMet
+            ? grow.elapsed / 60
+            : grow.elapsed / 60 - habitatAndAction.elapsed;
         return AlertDialog(
           title: Text(
             'You ${_habitTypePast().toLowerCase()} '
-            'for ${(grow.elapsed / 60 - habitatAndAction.elapsed).round()} '
+            'for ${elapsed.round()} '
             '${habitatAndAction.habitat.goal.unit.name}',
           ),
           content: const SingleChildScrollView(
@@ -167,7 +214,7 @@ class GrowView extends ConsumerWidget {
 
                           await ref
                               .read(growProvider(habitatAndAction).notifier)
-                              .save();
+                              .save(goalMet);
 
                           if (context.mounted) {
                             Navigator.of(context).pop();

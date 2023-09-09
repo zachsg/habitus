@@ -8,7 +8,7 @@ import 'grow_model.dart';
 
 part 'grow.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Grow extends _$Grow {
   @override
   GrowModel build(HUHabitatAndActionModel habitatAndAction) => GrowModel(
@@ -25,8 +25,10 @@ class Grow extends _$Grow {
     state = state.copyWith(isPaused: paused, loading: false);
   }
 
-  Future<bool> save() async {
-    final elapsed = (state.elapsed / 60).round() - habitatAndAction.elapsed;
+  Future<bool> save(bool goalMet) async {
+    final elapsed = goalMet
+        ? (state.elapsed / 60).round()
+        : (state.elapsed / 60).round() - habitatAndAction.elapsed;
 
     if (elapsed < 1) {
       return true;

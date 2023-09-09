@@ -41,6 +41,9 @@ const adminString = '🪄';
 
 // Grow
 const pauseString = 'Done';
+const goalMetString = 'Goal Met!';
+const goalMetSubString =
+    'You\'re on a roll. Keep it going and we\'ll let you know how much you did when you mark it done.';
 
 // Profile
 const profileTitleString = 'Profile';

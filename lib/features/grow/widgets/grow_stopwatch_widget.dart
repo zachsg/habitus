@@ -1,0 +1,93 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lottie/lottie.dart';
+
+import '../../../helpers/strings.dart';
+import '../../../models/xmodels.dart';
+import '../grow.dart';
+
+class GrowStopwatchWidget extends ConsumerStatefulWidget {
+  const GrowStopwatchWidget({
+    super.key,
+    required this.profile,
+    required this.habitatAndAction,
+    required this.finished,
+  });
+
+  final HUProfileModel profile;
+  final HUHabitatAndActionModel habitatAndAction;
+  final VoidCallback finished;
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _GrowStopwatchWidgetState();
+}
+
+class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget> {
+  late Timer _timer;
+  late Stopwatch _stopwatch;
+
+  @override
+  void initState() {
+    _stopwatch = Stopwatch()..start();
+
+    var elapsed = 0;
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (ref.watch(growProvider(widget.habitatAndAction)).isPaused) {
+        _stopwatch
+          ..stop()
+          ..reset();
+      } else {
+        elapsed = _stopwatch.elapsed.inSeconds;
+      }
+
+      ref
+          .read(growProvider(widget.habitatAndAction).notifier)
+          .setElapsed(elapsed);
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _stopwatch.stop();
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            goalMetString,
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall
+                ?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            goalMetSubString,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: 16),
+          LottieBuilder.asset(
+            'assets/gifs/hourglass.json',
+            width: 164,
+            height: 164,
+            fit: BoxFit.contain,
+          ),
+        ],
+      ),
+    );
+  }
+}
