@@ -6,6 +6,7 @@ import 'package:wakelock/wakelock.dart';
 
 import '../../models/xmodels.dart';
 import '../../helpers/strings.dart';
+import '../../services/local_notification_service.dart';
 import '../habitat/habitat_view.dart';
 import '../profile/profile.dart';
 import 'grow.dart';
@@ -160,6 +161,10 @@ class GrowView extends ConsumerWidget {
                         ),
                         onPressed: () async {
                           Wakelock.disable();
+
+                          LocalNotificationService()
+                              .cancelNotificationWithId(0);
+
                           await ref
                               .read(growProvider(habitatAndAction).notifier)
                               .save();
