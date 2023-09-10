@@ -27,12 +27,18 @@ class GrowTimerWidget extends ConsumerStatefulWidget {
       _CountDownWidgetState();
 }
 
-class _CountDownWidgetState extends ConsumerState<GrowTimerWidget> {
+class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
+    with WidgetsBindingObserver {
   late Timer _timer;
   late GrowStopwatch _stopwatch;
 
+  DateTime pausedTime = DateTime.now();
+  DateTime resumedTime = DateTime.now();
+
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
+
     _stopwatch = GrowStopwatch(
       initialOffset: Duration(minutes: widget.habitatAndAction.elapsed),
     )..start();
@@ -72,6 +78,27 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget> {
     });
 
     super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    switch (state) {
+      case AppLifecycleState.paused:
+        setState(() {
+          pausedTime = DateTime.now();
+          _stopwatch.stop();
+        });
+        break;
+      case AppLifecycleState.resumed:
+        setState(() {
+          resumedTime = DateTime.now();
+          final difference = resumedTime.difference(pausedTime);
+          _stopwatch.reset(newInitialOffset: difference);
+          _stopwatch.start();
+        });
+        break;
+      default:
+    }
   }
 
   @override
