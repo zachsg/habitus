@@ -91,7 +91,8 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
         break;
       case AppLifecycleState.resumed:
         setState(() {
-          resumedTime = DateTime.now();
+          resumedTime = DateTime.now()
+              .add(Duration(minutes: widget.habitatAndAction.elapsed));
           final difference = resumedTime.difference(pausedTime);
           _stopwatch.reset(newInitialOffset: difference);
           _stopwatch.start();
@@ -116,7 +117,7 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
         profile.habitats.indexOf(widget.habitatAndAction.habitat.id);
     final goal = profile.goals[habitatIndex].value * 60;
 
-    final duration = goal * 1000;
+    final duration = goal * 1000 - widget.habitatAndAction.elapsed * 60 * 1000;
 
     final goneBy = goal - elapsed;
 

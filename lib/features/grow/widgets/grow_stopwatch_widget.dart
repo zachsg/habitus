@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import '../../../helpers/strings.dart';
 import '../../../models/xmodels.dart';
 import '../grow.dart';
+import '../grow_stopwatch.dart';
 
 class GrowStopwatchWidget extends ConsumerStatefulWidget {
   const GrowStopwatchWidget({
@@ -25,13 +26,19 @@ class GrowStopwatchWidget extends ConsumerStatefulWidget {
       _GrowStopwatchWidgetState();
 }
 
-class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget> {
+class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
+    with WidgetsBindingObserver {
   late Timer _timer;
-  late Stopwatch _stopwatch;
+  late GrowStopwatch _stopwatch;
+
+  DateTime pausedTime = DateTime.now();
+  DateTime resumedTime = DateTime.now();
 
   @override
   void initState() {
-    _stopwatch = Stopwatch()..start();
+    WidgetsBinding.instance.addObserver(this);
+
+    _stopwatch = GrowStopwatch()..start();
 
     var elapsed = 0;
 
@@ -50,6 +57,27 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget> {
     });
 
     super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    switch (state) {
+      case AppLifecycleState.paused:
+        setState(() {
+          pausedTime = DateTime.now();
+          _stopwatch.stop();
+        });
+        break;
+      case AppLifecycleState.resumed:
+        setState(() {
+          resumedTime = DateTime.now();
+          final difference = resumedTime.difference(pausedTime);
+          _stopwatch.reset(newInitialOffset: difference);
+          _stopwatch.start();
+        });
+        break;
+      default:
+    }
   }
 
   @override
