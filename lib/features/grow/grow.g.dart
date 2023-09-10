@@ -6,7 +6,7 @@ part of 'grow.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$growHash() => r'8e50efe9f7ab5ce358acc17721aaa8d7f046a2b6';
+String _$growHash() => r'07a6c14bf049ee8c4c1ce3e5d7a9036a66776d70';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-abstract class _$Grow extends BuildlessNotifier<GrowModel> {
+abstract class _$Grow extends BuildlessAutoDisposeNotifier<GrowModel> {
   late final HUHabitatAndActionModel habitatAndAction;
 
   GrowModel build(
@@ -80,7 +80,7 @@ class GrowFamily extends Family<GrowModel> {
 }
 
 /// See also [Grow].
-class GrowProvider extends NotifierProviderImpl<Grow, GrowModel> {
+class GrowProvider extends AutoDisposeNotifierProviderImpl<Grow, GrowModel> {
   /// See also [Grow].
   GrowProvider(
     HUHabitatAndActionModel habitatAndAction,
@@ -133,7 +133,7 @@ class GrowProvider extends NotifierProviderImpl<Grow, GrowModel> {
   }
 
   @override
-  NotifierProviderElement<Grow, GrowModel> createElement() {
+  AutoDisposeNotifierProviderElement<Grow, GrowModel> createElement() {
     return _GrowProviderElement(this);
   }
 
@@ -151,13 +151,13 @@ class GrowProvider extends NotifierProviderImpl<Grow, GrowModel> {
   }
 }
 
-mixin GrowRef on NotifierProviderRef<GrowModel> {
+mixin GrowRef on AutoDisposeNotifierProviderRef<GrowModel> {
   /// The parameter `habitatAndAction` of this provider.
   HUHabitatAndActionModel get habitatAndAction;
 }
 
-class _GrowProviderElement extends NotifierProviderElement<Grow, GrowModel>
-    with GrowRef {
+class _GrowProviderElement
+    extends AutoDisposeNotifierProviderElement<Grow, GrowModel> with GrowRef {
   _GrowProviderElement(super.provider);
 
   @override
