@@ -90,11 +90,12 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
         });
         break;
       case AppLifecycleState.resumed:
+        final elapsed = _stopwatch.elapsed;
+
         setState(() {
-          resumedTime = DateTime.now()
-              .add(Duration(minutes: widget.habitatAndAction.elapsed));
+          resumedTime = DateTime.now();
           final difference = resumedTime.difference(pausedTime);
-          _stopwatch.reset(newInitialOffset: difference);
+          _stopwatch.reset(newInitialOffset: difference + elapsed);
           _stopwatch.start();
         });
         break;

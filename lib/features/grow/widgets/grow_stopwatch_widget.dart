@@ -69,10 +69,12 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
         });
         break;
       case AppLifecycleState.resumed:
+        final elapsed = _stopwatch.elapsed;
+
         setState(() {
           resumedTime = DateTime.now();
           final difference = resumedTime.difference(pausedTime);
-          _stopwatch.reset(newInitialOffset: difference);
+          _stopwatch.reset(newInitialOffset: difference + elapsed);
           _stopwatch.start();
         });
         break;
