@@ -1,13 +1,11 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../../models/xmodels.dart';
 import '../../helpers/strings.dart';
 import '../../services/local_notification_service.dart';
-import '../habitat/habitat_view.dart';
 import '../profile/profile.dart';
 import 'grow.dart';
 import 'widgets/xwidgets.dart';
@@ -185,14 +183,12 @@ class GrowView extends ConsumerWidget {
                         ),
                         onPressed: () {
                           Wakelock.disable();
+
+                          LocalNotificationService()
+                              .cancelNotificationWithId(0);
+
                           Navigator.of(context).pop();
-                          context.goNamed(
-                            HabitatView.routeName,
-                            pathParameters: {
-                              'id': habitatAndAction.habitat.id.toString(),
-                            },
-                            extra: habitatAndAction.habitat,
-                          );
+                          Navigator.of(context).pop();
                         },
                       ),
                       TextButton(
@@ -218,15 +214,7 @@ class GrowView extends ConsumerWidget {
 
                           if (context.mounted) {
                             Navigator.of(context).pop();
-
                             Navigator.of(context).pop();
-                            // context.goNamed(
-                            //   HabitatView.routeName,
-                            //   pathParameters: {
-                            //     'id': habitatAndAction.habitat.id.toString()
-                            //   },
-                            //   extra: habitatAndAction.habitat,
-                            // );
                           }
                         },
                       ),
