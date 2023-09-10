@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../habitat/habitat_view.dart';
 import '../habitats.dart';
-import 'xwidgets.dart';
 
 class HabitatsMyHabitatsWidget extends ConsumerWidget {
   const HabitatsMyHabitatsWidget({super.key});
@@ -51,7 +50,6 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                             ),
                           ],
                         ),
-                        HabitatsTakeActionButtonWidget(habitat: habitat),
                       ],
                     ),
                   ],

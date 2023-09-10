@@ -77,8 +77,6 @@ class JoinHabitat extends _$JoinHabitat {
   Future<void> joinHabitat(BuildContext context, HUHabitatModel habitat) async {
     state = state.copyWith(loading: true);
 
-    await Database.joinHabitat(habitat);
-
     final h = state.habitat.copyWith(id: habitat.id);
     state = state.copyWith(habitat: h);
 
@@ -88,6 +86,16 @@ class JoinHabitat extends _$JoinHabitat {
     final updatedProfile = profile.copyWith(habitats: habitats, goals: goals);
 
     await Database.updateProfileHabitatsAndGoals(updatedProfile);
+
+    final goal = habitat.goal
+        .copyWith(value: habitat.goal.value + state.habitat.goal.value);
+
+    final habitatUpdated = habitat.copyWith(
+      goal: goal,
+      members: [...habitat.members, profile.id],
+    );
+
+    await Database.updateHabitat(habitatUpdated);
 
     await ref.read(habitatsProvider.notifier).loadHabitats();
 

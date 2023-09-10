@@ -232,8 +232,26 @@ class Database {
     }
   }
 
+  static Future<bool> updateHabitat(HUHabitatModel habitat) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    try {
+      await supabase
+          .from(habitatsTable)
+          .update(habitat.toJson())
+          .eq('id', habitat.id);
+      return true;
+    } on Exception catch (e) {
+      throw GenericErrorException(e.toString());
+    }
+  }
+
   static Future<bool> updateProfileHabitatsAndGoals(
-      HUProfileModel profile) async {
+    HUProfileModel profile,
+  ) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();
