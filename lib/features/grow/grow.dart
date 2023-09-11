@@ -8,7 +8,7 @@ import 'grow_model.dart';
 
 part 'grow.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Grow extends _$Grow {
   @override
   GrowModel build(HUHabitatAndActionModel habitatAndAction) => GrowModel(

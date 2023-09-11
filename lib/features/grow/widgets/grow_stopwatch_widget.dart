@@ -14,12 +14,10 @@ class GrowStopwatchWidget extends ConsumerStatefulWidget {
     super.key,
     required this.profile,
     required this.habitatAndAction,
-    required this.finished,
   });
 
   final HUProfileModel profile;
   final HUHabitatAndActionModel habitatAndAction;
-  final VoidCallback finished;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>

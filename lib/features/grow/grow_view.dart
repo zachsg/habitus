@@ -37,20 +37,6 @@ class GrowView extends ConsumerWidget {
                 ? GrowStopwatchWidget(
                     profile: profile,
                     habitatAndAction: habitatAndAction,
-                    finished: () {
-                      ref
-                          .read(growProvider(habitatAndAction).notifier)
-                          .setPaused(true);
-
-                      _playTone();
-
-                      _showSessionCompleteDialog(
-                        ref,
-                        context,
-                        habitatAndAction,
-                        goalMet,
-                      );
-                    },
                   )
                 : GrowTimerWidget(
                     profile: profile,
@@ -155,6 +141,7 @@ class GrowView extends ConsumerWidget {
         final elapsed = goalMet
             ? grow.elapsed / 60
             : grow.elapsed / 60 - habitatAndAction.elapsed;
+
         return AlertDialog(
           title: Text(
             'You ${_habitTypePast().toLowerCase()} '
