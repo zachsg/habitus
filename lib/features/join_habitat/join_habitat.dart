@@ -82,7 +82,8 @@ class JoinHabitat extends _$JoinHabitat {
   Future<void> joinHabitat(BuildContext context, HUHabitatModel habitat) async {
     state = state.copyWith(loading: true);
 
-    final h = state.habitat.copyWith(id: habitat.id);
+    final g = state.habitat.goal.copyWith(habitatId: habitat.id);
+    final h = state.habitat.copyWith(id: habitat.id, goal: g);
     state = state.copyWith(habitat: h);
 
     final profile = ref.read(profileProvider).profile;
