@@ -17,7 +17,7 @@ class HUProfileModel with _$HUProfileModel {
     @Default([]) List<int> badges,
     @Default([]) List<int> habitats,
     @Default([]) List<HUGoalModel> goals,
-    @Default([]) List<String> friends,
+    @Default([]) List<String> habinauts,
     @Default(false) @JsonKey(name: 'is_pro') bool isPro,
   }) = _HUProfileModel;
 

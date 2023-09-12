@@ -18,10 +18,10 @@ class ProfileStatsRowWidget extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ProfileStatWidget(
-          title: friendsLabelString,
-          value: profile.friends.length.toString(),
-          // TODO: Show bottom sheet with list of user's friends
-          onPressed: () => context.showSnackBar(message: friendsLabelString),
+          title: habinautsLabelString,
+          value: profile.habinauts.length.toString(),
+          // TODO: Show bottom sheet with list of user's habinauts
+          onPressed: () => context.showSnackBar(message: habinautsLabelString),
         ),
         ProfileStatWidget(
           title: habitatsLabelString,

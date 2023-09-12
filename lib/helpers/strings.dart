@@ -47,7 +47,7 @@ const goalMetSubString =
 
 // Profile
 const profileTitleString = 'Profile';
-const friendsLabelString = 'Friends';
+const habinautsLabelString = 'Habinauts';
 const habitatsLabelString = 'Habitats';
 const streakLabelString = 'Days Old';
 const bioLabelString = 'Bio';
