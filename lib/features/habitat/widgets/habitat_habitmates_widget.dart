@@ -126,8 +126,8 @@ class HabitatPersonalCompletionChartWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     const max = 32.0;
 
-    final goalIndex = profile.habitats.indexOf(habitat.id);
-    final goal = profile.goals[goalIndex];
+    final goal =
+        profile.goals.firstWhere((goal) => goal.habitatId == habitat.id);
 
     final multiplier = goal.value / max;
 

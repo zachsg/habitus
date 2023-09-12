@@ -44,13 +44,14 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
       initialOffset: Duration(minutes: widget.habitatAndAction.elapsed),
     )..start();
 
-    final habitatIndex =
-        widget.profile.habitats.indexOf(widget.habitatAndAction.habitat.id);
-    final goal = widget.profile.goals[habitatIndex].value * 60;
+    final goal = widget.profile.goals.firstWhere(
+        (goal) => goal.habitatId == widget.habitatAndAction.habitat.id);
+    final goalValue = goal.value * 60;
 
     var elapsed = 0;
 
-    final notificationSeconds = goal - (widget.habitatAndAction.elapsed * 60);
+    final notificationSeconds =
+        goalValue - (widget.habitatAndAction.elapsed * 60);
     if (notificationSeconds > 0) {
       LocalNotificationService().addNotification(
         '${_habitType()} Done',
@@ -73,7 +74,7 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
           .read(growProvider(widget.habitatAndAction).notifier)
           .setElapsed(elapsed);
 
-      if (goal <= elapsed) {
+      if (goalValue <= elapsed) {
         widget.finished();
       }
     });
@@ -118,15 +119,16 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
   Widget build(BuildContext context) {
     final elapsed = ref.watch(growProvider(widget.habitatAndAction)).elapsed;
     final profile = ref.watch(profileProvider).profile;
-    final habitatIndex =
-        profile.habitats.indexOf(widget.habitatAndAction.habitat.id);
-    final goal = profile.goals[habitatIndex].value * 60;
+    final goal = profile.goals.firstWhere(
+        (goal) => goal.habitatId == widget.habitatAndAction.habitat.id);
+    final goalValue = goal.value * 60;
 
-    final duration = goal * 1000 - widget.habitatAndAction.elapsed * 60 * 1000;
+    final duration =
+        goalValue * 1000 - widget.habitatAndAction.elapsed * 60 * 1000;
 
-    final goneBy = goal - elapsed;
+    final goneBy = goalValue - elapsed;
 
-    if (goal <= elapsed) {
+    if (goalValue <= elapsed) {
       _stopwatch.stop();
       _timer.cancel();
     }

@@ -20,8 +20,8 @@ class GrowView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(profileProvider).profile;
-    final habitatIndex = profile.habitats.indexOf(habitatAndAction.habitat.id);
-    final goal = profile.goals[habitatIndex];
+    final goal = profile.goals
+        .firstWhere((goal) => goal.habitatId == habitatAndAction.habitat.id);
 
     final goalMet = habitatAndAction.elapsed >= goal.value;
 

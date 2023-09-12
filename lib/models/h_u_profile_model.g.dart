@@ -18,9 +18,6 @@ _$_HUProfileModel _$$_HUProfileModelFromJson(Map<String, dynamic> json) =>
       badges:
           (json['badges'] as List<dynamic>?)?.map((e) => e as int).toList() ??
               const [],
-      habitats:
-          (json['habitats'] as List<dynamic>?)?.map((e) => e as int).toList() ??
-              const [],
       goals: (json['goals'] as List<dynamic>?)
               ?.map((e) => HUGoalModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -42,7 +39,6 @@ Map<String, dynamic> _$$_HUProfileModelToJson(_$_HUProfileModel instance) =>
       'bio': instance.bio,
       'avatar': instance.avatar,
       'badges': instance.badges,
-      'habitats': instance.habitats,
       'goals': instance.goals,
       'habinauts': instance.habinauts,
       'is_pro': instance.isPro,

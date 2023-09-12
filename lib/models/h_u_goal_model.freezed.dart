@@ -20,6 +20,8 @@ HUGoalModel _$HUGoalModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$HUGoalModel {
+  @JsonKey(name: 'habitat_id')
+  int get habitatId => throw _privateConstructorUsedError;
   String get habit => throw _privateConstructorUsedError;
   Unit get unit => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
@@ -36,7 +38,11 @@ abstract class $HUGoalModelCopyWith<$Res> {
           HUGoalModel value, $Res Function(HUGoalModel) then) =
       _$HUGoalModelCopyWithImpl<$Res, HUGoalModel>;
   @useResult
-  $Res call({String habit, Unit unit, int value});
+  $Res call(
+      {@JsonKey(name: 'habitat_id') int habitatId,
+      String habit,
+      Unit unit,
+      int value});
 }
 
 /// @nodoc
@@ -52,11 +58,16 @@ class _$HUGoalModelCopyWithImpl<$Res, $Val extends HUGoalModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? habitatId = null,
     Object? habit = null,
     Object? unit = null,
     Object? value = null,
   }) {
     return _then(_value.copyWith(
+      habitatId: null == habitatId
+          ? _value.habitatId
+          : habitatId // ignore: cast_nullable_to_non_nullable
+              as int,
       habit: null == habit
           ? _value.habit
           : habit // ignore: cast_nullable_to_non_nullable
@@ -81,7 +92,11 @@ abstract class _$$_HUGoalModelCopyWith<$Res>
       __$$_HUGoalModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String habit, Unit unit, int value});
+  $Res call(
+      {@JsonKey(name: 'habitat_id') int habitatId,
+      String habit,
+      Unit unit,
+      int value});
 }
 
 /// @nodoc
@@ -95,11 +110,16 @@ class __$$_HUGoalModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? habitatId = null,
     Object? habit = null,
     Object? unit = null,
     Object? value = null,
   }) {
     return _then(_$_HUGoalModel(
+      habitatId: null == habitatId
+          ? _value.habitatId
+          : habitatId // ignore: cast_nullable_to_non_nullable
+              as int,
       habit: null == habit
           ? _value.habit
           : habit // ignore: cast_nullable_to_non_nullable
@@ -120,11 +140,17 @@ class __$$_HUGoalModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_HUGoalModel implements _HUGoalModel {
   _$_HUGoalModel(
-      {required this.habit, required this.unit, required this.value});
+      {@JsonKey(name: 'habitat_id') required this.habitatId,
+      required this.habit,
+      required this.unit,
+      required this.value});
 
   factory _$_HUGoalModel.fromJson(Map<String, dynamic> json) =>
       _$$_HUGoalModelFromJson(json);
 
+  @override
+  @JsonKey(name: 'habitat_id')
+  final int habitatId;
   @override
   final String habit;
   @override
@@ -134,7 +160,7 @@ class _$_HUGoalModel implements _HUGoalModel {
 
   @override
   String toString() {
-    return 'HUGoalModel(habit: $habit, unit: $unit, value: $value)';
+    return 'HUGoalModel(habitatId: $habitatId, habit: $habit, unit: $unit, value: $value)';
   }
 
   @override
@@ -142,6 +168,8 @@ class _$_HUGoalModel implements _HUGoalModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_HUGoalModel &&
+            (identical(other.habitatId, habitatId) ||
+                other.habitatId == habitatId) &&
             (identical(other.habit, habit) || other.habit == habit) &&
             (identical(other.unit, unit) || other.unit == unit) &&
             (identical(other.value, value) || other.value == value));
@@ -149,7 +177,7 @@ class _$_HUGoalModel implements _HUGoalModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, habit, unit, value);
+  int get hashCode => Object.hash(runtimeType, habitatId, habit, unit, value);
 
   @JsonKey(ignore: true)
   @override
@@ -167,13 +195,17 @@ class _$_HUGoalModel implements _HUGoalModel {
 
 abstract class _HUGoalModel implements HUGoalModel {
   factory _HUGoalModel(
-      {required final String habit,
+      {@JsonKey(name: 'habitat_id') required final int habitatId,
+      required final String habit,
       required final Unit unit,
       required final int value}) = _$_HUGoalModel;
 
   factory _HUGoalModel.fromJson(Map<String, dynamic> json) =
       _$_HUGoalModel.fromJson;
 
+  @override
+  @JsonKey(name: 'habitat_id')
+  int get habitatId;
   @override
   String get habit;
   @override

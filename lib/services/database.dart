@@ -197,11 +197,16 @@ class Database {
           await supabase.from(profilesTable).select().eq('id', id).single();
       final profile = HUProfileModel.fromJson(profileJson);
 
+      List<int> ids = [];
+      for (final goal in profile.goals) {
+        ids.add(goal.habitatId);
+      }
+
       final listOfHabitatsJsons = await supabase
           .from(habitatsTable)
           .select()
           .like('name', '%$name%')
-          .not('id', 'in', profile.habitats);
+          .not('id', 'in', ids);
 
       final List<HUHabitatModel> habitats = [];
       for (final habitatsJson in listOfHabitatsJsons) {
@@ -260,7 +265,6 @@ class Database {
     final id = user.id;
     try {
       await supabase.from(profilesTable).update({
-        'habitats': profile.habitats,
         'goals': profile.goals,
       }).eq('id', id);
       return true;

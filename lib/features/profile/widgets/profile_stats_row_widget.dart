@@ -25,7 +25,7 @@ class ProfileStatsRowWidget extends ConsumerWidget {
         ),
         ProfileStatWidget(
           title: habitatsLabelString,
-          value: profile.habitats.length.toString(),
+          value: profile.goals.length.toString(),
           // TODO: Show bottom sheet with list of user's habitats
           onPressed: () => context.showSnackBar(message: habitatsLabelString),
         ),

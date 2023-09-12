@@ -20,7 +20,12 @@ class JoinHabitat extends _$JoinHabitat {
         id: -1,
         updatedAt: DateTime.now(),
         creatorId: supabase.auth.currentUser?.id ?? '',
-        goal: HUGoalModel(habit: readString, unit: Unit.minutes, value: 30),
+        goal: HUGoalModel(
+          habitatId: 1,
+          habit: readString,
+          unit: Unit.minutes,
+          value: 30,
+        ),
       ),
       habitats: [],
       loading: false);
@@ -81,9 +86,8 @@ class JoinHabitat extends _$JoinHabitat {
     state = state.copyWith(habitat: h);
 
     final profile = ref.read(profileProvider).profile;
-    final habitats = [...profile.habitats, state.habitat.id];
     final goals = [...profile.goals, state.habitat.goal];
-    final updatedProfile = profile.copyWith(habitats: habitats, goals: goals);
+    final updatedProfile = profile.copyWith(goals: goals);
 
     await Database.updateProfileHabitatsAndGoals(updatedProfile);
 
