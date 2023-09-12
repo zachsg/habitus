@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wakelock/wakelock.dart';
 
 import '../../../models/xmodels.dart';
 import '../../../services/local_notification_service.dart';
@@ -84,12 +85,15 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     switch (state) {
       case AppLifecycleState.paused:
+        Wakelock.disable();
         setState(() {
           pausedTime = DateTime.now();
           _stopwatch.stop();
         });
         break;
       case AppLifecycleState.resumed:
+        Wakelock.enable();
+
         final elapsed = _stopwatch.elapsed;
 
         setState(() {

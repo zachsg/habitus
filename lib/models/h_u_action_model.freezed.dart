@@ -27,6 +27,8 @@ mixin _$HUActionModel {
   String get ownerId => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
+  List<String> get yeses => throw _privateConstructorUsedError;
+  List<String> get noes => throw _privateConstructorUsedError;
   HUGoalModel get goal => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,6 +48,8 @@ abstract class $HUActionModelCopyWith<$Res> {
       @JsonKey(name: 'habitat_id') int habitatId,
       @JsonKey(name: 'owner_id') String ownerId,
       @JsonKey(name: 'created_at') DateTime createdAt,
+      List<String> yeses,
+      List<String> noes,
       HUGoalModel goal});
 
   $HUGoalModelCopyWith<$Res> get goal;
@@ -68,6 +72,8 @@ class _$HUActionModelCopyWithImpl<$Res, $Val extends HUActionModel>
     Object? habitatId = null,
     Object? ownerId = null,
     Object? createdAt = null,
+    Object? yeses = null,
+    Object? noes = null,
     Object? goal = null,
   }) {
     return _then(_value.copyWith(
@@ -87,6 +93,14 @@ class _$HUActionModelCopyWithImpl<$Res, $Val extends HUActionModel>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      yeses: null == yeses
+          ? _value.yeses
+          : yeses // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      noes: null == noes
+          ? _value.noes
+          : noes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       goal: null == goal
           ? _value.goal
           : goal // ignore: cast_nullable_to_non_nullable
@@ -116,6 +130,8 @@ abstract class _$$_HUActionModelCopyWith<$Res>
       @JsonKey(name: 'habitat_id') int habitatId,
       @JsonKey(name: 'owner_id') String ownerId,
       @JsonKey(name: 'created_at') DateTime createdAt,
+      List<String> yeses,
+      List<String> noes,
       HUGoalModel goal});
 
   @override
@@ -137,6 +153,8 @@ class __$$_HUActionModelCopyWithImpl<$Res>
     Object? habitatId = null,
     Object? ownerId = null,
     Object? createdAt = null,
+    Object? yeses = null,
+    Object? noes = null,
     Object? goal = null,
   }) {
     return _then(_$_HUActionModel(
@@ -156,6 +174,14 @@ class __$$_HUActionModelCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      yeses: null == yeses
+          ? _value._yeses
+          : yeses // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      noes: null == noes
+          ? _value._noes
+          : noes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       goal: null == goal
           ? _value.goal
           : goal // ignore: cast_nullable_to_non_nullable
@@ -172,7 +198,11 @@ class _$_HUActionModel implements _HUActionModel {
       @JsonKey(name: 'habitat_id') required this.habitatId,
       @JsonKey(name: 'owner_id') required this.ownerId,
       @JsonKey(name: 'created_at') required this.createdAt,
-      required this.goal});
+      final List<String> yeses = const [],
+      final List<String> noes = const [],
+      required this.goal})
+      : _yeses = yeses,
+        _noes = noes;
 
   factory _$_HUActionModel.fromJson(Map<String, dynamic> json) =>
       _$$_HUActionModelFromJson(json);
@@ -188,12 +218,30 @@ class _$_HUActionModel implements _HUActionModel {
   @override
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
+  final List<String> _yeses;
+  @override
+  @JsonKey()
+  List<String> get yeses {
+    if (_yeses is EqualUnmodifiableListView) return _yeses;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_yeses);
+  }
+
+  final List<String> _noes;
+  @override
+  @JsonKey()
+  List<String> get noes {
+    if (_noes is EqualUnmodifiableListView) return _noes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_noes);
+  }
+
   @override
   final HUGoalModel goal;
 
   @override
   String toString() {
-    return 'HUActionModel(id: $id, habitatId: $habitatId, ownerId: $ownerId, createdAt: $createdAt, goal: $goal)';
+    return 'HUActionModel(id: $id, habitatId: $habitatId, ownerId: $ownerId, createdAt: $createdAt, yeses: $yeses, noes: $noes, goal: $goal)';
   }
 
   @override
@@ -207,13 +255,22 @@ class _$_HUActionModel implements _HUActionModel {
             (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            const DeepCollectionEquality().equals(other._yeses, _yeses) &&
+            const DeepCollectionEquality().equals(other._noes, _noes) &&
             (identical(other.goal, goal) || other.goal == goal));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, habitatId, ownerId, createdAt, goal);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      habitatId,
+      ownerId,
+      createdAt,
+      const DeepCollectionEquality().hash(_yeses),
+      const DeepCollectionEquality().hash(_noes),
+      goal);
 
   @JsonKey(ignore: true)
   @override
@@ -235,6 +292,8 @@ abstract class _HUActionModel implements HUActionModel {
       @JsonKey(name: 'habitat_id') required final int habitatId,
       @JsonKey(name: 'owner_id') required final String ownerId,
       @JsonKey(name: 'created_at') required final DateTime createdAt,
+      final List<String> yeses,
+      final List<String> noes,
       required final HUGoalModel goal}) = _$_HUActionModel;
 
   factory _HUActionModel.fromJson(Map<String, dynamic> json) =
@@ -251,6 +310,10 @@ abstract class _HUActionModel implements HUActionModel {
   @override
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
+  @override
+  List<String> get yeses;
+  @override
+  List<String> get noes;
   @override
   HUGoalModel get goal;
   @override

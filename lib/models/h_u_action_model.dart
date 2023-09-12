@@ -12,6 +12,8 @@ class HUActionModel with _$HUActionModel {
     @JsonKey(name: 'habitat_id') required int habitatId,
     @JsonKey(name: 'owner_id') required String ownerId,
     @JsonKey(name: 'created_at') required DateTime createdAt,
+    @Default([]) List<String> yeses,
+    @Default([]) List<String> noes,
     required HUGoalModel goal,
   }) = _HUActionModel;
 
