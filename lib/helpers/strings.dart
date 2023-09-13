@@ -36,8 +36,6 @@ const habitmatesString = 'Habitmates';
 const habitatActivityString = 'Habitat Activity';
 const takeActionString = 'Grow';
 const habitatGoalString = 'Daily Habitat Goal Progress';
-const creatorString = '👑';
-const adminString = '🪄';
 
 // Grow
 const pauseString = 'Done';

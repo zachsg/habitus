@@ -72,17 +72,20 @@ class HabitatHabitmatesWidget extends ConsumerWidget {
                   habitat.creatorId == profile.id
                       ? Padding(
                           padding: const EdgeInsets.only(left: 2.0),
-                          child: Text(
-                            creatorString,
-                            style: Theme.of(context).textTheme.bodyMedium,
+                          child: Icon(
+                            Icons.star,
+                            size: 18,
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
                         )
                       : habitat.admins.contains(profile.id)
                           ? Padding(
                               padding: const EdgeInsets.only(left: 2.0),
-                              child: Text(
-                                adminString,
-                                style: Theme.of(context).textTheme.bodyMedium,
+                              child: Icon(
+                                Icons.star_half,
+                                size: 18,
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
                               ),
                             )
                           : const SizedBox(),
