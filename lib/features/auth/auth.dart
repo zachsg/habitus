@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -60,10 +62,16 @@ class Auth extends _$Auth {
       return;
     } else {
       final email = supabase.auth.currentUser?.email ?? '';
+      final name = email.split('@').first;
+      final random = Random();
+      final randomDigits = '${random.nextInt(10)}${random.nextInt(10)}';
+      final handle = '${email.split('@').first}$randomDigits';
       final profile = HUProfileModel(
         id: id,
         updatedAt: DateTime.now(),
         email: email,
+        name: name,
+        handle: handle,
       );
       await Database.createProfile(profile);
     }
