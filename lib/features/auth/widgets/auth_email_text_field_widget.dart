@@ -32,9 +32,10 @@ class _AuthEmailTextFieldWidgetState
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-      child: TextField(
+      child: TextFormField(
         controller: _controller,
         keyboardType: TextInputType.emailAddress,
+        autocorrect: false,
         decoration: const InputDecoration(
           labelText: emailString,
           hintText: typeEmailString,
@@ -43,7 +44,8 @@ class _AuthEmailTextFieldWidgetState
           ),
         ),
         onChanged: (email) => ref.read(authProvider.notifier).setEmail(email),
-        onSubmitted: (email) => ref.read(authProvider.notifier).setEmail(email),
+        onFieldSubmitted: (email) =>
+            ref.read(authProvider.notifier).setEmail(email),
       ),
     );
   }
