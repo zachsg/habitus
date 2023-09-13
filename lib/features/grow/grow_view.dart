@@ -70,12 +70,12 @@ class GrowView extends ConsumerWidget {
                   goalMet,
                 );
               },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
+              child: const Padding(
+                padding: EdgeInsets.symmetric(
                   horizontal: 16.0,
                   vertical: 20.0,
                 ),
-                child: Text('$pauseString ${_habitType()}'),
+                child: Text(pauseString),
               ),
             ),
           ],

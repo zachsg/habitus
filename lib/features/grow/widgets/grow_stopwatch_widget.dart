@@ -89,6 +89,11 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
 
   @override
   Widget build(BuildContext context) {
+    final grow = ref.watch(growProvider(widget.habitatAndAction));
+    final minutes = grow.elapsed / 60 > 0 ? grow.elapsed ~/ 60 : 0;
+    final seconds = minutes == 0 ? grow.elapsed : grow.elapsed - minutes * 60;
+    final secondsText = seconds < 10 ? '0$seconds' : '$seconds';
+
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -96,6 +101,7 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
         children: [
           Text(
             goalMetString,
+            textAlign: TextAlign.center,
             style: Theme.of(context)
                 .textTheme
                 .displaySmall
@@ -113,6 +119,23 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
             width: 164,
             height: 164,
             fit: BoxFit.contain,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Elapsed:',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                '$minutes:$secondsText',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ],
       ),

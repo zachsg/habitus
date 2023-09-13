@@ -38,10 +38,9 @@ const takeActionString = 'Grow';
 const habitatGoalString = 'Daily Habitat Goal Progress';
 
 // Grow
-const pauseString = 'Done';
-const goalMetString = 'Goal Met!';
-const goalMetSubString =
-    'You\'re on a roll. Keep it going and we\'ll let you know how much you did when you mark it done.';
+const pauseString = 'I\'ve Rolled Enough';
+const goalMetString = 'Daily Habit Achieved!';
+const goalMetSubString = 'You\'re on a roll. Keep it going.';
 
 // Profile
 const profileTitleString = 'Profile';
