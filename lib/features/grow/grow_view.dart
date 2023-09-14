@@ -118,12 +118,12 @@ class _GrowViewState extends ConsumerState<GrowView>
                       goalMet,
                     );
                   },
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 16.0,
                       vertical: 20.0,
                     ),
-                    child: Text(pauseString),
+                    child: Text(goalMet ? pauseString : 'Done ${_habitType()}'),
                   ),
                 ),
               ],
