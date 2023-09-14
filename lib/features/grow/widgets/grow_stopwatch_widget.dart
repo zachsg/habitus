@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../helpers/providers.dart';
 import '../../../helpers/strings.dart';
 import '../../../models/xmodels.dart';
 import '../grow.dart';
@@ -89,6 +90,8 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
 
   @override
   Widget build(BuildContext context) {
+    final theme = ref.watch(themeServiceProvider);
+
     final grow = ref.watch(growProvider(widget.habitatAndAction));
     final minutes = grow.elapsed / 60 > 0 ? grow.elapsed ~/ 60 : 0;
     final seconds = minutes == 0 ? grow.elapsed : grow.elapsed - minutes * 60;
@@ -102,16 +105,25 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
           Text(
             goalMetString,
             textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .displaySmall
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: theme.minimalTimer()
+                ? Theme.of(context).textTheme.displaySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.background,
+                    fontWeight: FontWeight.bold)
+                : Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
           Text(
             goalMetSubString,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: theme.minimalTimer()
+                ? Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(color: Theme.of(context).colorScheme.background)
+                : Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 16),
           LottieBuilder.asset(
@@ -125,15 +137,22 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
             children: [
               Text(
                 'Elapsed:',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: theme.minimalTimer()
+                    ? Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.background)
+                    : Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(width: 4),
               Text(
                 '$minutes:$secondsText',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(fontWeight: FontWeight.bold),
+                style: theme.minimalTimer()
+                    ? Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.background,
+                        fontWeight: FontWeight.bold)
+                    : Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontWeight: FontWeight.bold),
               ),
             ],
           ),
