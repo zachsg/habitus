@@ -61,7 +61,7 @@ class _GrowViewState extends ConsumerState<GrowView>
             backgroundColor: theme.minimalTimer() ? AppColors.minimal : null,
             appBar: AppBar(
               foregroundColor: theme.minimalTimer()
-                  ? Theme.of(context).colorScheme.background
+                  ? Colors.white.withOpacity(0.8)
                   : Theme.of(context).colorScheme.onBackground,
               backgroundColor: theme.minimalTimer() ? AppColors.minimal : null,
               title: Text(
