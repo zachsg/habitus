@@ -107,7 +107,7 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
             textAlign: TextAlign.center,
             style: theme.minimalTimer()
                 ? Theme.of(context).textTheme.displaySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.background,
+                    color: Colors.white.withOpacity(0.7),
                     fontWeight: FontWeight.bold)
                 : Theme.of(context)
                     .textTheme
@@ -122,7 +122,7 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
                 ? Theme.of(context)
                     .textTheme
                     .titleMedium
-                    ?.copyWith(color: Theme.of(context).colorScheme.background)
+                    ?.copyWith(color: Colors.white.withOpacity(0.7))
                 : Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 16),
@@ -139,7 +139,8 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
                 'Elapsed:',
                 style: theme.minimalTimer()
                     ? Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.background)
+                          color: Colors.white.withOpacity(0.7),
+                        )
                     : Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(width: 4),
@@ -147,7 +148,7 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
                 '$minutes:$secondsText',
                 style: theme.minimalTimer()
                     ? Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Colors.white.withOpacity(0.7),
                         fontWeight: FontWeight.bold)
                     : Theme.of(context)
                         .textTheme
