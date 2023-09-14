@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wakelock/wakelock.dart';
 
-import '../../helpers/app_colors.dart';
 import '../../helpers/providers.dart';
 import '../../models/xmodels.dart';
 import '../../helpers/strings.dart';
@@ -52,18 +51,28 @@ class _GrowViewState extends ConsumerState<GrowView>
 
     final theme = ref.watch(themeServiceProvider);
 
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return WillPopScope(
       onWillPop: () => saveOrDelete(ref, context, goalMet),
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
           return Scaffold(
-            backgroundColor: theme.minimalTimer() ? AppColors.minimal : null,
+            backgroundColor: theme.minimalTimer()
+                ? isDark
+                    ? null
+                    : Theme.of(context).colorScheme.onPrimaryContainer
+                : null,
             appBar: AppBar(
               foregroundColor: theme.minimalTimer()
                   ? Colors.white.withOpacity(0.8)
                   : Theme.of(context).colorScheme.onBackground,
-              backgroundColor: theme.minimalTimer() ? AppColors.minimal : null,
+              backgroundColor: theme.minimalTimer()
+                  ? isDark
+                      ? null
+                      : Theme.of(context).colorScheme.onPrimaryContainer
+                  : null,
               title: Text(
                 _habitType(),
               ),
@@ -104,6 +113,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                           );
                         },
                       ),
+                const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
                     Wakelock.disable();
