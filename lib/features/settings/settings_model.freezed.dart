@@ -21,6 +21,7 @@ SettingsModel _$SettingsModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SettingsModel {
   HUProfileModel get profile => throw _privateConstructorUsedError;
+  bool get minimalTimer => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -36,7 +37,8 @@ abstract class $SettingsModelCopyWith<$Res> {
           SettingsModel value, $Res Function(SettingsModel) then) =
       _$SettingsModelCopyWithImpl<$Res, SettingsModel>;
   @useResult
-  $Res call({HUProfileModel profile, bool loading, String? error});
+  $Res call(
+      {HUProfileModel profile, bool minimalTimer, bool loading, String? error});
 
   $HUProfileModelCopyWith<$Res> get profile;
 }
@@ -55,6 +57,7 @@ class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
   @override
   $Res call({
     Object? profile = null,
+    Object? minimalTimer = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -63,6 +66,10 @@ class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as HUProfileModel,
+      minimalTimer: null == minimalTimer
+          ? _value.minimalTimer
+          : minimalTimer // ignore: cast_nullable_to_non_nullable
+              as bool,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -91,7 +98,8 @@ abstract class _$$_SettingsModelCopyWith<$Res>
       __$$_SettingsModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({HUProfileModel profile, bool loading, String? error});
+  $Res call(
+      {HUProfileModel profile, bool minimalTimer, bool loading, String? error});
 
   @override
   $HUProfileModelCopyWith<$Res> get profile;
@@ -109,6 +117,7 @@ class __$$_SettingsModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? profile = null,
+    Object? minimalTimer = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -117,6 +126,10 @@ class __$$_SettingsModelCopyWithImpl<$Res>
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as HUProfileModel,
+      minimalTimer: null == minimalTimer
+          ? _value.minimalTimer
+          : minimalTimer // ignore: cast_nullable_to_non_nullable
+              as bool,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -132,7 +145,11 @@ class __$$_SettingsModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_SettingsModel implements _SettingsModel {
-  _$_SettingsModel({required this.profile, this.loading = false, this.error});
+  _$_SettingsModel(
+      {required this.profile,
+      this.minimalTimer = false,
+      this.loading = false,
+      this.error});
 
   factory _$_SettingsModel.fromJson(Map<String, dynamic> json) =>
       _$$_SettingsModelFromJson(json);
@@ -141,13 +158,16 @@ class _$_SettingsModel implements _SettingsModel {
   final HUProfileModel profile;
   @override
   @JsonKey()
+  final bool minimalTimer;
+  @override
+  @JsonKey()
   final bool loading;
   @override
   final String? error;
 
   @override
   String toString() {
-    return 'SettingsModel(profile: $profile, loading: $loading, error: $error)';
+    return 'SettingsModel(profile: $profile, minimalTimer: $minimalTimer, loading: $loading, error: $error)';
   }
 
   @override
@@ -156,13 +176,16 @@ class _$_SettingsModel implements _SettingsModel {
         (other.runtimeType == runtimeType &&
             other is _$_SettingsModel &&
             (identical(other.profile, profile) || other.profile == profile) &&
+            (identical(other.minimalTimer, minimalTimer) ||
+                other.minimalTimer == minimalTimer) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, profile, loading, error);
+  int get hashCode =>
+      Object.hash(runtimeType, profile, minimalTimer, loading, error);
 
   @JsonKey(ignore: true)
   @override
@@ -181,6 +204,7 @@ class _$_SettingsModel implements _SettingsModel {
 abstract class _SettingsModel implements SettingsModel {
   factory _SettingsModel(
       {required final HUProfileModel profile,
+      final bool minimalTimer,
       final bool loading,
       final String? error}) = _$_SettingsModel;
 
@@ -189,6 +213,8 @@ abstract class _SettingsModel implements SettingsModel {
 
   @override
   HUProfileModel get profile;
+  @override
+  bool get minimalTimer;
   @override
   bool get loading;
   @override

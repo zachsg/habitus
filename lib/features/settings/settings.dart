@@ -101,4 +101,8 @@ class Settings extends _$Settings {
       state = state.copyWith(error: bioErrorString);
     }
   }
+
+  void setMinimalTimer(bool isMinimal) {
+    state = state.copyWith(minimalTimer: isMinimal);
+  }
 }

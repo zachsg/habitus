@@ -12,4 +12,5 @@ class AppColors {
   static const Color nine = Colors.teal;
   static const Color ten = Colors.brown;
   static const Color eleven = Colors.grey;
+  static const minimal = Color.fromRGBO(23, 25, 22, 1);
 }

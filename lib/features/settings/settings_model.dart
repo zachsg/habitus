@@ -9,6 +9,7 @@ part 'settings_model.g.dart';
 class SettingsModel with _$SettingsModel {
   factory SettingsModel({
     required HUProfileModel profile,
+    @Default(false) bool minimalTimer,
     @Default(false) bool loading,
     String? error,
   }) = _SettingsModel;

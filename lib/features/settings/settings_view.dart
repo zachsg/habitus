@@ -43,6 +43,15 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
                   // TODO: Add avatar picker
                 ],
               ),
+              SizedBox(height: 24.0),
+              SettingsSectionHeaderWidget(text: themeDetailsString),
+              SettingsSectionWidget(
+                children: [
+                  SettingsThemeToggleRowWidget(),
+                  SettingsSectionDividerWidget(),
+                  SettingsMinimalToggleRowWidget(),
+                ],
+              ),
               SizedBox(height: 32.0),
               SettingsSignOutButtonWidget(),
             ],

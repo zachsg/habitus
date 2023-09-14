@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wakelock/wakelock.dart';
 
+import '../../../helpers/providers.dart';
 import '../../../models/xmodels.dart';
 import '../../../services/local_notification_service.dart';
 import '../../profile/profile.dart';
@@ -29,9 +30,10 @@ class GrowTimerWidget extends ConsumerStatefulWidget {
 }
 
 class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   late Timer _timer;
   late GrowStopwatch _stopwatch;
+  late AnimationController _controller;
 
   DateTime pausedTime = DateTime.now();
   DateTime resumedTime = DateTime.now();
@@ -39,6 +41,11 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 10),
+      vsync: this,
+    )..repeat();
 
     _stopwatch = GrowStopwatch(
       initialOffset: Duration(minutes: widget.habitatAndAction.elapsed),
@@ -112,11 +119,14 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
   void dispose() {
     _stopwatch.stop();
     _timer.cancel();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = ref.watch(themeServiceProvider);
+
     final elapsed = ref.watch(growProvider(widget.habitatAndAction)).elapsed;
     final profile = ref.watch(profileProvider).profile;
     final goal = profile.goals.firstWhere(
@@ -159,25 +169,35 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
         ),
         isPaused
             ? const SizedBox()
-            : Positioned.fill(
-                child: Align(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        '$minutes:$secondsText',
-                        style: Theme.of(context).textTheme.displayLarge,
-                      ),
-                      habitatAndAction.elapsed == 0
-                          ? const SizedBox()
-                          : Text(
-                              'You did ${habitatAndAction.elapsed} '
-                              'min of your goal ealier today',
-                              style: Theme.of(context).textTheme.bodySmall,
-                            )
-                    ],
-                  ),
-                ),
+            : AnimatedBuilder(
+                animation: _controller,
+                builder: (context, child) {
+                  return theme.minimalTimer()
+                      ? const SizedBox()
+                      : Positioned.fill(
+                          child: Align(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  '$minutes:$secondsText',
+                                  style:
+                                      Theme.of(context).textTheme.displayLarge,
+                                ),
+                                habitatAndAction.elapsed == 0
+                                    ? const SizedBox()
+                                    : Text(
+                                        'You did ${habitatAndAction.elapsed} '
+                                        'min of your goal ealier today',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      )
+                              ],
+                            ),
+                          ),
+                        );
+                },
               ),
       ],
     );

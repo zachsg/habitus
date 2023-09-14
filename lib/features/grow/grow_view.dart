@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wakelock/wakelock.dart';
 
+import '../../helpers/app_colors.dart';
+import '../../helpers/providers.dart';
 import '../../models/xmodels.dart';
 import '../../helpers/strings.dart';
 import '../../services/local_notification_service.dart';
@@ -10,7 +12,7 @@ import '../profile/profile.dart';
 import 'grow.dart';
 import 'widgets/xwidgets.dart';
 
-class GrowView extends ConsumerWidget {
+class GrowView extends ConsumerStatefulWidget {
   const GrowView({super.key, required this.habitatAndAction});
 
   final HUHabitatAndActionModel habitatAndAction;
@@ -18,87 +20,136 @@ class GrowView extends ConsumerWidget {
   static const routeName = 'grow';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final profile = ref.watch(profileProvider).profile;
-    final goal = profile.goals
-        .firstWhere((goal) => goal.habitatId == habitatAndAction.habitat.id);
+  ConsumerState<ConsumerStatefulWidget> createState() => _GrowViewState();
+}
 
-    final goalMet = habitatAndAction.elapsed >= goal.value;
+class _GrowViewState extends ConsumerState<GrowView>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+      duration: const Duration(seconds: 10),
+      vsync: this,
+    )..repeat();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final profile = ref.watch(profileProvider).profile;
+    final goal = profile.goals.firstWhere(
+        (goal) => goal.habitatId == widget.habitatAndAction.habitat.id);
+
+    final goalMet = widget.habitatAndAction.elapsed >= goal.value;
+
+    final theme = ref.watch(themeServiceProvider);
 
     return WillPopScope(
       onWillPop: () => saveOrDelete(ref, context, goalMet),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(_habitType()),
-        ),
-        body: Column(
-          children: [
-            goalMet
-                ? GrowStopwatchWidget(
-                    profile: profile,
-                    habitatAndAction: habitatAndAction,
-                  )
-                : GrowTimerWidget(
-                    profile: profile,
-                    habitatAndAction: habitatAndAction,
-                    finished: () {
-                      ref
-                          .read(growProvider(habitatAndAction).notifier)
-                          .setPaused(true);
-
-                      _playTone();
-
-                      _showSessionCompleteDialog(
-                        ref,
-                        context,
-                        habitatAndAction,
-                        goalMet,
-                      );
-                    },
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Scaffold(
+            backgroundColor: theme.minimalTimer() ? AppColors.minimal : null,
+            appBar: AppBar(
+              backgroundColor: theme.minimalTimer() ? AppColors.minimal : null,
+              title: Text(_habitType()),
+              actions: [
+                IconButton(
+                  onPressed: theme.toggleMinimalTimer,
+                  icon: Icon(
+                    theme.minimalTimer() ? Icons.light_mode : Icons.dark_mode,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 48,
                   ),
-            ElevatedButton(
-              onPressed: () {
-                Wakelock.disable();
-                ref
-                    .read(growProvider(habitatAndAction).notifier)
-                    .setPaused(true);
-
-                _showSessionCompleteDialog(
-                  ref,
-                  context,
-                  habitatAndAction,
-                  goalMet,
-                );
-              },
-              child: const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 20.0,
                 ),
-                child: Text(pauseString),
-              ),
+              ],
             ),
-          ],
-        ),
+            body: Column(
+              children: [
+                goalMet
+                    ? GrowStopwatchWidget(
+                        profile: profile,
+                        habitatAndAction: widget.habitatAndAction,
+                      )
+                    : GrowTimerWidget(
+                        profile: profile,
+                        habitatAndAction: widget.habitatAndAction,
+                        finished: () {
+                          ref
+                              .read(growProvider(widget.habitatAndAction)
+                                  .notifier)
+                              .setPaused(true);
+
+                          _playTone();
+
+                          _showSessionCompleteDialog(
+                            ref,
+                            context,
+                            widget.habitatAndAction,
+                            goalMet,
+                          );
+                        },
+                      ),
+                ElevatedButton(
+                  onPressed: () {
+                    Wakelock.disable();
+                    ref
+                        .read(growProvider(widget.habitatAndAction).notifier)
+                        .setPaused(true);
+
+                    _showSessionCompleteDialog(
+                      ref,
+                      context,
+                      widget.habitatAndAction,
+                      goalMet,
+                    );
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 20.0,
+                    ),
+                    child: Text(pauseString),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 
   Future<bool> saveOrDelete(
-      WidgetRef ref, BuildContext context, bool goalMet) async {
+    WidgetRef ref,
+    BuildContext context,
+    bool goalMet,
+  ) async {
     Wakelock.disable();
-    ref.read(growProvider(habitatAndAction).notifier).setPaused(true);
+
+    ref.read(growProvider(widget.habitatAndAction).notifier).setPaused(true);
+
     _showSessionCompleteDialog(
       ref,
       context,
-      habitatAndAction,
+      widget.habitatAndAction,
       goalMet,
     );
+
     return true;
   }
 
   String _habitType() {
-    switch (habitatAndAction.habitat.goal.habit) {
+    switch (widget.habitatAndAction.habitat.goal.habit) {
       case 'Read':
         return 'Reading';
       case 'Exercise':
@@ -111,7 +162,7 @@ class GrowView extends ConsumerWidget {
   }
 
   String _habitTypePast() {
-    switch (habitatAndAction.habitat.goal.habit) {
+    switch (widget.habitatAndAction.habitat.goal.habit) {
       case 'Read':
         return 'Read';
       case 'Exercise':
