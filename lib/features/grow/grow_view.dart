@@ -60,13 +60,12 @@ class _GrowViewState extends ConsumerState<GrowView>
           return Scaffold(
             backgroundColor: theme.minimalTimer() ? AppColors.minimal : null,
             appBar: AppBar(
+              foregroundColor: theme.minimalTimer()
+                  ? Theme.of(context).colorScheme.background
+                  : Theme.of(context).colorScheme.onBackground,
               backgroundColor: theme.minimalTimer() ? AppColors.minimal : null,
               title: Text(
                 _habitType(),
-                style: theme.minimalTimer()
-                    ? Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.background)
-                    : Theme.of(context).textTheme.titleLarge,
               ),
               actions: [
                 IconButton(
