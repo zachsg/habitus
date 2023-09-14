@@ -48,7 +48,7 @@ class Grow extends _$Grow {
       goal: goal,
     );
 
-    final success = await Database.saveAction(action);
+    final success = await Database.saveAction(state.habitat, action);
     if (success) {
       await ref.read(habitatProvider(state.habitat).notifier).loadProfiles();
       await ref.read(habitatProvider(state.habitat).notifier).loadActions();

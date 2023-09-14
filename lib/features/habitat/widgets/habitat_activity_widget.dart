@@ -47,6 +47,7 @@ class HabitatActivityWidget extends ConsumerWidget {
                       const SizedBox(height: 8.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: Wrap(

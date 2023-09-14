@@ -157,7 +157,7 @@ class Database {
           .from(habitatsTable)
           .select()
           .or('creator_id.eq.$id,admins.cs.{$id},members.cs.{$id}')
-          .order('id', ascending: true);
+          .order('updated_at', ascending: false);
       final List<HUHabitatModel> habitats = [];
       for (final habitatsJson in listOfHabitatsJsons) {
         final habitat = HUHabitatModel.fromJson(habitatsJson);
@@ -220,35 +220,17 @@ class Database {
     }
   }
 
-  static Future<bool> joinHabitat(HUHabitatModel habitat) async {
-    final user = supabase.auth.currentUser;
-    if (user == null) {
-      throw NoAuthException();
-    }
-
-    final members = [...habitat.members, user.id];
-
-    try {
-      await supabase.from(habitatsTable).update({
-        'members': members,
-      }).eq('id', habitat.id);
-      return true;
-    } on Exception catch (e) {
-      throw GenericErrorException(e.toString());
-    }
-  }
-
   static Future<bool> updateHabitat(HUHabitatModel habitat) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();
     }
 
+    final now = DateTime.now().toUtc();
+    final h = habitat.copyWith(updatedAt: now);
+
     try {
-      await supabase
-          .from(habitatsTable)
-          .update(habitat.toJson())
-          .eq('id', habitat.id);
+      await supabase.from(habitatsTable).update(h.toJson()).eq('id', h.id);
       return true;
     } on Exception catch (e) {
       throw GenericErrorException(e.toString());
@@ -274,13 +256,17 @@ class Database {
     }
   }
 
-  static Future<bool> saveAction(HUActionModel action) async {
+  static Future<bool> saveAction(
+    HUHabitatModel habitat,
+    HUActionModel action,
+  ) async {
     final actionJson = action.toJson();
 
     actionJson.removeWhere((key, value) => key == 'id');
 
     try {
       await supabase.from(actionsTable).upsert(actionJson);
+      await updateHabitat(habitat);
     } on Exception catch (_) {
       return false;
     }
