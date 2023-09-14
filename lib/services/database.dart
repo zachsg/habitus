@@ -156,7 +156,8 @@ class Database {
       final listOfHabitatsJsons = await supabase
           .from(habitatsTable)
           .select()
-          .or('creator_id.eq.$id,admins.cs.{$id},members.cs.{$id}');
+          .or('creator_id.eq.$id,admins.cs.{$id},members.cs.{$id}')
+          .order('id', ascending: true);
       final List<HUHabitatModel> habitats = [];
       for (final habitatsJson in listOfHabitatsJsons) {
         final habitat = HUHabitatModel.fromJson(habitatsJson);
