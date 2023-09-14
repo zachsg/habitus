@@ -28,7 +28,7 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 16.0,
-            vertical: 8.0,
+            vertical: 6.0,
           ),
           child: Card(
             child: InkWell(

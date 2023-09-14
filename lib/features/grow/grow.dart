@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
 import '../habitat/habitat.dart';
+import '../habitats/habitats.dart';
 import '../profile/profile.dart';
 import 'grow_model.dart';
 
@@ -55,6 +56,7 @@ class Grow extends _$Grow {
       await ref
           .read(habitatProvider(state.habitat).notifier)
           .loadHabitatWithId(state.habitat.id);
+      await ref.read(habitatsProvider.notifier).loadHabitats();
     }
 
     state = state.copyWith(loading: false);
