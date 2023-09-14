@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wakelock/wakelock.dart';
@@ -53,6 +56,11 @@ class _GrowViewState extends ConsumerState<GrowView>
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
+    final isIOS = Platform.isIOS;
+
+    final icon = isIOS ? CupertinoIcons.eye_slash : Icons.visibility_off;
+    final iconMinimal = isIOS ? CupertinoIcons.eye_fill : Icons.visibility;
+
     return WillPopScope(
       onWillPop: () => saveOrDelete(ref, context, goalMet),
       child: AnimatedBuilder(
@@ -78,11 +86,16 @@ class _GrowViewState extends ConsumerState<GrowView>
               ),
               actions: [
                 IconButton(
+                  padding: const EdgeInsets.all(12.0),
                   onPressed: theme.toggleMinimalTimer,
                   icon: Icon(
-                    theme.minimalTimer() ? Icons.light_mode : Icons.dark_mode,
-                    color: Theme.of(context).colorScheme.primary,
-                    size: 48,
+                    theme.minimalTimer() ? iconMinimal : icon,
+                    color: theme.minimalTimer()
+                        ? isDark
+                            ? Theme.of(context).colorScheme.onBackground
+                            : Theme.of(context).colorScheme.background
+                        : null,
+                    size: 32,
                   ),
                 ),
               ],
