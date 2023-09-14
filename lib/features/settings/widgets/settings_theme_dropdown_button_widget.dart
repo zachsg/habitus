@@ -46,8 +46,9 @@ class _SettingsThemeDropdownButtonWidgetState
             DropdownButton<ThemeMode>(
               value: themeProvider.themeMode(),
               icon: Icon(
-                Icons.arrow_downward,
+                Icons.expand_more,
                 color: Theme.of(context).colorScheme.primary,
+                size: 32,
               ),
               elevation: 16,
               style: Theme.of(context).textTheme.titleMedium,
