@@ -11,6 +11,7 @@ class Habitat extends _$Habitat {
   @override
   HabitatModel build(HUHabitatModel habitat) => HabitatModel(
         habitat: habitat,
+        day: DateTime.now(),
         loading: true,
       );
 
@@ -47,7 +48,10 @@ class Habitat extends _$Habitat {
   }
 
   Future<void> loadActions() async {
-    final actions = await Database.actionsWithHabitatId(state.habitat.id);
+    final actions = await Database.actionsWithHabitatId(
+      state.habitat.id,
+      state.day,
+    );
 
     state = state.copyWith(actions: actions, loading: false);
   }
@@ -59,5 +63,30 @@ class Habitat extends _$Habitat {
   Future<void> loadHabitatWithId(int id) async {
     final habitat = await Database.habitatWithId(id);
     state = state.copyWith(habitat: habitat);
+  }
+
+  Future<void> nextDay() async {
+    final day = state.day.add(const Duration(days: 1));
+    state = state.copyWith(day: day, loading: true);
+
+    await loadActions();
+
+    state = state.copyWith(loading: false);
+  }
+
+  Future<void> previousDay() async {
+    final day = state.day.subtract(const Duration(days: 1));
+    state = state.copyWith(day: day);
+
+    await loadActions();
+  }
+
+  Future<void> resetDay() async {
+    final day = DateTime.now();
+    state = state.copyWith(day: day, loading: true);
+
+    await loadActions();
+
+    state = state.copyWith(loading: false);
   }
 }

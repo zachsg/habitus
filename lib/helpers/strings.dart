@@ -36,6 +36,9 @@ const habitmatesString = 'Habitmates';
 const habitatActivityString = 'Habitat Activity';
 const takeActionString = 'Grow';
 const habitatGoalString = 'Daily Habitat Goal Progress';
+const prevString = 'Prev';
+const todayString = 'Today';
+const emptyHabitString = 'No Activity For';
 
 // Grow
 const pauseString = 'I\'ve Rolled Enough';

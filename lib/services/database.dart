@@ -119,19 +119,23 @@ class Database {
     }
   }
 
-  static Future<List<HUActionModel>> actionsWithHabitatId(int id) async {
+  static Future<List<HUActionModel>> actionsWithHabitatId(
+      int id, DateTime day) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();
     }
 
     try {
-      final now = DateTime.now().copyWith(hour: 0, minute: 0);
+      final start = day.copyWith(hour: 0, minute: 0);
+      final end = day.copyWith(hour: 24, minute: 59);
+
       final actionsJson = await supabase
           .from(actionsTable)
           .select()
           .eq('habitat_id', id)
-          .gt('created_at', now.toUtc());
+          .gt('created_at', start.toUtc())
+          .lt('created_at', end.toUtc());
 
       List<HUActionModel> actions = [];
       for (final actionJson in actionsJson) {
@@ -140,8 +144,8 @@ class Database {
       }
 
       return actions;
-    } on Exception catch (e) {
-      throw GenericErrorException(e.toString());
+    } on Exception catch (_) {
+      return [];
     }
   }
 

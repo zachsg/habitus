@@ -21,6 +21,7 @@ HabitatModel _$HabitatModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$HabitatModel {
   HUHabitatModel get habitat => throw _privateConstructorUsedError;
+  DateTime get day => throw _privateConstructorUsedError;
   List<HUProfileModel> get profiles => throw _privateConstructorUsedError;
   List<HUActionModel> get actions => throw _privateConstructorUsedError;
   int get percentage => throw _privateConstructorUsedError;
@@ -41,6 +42,7 @@ abstract class $HabitatModelCopyWith<$Res> {
   @useResult
   $Res call(
       {HUHabitatModel habitat,
+      DateTime day,
       List<HUProfileModel> profiles,
       List<HUActionModel> actions,
       int percentage,
@@ -64,6 +66,7 @@ class _$HabitatModelCopyWithImpl<$Res, $Val extends HabitatModel>
   @override
   $Res call({
     Object? habitat = null,
+    Object? day = null,
     Object? profiles = null,
     Object? actions = null,
     Object? percentage = null,
@@ -75,6 +78,10 @@ class _$HabitatModelCopyWithImpl<$Res, $Val extends HabitatModel>
           ? _value.habitat
           : habitat // ignore: cast_nullable_to_non_nullable
               as HUHabitatModel,
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       profiles: null == profiles
           ? _value.profiles
           : profiles // ignore: cast_nullable_to_non_nullable
@@ -117,6 +124,7 @@ abstract class _$$_HabitatModelCopyWith<$Res>
   @useResult
   $Res call(
       {HUHabitatModel habitat,
+      DateTime day,
       List<HUProfileModel> profiles,
       List<HUActionModel> actions,
       int percentage,
@@ -139,6 +147,7 @@ class __$$_HabitatModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? habitat = null,
+    Object? day = null,
     Object? profiles = null,
     Object? actions = null,
     Object? percentage = null,
@@ -150,6 +159,10 @@ class __$$_HabitatModelCopyWithImpl<$Res>
           ? _value.habitat
           : habitat // ignore: cast_nullable_to_non_nullable
               as HUHabitatModel,
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       profiles: null == profiles
           ? _value._profiles
           : profiles // ignore: cast_nullable_to_non_nullable
@@ -179,6 +192,7 @@ class __$$_HabitatModelCopyWithImpl<$Res>
 class _$_HabitatModel implements _HabitatModel {
   _$_HabitatModel(
       {required this.habitat,
+      required this.day,
       final List<HUProfileModel> profiles = const [],
       final List<HUActionModel> actions = const [],
       this.percentage = 0,
@@ -192,6 +206,8 @@ class _$_HabitatModel implements _HabitatModel {
 
   @override
   final HUHabitatModel habitat;
+  @override
+  final DateTime day;
   final List<HUProfileModel> _profiles;
   @override
   @JsonKey()
@@ -221,7 +237,7 @@ class _$_HabitatModel implements _HabitatModel {
 
   @override
   String toString() {
-    return 'HabitatModel(habitat: $habitat, profiles: $profiles, actions: $actions, percentage: $percentage, loading: $loading, error: $error)';
+    return 'HabitatModel(habitat: $habitat, day: $day, profiles: $profiles, actions: $actions, percentage: $percentage, loading: $loading, error: $error)';
   }
 
   @override
@@ -230,6 +246,7 @@ class _$_HabitatModel implements _HabitatModel {
         (other.runtimeType == runtimeType &&
             other is _$_HabitatModel &&
             (identical(other.habitat, habitat) || other.habitat == habitat) &&
+            (identical(other.day, day) || other.day == day) &&
             const DeepCollectionEquality().equals(other._profiles, _profiles) &&
             const DeepCollectionEquality().equals(other._actions, _actions) &&
             (identical(other.percentage, percentage) ||
@@ -243,6 +260,7 @@ class _$_HabitatModel implements _HabitatModel {
   int get hashCode => Object.hash(
       runtimeType,
       habitat,
+      day,
       const DeepCollectionEquality().hash(_profiles),
       const DeepCollectionEquality().hash(_actions),
       percentage,
@@ -266,6 +284,7 @@ class _$_HabitatModel implements _HabitatModel {
 abstract class _HabitatModel implements HabitatModel {
   factory _HabitatModel(
       {required final HUHabitatModel habitat,
+      required final DateTime day,
       final List<HUProfileModel> profiles,
       final List<HUActionModel> actions,
       final int percentage,
@@ -277,6 +296,8 @@ abstract class _HabitatModel implements HabitatModel {
 
   @override
   HUHabitatModel get habitat;
+  @override
+  DateTime get day;
   @override
   List<HUProfileModel> get profiles;
   @override

@@ -40,6 +40,10 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
 
   @override
   Widget build(BuildContext context) {
+    final day = ref.watch(habitatProvider(widget.habitat)).day;
+    final today = DateTime.now();
+    final isToday = day.isAfter(today.copyWith(hour: 0, minute: 0)) &&
+        day.isBefore(today.copyWith(hour: 24, minute: 59));
     final profile = ref.watch(profileProvider).profile;
     final actions = ref
         .watch(habitatProvider(widget.habitat))
@@ -63,53 +67,63 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
           child: Column(
             children: [
               const SizedBox(height: 16.0),
-              Text(
-                habitatGoalString.toUpperCase(),
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              HabitatGoalProgressChartWidget(habitat: widget.habitat),
-              const SizedBox(height: 8.0),
-              HabitatHabitmatesWidget(habitat: widget.habitat),
-              const SizedBox(height: 32.0),
-              HabitatActivityWidget(habitat: widget.habitat),
-              const SizedBox(height: 96),
+              HabitatDaySelectorWidget(habitat: widget.habitat),
+              const SizedBox(height: 16.0),
+              actions.isEmpty
+                  ? HabitatEmptyStateWidget(habitat: widget.habitat)
+                  : Column(
+                      children: [
+                        Text(
+                          habitatGoalString.toUpperCase(),
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        HabitatGoalProgressChartWidget(habitat: widget.habitat),
+                        const SizedBox(height: 8.0),
+                        HabitatHabitmatesWidget(habitat: widget.habitat),
+                        const SizedBox(height: 32.0),
+                        HabitatActivityWidget(habitat: widget.habitat),
+                        const SizedBox(height: 96),
+                      ],
+                    ),
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Wakelock.enable();
+      floatingActionButton: isToday
+          ? FloatingActionButton.extended(
+              onPressed: () {
+                Wakelock.enable();
 
-          context.pushNamed(
-            GrowView.routeName,
-            pathParameters: {
-              'id': widget.habitat.id.toString(),
-              'habitat_id': widget.habitat.id.toString(),
-            },
-            extra: HUHabitatAndActionModel(
-              habitat: widget.habitat,
-              elapsed: elapsed,
-            ),
-          );
-        },
-        label: Row(
-          children: [
-            const Text(takeActionString),
-            const SizedBox(width: 8),
-            SvgPicture.asset(
-              habitusLogoSvg,
-              semanticsLabel: habitusLogoString,
-              width: 24,
-              height: 24,
-              colorFilter: ColorFilter.mode(
-                Theme.of(context).colorScheme.onPrimaryContainer,
-                BlendMode.srcIn,
+                context.pushNamed(
+                  GrowView.routeName,
+                  pathParameters: {
+                    'id': widget.habitat.id.toString(),
+                    'habitat_id': widget.habitat.id.toString(),
+                  },
+                  extra: HUHabitatAndActionModel(
+                    habitat: widget.habitat,
+                    elapsed: elapsed,
+                  ),
+                );
+              },
+              label: Row(
+                children: [
+                  const Text(takeActionString),
+                  const SizedBox(width: 8),
+                  SvgPicture.asset(
+                    habitusLogoSvg,
+                    semanticsLabel: habitusLogoString,
+                    width: 24,
+                    height: 24,
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.onPrimaryContainer,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
-      ),
+            )
+          : null,
     );
   }
 }

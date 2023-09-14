@@ -9,6 +9,7 @@ part 'habitat_model.g.dart';
 class HabitatModel with _$HabitatModel {
   factory HabitatModel({
     required HUHabitatModel habitat,
+    required DateTime day,
     @Default([]) List<HUProfileModel> profiles,
     @Default([]) List<HUActionModel> actions,
     @Default(0) int percentage,
