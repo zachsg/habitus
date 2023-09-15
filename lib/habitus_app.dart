@@ -39,6 +39,7 @@ class _HabitusAppState extends ConsumerState<HabitusApp>
       animation: _controller,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
           routerConfig: router,
           title: appNameString,
           themeMode: theme.themeMode(),
