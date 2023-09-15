@@ -44,7 +44,7 @@ class Habitat extends _$Habitat {
       return 0;
     });
 
-    state = state.copyWith(profiles: profiles, loading: false);
+    state = state.copyWith(profiles: profiles);
   }
 
   Future<void> loadActions() async {
@@ -53,7 +53,11 @@ class Habitat extends _$Habitat {
       state.day,
     );
 
-    state = state.copyWith(actions: actions, loading: false);
+    state = state.copyWith(actions: actions);
+  }
+
+  void setLoading(bool loading) {
+    state = state.copyWith(loading: loading);
   }
 
   void setHabitatPercentage(int percentage) {
@@ -62,7 +66,7 @@ class Habitat extends _$Habitat {
 
   Future<void> loadHabitatWithId(int id) async {
     final habitat = await Database.habitatWithId(id);
-    state = state.copyWith(habitat: habitat);
+    state = state.copyWith(habitat: habitat, loading: false);
   }
 
   Future<void> nextDay() async {

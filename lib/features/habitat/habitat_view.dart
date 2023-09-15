@@ -40,6 +40,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
 
   @override
   Widget build(BuildContext context) {
+    final loading = ref.watch(habitatProvider(widget.habitat)).loading;
     final day = ref.watch(habitatProvider(widget.habitat)).day;
     final today = DateTime.now();
     final isToday = day.isAfter(today.copyWith(hour: 0, minute: 0)) &&
@@ -69,22 +70,25 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
               const SizedBox(height: 16.0),
               HabitatDaySelectorWidget(habitat: widget.habitat),
               const SizedBox(height: 16.0),
-              actions.isEmpty
-                  ? HabitatEmptyStateWidget(habitat: widget.habitat)
-                  : Column(
-                      children: [
-                        Text(
-                          habitatGoalString.toUpperCase(),
-                          style: Theme.of(context).textTheme.bodyMedium,
+              loading
+                  ? const CircularProgressIndicator.adaptive()
+                  : actions.isEmpty
+                      ? HabitatEmptyStateWidget(habitat: widget.habitat)
+                      : Column(
+                          children: [
+                            Text(
+                              habitatGoalString.toUpperCase(),
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            HabitatGoalProgressChartWidget(
+                                habitat: widget.habitat),
+                            const SizedBox(height: 8.0),
+                            HabitatHabitmatesWidget(habitat: widget.habitat),
+                            const SizedBox(height: 32.0),
+                            HabitatActivityWidget(habitat: widget.habitat),
+                            const SizedBox(height: 96),
+                          ],
                         ),
-                        HabitatGoalProgressChartWidget(habitat: widget.habitat),
-                        const SizedBox(height: 8.0),
-                        HabitatHabitmatesWidget(habitat: widget.habitat),
-                        const SizedBox(height: 32.0),
-                        HabitatActivityWidget(habitat: widget.habitat),
-                        const SizedBox(height: 96),
-                      ],
-                    ),
             ],
           ),
         ),
