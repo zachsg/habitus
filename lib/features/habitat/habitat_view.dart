@@ -72,7 +72,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
               const SizedBox(height: 16.0),
               loading
                   ? const CircularProgressIndicator.adaptive()
-                  : actions.isEmpty
+                  : actions.isEmpty & !isToday
                       ? HabitatEmptyStateWidget(habitat: widget.habitat)
                       : Column(
                           children: [
