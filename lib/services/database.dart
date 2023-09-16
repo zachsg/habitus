@@ -13,6 +13,7 @@ class Database {
   static const profilesTable = 'profiles';
   static const habitatsTable = 'habitats';
   static const actionsTable = 'actions';
+  static const deletionsTable = 'deletion_requests';
 
   /// Create or update user profile: Return true if no errors, false if errors.
   static Future<bool> createProfile(HUProfileModel profile) async {
@@ -276,5 +277,20 @@ class Database {
     }
 
     return true;
+  }
+
+  static Future<bool> deleteAccount(String id) async {
+    final date = DateTime.now().toUtc();
+
+    try {
+      await supabase.from(deletionsTable).insert({
+        'created_at': date.toIso8601String(),
+        'user_id': id,
+      });
+
+      return true;
+    } on Exception catch (_) {
+      return false;
+    }
   }
 }

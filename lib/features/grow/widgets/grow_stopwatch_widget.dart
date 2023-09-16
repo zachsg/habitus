@@ -90,7 +90,7 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
 
   @override
   Widget build(BuildContext context) {
-    final theme = ref.watch(themeServiceProvider);
+    final themeP = ref.watch(themeProvider);
 
     final grow = ref.watch(growProvider(widget.habitatAndAction));
     final minutes = grow.elapsed / 60 > 0 ? grow.elapsed ~/ 60 : 0;
@@ -105,7 +105,7 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
           Text(
             goalMetString,
             textAlign: TextAlign.center,
-            style: theme.minimalTimer()
+            style: themeP.minimalTimer()
                 ? Theme.of(context).textTheme.displaySmall?.copyWith(
                     color: Colors.white.withOpacity(0.7),
                     fontWeight: FontWeight.bold)
@@ -118,7 +118,7 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
           Text(
             goalMetSubString,
             textAlign: TextAlign.center,
-            style: theme.minimalTimer()
+            style: themeP.minimalTimer()
                 ? Theme.of(context)
                     .textTheme
                     .titleMedium
@@ -137,7 +137,7 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
             children: [
               Text(
                 'Elapsed:',
-                style: theme.minimalTimer()
+                style: themeP.minimalTimer()
                     ? Theme.of(context).textTheme.titleMedium?.copyWith(
                           color: Colors.white.withOpacity(0.7),
                         )
@@ -146,7 +146,7 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
               const SizedBox(width: 4),
               Text(
                 '$minutes:$secondsText',
-                style: theme.minimalTimer()
+                style: themeP.minimalTimer()
                     ? Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: Colors.white.withOpacity(0.7),
                         fontWeight: FontWeight.bold)

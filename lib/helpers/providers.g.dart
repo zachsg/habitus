@@ -6,20 +6,20 @@ part of 'providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$themeServiceHash() => r'c5db75ac0a41c35fde3c3ac21560714a617683e9';
+String _$themeHash() => r'0d72c4f82970a0466e6288b11307682c36844d93';
 
-/// See also [themeService].
-@ProviderFor(themeService)
-final themeServiceProvider = AutoDisposeProvider<ThemeService>.internal(
-  themeService,
-  name: r'themeServiceProvider',
+/// See also [theme].
+@ProviderFor(theme)
+final themeProvider = AutoDisposeProvider<ThemeService>.internal(
+  theme,
+  name: r'themeProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$themeServiceHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$themeHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef ThemeServiceRef = AutoDisposeProviderRef<ThemeService>;
+typedef ThemeRef = AutoDisposeProviderRef<ThemeService>;
 String _$prefsHash() => r'f5576eebaa1f1a9d12d10ecb4eb691a94c3d6182';
 
 /// See also [prefs].

@@ -53,7 +53,13 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
                 ],
               ),
               SizedBox(height: 32.0),
-              SettingsSignOutButtonWidget(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SettingsSignOutButtonWidget(),
+                  SettingsDeleteButtonWidget(),
+                ],
+              ),
             ],
           ),
         ),

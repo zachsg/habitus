@@ -5,9 +5,11 @@ import 'app_colors.dart';
 extension ShowSnackBar on BuildContext {
   void showSnackBar({
     required String message,
+    int seconds = 4,
   }) {
     ScaffoldMessenger.of(this).removeCurrentSnackBar();
     ScaffoldMessenger.of(this).showSnackBar(SnackBar(
+      duration: Duration(seconds: seconds),
       content: Text(message),
     ));
   }

@@ -35,7 +35,7 @@ class _SettingsThemeDropdownButtonWidgetState
   @override
   Widget build(BuildContext context) {
     final dropdownOptions = [ThemeMode.system, ThemeMode.light, ThemeMode.dark];
-    final themeProvider = ref.watch(themeServiceProvider);
+    final themeP = ref.watch(themeProvider);
 
     return AnimatedBuilder(
       animation: _controller,
@@ -44,7 +44,7 @@ class _SettingsThemeDropdownButtonWidgetState
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             DropdownButton<ThemeMode>(
-              value: themeProvider.themeMode(),
+              value: themeP.themeMode(),
               icon: Icon(
                 Icons.expand_more,
                 color: Theme.of(context).colorScheme.primary,
@@ -58,7 +58,7 @@ class _SettingsThemeDropdownButtonWidgetState
               ),
               onChanged: (ThemeMode? theme) {
                 if (theme != null) {
-                  themeProvider.updateThemeMode(theme);
+                  themeP.updateThemeMode(theme);
                 }
               },
               items: dropdownOptions.map<DropdownMenuItem<ThemeMode>>(

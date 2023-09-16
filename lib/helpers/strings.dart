@@ -55,6 +55,15 @@ const bioLabelString = 'Bio';
 // Settings
 const settingsTitleString = 'Settings';
 const signOutString = 'Sign Out';
+const signOutConfirmationTitleString = 'Sign Out';
+const signOutConfirmationSubtitleString =
+    'Are you sure you want to sign out of your account?';
+const deleteString = 'Delete Account';
+const deleteConfirmationTitleString = 'Delete Account';
+const deleteConfirmationSubtitleString =
+    'Are you sure you want to delete your account?';
+const deletionRequestInProgressString =
+    'Your account deletion request is being processed. This may take up to 24 hours to be completed.';
 const personalDetailsString = 'Personal info';
 const themeDetailsString = 'Theme options';
 const nameString = 'Name';
@@ -73,3 +82,6 @@ const bioErrorString = 'Error saving bio. Try again.';
 const genericErrorString = 'Uknown error';
 const minimalString = 'Minimal Timer?';
 const themeString = 'App Theme';
+
+/// Misc.
+const noNetworkString = 'No Network Connection';

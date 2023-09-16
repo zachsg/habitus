@@ -34,7 +34,7 @@ class _SettingsMinimalToggleRowWidgetState
 
   @override
   Widget build(BuildContext context) {
-    final theme = ref.watch(themeServiceProvider);
+    final theme = ref.watch(themeProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),

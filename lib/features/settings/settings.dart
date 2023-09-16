@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../helpers/strings.dart';
+import '../../helpers/extensions.dart';
 import '../../services/database.dart';
 import '../auth/sign_in_view.dart';
 import '../profile/profile.dart';
@@ -26,6 +27,27 @@ class Settings extends _$Settings {
   void signOut(BuildContext context) {
     supabase.auth.signOut();
     context.goNamed(SignInView.routeName);
+  }
+
+  Future<void> deleteAccount(BuildContext context) async {
+    state = state.copyWith(loading: true);
+
+    final profile = ref.read(profileProvider).profile;
+
+    final success = await Database.deleteAccount(profile.id);
+
+    if (success) {
+      state = state.copyWith(loading: false);
+      if (context.mounted) {
+        signOut(context);
+        context.showSnackBar(
+          message: deletionRequestInProgressString,
+          seconds: 15,
+        );
+      }
+    } else {
+      state = state.copyWith(loading: false, error: genericErrorString);
+    }
   }
 
   void setName(String name) {

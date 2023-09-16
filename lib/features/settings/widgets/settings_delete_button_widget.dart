@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../helpers/strings.dart';
 import '../settings.dart';
 
-class SettingsSignOutButtonWidget extends ConsumerWidget {
-  const SettingsSignOutButtonWidget({super.key});
+class SettingsDeleteButtonWidget extends ConsumerWidget {
+  const SettingsDeleteButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -15,7 +15,7 @@ class SettingsSignOutButtonWidget extends ConsumerWidget {
         TextButton(
           onPressed: () => _showSessionCompleteDialog(context, ref),
           child: Text(
-            signOutString,
+            deleteString,
             style: Theme.of(context)
                 .textTheme
                 .titleMedium
@@ -37,11 +37,11 @@ class SettingsSignOutButtonWidget extends ConsumerWidget {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text(signOutConfirmationTitleString),
+          title: const Text(deleteConfirmationTitleString),
           content: const SingleChildScrollView(
             child: ListBody(
               children: [
-                Text(signOutConfirmationSubtitleString),
+                Text(deleteConfirmationSubtitleString),
               ],
             ),
           ),
@@ -72,7 +72,9 @@ class SettingsSignOutButtonWidget extends ConsumerWidget {
                                   color: Theme.of(context).colorScheme.error),
                         ),
                         onPressed: () async {
-                          ref.read(settingsProvider.notifier).signOut(context);
+                          ref
+                              .read(settingsProvider.notifier)
+                              .deleteAccount(context);
 
                           if (context.mounted) {
                             Navigator.of(context).pop();

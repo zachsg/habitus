@@ -52,7 +52,7 @@ class _GrowViewState extends ConsumerState<GrowView>
 
     final goalMet = widget.habitatAndAction.elapsed >= goal.value;
 
-    final theme = ref.watch(themeServiceProvider);
+    final themeP = ref.watch(themeProvider);
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
@@ -67,16 +67,16 @@ class _GrowViewState extends ConsumerState<GrowView>
         animation: _controller,
         builder: (context, child) {
           return Scaffold(
-            backgroundColor: theme.minimalTimer()
+            backgroundColor: themeP.minimalTimer()
                 ? isDark
                     ? null
                     : Theme.of(context).colorScheme.onPrimaryContainer
                 : null,
             appBar: AppBar(
-              foregroundColor: theme.minimalTimer()
+              foregroundColor: themeP.minimalTimer()
                   ? Colors.white.withOpacity(0.8)
                   : Theme.of(context).colorScheme.onBackground,
-              backgroundColor: theme.minimalTimer()
+              backgroundColor: themeP.minimalTimer()
                   ? isDark
                       ? null
                       : Theme.of(context).colorScheme.onPrimaryContainer
@@ -87,10 +87,10 @@ class _GrowViewState extends ConsumerState<GrowView>
               actions: [
                 IconButton(
                   padding: const EdgeInsets.all(12.0),
-                  onPressed: theme.toggleMinimalTimer,
+                  onPressed: themeP.toggleMinimalTimer,
                   icon: Icon(
-                    theme.minimalTimer() ? iconMinimal : icon,
-                    color: theme.minimalTimer()
+                    themeP.minimalTimer() ? iconMinimal : icon,
+                    color: themeP.minimalTimer()
                         ? isDark
                             ? Theme.of(context).colorScheme.onBackground
                             : Theme.of(context).colorScheme.background

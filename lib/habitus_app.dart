@@ -33,7 +33,7 @@ class _HabitusAppState extends ConsumerState<HabitusApp>
 
   @override
   Widget build(BuildContext context) {
-    final theme = ref.watch(themeServiceProvider);
+    final theme = ref.watch(themeProvider);
 
     return AnimatedBuilder(
       animation: _controller,

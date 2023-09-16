@@ -125,7 +125,7 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
 
   @override
   Widget build(BuildContext context) {
-    final theme = ref.watch(themeServiceProvider);
+    final themeP = ref.watch(themeProvider);
 
     final elapsed = ref.watch(growProvider(widget.habitatAndAction)).elapsed;
     final profile = ref.watch(profileProvider).profile;
@@ -172,7 +172,7 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
             : AnimatedBuilder(
                 animation: _controller,
                 builder: (context, child) {
-                  return theme.minimalTimer()
+                  return themeP.minimalTimer()
                       ? const SizedBox()
                       : Positioned.fill(
                           child: Align(

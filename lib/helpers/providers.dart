@@ -6,11 +6,10 @@ import '../services/theme_service.dart';
 part 'providers.g.dart';
 
 @riverpod
-ThemeService themeService(ThemeServiceRef ref) {
+ThemeService theme(ThemeRef ref) {
   final prefs = ref.read(prefsProvider);
   return ThemeService(prefs);
 }
 
-// Override in `Provider Container` when app starts.
 @riverpod
 SharedPreferences prefs(PrefsRef ref) => throw UnimplementedError();
