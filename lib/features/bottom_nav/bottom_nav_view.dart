@@ -9,7 +9,6 @@ import '../profile/profile.dart';
 import '../profile/profile_view.dart';
 import '../settings/settings_view.dart';
 import '../habitats/habitats_view.dart';
-import '../widgets/xwidgets.dart';
 import 'bottom_nav.dart';
 
 class BottomNavView extends ConsumerStatefulWidget {
@@ -40,17 +39,7 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
             : const SettingsView();
 
     return Scaffold(
-      body: Stack(
-        children: [
-          body,
-          // const Positioned(
-          //   bottom: 0,
-          //   left: 0,
-          //   right: 0,
-          //   child: ConnectivityWidget(),
-          // ),
-        ],
-      ),
+      body: body,
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) =>
             ref.read(bottomNavProvider.notifier).setPage(index),
