@@ -10,6 +10,7 @@ import '../profile/profile_view.dart';
 import '../settings/settings_view.dart';
 import '../habitats/habitats_view.dart';
 import 'bottom_nav.dart';
+import 'widgets/xwidgets.dart';
 
 class BottomNavView extends ConsumerStatefulWidget {
   const BottomNavView({super.key});
@@ -32,6 +33,8 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
     final index = ref.watch(bottomNavProvider).index;
     final isIOS = Platform.isIOS;
 
+    final profile = ref.watch(profileProvider).profile;
+
     final body = index == 0
         ? const ProfileView()
         : index == 1
@@ -39,42 +42,45 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
             : const SettingsView();
 
     return Scaffold(
-      body: body,
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) =>
-            ref.read(bottomNavProvider.notifier).setPage(index),
-        selectedIndex: ref.watch(bottomNavProvider).index,
-        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        destinations: [
-          NavigationDestination(
-            selectedIcon: isIOS
-                ? const Icon(CupertinoIcons.person_alt_circle_fill)
-                : const Icon(Icons.face),
-            icon: isIOS
-                ? const Icon(CupertinoIcons.person_alt_circle)
-                : const Icon(Icons.face_outlined),
-            label: profileTitleString,
-          ),
-          NavigationDestination(
-            selectedIcon: isIOS
-                ? const Icon(CupertinoIcons.group_solid)
-                : const Icon(Icons.group),
-            icon: isIOS
-                ? const Icon(CupertinoIcons.group)
-                : const Icon(Icons.group_outlined),
-            label: homeTitleString,
-          ),
-          NavigationDestination(
-            selectedIcon: isIOS
-                ? const Icon(CupertinoIcons.settings_solid)
-                : const Icon(Icons.settings),
-            icon: isIOS
-                ? const Icon(CupertinoIcons.settings)
-                : const Icon(Icons.settings_outlined),
-            label: settingsTitleString,
-          ),
-        ],
-      ),
+      body: profile.acceptedTerms ? body : const EulaWidget(),
+      bottomNavigationBar: profile.acceptedTerms
+          ? NavigationBar(
+              onDestinationSelected: (int index) =>
+                  ref.read(bottomNavProvider.notifier).setPage(index),
+              selectedIndex: ref.watch(bottomNavProvider).index,
+              labelBehavior:
+                  NavigationDestinationLabelBehavior.onlyShowSelected,
+              destinations: [
+                NavigationDestination(
+                  selectedIcon: isIOS
+                      ? const Icon(CupertinoIcons.person_alt_circle_fill)
+                      : const Icon(Icons.face),
+                  icon: isIOS
+                      ? const Icon(CupertinoIcons.person_alt_circle)
+                      : const Icon(Icons.face_outlined),
+                  label: profileTitleString,
+                ),
+                NavigationDestination(
+                  selectedIcon: isIOS
+                      ? const Icon(CupertinoIcons.group_solid)
+                      : const Icon(Icons.group),
+                  icon: isIOS
+                      ? const Icon(CupertinoIcons.group)
+                      : const Icon(Icons.group_outlined),
+                  label: homeTitleString,
+                ),
+                NavigationDestination(
+                  selectedIcon: isIOS
+                      ? const Icon(CupertinoIcons.settings_solid)
+                      : const Icon(Icons.settings),
+                  icon: isIOS
+                      ? const Icon(CupertinoIcons.settings)
+                      : const Icon(Icons.settings_outlined),
+                  label: settingsTitleString,
+                ),
+              ],
+            )
+          : null,
     );
   }
 }

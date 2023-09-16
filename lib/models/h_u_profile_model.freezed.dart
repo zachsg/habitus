@@ -33,6 +33,8 @@ mixin _$HUProfileModel {
   List<String> get habinauts => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_pro')
   bool get isPro => throw _privateConstructorUsedError;
+  @JsonKey(name: 'accepted_terms')
+  bool get acceptedTerms => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,7 +59,8 @@ abstract class $HUProfileModelCopyWith<$Res> {
       List<int> badges,
       List<HUGoalModel> goals,
       List<String> habinauts,
-      @JsonKey(name: 'is_pro') bool isPro});
+      @JsonKey(name: 'is_pro') bool isPro,
+      @JsonKey(name: 'accepted_terms') bool acceptedTerms});
 }
 
 /// @nodoc
@@ -84,6 +87,7 @@ class _$HUProfileModelCopyWithImpl<$Res, $Val extends HUProfileModel>
     Object? goals = null,
     Object? habinauts = null,
     Object? isPro = null,
+    Object? acceptedTerms = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -130,6 +134,10 @@ class _$HUProfileModelCopyWithImpl<$Res, $Val extends HUProfileModel>
           ? _value.isPro
           : isPro // ignore: cast_nullable_to_non_nullable
               as bool,
+      acceptedTerms: null == acceptedTerms
+          ? _value.acceptedTerms
+          : acceptedTerms // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -153,7 +161,8 @@ abstract class _$$_HUProfileModelCopyWith<$Res>
       List<int> badges,
       List<HUGoalModel> goals,
       List<String> habinauts,
-      @JsonKey(name: 'is_pro') bool isPro});
+      @JsonKey(name: 'is_pro') bool isPro,
+      @JsonKey(name: 'accepted_terms') bool acceptedTerms});
 }
 
 /// @nodoc
@@ -178,6 +187,7 @@ class __$$_HUProfileModelCopyWithImpl<$Res>
     Object? goals = null,
     Object? habinauts = null,
     Object? isPro = null,
+    Object? acceptedTerms = null,
   }) {
     return _then(_$_HUProfileModel(
       id: null == id
@@ -224,6 +234,10 @@ class __$$_HUProfileModelCopyWithImpl<$Res>
           ? _value.isPro
           : isPro // ignore: cast_nullable_to_non_nullable
               as bool,
+      acceptedTerms: null == acceptedTerms
+          ? _value.acceptedTerms
+          : acceptedTerms // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -242,7 +256,8 @@ class _$_HUProfileModel implements _HUProfileModel {
       final List<int> badges = const [],
       final List<HUGoalModel> goals = const [],
       final List<String> habinauts = const [],
-      @JsonKey(name: 'is_pro') this.isPro = false})
+      @JsonKey(name: 'is_pro') this.isPro = false,
+      @JsonKey(name: 'accepted_terms') this.acceptedTerms = false})
       : _badges = badges,
         _goals = goals,
         _habinauts = habinauts;
@@ -300,10 +315,13 @@ class _$_HUProfileModel implements _HUProfileModel {
   @override
   @JsonKey(name: 'is_pro')
   final bool isPro;
+  @override
+  @JsonKey(name: 'accepted_terms')
+  final bool acceptedTerms;
 
   @override
   String toString() {
-    return 'HUProfileModel(id: $id, updatedAt: $updatedAt, name: $name, email: $email, handle: $handle, bio: $bio, avatar: $avatar, badges: $badges, goals: $goals, habinauts: $habinauts, isPro: $isPro)';
+    return 'HUProfileModel(id: $id, updatedAt: $updatedAt, name: $name, email: $email, handle: $handle, bio: $bio, avatar: $avatar, badges: $badges, goals: $goals, habinauts: $habinauts, isPro: $isPro, acceptedTerms: $acceptedTerms)';
   }
 
   @override
@@ -323,7 +341,9 @@ class _$_HUProfileModel implements _HUProfileModel {
             const DeepCollectionEquality().equals(other._goals, _goals) &&
             const DeepCollectionEquality()
                 .equals(other._habinauts, _habinauts) &&
-            (identical(other.isPro, isPro) || other.isPro == isPro));
+            (identical(other.isPro, isPro) || other.isPro == isPro) &&
+            (identical(other.acceptedTerms, acceptedTerms) ||
+                other.acceptedTerms == acceptedTerms));
   }
 
   @JsonKey(ignore: true)
@@ -340,7 +360,8 @@ class _$_HUProfileModel implements _HUProfileModel {
       const DeepCollectionEquality().hash(_badges),
       const DeepCollectionEquality().hash(_goals),
       const DeepCollectionEquality().hash(_habinauts),
-      isPro);
+      isPro,
+      acceptedTerms);
 
   @JsonKey(ignore: true)
   @override
@@ -358,17 +379,19 @@ class _$_HUProfileModel implements _HUProfileModel {
 
 abstract class _HUProfileModel implements HUProfileModel {
   factory _HUProfileModel(
-      {required final String id,
-      @JsonKey(name: 'updated_at') required final DateTime updatedAt,
-      final String name,
-      final String email,
-      final String handle,
-      final String bio,
-      final String avatar,
-      final List<int> badges,
-      final List<HUGoalModel> goals,
-      final List<String> habinauts,
-      @JsonKey(name: 'is_pro') final bool isPro}) = _$_HUProfileModel;
+          {required final String id,
+          @JsonKey(name: 'updated_at') required final DateTime updatedAt,
+          final String name,
+          final String email,
+          final String handle,
+          final String bio,
+          final String avatar,
+          final List<int> badges,
+          final List<HUGoalModel> goals,
+          final List<String> habinauts,
+          @JsonKey(name: 'is_pro') final bool isPro,
+          @JsonKey(name: 'accepted_terms') final bool acceptedTerms}) =
+      _$_HUProfileModel;
 
   factory _HUProfileModel.fromJson(Map<String, dynamic> json) =
       _$_HUProfileModel.fromJson;
@@ -397,6 +420,9 @@ abstract class _HUProfileModel implements HUProfileModel {
   @override
   @JsonKey(name: 'is_pro')
   bool get isPro;
+  @override
+  @JsonKey(name: 'accepted_terms')
+  bool get acceptedTerms;
   @override
   @JsonKey(ignore: true)
   _$$_HUProfileModelCopyWith<_$_HUProfileModel> get copyWith =>

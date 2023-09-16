@@ -18,6 +18,7 @@ class HUProfileModel with _$HUProfileModel {
     @Default([]) List<HUGoalModel> goals,
     @Default([]) List<String> habinauts,
     @Default(false) @JsonKey(name: 'is_pro') bool isPro,
+    @Default(false) @JsonKey(name: 'accepted_terms') bool acceptedTerms,
   }) = _HUProfileModel;
 
   factory HUProfileModel.fromJson(Map<String, Object?> json) =>

@@ -13,6 +13,7 @@ class Profile extends _$Profile {
         profile: HUProfileModel(
           id: supabase.auth.currentUser?.id ?? '',
           updatedAt: DateTime.now(),
+          acceptedTerms: true,
         ),
         loading: true,
       );
@@ -35,5 +36,21 @@ class Profile extends _$Profile {
       final profile = await Database.profile();
       state = state.copyWith(profile: profile, loading: false);
     } on Exception catch (_) {}
+  }
+
+  Future<void> acceptTerms() async {
+    final date = DateTime.now().toUtc();
+    final profile = state.profile.copyWith(
+      acceptedTerms: true,
+      updatedAt: date,
+    );
+
+    state = state.copyWith(profile: profile, loading: true);
+
+    try {
+      await Database.acceptEula(state.profile);
+    } on Exception catch (_) {}
+
+    state = state.copyWith(loading: false);
   }
 }
