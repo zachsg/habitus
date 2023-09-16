@@ -21,7 +21,7 @@ class SignInView extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const ConnectivityWidget(),
+              // const ConnectivityWidget(),
               const SizedBox(height: 24),
               const AuthHeaderWidget(),
               const SizedBox(height: 24),

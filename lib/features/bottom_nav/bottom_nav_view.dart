@@ -43,12 +43,12 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
       body: Stack(
         children: [
           body,
-          const Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: ConnectivityWidget(),
-          ),
+          // const Positioned(
+          //   bottom: 0,
+          //   left: 0,
+          //   right: 0,
+          //   child: ConnectivityWidget(),
+          // ),
         ],
       ),
       bottomNavigationBar: NavigationBar(
