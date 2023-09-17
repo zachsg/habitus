@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../helpers/constants.dart';
 import '../../helpers/strings.dart';
@@ -96,7 +96,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
       floatingActionButton: isToday
           ? FloatingActionButton.extended(
               onPressed: () {
-                Wakelock.enable();
+                WakelockPlus.enable();
 
                 context.pushNamed(
                   GrowView.routeName,

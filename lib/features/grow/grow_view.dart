@@ -4,7 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../helpers/providers.dart';
 import '../../models/xmodels.dart';
@@ -129,7 +129,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    Wakelock.disable();
+                    WakelockPlus.disable();
                     ref
                         .read(growProvider(widget.habitatAndAction).notifier)
                         .setPaused(true);
@@ -162,7 +162,7 @@ class _GrowViewState extends ConsumerState<GrowView>
     BuildContext context,
     bool goalMet,
   ) async {
-    Wakelock.disable();
+    WakelockPlus.disable();
 
     ref.read(growProvider(widget.habitatAndAction).notifier).setPaused(true);
 
@@ -248,7 +248,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                                   color: Theme.of(context).colorScheme.error),
                         ),
                         onPressed: () {
-                          Wakelock.disable();
+                          WakelockPlus.disable();
 
                           LocalNotificationService()
                               .cancelNotificationWithId(0);
@@ -269,7 +269,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                               ),
                         ),
                         onPressed: () async {
-                          Wakelock.disable();
+                          WakelockPlus.disable();
 
                           LocalNotificationService()
                               .cancelNotificationWithId(0);
