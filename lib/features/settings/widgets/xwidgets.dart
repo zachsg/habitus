@@ -1,3 +1,4 @@
+export 'settings_app_version_widget.dart';
 export 'settings_bio_text_button_row_widget.dart';
 export 'settings_bio_text_field_widget.dart';
 export 'settings_bottom_sheet_widget.dart';
