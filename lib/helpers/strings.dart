@@ -82,6 +82,7 @@ const bioErrorString = 'Error saving bio. Try again.';
 const genericErrorString = 'Uknown error';
 const minimalString = 'Minimal Timer?';
 const themeString = 'App Theme';
+const thanksString = 'Acknowledgements';
 
 /// Misc.
 const noNetworkString = 'No Network Connection';

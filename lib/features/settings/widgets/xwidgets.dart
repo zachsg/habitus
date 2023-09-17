@@ -12,5 +12,6 @@ export 'settings_section_divider_widget.dart';
 export 'settings_section_header_widget.dart';
 export 'settings_section_widget.dart';
 export 'settings_sign_out_button_widget.dart';
+export 'settings_thanks_widget.dart';
 export 'settings_theme_dropdown_button_widget.dart';
 export 'settings_theme_toggle_row_widget.dart';

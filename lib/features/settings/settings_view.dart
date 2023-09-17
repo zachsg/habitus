@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../helpers/strings.dart';
 import 'settings.dart';
@@ -23,9 +27,30 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
 
   @override
   Widget build(BuildContext context) {
+    final isIOS = Platform.isIOS;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(settingsTitleString),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showModalBottomSheet<void>(
+                context: context,
+                isScrollControlled: true,
+                builder: (BuildContext context) {
+                  return SettingsBottomSheetWidget(
+                    title: thanksString,
+                    actionText: 'Close',
+                    onPressed: () async => context.pop(),
+                    child: const SettingsThanksWidget(),
+                  );
+                },
+              );
+            },
+            icon: Icon(isIOS ? CupertinoIcons.info_circle : Icons.info),
+          )
+        ],
       ),
       body: const SafeArea(
         child: SingleChildScrollView(

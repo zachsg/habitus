@@ -9,11 +9,13 @@ class SettingsBottomSheetWidget extends ConsumerWidget {
     super.key,
     required this.title,
     required this.child,
+    this.actionText = 'Save',
     required this.onPressed,
   });
 
   final String title;
   final Widget child;
+  final String actionText;
   final Future<void> Function() onPressed;
 
   @override
@@ -77,7 +79,7 @@ class SettingsBottomSheetWidget extends ConsumerWidget {
                   ? const CircularProgressIndicator.adaptive()
                   : ElevatedButton(
                       onPressed: onPressed,
-                      child: const Text('Save'),
+                      child: Text(actionText),
                     ),
             ],
           ),
