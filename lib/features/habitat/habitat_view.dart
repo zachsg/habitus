@@ -46,14 +46,12 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
     final isToday = day.isAfter(today.copyWith(hour: 0, minute: 0)) &&
         day.isBefore(today.copyWith(hour: 24, minute: 59));
     final profile = ref.watch(profileProvider).profile;
-    final actions = ref
-        .watch(habitatProvider(widget.habitat))
-        .actions
-        .where((action) => action.ownerId == profile.id)
-        .toList();
+    final actions = ref.watch(habitatProvider(widget.habitat)).actions;
+    final myActions =
+        actions.where((action) => action.ownerId == profile.id).toList();
 
     int elapsed = 0;
-    for (final action in actions) {
+    for (final action in myActions) {
       elapsed += action.goal.value;
     }
 

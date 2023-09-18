@@ -139,7 +139,9 @@ class Database {
   }
 
   static Future<List<HUActionModel>> actionsWithHabitatId(
-      int id, DateTime day) async {
+    int id,
+    DateTime day,
+  ) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();

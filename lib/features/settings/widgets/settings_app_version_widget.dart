@@ -39,7 +39,7 @@ class _SettingsAppVersionWidgetState
     final version = _packageInfo.version;
 
     return Text(
-      'App: $version ($number)'.toUpperCase(),
+      'App: $version.$number'.toUpperCase(),
       style: Theme.of(context).textTheme.labelMedium,
     );
   }

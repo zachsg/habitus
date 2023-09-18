@@ -138,7 +138,12 @@ class HabitatPersonalCompletionChartWidget extends ConsumerWidget {
     for (final action in actions) {
       progress += action.goal.value;
     }
-    progress /= multiplier;
+
+    if (multiplier > 0.0) {
+      progress /= multiplier;
+    } else {
+      // progress = 0;
+    }
 
     return Stack(
       children: [

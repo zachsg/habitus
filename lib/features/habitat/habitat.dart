@@ -71,11 +71,9 @@ class Habitat extends _$Habitat {
 
   Future<void> nextDay() async {
     final day = state.day.add(const Duration(days: 1));
-    state = state.copyWith(day: day, loading: true);
+    state = state.copyWith(day: day);
 
     await loadActions();
-
-    state = state.copyWith(loading: false);
   }
 
   Future<void> previousDay() async {
@@ -87,10 +85,8 @@ class Habitat extends _$Habitat {
 
   Future<void> resetDay() async {
     final day = DateTime.now();
-    state = state.copyWith(day: day, loading: true);
+    state = state.copyWith(day: day);
 
     await loadActions();
-
-    state = state.copyWith(loading: false);
   }
 }
