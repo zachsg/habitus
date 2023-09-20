@@ -10,6 +10,8 @@ import '../../helpers/providers.dart';
 import '../../models/xmodels.dart';
 import '../../helpers/strings.dart';
 import '../../services/local_notification_service.dart';
+import '../../services/remote_notification_service.dart';
+import '../habitat/habitat.dart';
 import '../profile/profile.dart';
 import 'grow.dart';
 import 'widgets/xwidgets.dart';
@@ -203,7 +205,7 @@ class _GrowViewState extends ConsumerState<GrowView>
   }
 
   Future<void> _playTone() async =>
-      AudioPlayer().play(AssetSource('sounds/singing-bowl.mp3'));
+      AudioPlayer().play(AssetSource('sounds/singing-bowl.mp3'), volume: 0.5);
 
   Future<void> _showSessionCompleteDialog(
     WidgetRef ref,
@@ -278,6 +280,8 @@ class _GrowViewState extends ConsumerState<GrowView>
                               .read(growProvider(habitatAndAction).notifier)
                               .save(goalMet);
 
+                          _notifyNewAction();
+
                           if (context.mounted) {
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();
@@ -289,6 +293,31 @@ class _GrowViewState extends ConsumerState<GrowView>
           ],
         );
       },
+    );
+  }
+
+  Future<void> _notifyNewAction() async {
+    final profiles = ref
+        .watch(habitatProvider(widget.habitatAndAction.habitat))
+        .profiles
+        .toList();
+    final profile = ref.watch(profileProvider).profile;
+
+    profiles.removeWhere((p) => p.id == profile.id || p.pushToken.isEmpty);
+
+    final habitat = widget.habitatAndAction.habitat;
+    final title = habitat.name;
+    final subtitle = 'A habitmate just finished ${_habitType()}';
+
+    List<String> tokens = [];
+    for (final profile in profiles) {
+      tokens.add(profile.pushToken);
+    }
+
+    await RemoteNotificationService.newActionNotification(
+      tokens: tokens,
+      title: title,
+      subtitle: subtitle,
     );
   }
 }

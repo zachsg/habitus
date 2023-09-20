@@ -1,30 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'h_u_action_model.dart';
+part of 'h_u_reaction_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_HUActionModel _$$_HUActionModelFromJson(Map<String, dynamic> json) =>
-    _$_HUActionModel(
+_$_HUReactionModel _$$_HUReactionModelFromJson(Map<String, dynamic> json) =>
+    _$_HUReactionModel(
       id: json['id'] as int,
-      habitatId: json['habitat_id'] as int,
+      actionId: json['action_id'] as int,
       ownerId: json['owner_id'] as String,
       createdAt: DateTime.parse(json['created_at'] as String),
-      reactions: (json['reactions'] as List<dynamic>?)
-              ?.map((e) => HUReactionModel.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
+      icon: json['icon'] as String? ?? '',
+      text: json['text'] as String? ?? '',
       goal: HUGoalModel.fromJson(json['goal'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_HUActionModelToJson(_$_HUActionModel instance) =>
+Map<String, dynamic> _$$_HUReactionModelToJson(_$_HUReactionModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'habitat_id': instance.habitatId,
+      'action_id': instance.actionId,
       'owner_id': instance.ownerId,
       'created_at': instance.createdAt.toIso8601String(),
-      'reactions': instance.reactions,
+      'icon': instance.icon,
+      'text': instance.text,
       'goal': instance.goal,
     };

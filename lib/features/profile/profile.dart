@@ -1,3 +1,5 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../models/xmodels.dart';
@@ -35,6 +37,10 @@ class Profile extends _$Profile {
     try {
       final profile = await Database.profile();
       state = state.copyWith(profile: profile, loading: false);
+
+      if (profile.pushToken.isEmpty) {
+        _firebaseMessagingSetup();
+      }
     } on Exception catch (_) {}
   }
 
@@ -52,5 +58,50 @@ class Profile extends _$Profile {
     } on Exception catch (_) {}
 
     state = state.copyWith(loading: false);
+  }
+
+  Future<void> savePushToken(String token) async {
+    if (state.profile.pushToken == token) {
+      return;
+    }
+
+    final profile = state.profile.copyWith(pushToken: token);
+    state = state.copyWith(profile: profile);
+
+    try {
+      await Database.savePushToken(profile);
+    } on Exception catch (_) {}
+  }
+
+  Future<void> _firebaseMessagingSetup() async {
+    // TODO: Request permission
+    final messaging = FirebaseMessaging.instance;
+
+    final settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (kDebugMode) {
+      print('Permission granted: ${settings.authorizationStatus}');
+    }
+
+    // TODO: Register with FCM
+    String? token = await messaging.getToken();
+    if (token != null) {
+      savePushToken(token);
+    }
+
+    if (kDebugMode) {
+      print('Registration Token=$token');
+    }
+
+    // TODO: Set up foreground message handler
+    // TODO: Set up background message handler
   }
 }

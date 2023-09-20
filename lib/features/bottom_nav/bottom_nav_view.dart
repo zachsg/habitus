@@ -25,6 +25,7 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
   @override
   void initState() {
     ref.read(profileProvider.notifier).loadProfile();
+
     super.initState();
   }
 
