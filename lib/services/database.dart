@@ -46,6 +46,23 @@ class Database {
     return true;
   }
 
+  static Future<bool> savePushToken(HUProfileModel profile) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      return false;
+    }
+
+    try {
+      await supabase.from(profilesTable).update({
+        'push_token': profile.pushToken,
+      }).eq('id', user.id);
+    } on Exception catch (_) {
+      return false;
+    }
+
+    return true;
+  }
+
   static Future<bool> saveProfileName(HUProfileModel profile) async {
     final user = supabase.auth.currentUser;
     if (user == null) {

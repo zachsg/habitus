@@ -26,6 +26,7 @@ _$_HUProfileModel _$$_HUProfileModelFromJson(Map<String, dynamic> json) =>
               ?.map((e) => e as String)
               .toList() ??
           const [],
+      pushToken: json['push_token'] as String? ?? '',
       isPro: json['is_pro'] as bool? ?? false,
       acceptedTerms: json['accepted_terms'] as bool? ?? false,
     );
@@ -42,6 +43,7 @@ Map<String, dynamic> _$$_HUProfileModelToJson(_$_HUProfileModel instance) =>
       'badges': instance.badges,
       'goals': instance.goals,
       'habinauts': instance.habinauts,
+      'push_token': instance.pushToken,
       'is_pro': instance.isPro,
       'accepted_terms': instance.acceptedTerms,
     };

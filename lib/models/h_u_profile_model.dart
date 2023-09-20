@@ -17,6 +17,7 @@ class HUProfileModel with _$HUProfileModel {
     @Default([]) List<int> badges,
     @Default([]) List<HUGoalModel> goals,
     @Default([]) List<String> habinauts,
+    @Default('') @JsonKey(name: 'push_token') String pushToken,
     @Default(false) @JsonKey(name: 'is_pro') bool isPro,
     @Default(false) @JsonKey(name: 'accepted_terms') bool acceptedTerms,
   }) = _HUProfileModel;

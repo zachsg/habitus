@@ -165,6 +165,16 @@ class SettingsThanksWidget extends ConsumerWidget {
               name: 'json_serializable',
               url: 'https://pub.dev/packages/json_serializable',
             ),
+            _thanksItem(
+              context: context,
+              name: 'firebase_core',
+              url: 'https://pub.dev/packages/firebase_core',
+            ),
+            _thanksItem(
+              context: context,
+              name: 'firebase_messaging',
+              url: 'https://pub.dev/packages/firebase_messaging',
+            ),
           ],
         ),
       ),
