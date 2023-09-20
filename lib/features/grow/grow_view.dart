@@ -307,7 +307,8 @@ class _GrowViewState extends ConsumerState<GrowView>
 
     final habitat = widget.habitatAndAction.habitat;
     final title = habitat.name;
-    final subtitle = 'A habitmate just finished ${_habitType()}';
+    final subtitle =
+        '@${profile.handle} just finished ${_habitType().toLowerCase()}';
 
     List<String> tokens = [];
     for (final profile in profiles) {
