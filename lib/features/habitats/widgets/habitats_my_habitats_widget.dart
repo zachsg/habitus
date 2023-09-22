@@ -14,12 +14,14 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final habitats = ref.watch(habitatsProvider).habitats;
 
-    return Column(
-      children: [
-        const HabitatsOverallProgressWidget(),
-        const SizedBox(height: 8.0),
-        Expanded(
-          child: ListView.builder(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const HabitatsOverallProgressWidget(),
+          const SizedBox(height: 8.0),
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
             itemCount: habitats.length,
             itemBuilder: (context, index) {
               final habitat = habitats[index];
@@ -37,6 +39,7 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                   vertical: 6.0,
                 ),
                 child: Card(
+                  margin: EdgeInsets.zero,
                   child: InkWell(
                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                     onTap: () => context.pushNamed(
@@ -44,69 +47,83 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                       pathParameters: {'id': habitat.id.toString()},
                       extra: habitat,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16.0,
-                        top: 16.0,
-                        right: 6.0,
-                        bottom: 16.0,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 16.0,
+                            top: 16.0,
+                            right: 6.0,
+                            bottom: 16.0,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              Flexible(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      habitat.name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
-                                    ),
-                                    Text(
-                                      '${habitat.members.length + habitat.admins.length + 1} habitmates',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                  ],
-                                ),
-                              ),
                               Row(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    date,
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall,
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          habitat.name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
+                                        Text(
+                                          '${habitat.members.length + habitat.admins.length + 1} habitmates',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  const SizedBox(width: 4),
-                                  Icon(
-                                    Icons.chevron_right,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryContainer,
-                                    size: 28,
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        date,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Icon(
+                                        Icons.chevron_right,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimaryContainer,
+                                        size: 28,
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                        Container(
+                          color: Theme.of(context).colorScheme.primary,
+                          height: 1,
+                        ),
+                        HabitatsHabitatProgressWidget(habitat: habitat),
+                      ],
                     ),
                   ),
                 ),
               );
             },
           ),
-        ),
-      ],
+          const SizedBox(height: 80.0),
+        ],
+      ),
     );
   }
 }
