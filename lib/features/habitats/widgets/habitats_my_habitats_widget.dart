@@ -109,10 +109,10 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                             ],
                           ),
                         ),
-                        Container(
-                          color: Theme.of(context).colorScheme.primary,
-                          height: 1,
-                        ),
+                        // Container(
+                        //   color: Theme.of(context).colorScheme.primary,
+                        //   height: 1,
+                        // ),
                         HabitatsHabitatProgressWidget(habitat: habitat),
                       ],
                     ),
