@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habitus/models/h_u_action_model.dart';
 
 import '../../profile/profile.dart';
 import '../habitats.dart';
@@ -35,10 +36,14 @@ class HabitatsOverallProgressWidget extends ConsumerWidget {
       }
     } else {
       // User only has 1 goal, so progress should be actions against that 1 goal
-      final actionsForGoal = actions
-          .where((action) => action.habitatId == profile.goals.first.habitatId);
+      final List<HUActionModel> actionsForGoal = [];
 
-      possible = profile.goals.first.value;
+      if (profile.goals.isNotEmpty) {
+        actionsForGoal.addAll(actions.where(
+            (action) => action.habitatId == profile.goals.first.habitatId));
+        possible = profile.goals.first.value;
+      }
+
       int attained = 0;
       for (final action in actionsForGoal) {
         attained += action.goal.value;
