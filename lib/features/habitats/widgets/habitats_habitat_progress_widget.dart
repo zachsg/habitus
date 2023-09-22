@@ -44,7 +44,7 @@ class HabitatsHabitatProgressWidget extends ConsumerWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
                 borderRadius: BorderRadius.only(
                   bottomRight: progress == 1
                       ? const Radius.circular(12.0)
