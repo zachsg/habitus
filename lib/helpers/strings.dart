@@ -17,10 +17,10 @@ const typePasswordString = 'Enter your password';
 // Home
 const homeTitleString = 'Habitats';
 const homeEmptyString = 'You don\'t have any habits yet.\nStart or Join one!';
-const newHabitString = 'Add Habit';
+const newHabitString = 'Build Habit';
 
 // Join Habitat
-const joinHabitatTitleString = 'Adopt A Habit';
+const joinHabitatTitleString = 'Build A Habit';
 const joinHabitatHabitString = 'Habit';
 const joinHabitGoalString = 'Goal';
 const readString = 'Read';

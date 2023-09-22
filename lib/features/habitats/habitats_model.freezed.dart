@@ -21,6 +21,7 @@ HabitatsModel _$HabitatsModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$HabitatsModel {
   List<HUHabitatModel> get habitats => throw _privateConstructorUsedError;
+  List<HUActionModel> get actions => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -36,7 +37,11 @@ abstract class $HabitatsModelCopyWith<$Res> {
           HabitatsModel value, $Res Function(HabitatsModel) then) =
       _$HabitatsModelCopyWithImpl<$Res, HabitatsModel>;
   @useResult
-  $Res call({List<HUHabitatModel> habitats, bool loading, String? error});
+  $Res call(
+      {List<HUHabitatModel> habitats,
+      List<HUActionModel> actions,
+      bool loading,
+      String? error});
 }
 
 /// @nodoc
@@ -53,6 +58,7 @@ class _$HabitatsModelCopyWithImpl<$Res, $Val extends HabitatsModel>
   @override
   $Res call({
     Object? habitats = null,
+    Object? actions = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -61,6 +67,10 @@ class _$HabitatsModelCopyWithImpl<$Res, $Val extends HabitatsModel>
           ? _value.habitats
           : habitats // ignore: cast_nullable_to_non_nullable
               as List<HUHabitatModel>,
+      actions: null == actions
+          ? _value.actions
+          : actions // ignore: cast_nullable_to_non_nullable
+              as List<HUActionModel>,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -81,7 +91,11 @@ abstract class _$$_HabitatsModelCopyWith<$Res>
       __$$_HabitatsModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<HUHabitatModel> habitats, bool loading, String? error});
+  $Res call(
+      {List<HUHabitatModel> habitats,
+      List<HUActionModel> actions,
+      bool loading,
+      String? error});
 }
 
 /// @nodoc
@@ -96,6 +110,7 @@ class __$$_HabitatsModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? habitats = null,
+    Object? actions = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -104,6 +119,10 @@ class __$$_HabitatsModelCopyWithImpl<$Res>
           ? _value._habitats
           : habitats // ignore: cast_nullable_to_non_nullable
               as List<HUHabitatModel>,
+      actions: null == actions
+          ? _value._actions
+          : actions // ignore: cast_nullable_to_non_nullable
+              as List<HUActionModel>,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -121,9 +140,11 @@ class __$$_HabitatsModelCopyWithImpl<$Res>
 class _$_HabitatsModel implements _HabitatsModel {
   _$_HabitatsModel(
       {required final List<HUHabitatModel> habitats,
+      required final List<HUActionModel> actions,
       this.loading = false,
       this.error})
-      : _habitats = habitats;
+      : _habitats = habitats,
+        _actions = actions;
 
   factory _$_HabitatsModel.fromJson(Map<String, dynamic> json) =>
       _$$_HabitatsModelFromJson(json);
@@ -136,6 +157,14 @@ class _$_HabitatsModel implements _HabitatsModel {
     return EqualUnmodifiableListView(_habitats);
   }
 
+  final List<HUActionModel> _actions;
+  @override
+  List<HUActionModel> get actions {
+    if (_actions is EqualUnmodifiableListView) return _actions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_actions);
+  }
+
   @override
   @JsonKey()
   final bool loading;
@@ -144,7 +173,7 @@ class _$_HabitatsModel implements _HabitatsModel {
 
   @override
   String toString() {
-    return 'HabitatsModel(habitats: $habitats, loading: $loading, error: $error)';
+    return 'HabitatsModel(habitats: $habitats, actions: $actions, loading: $loading, error: $error)';
   }
 
   @override
@@ -153,14 +182,19 @@ class _$_HabitatsModel implements _HabitatsModel {
         (other.runtimeType == runtimeType &&
             other is _$_HabitatsModel &&
             const DeepCollectionEquality().equals(other._habitats, _habitats) &&
+            const DeepCollectionEquality().equals(other._actions, _actions) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_habitats), loading, error);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_habitats),
+      const DeepCollectionEquality().hash(_actions),
+      loading,
+      error);
 
   @JsonKey(ignore: true)
   @override
@@ -179,6 +213,7 @@ class _$_HabitatsModel implements _HabitatsModel {
 abstract class _HabitatsModel implements HabitatsModel {
   factory _HabitatsModel(
       {required final List<HUHabitatModel> habitats,
+      required final List<HUActionModel> actions,
       final bool loading,
       final String? error}) = _$_HabitatsModel;
 
@@ -187,6 +222,8 @@ abstract class _HabitatsModel implements HabitatsModel {
 
   @override
   List<HUHabitatModel> get habitats;
+  @override
+  List<HUActionModel> get actions;
   @override
   bool get loading;
   @override

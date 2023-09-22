@@ -57,6 +57,7 @@ class Grow extends _$Grow {
           .read(habitatProvider(state.habitat).notifier)
           .loadHabitatWithId(state.habitat.id);
       await ref.read(habitatsProvider.notifier).loadHabitats();
+      await ref.read(habitatsProvider.notifier).loadActions();
     }
 
     state = state.copyWith(loading: false);

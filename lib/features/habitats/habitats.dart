@@ -8,12 +8,25 @@ part 'habitats.g.dart';
 @Riverpod(keepAlive: true)
 class Habitats extends _$Habitats {
   @override
-  HabitatsModel build() => HabitatsModel(habitats: [], loading: true);
+  HabitatsModel build() => HabitatsModel(
+        habitats: [],
+        actions: [],
+        loading: true,
+      );
 
   Future<void> loadHabitats() async {
     try {
       final habitats = await Database.habitats();
       state = state.copyWith(habitats: habitats, loading: false);
+    } on Exception catch (_) {
+      state = state.copyWith(error: 'An error occurred', loading: false);
+    }
+  }
+
+  Future<void> loadActions() async {
+    try {
+      final actions = await Database.myActionsForToday();
+      state = state.copyWith(actions: actions, loading: false);
     } on Exception catch (_) {
       state = state.copyWith(error: 'An error occurred', loading: false);
     }
