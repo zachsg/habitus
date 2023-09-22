@@ -223,74 +223,80 @@ class _GrowViewState extends ConsumerState<GrowView>
             ? grow.elapsed / 60
             : grow.elapsed / 60 - habitatAndAction.elapsed;
 
-        return AlertDialog(
-          title: Text(
-            'You ${_habitTypePast().toLowerCase()} '
-            'for ${elapsed.round()} '
-            '${habitatAndAction.habitat.goal.unit.name}',
-          ),
-          content: const SingleChildScrollView(
-            child: ListBody(
-              children: [],
-            ),
-          ),
-          actions: [
-            grow.loading
-                ? const CircularProgressIndicator.adaptive()
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TextButton(
-                        child: Text(
-                          'Delete',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(
-                                  color: Theme.of(context).colorScheme.error),
-                        ),
-                        onPressed: () {
-                          WakelockPlus.disable();
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text(
+                'You ${_habitTypePast().toLowerCase()} '
+                'for ${elapsed.round()} '
+                '${habitatAndAction.habitat.goal.unit.name}',
+              ),
+              content: const SingleChildScrollView(
+                child: ListBody(
+                  children: [],
+                ),
+              ),
+              actions: [
+                grow.loading
+                    ? const CircularProgressIndicator.adaptive()
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextButton(
+                            child: Text(
+                              'Delete',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                      color:
+                                          Theme.of(context).colorScheme.error),
+                            ),
+                            onPressed: () {
+                              WakelockPlus.disable();
 
-                          LocalNotificationService()
-                              .cancelNotificationWithId(0);
+                              LocalNotificationService()
+                                  .cancelNotificationWithId(0);
 
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
-                        },
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: Text(
+                              'Save',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            onPressed: () async {
+                              WakelockPlus.disable();
+
+                              LocalNotificationService()
+                                  .cancelNotificationWithId(0);
+
+                              await ref
+                                  .read(growProvider(habitatAndAction).notifier)
+                                  .save(goalMet);
+
+                              _notifyNewAction();
+
+                              if (context.mounted) {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              }
+                            },
+                          ),
+                        ],
                       ),
-                      TextButton(
-                        child: Text(
-                          'Save',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                        onPressed: () async {
-                          WakelockPlus.disable();
-
-                          LocalNotificationService()
-                              .cancelNotificationWithId(0);
-
-                          await ref
-                              .read(growProvider(habitatAndAction).notifier)
-                              .save(goalMet);
-
-                          _notifyNewAction();
-
-                          if (context.mounted) {
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pop();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-          ],
+              ],
+            );
+          },
         );
       },
     );
