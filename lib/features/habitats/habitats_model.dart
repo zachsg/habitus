@@ -9,6 +9,7 @@ part 'habitats_model.g.dart';
 class HabitatsModel with _$HabitatsModel {
   factory HabitatsModel({
     required List<HUHabitatModel> habitats,
+    required List<HUActionModel> actions,
     @Default(false) bool loading,
     String? error,
   }) = _HabitatsModel;
