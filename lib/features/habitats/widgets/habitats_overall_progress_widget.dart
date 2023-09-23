@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitus/models/h_u_action_model.dart';
 
 import '../../profile/profile.dart';
 import '../habitats.dart';
