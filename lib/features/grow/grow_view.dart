@@ -214,6 +214,7 @@ class _GrowViewState extends ConsumerState<GrowView>
     bool goalMet,
   ) async {
     final grow = ref.watch(growProvider(habitatAndAction));
+    bool loading = false;
 
     return showDialog(
       context: context,
@@ -223,80 +224,85 @@ class _GrowViewState extends ConsumerState<GrowView>
             ? grow.elapsed / 60
             : grow.elapsed / 60 - habitatAndAction.elapsed;
 
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              title: Text(
-                'You ${_habitTypePast().toLowerCase()} '
-                'for ${elapsed.round()} '
-                '${habitatAndAction.habitat.goal.unit.name}',
+        return AlertDialog(
+          title: Text(
+            'You ${_habitTypePast().toLowerCase()} '
+            'for ${elapsed.round()} '
+            '${habitatAndAction.habitat.goal.unit.name}',
+          ),
+          content: StatefulBuilder(builder: (context, setState) {
+            return const SingleChildScrollView(
+              child: ListBody(
+                children: [],
               ),
-              content: const SingleChildScrollView(
-                child: ListBody(
-                  children: [],
-                ),
-              ),
-              actions: [
-                grow.loading
-                    ? const CircularProgressIndicator.adaptive()
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          TextButton(
-                            child: Text(
-                              'Delete',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.error),
-                            ),
-                            onPressed: () {
-                              WakelockPlus.disable();
-
-                              LocalNotificationService()
-                                  .cancelNotificationWithId(0);
-
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          TextButton(
-                            child: Text(
-                              'Save',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                            onPressed: () async {
-                              WakelockPlus.disable();
-
-                              LocalNotificationService()
-                                  .cancelNotificationWithId(0);
-
-                              await ref
-                                  .read(growProvider(habitatAndAction).notifier)
-                                  .save(goalMet);
-
-                              _notifyNewAction();
-
-                              if (context.mounted) {
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-              ],
             );
-          },
+          }),
+          actions: [
+            loading
+                ? const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator.adaptive(),
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextButton(
+                        child: Text(
+                          'Delete',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  color: Theme.of(context).colorScheme.error),
+                        ),
+                        onPressed: () {
+                          WakelockPlus.disable();
+
+                          LocalNotificationService()
+                              .cancelNotificationWithId(0);
+
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: Text(
+                          'Save',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                        onPressed: () async {
+                          setState(() => loading = true);
+
+                          WakelockPlus.disable();
+
+                          LocalNotificationService()
+                              .cancelNotificationWithId(0);
+
+                          await ref
+                              .read(growProvider(habitatAndAction).notifier)
+                              .save(goalMet);
+
+                          _notifyNewAction();
+
+                          setState(() => loading = false);
+
+                          if (context.mounted) {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+          ],
         );
       },
     );
