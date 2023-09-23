@@ -20,7 +20,7 @@ class HabitatDaySelectorWidget extends ConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        OutlinedButton(
+        ElevatedButton(
           onPressed:
               ref.read(habitatProvider(this.habitat).notifier).previousDay,
           child: const Text(prevString),
@@ -31,7 +31,7 @@ class HabitatDaySelectorWidget extends ConsumerWidget {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(width: 12.0),
-        OutlinedButton(
+        ElevatedButton(
           onPressed: ref.read(habitatProvider(this.habitat).notifier).resetDay,
           child: const Text(todayString),
         ),

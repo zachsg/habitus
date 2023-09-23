@@ -23,6 +23,7 @@ class _HomeViewState extends ConsumerState<HabitatsView> {
   void initState() {
     ref.read(habitatsProvider.notifier).loadHabitats();
     ref.read(habitatsProvider.notifier).loadActions();
+
     super.initState();
   }
 

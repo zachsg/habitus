@@ -129,7 +129,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                         },
                       ),
                 const SizedBox(height: 16.0),
-                ElevatedButton(
+                FilledButton(
                   onPressed: () {
                     WakelockPlus.disable();
                     ref
