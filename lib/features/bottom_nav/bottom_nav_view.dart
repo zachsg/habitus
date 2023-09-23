@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../helpers/strings.dart';
+import '../habitats/habitats.dart';
 import '../profile/profile.dart';
 import '../profile/profile_view.dart';
 import '../settings/settings_view.dart';
@@ -21,12 +22,26 @@ class BottomNavView extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _BottomNavViewState();
 }
 
-class _BottomNavViewState extends ConsumerState<BottomNavView> {
+class _BottomNavViewState extends ConsumerState<BottomNavView>
+    with WidgetsBindingObserver {
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
+
     ref.read(profileProvider.notifier).loadProfile();
 
     super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        ref.read(habitatsProvider.notifier).loadHabitats();
+        ref.read(habitatsProvider.notifier).loadActions();
+        break;
+      default:
+    }
   }
 
   @override
