@@ -16,8 +16,9 @@ class HabitatsOverallProgressWidget extends ConsumerWidget {
     int possible = profile.goals.length;
     double progress = 0;
 
-    if (profile.goals.length > 1) {
+    if (profile.goals.isNotEmpty) {
       for (final goal in profile.goals) {
+        int acutelyPossible = goal.value;
         final actionsForGoal =
             actions.where((action) => action.habitatId == goal.habitatId);
 
@@ -26,30 +27,14 @@ class HabitatsOverallProgressWidget extends ConsumerWidget {
           attained += action.goal.value;
         }
 
-        if (attained >= goal.value) {
-          progress += 1;
+        double progressBeforeWeight = attained / acutelyPossible;
+        if (progressBeforeWeight > 1) {
+          progressBeforeWeight = 1;
         }
-      }
 
-      if (possible > 0) {
-        progress = progress / possible.toDouble();
+        progress += progressBeforeWeight;
       }
-    } else {
-      // User only has 1 goal, so progress should be actions against that 1 goal
-      final List<HUActionModel> actionsForGoal = [];
-
-      if (profile.goals.isNotEmpty) {
-        actionsForGoal.addAll(actions.where(
-            (action) => action.habitatId == profile.goals.first.habitatId));
-        possible = profile.goals.first.value;
-      }
-
-      int attained = 0;
-      for (final action in actionsForGoal) {
-        attained += action.goal.value;
-      }
-
-      progress = attained / possible;
+      progress /= possible;
     }
 
     return Padding(
