@@ -32,6 +32,7 @@ mixin _$HUHabitatModel {
   List<String> get members => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_open')
   bool get isOpen => throw _privateConstructorUsedError;
+  int get cap => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +55,8 @@ abstract class $HUHabitatModelCopyWith<$Res> {
       HUGoalModel goal,
       List<String> admins,
       List<String> members,
-      @JsonKey(name: 'is_open') bool isOpen});
+      @JsonKey(name: 'is_open') bool isOpen,
+      int cap});
 
   $HUGoalModelCopyWith<$Res> get goal;
 }
@@ -81,6 +83,7 @@ class _$HUHabitatModelCopyWithImpl<$Res, $Val extends HUHabitatModel>
     Object? admins = null,
     Object? members = null,
     Object? isOpen = null,
+    Object? cap = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -119,6 +122,10 @@ class _$HUHabitatModelCopyWithImpl<$Res, $Val extends HUHabitatModel>
           ? _value.isOpen
           : isOpen // ignore: cast_nullable_to_non_nullable
               as bool,
+      cap: null == cap
+          ? _value.cap
+          : cap // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 
@@ -148,7 +155,8 @@ abstract class _$$_HUHabitatModelCopyWith<$Res>
       HUGoalModel goal,
       List<String> admins,
       List<String> members,
-      @JsonKey(name: 'is_open') bool isOpen});
+      @JsonKey(name: 'is_open') bool isOpen,
+      int cap});
 
   @override
   $HUGoalModelCopyWith<$Res> get goal;
@@ -174,6 +182,7 @@ class __$$_HUHabitatModelCopyWithImpl<$Res>
     Object? admins = null,
     Object? members = null,
     Object? isOpen = null,
+    Object? cap = null,
   }) {
     return _then(_$_HUHabitatModel(
       id: null == id
@@ -212,6 +221,10 @@ class __$$_HUHabitatModelCopyWithImpl<$Res>
           ? _value.isOpen
           : isOpen // ignore: cast_nullable_to_non_nullable
               as bool,
+      cap: null == cap
+          ? _value.cap
+          : cap // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -228,7 +241,8 @@ class _$_HUHabitatModel implements _HUHabitatModel {
       required this.goal,
       final List<String> admins = const [],
       final List<String> members = const [],
-      @JsonKey(name: 'is_open') this.isOpen = true})
+      @JsonKey(name: 'is_open') this.isOpen = true,
+      this.cap = 10})
       : _admins = admins,
         _members = members;
 
@@ -272,10 +286,13 @@ class _$_HUHabitatModel implements _HUHabitatModel {
   @override
   @JsonKey(name: 'is_open')
   final bool isOpen;
+  @override
+  @JsonKey()
+  final int cap;
 
   @override
   String toString() {
-    return 'HUHabitatModel(id: $id, updatedAt: $updatedAt, creatorId: $creatorId, name: $name, header: $header, goal: $goal, admins: $admins, members: $members, isOpen: $isOpen)';
+    return 'HUHabitatModel(id: $id, updatedAt: $updatedAt, creatorId: $creatorId, name: $name, header: $header, goal: $goal, admins: $admins, members: $members, isOpen: $isOpen, cap: $cap)';
   }
 
   @override
@@ -293,7 +310,8 @@ class _$_HUHabitatModel implements _HUHabitatModel {
             (identical(other.goal, goal) || other.goal == goal) &&
             const DeepCollectionEquality().equals(other._admins, _admins) &&
             const DeepCollectionEquality().equals(other._members, _members) &&
-            (identical(other.isOpen, isOpen) || other.isOpen == isOpen));
+            (identical(other.isOpen, isOpen) || other.isOpen == isOpen) &&
+            (identical(other.cap, cap) || other.cap == cap));
   }
 
   @JsonKey(ignore: true)
@@ -308,7 +326,8 @@ class _$_HUHabitatModel implements _HUHabitatModel {
       goal,
       const DeepCollectionEquality().hash(_admins),
       const DeepCollectionEquality().hash(_members),
-      isOpen);
+      isOpen,
+      cap);
 
   @JsonKey(ignore: true)
   @override
@@ -334,7 +353,8 @@ abstract class _HUHabitatModel implements HUHabitatModel {
       required final HUGoalModel goal,
       final List<String> admins,
       final List<String> members,
-      @JsonKey(name: 'is_open') final bool isOpen}) = _$_HUHabitatModel;
+      @JsonKey(name: 'is_open') final bool isOpen,
+      final int cap}) = _$_HUHabitatModel;
 
   factory _HUHabitatModel.fromJson(Map<String, dynamic> json) =
       _$_HUHabitatModel.fromJson;
@@ -360,6 +380,8 @@ abstract class _HUHabitatModel implements HUHabitatModel {
   @override
   @JsonKey(name: 'is_open')
   bool get isOpen;
+  @override
+  int get cap;
   @override
   @JsonKey(ignore: true)
   _$$_HUHabitatModelCopyWith<_$_HUHabitatModel> get copyWith =>

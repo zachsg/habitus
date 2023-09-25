@@ -23,6 +23,7 @@ _$_HUHabitatModel _$$_HUHabitatModelFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       isOpen: json['is_open'] as bool? ?? true,
+      cap: json['cap'] as int? ?? 10,
     );
 
 Map<String, dynamic> _$$_HUHabitatModelToJson(_$_HUHabitatModel instance) =>
@@ -36,4 +37,5 @@ Map<String, dynamic> _$$_HUHabitatModelToJson(_$_HUHabitatModel instance) =>
       'admins': instance.admins,
       'members': instance.members,
       'is_open': instance.isOpen,
+      'cap': instance.cap,
     };

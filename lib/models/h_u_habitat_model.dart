@@ -17,6 +17,7 @@ class HUHabitatModel with _$HUHabitatModel {
     @Default([]) List<String> admins,
     @Default([]) List<String> members,
     @JsonKey(name: 'is_open') @Default(true) bool isOpen,
+    @Default(10) int cap,
   }) = _HUHabitatModel;
 
   factory HUHabitatModel.fromJson(Map<String, Object?> json) =>
