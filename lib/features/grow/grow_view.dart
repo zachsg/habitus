@@ -228,7 +228,7 @@ class _GrowViewState extends ConsumerState<GrowView>
           title: Text(
             'You ${_habitTypePast().toLowerCase()} '
             'for ${elapsed.round()} '
-            '${habitatAndAction.habitat.goal.unit.name}',
+            '${elapsed.round() == 1 ? habitatAndAction.habitat.goal.unit.name.substring(0, habitatAndAction.habitat.goal.unit.name.length - 1) : habitatAndAction.habitat.goal.unit.name}',
           ),
           content: StatefulBuilder(builder: (context, setState) {
             return const SingleChildScrollView(
