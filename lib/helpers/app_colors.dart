@@ -4,7 +4,7 @@ import 'extensions.dart';
 
 class AppColors {
   static final Color one = HexColor.fromHex('5c945f');
-  static final Color two = HexColor.fromHex('5f5c94');
+  static final Color two = HexColor.fromHex('5f5cc4');
   static final Color three = HexColor.fromHex('945c91');
   static final Color four = HexColor.fromHex('5c9194');
   static final Color five = HexColor.fromHex('91945c');
