@@ -63,7 +63,7 @@ class HabitatActivityWidget extends ConsumerWidget {
                                 Text(
                                   '${_actionName(action.goal)} '
                                   'for ${action.goal.value} '
-                                  '${action.goal.unit.name}',
+                                  '${action.goal.value == 1 ? action.goal.unit.name.substring(0, action.goal.unit.name.length - 1) : action.goal.unit.name}',
                                   style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                               ],
