@@ -83,7 +83,11 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
                             const SizedBox(height: 8.0),
                             HabitatHabitmatesWidget(habitat: widget.habitat),
                             const SizedBox(height: 32.0),
-                            HabitatActivityWidget(habitat: widget.habitat),
+                            HabitatActivityWidget(
+                              habitat: widget.habitat,
+                              actions: actions,
+                              isToday: isToday,
+                            ),
                             const SizedBox(height: 96),
                           ],
                         ),

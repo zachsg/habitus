@@ -14,6 +14,8 @@ class Database {
   static const habitatsTable = 'habitats';
   static const actionsTable = 'actions';
   static const deletionsTable = 'deletion_requests';
+  static const reactionsTable = 'reactions';
+  static const possibleReactionsTable = 'possible_reactions';
 
   /// Create or update user profile: Return true if no errors, false if errors.
   static Future<bool> createProfile(HUProfileModel profile) async {
@@ -357,6 +359,97 @@ class Database {
       return true;
     } on Exception catch (_) {
       return false;
+    }
+  }
+
+  static Future<List<HUReactionModel>> possibleReactions(List<int> ids) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    try {
+      final listOfPossibleReactionsJsons = await supabase
+          .from(possibleReactionsTable)
+          .select()
+          .eq('action_id', 0);
+
+      final List<HUReactionModel> reactions = [];
+      for (final reactionJson in listOfPossibleReactionsJsons) {
+        final reaction = HUReactionModel.fromJson(reactionJson);
+        reactions.add(reaction);
+      }
+
+      return reactions;
+    } on Exception catch (e) {
+      throw GenericErrorException(e.toString());
+    }
+  }
+
+  static Future<List<HUReactionModel>> myReactionsForAction(
+      int actionId) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    final id = user.id;
+    try {
+      final listOfReactionsJsons = await supabase
+          .from(reactionsTable)
+          .select()
+          .eq('owner_id', id)
+          .eq('action_id', actionId);
+
+      final List<HUReactionModel> reactions = [];
+      for (final reactionJson in listOfReactionsJsons) {
+        final reaction = HUReactionModel.fromJson(reactionJson);
+        reactions.add(reaction);
+      }
+
+      return reactions;
+    } on Exception catch (e) {
+      throw GenericErrorException(e.toString());
+    }
+  }
+
+  static Future<bool> react(HUReactionModel reaction) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    final reactionJson = reaction.toJson();
+
+    reactionJson.removeWhere((key, value) => key == 'id');
+
+    try {
+      await supabase.from(reactionsTable).insert(reactionJson);
+      return true;
+    } on Exception catch (_) {
+      return false;
+    }
+  }
+
+  static Future<List<HUReactionModel>> reactions(List<int> ids) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    try {
+      final listOfReactionsJsons =
+          await supabase.from(reactionsTable).select().in_('action_id', ids);
+
+      final List<HUReactionModel> reactions = [];
+      for (final reactionJson in listOfReactionsJsons) {
+        final reaction = HUReactionModel.fromJson(reactionJson);
+        reactions.add(reaction);
+      }
+
+      return reactions;
+    } on Exception catch (e) {
+      throw GenericErrorException(e.toString());
     }
   }
 }

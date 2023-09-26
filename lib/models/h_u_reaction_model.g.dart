@@ -14,7 +14,6 @@ _$_HUReactionModel _$$_HUReactionModelFromJson(Map<String, dynamic> json) =>
       createdAt: DateTime.parse(json['created_at'] as String),
       icon: json['icon'] as String? ?? '',
       text: json['text'] as String? ?? '',
-      goal: HUGoalModel.fromJson(json['goal'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_HUReactionModelToJson(_$_HUReactionModel instance) =>
@@ -25,5 +24,4 @@ Map<String, dynamic> _$$_HUReactionModelToJson(_$_HUReactionModel instance) =>
       'created_at': instance.createdAt.toIso8601String(),
       'icon': instance.icon,
       'text': instance.text,
-      'goal': instance.goal,
     };
