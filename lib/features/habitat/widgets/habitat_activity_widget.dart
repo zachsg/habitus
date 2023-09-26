@@ -38,6 +38,12 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
     super.initState();
   }
 
+  @override
+  void didUpdateWidget(HabitatActivityWidget old) {
+    _loadReactions();
+    super.didUpdateWidget(old);
+  }
+
   Future<void> _loadReactions() async {
     final Set<int> ids = {};
 
@@ -47,7 +53,9 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
 
     final reactions = await Database.reactions(ids.toList());
     _reactions.clear();
-    setState(() => _reactions.addAll(reactions));
+    if (reactions.isNotEmpty) {
+      setState(() => _reactions.addAll(reactions));
+    }
   }
 
   @override
