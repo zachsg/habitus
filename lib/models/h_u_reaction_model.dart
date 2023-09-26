@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'xmodels.dart';
-
 part 'h_u_reaction_model.freezed.dart';
 part 'h_u_reaction_model.g.dart';
 
@@ -14,7 +12,6 @@ class HUReactionModel with _$HUReactionModel {
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @Default('') String icon,
     @Default('') String text,
-    required HUGoalModel goal,
   }) = _HUReactionModel;
 
   factory HUReactionModel.fromJson(Map<String, Object?> json) =>

@@ -29,7 +29,6 @@ mixin _$HUReactionModel {
   DateTime get createdAt => throw _privateConstructorUsedError;
   String get icon => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
-  HUGoalModel get goal => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,10 +48,7 @@ abstract class $HUReactionModelCopyWith<$Res> {
       @JsonKey(name: 'owner_id') String ownerId,
       @JsonKey(name: 'created_at') DateTime createdAt,
       String icon,
-      String text,
-      HUGoalModel goal});
-
-  $HUGoalModelCopyWith<$Res> get goal;
+      String text});
 }
 
 /// @nodoc
@@ -74,7 +70,6 @@ class _$HUReactionModelCopyWithImpl<$Res, $Val extends HUReactionModel>
     Object? createdAt = null,
     Object? icon = null,
     Object? text = null,
-    Object? goal = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -101,19 +96,7 @@ class _$HUReactionModelCopyWithImpl<$Res, $Val extends HUReactionModel>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      goal: null == goal
-          ? _value.goal
-          : goal // ignore: cast_nullable_to_non_nullable
-              as HUGoalModel,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $HUGoalModelCopyWith<$Res> get goal {
-    return $HUGoalModelCopyWith<$Res>(_value.goal, (value) {
-      return _then(_value.copyWith(goal: value) as $Val);
-    });
   }
 }
 
@@ -131,11 +114,7 @@ abstract class _$$_HUReactionModelCopyWith<$Res>
       @JsonKey(name: 'owner_id') String ownerId,
       @JsonKey(name: 'created_at') DateTime createdAt,
       String icon,
-      String text,
-      HUGoalModel goal});
-
-  @override
-  $HUGoalModelCopyWith<$Res> get goal;
+      String text});
 }
 
 /// @nodoc
@@ -155,7 +134,6 @@ class __$$_HUReactionModelCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? icon = null,
     Object? text = null,
-    Object? goal = null,
   }) {
     return _then(_$_HUReactionModel(
       id: null == id
@@ -182,10 +160,6 @@ class __$$_HUReactionModelCopyWithImpl<$Res>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      goal: null == goal
-          ? _value.goal
-          : goal // ignore: cast_nullable_to_non_nullable
-              as HUGoalModel,
     ));
   }
 }
@@ -199,8 +173,7 @@ class _$_HUReactionModel implements _HUReactionModel {
       @JsonKey(name: 'owner_id') required this.ownerId,
       @JsonKey(name: 'created_at') required this.createdAt,
       this.icon = '',
-      this.text = '',
-      required this.goal});
+      this.text = ''});
 
   factory _$_HUReactionModel.fromJson(Map<String, dynamic> json) =>
       _$$_HUReactionModelFromJson(json);
@@ -222,12 +195,10 @@ class _$_HUReactionModel implements _HUReactionModel {
   @override
   @JsonKey()
   final String text;
-  @override
-  final HUGoalModel goal;
 
   @override
   String toString() {
-    return 'HUReactionModel(id: $id, actionId: $actionId, ownerId: $ownerId, createdAt: $createdAt, icon: $icon, text: $text, goal: $goal)';
+    return 'HUReactionModel(id: $id, actionId: $actionId, ownerId: $ownerId, createdAt: $createdAt, icon: $icon, text: $text)';
   }
 
   @override
@@ -242,14 +213,13 @@ class _$_HUReactionModel implements _HUReactionModel {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.icon, icon) || other.icon == icon) &&
-            (identical(other.text, text) || other.text == text) &&
-            (identical(other.goal, goal) || other.goal == goal));
+            (identical(other.text, text) || other.text == text));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, actionId, ownerId, createdAt, icon, text, goal);
+  int get hashCode =>
+      Object.hash(runtimeType, id, actionId, ownerId, createdAt, icon, text);
 
   @JsonKey(ignore: true)
   @override
@@ -272,8 +242,7 @@ abstract class _HUReactionModel implements HUReactionModel {
       @JsonKey(name: 'owner_id') required final String ownerId,
       @JsonKey(name: 'created_at') required final DateTime createdAt,
       final String icon,
-      final String text,
-      required final HUGoalModel goal}) = _$_HUReactionModel;
+      final String text}) = _$_HUReactionModel;
 
   factory _HUReactionModel.fromJson(Map<String, dynamic> json) =
       _$_HUReactionModel.fromJson;
@@ -293,8 +262,6 @@ abstract class _HUReactionModel implements HUReactionModel {
   String get icon;
   @override
   String get text;
-  @override
-  HUGoalModel get goal;
   @override
   @JsonKey(ignore: true)
   _$$_HUReactionModelCopyWith<_$_HUReactionModel> get copyWith =>
