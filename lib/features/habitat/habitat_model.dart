@@ -12,6 +12,7 @@ class HabitatModel with _$HabitatModel {
     required DateTime day,
     @Default([]) List<HUProfileModel> profiles,
     @Default([]) List<HUActionModel> actions,
+    @Default([]) List<HUCalloutModel> callouts,
     @Default(0) int percentage,
     @Default(false) bool loading,
     String? error,

@@ -53,19 +53,33 @@ class Grow extends _$Grow {
     if (success) {
       final callout = HUCalloutModel(
         id: -1,
+        habitatId: state.habitat.id,
         createdAt: DateTime.now().toLocal(),
         caller: profile.id,
         callee: state.calloutId,
       );
-      final success2 = await Database.addCallout(callout);
+      await Database.addCallout(callout);
 
       await ref.read(habitatProvider(state.habitat).notifier).loadProfiles();
       await ref.read(habitatProvider(state.habitat).notifier).loadActions();
+      await ref.read(habitatProvider(state.habitat).notifier).loadCallouts();
       await ref
           .read(habitatProvider(state.habitat).notifier)
           .loadHabitatWithId(state.habitat.id);
       await ref.read(habitatsProvider.notifier).loadHabitats();
       await ref.read(habitatsProvider.notifier).loadActions();
+
+      final callouts = ref.read(habitatProvider(state.habitat)).callouts;
+      final List<String> calloutIds = [];
+      for (final callout in callouts) {
+        calloutIds.add(callout.callee);
+      }
+
+      if (calloutIds.contains(profile.id)) {
+        final c =
+            callouts.where((callout) => callout.callee == profile.id).toList();
+        await Database.markCalloutDone(c);
+      }
     }
 
     state = state.copyWith(loading: false);

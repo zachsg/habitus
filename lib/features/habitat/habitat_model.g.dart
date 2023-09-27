@@ -18,6 +18,10 @@ _$HabitatModelImpl _$$HabitatModelImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => HUActionModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      callouts: (json['callouts'] as List<dynamic>?)
+              ?.map((e) => HUCalloutModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       percentage: json['percentage'] as int? ?? 0,
       loading: json['loading'] as bool? ?? false,
       error: json['error'] as String?,
@@ -29,6 +33,7 @@ Map<String, dynamic> _$$HabitatModelImplToJson(_$HabitatModelImpl instance) =>
       'day': instance.day.toIso8601String(),
       'profiles': instance.profiles,
       'actions': instance.actions,
+      'callouts': instance.callouts,
       'percentage': instance.percentage,
       'loading': instance.loading,
       'error': instance.error,

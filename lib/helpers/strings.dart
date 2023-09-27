@@ -39,6 +39,7 @@ const habitatGoalString = 'Daily Habitat Goal Progress';
 const prevString = 'Prev';
 const todayString = 'Today';
 const emptyHabitString = 'No Activity For';
+const habitatCalloutString = 'Callout Box';
 
 // Grow
 const pauseString = 'I\'ve Rolled Enough';

@@ -24,6 +24,7 @@ mixin _$HabitatModel {
   DateTime get day => throw _privateConstructorUsedError;
   List<HUProfileModel> get profiles => throw _privateConstructorUsedError;
   List<HUActionModel> get actions => throw _privateConstructorUsedError;
+  List<HUCalloutModel> get callouts => throw _privateConstructorUsedError;
   int get percentage => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
@@ -45,6 +46,7 @@ abstract class $HabitatModelCopyWith<$Res> {
       DateTime day,
       List<HUProfileModel> profiles,
       List<HUActionModel> actions,
+      List<HUCalloutModel> callouts,
       int percentage,
       bool loading,
       String? error});
@@ -69,6 +71,7 @@ class _$HabitatModelCopyWithImpl<$Res, $Val extends HabitatModel>
     Object? day = null,
     Object? profiles = null,
     Object? actions = null,
+    Object? callouts = null,
     Object? percentage = null,
     Object? loading = null,
     Object? error = freezed,
@@ -90,6 +93,10 @@ class _$HabitatModelCopyWithImpl<$Res, $Val extends HabitatModel>
           ? _value.actions
           : actions // ignore: cast_nullable_to_non_nullable
               as List<HUActionModel>,
+      callouts: null == callouts
+          ? _value.callouts
+          : callouts // ignore: cast_nullable_to_non_nullable
+              as List<HUCalloutModel>,
       percentage: null == percentage
           ? _value.percentage
           : percentage // ignore: cast_nullable_to_non_nullable
@@ -127,6 +134,7 @@ abstract class _$$HabitatModelImplCopyWith<$Res>
       DateTime day,
       List<HUProfileModel> profiles,
       List<HUActionModel> actions,
+      List<HUCalloutModel> callouts,
       int percentage,
       bool loading,
       String? error});
@@ -150,6 +158,7 @@ class __$$HabitatModelImplCopyWithImpl<$Res>
     Object? day = null,
     Object? profiles = null,
     Object? actions = null,
+    Object? callouts = null,
     Object? percentage = null,
     Object? loading = null,
     Object? error = freezed,
@@ -171,6 +180,10 @@ class __$$HabitatModelImplCopyWithImpl<$Res>
           ? _value._actions
           : actions // ignore: cast_nullable_to_non_nullable
               as List<HUActionModel>,
+      callouts: null == callouts
+          ? _value._callouts
+          : callouts // ignore: cast_nullable_to_non_nullable
+              as List<HUCalloutModel>,
       percentage: null == percentage
           ? _value.percentage
           : percentage // ignore: cast_nullable_to_non_nullable
@@ -195,11 +208,13 @@ class _$HabitatModelImpl implements _HabitatModel {
       required this.day,
       final List<HUProfileModel> profiles = const [],
       final List<HUActionModel> actions = const [],
+      final List<HUCalloutModel> callouts = const [],
       this.percentage = 0,
       this.loading = false,
       this.error})
       : _profiles = profiles,
-        _actions = actions;
+        _actions = actions,
+        _callouts = callouts;
 
   factory _$HabitatModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$HabitatModelImplFromJson(json);
@@ -226,6 +241,15 @@ class _$HabitatModelImpl implements _HabitatModel {
     return EqualUnmodifiableListView(_actions);
   }
 
+  final List<HUCalloutModel> _callouts;
+  @override
+  @JsonKey()
+  List<HUCalloutModel> get callouts {
+    if (_callouts is EqualUnmodifiableListView) return _callouts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_callouts);
+  }
+
   @override
   @JsonKey()
   final int percentage;
@@ -237,7 +261,7 @@ class _$HabitatModelImpl implements _HabitatModel {
 
   @override
   String toString() {
-    return 'HabitatModel(habitat: $habitat, day: $day, profiles: $profiles, actions: $actions, percentage: $percentage, loading: $loading, error: $error)';
+    return 'HabitatModel(habitat: $habitat, day: $day, profiles: $profiles, actions: $actions, callouts: $callouts, percentage: $percentage, loading: $loading, error: $error)';
   }
 
   @override
@@ -249,6 +273,7 @@ class _$HabitatModelImpl implements _HabitatModel {
             (identical(other.day, day) || other.day == day) &&
             const DeepCollectionEquality().equals(other._profiles, _profiles) &&
             const DeepCollectionEquality().equals(other._actions, _actions) &&
+            const DeepCollectionEquality().equals(other._callouts, _callouts) &&
             (identical(other.percentage, percentage) ||
                 other.percentage == percentage) &&
             (identical(other.loading, loading) || other.loading == loading) &&
@@ -263,6 +288,7 @@ class _$HabitatModelImpl implements _HabitatModel {
       day,
       const DeepCollectionEquality().hash(_profiles),
       const DeepCollectionEquality().hash(_actions),
+      const DeepCollectionEquality().hash(_callouts),
       percentage,
       loading,
       error);
@@ -287,6 +313,7 @@ abstract class _HabitatModel implements HabitatModel {
       required final DateTime day,
       final List<HUProfileModel> profiles,
       final List<HUActionModel> actions,
+      final List<HUCalloutModel> callouts,
       final int percentage,
       final bool loading,
       final String? error}) = _$HabitatModelImpl;
@@ -302,6 +329,8 @@ abstract class _HabitatModel implements HabitatModel {
   List<HUProfileModel> get profiles;
   @override
   List<HUActionModel> get actions;
+  @override
+  List<HUCalloutModel> get callouts;
   @override
   int get percentage;
   @override
