@@ -190,6 +190,37 @@ class Database {
     }
   }
 
+  static Future<List<HUCalloutModel>> calloutsWithHabitatId(int id) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    final day = DateTime.now();
+
+    try {
+      final start = day.copyWith(hour: 0, minute: 0);
+      final end = day.copyWith(hour: 24, minute: 59);
+
+      final calloutsJson = await supabase
+          .from(calloutsTable)
+          .select()
+          .eq('habitat_id', id)
+          .gt('created_at', start.toUtc())
+          .lt('created_at', end.toUtc());
+
+      List<HUCalloutModel> callouts = [];
+      for (final calloutJson in calloutsJson) {
+        final callout = HUCalloutModel.fromJson(calloutJson);
+        callouts.add(callout);
+      }
+
+      return callouts;
+    } on Exception catch (_) {
+      return [];
+    }
+  }
+
   static Future<List<HUActionModel>> myActionsForToday() async {
     final user = supabase.auth.currentUser;
     if (user == null) {
@@ -461,10 +492,28 @@ class Database {
     }
 
     final calloutJson = callout.toJson();
-    calloutJson.removeWhere((key, value) => key == 'id');
+    calloutJson.removeWhere((key, value) => key == 'id' || key == 'created_at');
 
     try {
       await supabase.from(calloutsTable).insert(calloutJson);
+
+      return true;
+    } on Exception catch (_) {
+      return false;
+    }
+  }
+
+  static Future<bool> markCalloutDone(List<HUCalloutModel> callouts) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    try {
+      for (final callout in callouts) {
+        final c = callout.copyWith(done: true);
+        await supabase.from(calloutsTable).update(c.toJson());
+      }
 
       return true;
     } on Exception catch (_) {

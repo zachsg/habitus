@@ -33,6 +33,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
   Future<void> _initialDataLoad() async {
     await ref.read(habitatProvider(widget.habitat).notifier).loadProfiles();
     await ref.read(habitatProvider(widget.habitat).notifier).loadActions();
+    await ref.read(habitatProvider(widget.habitat).notifier).loadCallouts();
     await ref
         .read(habitatProvider(widget.habitat).notifier)
         .loadHabitatWithId(widget.habitat.id);
@@ -71,6 +72,10 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
               const SizedBox(height: 16.0),
               HabitatDaySelectorWidget(habitat: widget.habitat),
               const SizedBox(height: 16.0),
+              habitatP.callouts.isNotEmpty
+                  ? HabitatCalloutBoxWidget(habitat: widget.habitat)
+                  : const SizedBox(),
+              const SizedBox(height: 24.0),
               loading
                   ? const CircularProgressIndicator.adaptive()
                   : actions.isEmpty & !isToday
@@ -82,7 +87,8 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             HabitatGoalProgressChartWidget(
-                                habitat: widget.habitat),
+                              habitat: widget.habitat,
+                            ),
                             const SizedBox(height: 8.0),
                             HabitatHabitmatesWidget(habitat: widget.habitat),
                             const SizedBox(height: 32.0),

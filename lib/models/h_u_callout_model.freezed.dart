@@ -23,6 +23,8 @@ mixin _$HUCalloutModel {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'habitat_id')
+  int get habitatId => throw _privateConstructorUsedError;
   String get caller => throw _privateConstructorUsedError;
   String get callee => throw _privateConstructorUsedError;
   bool get done => throw _privateConstructorUsedError;
@@ -42,6 +44,7 @@ abstract class $HUCalloutModelCopyWith<$Res> {
   $Res call(
       {int id,
       @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'habitat_id') int habitatId,
       String caller,
       String callee,
       bool done});
@@ -62,6 +65,7 @@ class _$HUCalloutModelCopyWithImpl<$Res, $Val extends HUCalloutModel>
   $Res call({
     Object? id = null,
     Object? createdAt = null,
+    Object? habitatId = null,
     Object? caller = null,
     Object? callee = null,
     Object? done = null,
@@ -75,6 +79,10 @@ class _$HUCalloutModelCopyWithImpl<$Res, $Val extends HUCalloutModel>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      habitatId: null == habitatId
+          ? _value.habitatId
+          : habitatId // ignore: cast_nullable_to_non_nullable
+              as int,
       caller: null == caller
           ? _value.caller
           : caller // ignore: cast_nullable_to_non_nullable
@@ -102,6 +110,7 @@ abstract class _$$HUCalloutModelImplCopyWith<$Res>
   $Res call(
       {int id,
       @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'habitat_id') int habitatId,
       String caller,
       String callee,
       bool done});
@@ -120,6 +129,7 @@ class __$$HUCalloutModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? createdAt = null,
+    Object? habitatId = null,
     Object? caller = null,
     Object? callee = null,
     Object? done = null,
@@ -133,6 +143,10 @@ class __$$HUCalloutModelImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      habitatId: null == habitatId
+          ? _value.habitatId
+          : habitatId // ignore: cast_nullable_to_non_nullable
+              as int,
       caller: null == caller
           ? _value.caller
           : caller // ignore: cast_nullable_to_non_nullable
@@ -155,6 +169,7 @@ class _$HUCalloutModelImpl implements _HUCalloutModel {
   _$HUCalloutModelImpl(
       {required this.id,
       @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'habitat_id') required this.habitatId,
       required this.caller,
       required this.callee,
       this.done = false});
@@ -168,6 +183,9 @@ class _$HUCalloutModelImpl implements _HUCalloutModel {
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
   @override
+  @JsonKey(name: 'habitat_id')
+  final int habitatId;
+  @override
   final String caller;
   @override
   final String callee;
@@ -177,7 +195,7 @@ class _$HUCalloutModelImpl implements _HUCalloutModel {
 
   @override
   String toString() {
-    return 'HUCalloutModel(id: $id, createdAt: $createdAt, caller: $caller, callee: $callee, done: $done)';
+    return 'HUCalloutModel(id: $id, createdAt: $createdAt, habitatId: $habitatId, caller: $caller, callee: $callee, done: $done)';
   }
 
   @override
@@ -188,6 +206,8 @@ class _$HUCalloutModelImpl implements _HUCalloutModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            (identical(other.habitatId, habitatId) ||
+                other.habitatId == habitatId) &&
             (identical(other.caller, caller) || other.caller == caller) &&
             (identical(other.callee, callee) || other.callee == callee) &&
             (identical(other.done, done) || other.done == done));
@@ -196,7 +216,7 @@ class _$HUCalloutModelImpl implements _HUCalloutModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, createdAt, caller, callee, done);
+      Object.hash(runtimeType, id, createdAt, habitatId, caller, callee, done);
 
   @JsonKey(ignore: true)
   @override
@@ -217,6 +237,7 @@ abstract class _HUCalloutModel implements HUCalloutModel {
   factory _HUCalloutModel(
       {required final int id,
       @JsonKey(name: 'created_at') required final DateTime createdAt,
+      @JsonKey(name: 'habitat_id') required final int habitatId,
       required final String caller,
       required final String callee,
       final bool done}) = _$HUCalloutModelImpl;
@@ -229,6 +250,9 @@ abstract class _HUCalloutModel implements HUCalloutModel {
   @override
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
+  @override
+  @JsonKey(name: 'habitat_id')
+  int get habitatId;
   @override
   String get caller;
   @override

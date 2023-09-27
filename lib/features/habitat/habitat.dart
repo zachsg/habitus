@@ -58,6 +58,12 @@ class Habitat extends _$Habitat {
     state = state.copyWith(actions: actions);
   }
 
+  Future<void> loadCallouts() async {
+    final callouts = await Database.calloutsWithHabitatId(state.habitat.id);
+
+    state = state.copyWith(callouts: callouts);
+  }
+
   void setLoading(bool loading) {
     state = state.copyWith(loading: loading);
   }
@@ -73,14 +79,14 @@ class Habitat extends _$Habitat {
 
   Future<void> nextDay() async {
     final day = state.day.add(const Duration(days: 1));
-    state = state.copyWith(day: day);
+    state = state.copyWith(day: day, callouts: []);
 
     await loadActions();
   }
 
   Future<void> previousDay() async {
     final day = state.day.subtract(const Duration(days: 1));
-    state = state.copyWith(day: day);
+    state = state.copyWith(day: day, callouts: []);
 
     await loadActions();
   }
@@ -90,5 +96,6 @@ class Habitat extends _$Habitat {
     state = state.copyWith(day: day);
 
     await loadActions();
+    await loadCallouts();
   }
 }

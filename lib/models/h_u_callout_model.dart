@@ -8,6 +8,7 @@ class HUCalloutModel with _$HUCalloutModel {
   factory HUCalloutModel({
     required int id,
     @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'habitat_id') required int habitatId,
     required String caller,
     required String callee,
     @Default(false) bool done,
