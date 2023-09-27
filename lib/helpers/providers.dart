@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,8 +8,8 @@ part 'providers.g.dart';
 
 @riverpod
 ThemeService theme(ThemeRef ref) {
-  final prefs = ref.read(prefsProvider);
-  return ThemeService(prefs);
+  final prefs = ref.watch(prefsProvider);
+  return ThemeService(prefs, ThemeMode.system);
 }
 
 @riverpod

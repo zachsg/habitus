@@ -13,16 +13,15 @@ class HabitatDaySelectorWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final habitat = ref.watch(habitatProvider(this.habitat));
     final DateFormat formatter = DateFormat('MMM d');
-    final formattedDate = formatter.format(habitat.day.toLocal());
+    final formattedDate = formatter.format(ref.watch(habitatProvider(habitat)).day.toLocal());
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
           onPressed:
-              ref.read(habitatProvider(this.habitat).notifier).previousDay,
+              ref.read(habitatProvider(habitat).notifier).previousDay,
           child: const Text(prevString),
         ),
         const SizedBox(width: 12.0),
@@ -32,7 +31,7 @@ class HabitatDaySelectorWidget extends ConsumerWidget {
         ),
         const SizedBox(width: 12.0),
         ElevatedButton(
-          onPressed: ref.read(habitatProvider(this.habitat).notifier).resetDay,
+          onPressed: ref.read(habitatProvider(habitat).notifier).resetDay,
           child: const Text(todayString),
         ),
       ],

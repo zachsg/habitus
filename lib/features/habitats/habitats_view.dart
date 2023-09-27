@@ -9,37 +9,23 @@ import '../join_habitat/join_habitat_view.dart';
 import 'habitats.dart';
 import 'widgets/xwidgets.dart';
 
-class HabitatsView extends ConsumerStatefulWidget {
+class HabitatsView extends ConsumerWidget {
   const HabitatsView({super.key});
 
   static const routeName = 'habitats';
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends ConsumerState<HabitatsView> {
-  @override
-  void initState() {
-    ref.read(habitatsProvider.notifier).loadHabitats();
-    ref.read(habitatsProvider.notifier).loadActions();
-
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final loading = ref.watch(habitatsProvider).loading;
-    final habitats = ref.watch(habitatsProvider).habitats;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.watch(habitatsProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text(homeTitleString),
       ),
       body: SafeArea(
-        child: loading
+        child: provider.loading
             ? const Center(child: CircularProgressIndicator.adaptive())
-            : habitats.isEmpty
+            : provider.habitats.isEmpty
                 ? const HabitatsEmptyStateWidget()
                 : const HabitatsMyHabitatsWidget(),
       ),

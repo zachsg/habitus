@@ -11,7 +11,7 @@ import 'settings_model.dart';
 
 part 'settings.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Settings extends _$Settings {
   @override
   SettingsModel build() =>
