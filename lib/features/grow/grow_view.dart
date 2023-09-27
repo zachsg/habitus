@@ -231,9 +231,16 @@ class _GrowViewState extends ConsumerState<GrowView>
             '${elapsed.round() == 1 ? habitatAndAction.habitat.goal.unit.name.substring(0, habitatAndAction.habitat.goal.unit.name.length - 1) : habitatAndAction.habitat.goal.unit.name}',
           ),
           content: StatefulBuilder(builder: (context, setState) {
-            return const SingleChildScrollView(
+            return SingleChildScrollView(
               child: ListBody(
-                children: [],
+                children: [
+                  elapsed.round() == 0
+                      ? const SizedBox()
+                      : GrowCalloutWidget(
+                          habitatAndAction: widget.habitatAndAction,
+                          setState: setState,
+                        ),
+                ],
               ),
             );
           }),
@@ -246,11 +253,13 @@ class _GrowViewState extends ConsumerState<GrowView>
                     ],
                   )
                 : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: elapsed.round() == 0
+                        ? MainAxisAlignment.center
+                        : MainAxisAlignment.spaceEvenly,
                     children: [
                       TextButton(
                         child: Text(
-                          'Delete',
+                          elapsed.round() == 0 ? 'Cancel' : 'Delete',
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge
@@ -267,39 +276,43 @@ class _GrowViewState extends ConsumerState<GrowView>
                           Navigator.of(context).pop();
                         },
                       ),
-                      TextButton(
-                        child: Text(
-                          'Save',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.bold,
+                      elapsed.round() == 0
+                          ? const SizedBox()
+                          : TextButton(
+                              child: Text(
+                                'Save',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                               ),
-                        ),
-                        onPressed: () async {
-                          setState(() => loading = true);
+                              onPressed: () async {
+                                setState(() => loading = true);
 
-                          WakelockPlus.disable();
+                                WakelockPlus.disable();
 
-                          LocalNotificationService()
-                              .cancelNotificationWithId(0);
+                                LocalNotificationService()
+                                    .cancelNotificationWithId(0);
 
-                          await ref
-                              .read(growProvider(habitatAndAction).notifier)
-                              .save(goalMet);
+                                await ref
+                                    .read(
+                                        growProvider(habitatAndAction).notifier)
+                                    .save(goalMet);
 
-                          _notifyNewAction();
+                                _notifyNewAction();
 
-                          setState(() => loading = false);
+                                setState(() => loading = false);
 
-                          if (context.mounted) {
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pop();
-                          }
-                        },
-                      ),
+                                if (context.mounted) {
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).pop();
+                                }
+                              },
+                            ),
                     ],
                   ),
           ],
@@ -310,17 +323,20 @@ class _GrowViewState extends ConsumerState<GrowView>
 
   Future<void> _notifyNewAction() async {
     final profiles = ref
-        .watch(habitatProvider(widget.habitatAndAction.habitat))
+        .read(habitatProvider(widget.habitatAndAction.habitat))
         .profiles
         .toList();
-    final profile = ref.watch(profileProvider).profile;
+    final profile = ref.read(profileProvider).profile;
+    final calloutId = ref.read(growProvider(widget.habitatAndAction)).calloutId;
+    final calloutProfile =
+        profiles.firstWhere((profile) => profile.id == calloutId);
 
     profiles.removeWhere((p) => p.id == profile.id || p.pushToken.isEmpty);
 
     final habitat = widget.habitatAndAction.habitat;
     final title = habitat.name;
     final subtitle =
-        '@${profile.handle} just finished ${_habitType().toLowerCase()}';
+        '@${profile.handle} just finished ${_habitType().toLowerCase()} and called out @${calloutProfile.handle}';
 
     List<String> tokens = [];
     for (final profile in profiles) {

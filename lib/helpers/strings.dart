@@ -44,6 +44,7 @@ const emptyHabitString = 'No Activity For';
 const pauseString = 'I\'ve Rolled Enough';
 const goalMetString = 'Daily Habit Achieved!';
 const goalMetSubString = 'You\'re on a roll. Keep it going.';
+const calloutString = 'Who do you  want to call out?';
 
 // Profile
 const profileTitleString = 'Profile';

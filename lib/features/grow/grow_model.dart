@@ -12,6 +12,7 @@ class GrowModel with _$GrowModel {
     @Default(false) bool loading,
     @Default(0) int elapsed,
     @Default(false) bool isPaused,
+    @Default('') String calloutId,
     String? error,
   }) = _GrowModel;
 

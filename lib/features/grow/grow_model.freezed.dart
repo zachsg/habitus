@@ -24,6 +24,7 @@ mixin _$GrowModel {
   bool get loading => throw _privateConstructorUsedError;
   int get elapsed => throw _privateConstructorUsedError;
   bool get isPaused => throw _privateConstructorUsedError;
+  String get calloutId => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,6 +43,7 @@ abstract class $GrowModelCopyWith<$Res> {
       bool loading,
       int elapsed,
       bool isPaused,
+      String calloutId,
       String? error});
 
   $HUHabitatModelCopyWith<$Res> get habitat;
@@ -64,6 +66,7 @@ class _$GrowModelCopyWithImpl<$Res, $Val extends GrowModel>
     Object? loading = null,
     Object? elapsed = null,
     Object? isPaused = null,
+    Object? calloutId = null,
     Object? error = freezed,
   }) {
     return _then(_value.copyWith(
@@ -83,6 +86,10 @@ class _$GrowModelCopyWithImpl<$Res, $Val extends GrowModel>
           ? _value.isPaused
           : isPaused // ignore: cast_nullable_to_non_nullable
               as bool,
+      calloutId: null == calloutId
+          ? _value.calloutId
+          : calloutId // ignore: cast_nullable_to_non_nullable
+              as String,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -112,6 +119,7 @@ abstract class _$$GrowModelImplCopyWith<$Res>
       bool loading,
       int elapsed,
       bool isPaused,
+      String calloutId,
       String? error});
 
   @override
@@ -133,6 +141,7 @@ class __$$GrowModelImplCopyWithImpl<$Res>
     Object? loading = null,
     Object? elapsed = null,
     Object? isPaused = null,
+    Object? calloutId = null,
     Object? error = freezed,
   }) {
     return _then(_$GrowModelImpl(
@@ -152,6 +161,10 @@ class __$$GrowModelImplCopyWithImpl<$Res>
           ? _value.isPaused
           : isPaused // ignore: cast_nullable_to_non_nullable
               as bool,
+      calloutId: null == calloutId
+          ? _value.calloutId
+          : calloutId // ignore: cast_nullable_to_non_nullable
+              as String,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -168,6 +181,7 @@ class _$GrowModelImpl implements _GrowModel {
       this.loading = false,
       this.elapsed = 0,
       this.isPaused = false,
+      this.calloutId = '',
       this.error});
 
   factory _$GrowModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -185,11 +199,14 @@ class _$GrowModelImpl implements _GrowModel {
   @JsonKey()
   final bool isPaused;
   @override
+  @JsonKey()
+  final String calloutId;
+  @override
   final String? error;
 
   @override
   String toString() {
-    return 'GrowModel(habitat: $habitat, loading: $loading, elapsed: $elapsed, isPaused: $isPaused, error: $error)';
+    return 'GrowModel(habitat: $habitat, loading: $loading, elapsed: $elapsed, isPaused: $isPaused, calloutId: $calloutId, error: $error)';
   }
 
   @override
@@ -202,13 +219,15 @@ class _$GrowModelImpl implements _GrowModel {
             (identical(other.elapsed, elapsed) || other.elapsed == elapsed) &&
             (identical(other.isPaused, isPaused) ||
                 other.isPaused == isPaused) &&
+            (identical(other.calloutId, calloutId) ||
+                other.calloutId == calloutId) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, habitat, loading, elapsed, isPaused, error);
+  int get hashCode => Object.hash(
+      runtimeType, habitat, loading, elapsed, isPaused, calloutId, error);
 
   @JsonKey(ignore: true)
   @override
@@ -230,6 +249,7 @@ abstract class _GrowModel implements GrowModel {
       final bool loading,
       final int elapsed,
       final bool isPaused,
+      final String calloutId,
       final String? error}) = _$GrowModelImpl;
 
   factory _GrowModel.fromJson(Map<String, dynamic> json) =
@@ -243,6 +263,8 @@ abstract class _GrowModel implements GrowModel {
   int get elapsed;
   @override
   bool get isPaused;
+  @override
+  String get calloutId;
   @override
   String? get error;
   @override
