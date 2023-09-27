@@ -6,8 +6,8 @@ part of 'habitats_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_HabitatsModel _$$_HabitatsModelFromJson(Map<String, dynamic> json) =>
-    _$_HabitatsModel(
+_$HabitatsModelImpl _$$HabitatsModelImplFromJson(Map<String, dynamic> json) =>
+    _$HabitatsModelImpl(
       habitats: (json['habitats'] as List<dynamic>)
           .map((e) => HUHabitatModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -18,7 +18,7 @@ _$_HabitatsModel _$$_HabitatsModelFromJson(Map<String, dynamic> json) =>
       error: json['error'] as String?,
     );
 
-Map<String, dynamic> _$$_HabitatsModelToJson(_$_HabitatsModel instance) =>
+Map<String, dynamic> _$$HabitatsModelImplToJson(_$HabitatsModelImpl instance) =>
     <String, dynamic>{
       'habitats': instance.habitats,
       'actions': instance.actions,

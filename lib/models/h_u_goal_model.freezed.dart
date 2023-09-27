@@ -85,11 +85,11 @@ class _$HUGoalModelCopyWithImpl<$Res, $Val extends HUGoalModel>
 }
 
 /// @nodoc
-abstract class _$$_HUGoalModelCopyWith<$Res>
+abstract class _$$HUGoalModelImplCopyWith<$Res>
     implements $HUGoalModelCopyWith<$Res> {
-  factory _$$_HUGoalModelCopyWith(
-          _$_HUGoalModel value, $Res Function(_$_HUGoalModel) then) =
-      __$$_HUGoalModelCopyWithImpl<$Res>;
+  factory _$$HUGoalModelImplCopyWith(
+          _$HUGoalModelImpl value, $Res Function(_$HUGoalModelImpl) then) =
+      __$$HUGoalModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -100,11 +100,11 @@ abstract class _$$_HUGoalModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_HUGoalModelCopyWithImpl<$Res>
-    extends _$HUGoalModelCopyWithImpl<$Res, _$_HUGoalModel>
-    implements _$$_HUGoalModelCopyWith<$Res> {
-  __$$_HUGoalModelCopyWithImpl(
-      _$_HUGoalModel _value, $Res Function(_$_HUGoalModel) _then)
+class __$$HUGoalModelImplCopyWithImpl<$Res>
+    extends _$HUGoalModelCopyWithImpl<$Res, _$HUGoalModelImpl>
+    implements _$$HUGoalModelImplCopyWith<$Res> {
+  __$$HUGoalModelImplCopyWithImpl(
+      _$HUGoalModelImpl _value, $Res Function(_$HUGoalModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -115,7 +115,7 @@ class __$$_HUGoalModelCopyWithImpl<$Res>
     Object? unit = null,
     Object? value = null,
   }) {
-    return _then(_$_HUGoalModel(
+    return _then(_$HUGoalModelImpl(
       habitatId: null == habitatId
           ? _value.habitatId
           : habitatId // ignore: cast_nullable_to_non_nullable
@@ -138,15 +138,15 @@ class __$$_HUGoalModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_HUGoalModel implements _HUGoalModel {
-  _$_HUGoalModel(
+class _$HUGoalModelImpl implements _HUGoalModel {
+  _$HUGoalModelImpl(
       {@JsonKey(name: 'habitat_id') required this.habitatId,
       required this.habit,
       required this.unit,
       required this.value});
 
-  factory _$_HUGoalModel.fromJson(Map<String, dynamic> json) =>
-      _$$_HUGoalModelFromJson(json);
+  factory _$HUGoalModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HUGoalModelImplFromJson(json);
 
   @override
   @JsonKey(name: 'habitat_id')
@@ -167,7 +167,7 @@ class _$_HUGoalModel implements _HUGoalModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_HUGoalModel &&
+            other is _$HUGoalModelImpl &&
             (identical(other.habitatId, habitatId) ||
                 other.habitatId == habitatId) &&
             (identical(other.habit, habit) || other.habit == habit) &&
@@ -182,12 +182,12 @@ class _$_HUGoalModel implements _HUGoalModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_HUGoalModelCopyWith<_$_HUGoalModel> get copyWith =>
-      __$$_HUGoalModelCopyWithImpl<_$_HUGoalModel>(this, _$identity);
+  _$$HUGoalModelImplCopyWith<_$HUGoalModelImpl> get copyWith =>
+      __$$HUGoalModelImplCopyWithImpl<_$HUGoalModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_HUGoalModelToJson(
+    return _$$HUGoalModelImplToJson(
       this,
     );
   }
@@ -198,10 +198,10 @@ abstract class _HUGoalModel implements HUGoalModel {
       {@JsonKey(name: 'habitat_id') required final int habitatId,
       required final String habit,
       required final Unit unit,
-      required final int value}) = _$_HUGoalModel;
+      required final int value}) = _$HUGoalModelImpl;
 
   factory _HUGoalModel.fromJson(Map<String, dynamic> json) =
-      _$_HUGoalModel.fromJson;
+      _$HUGoalModelImpl.fromJson;
 
   @override
   @JsonKey(name: 'habitat_id')
@@ -214,6 +214,6 @@ abstract class _HUGoalModel implements HUGoalModel {
   int get value;
   @override
   @JsonKey(ignore: true)
-  _$$_HUGoalModelCopyWith<_$_HUGoalModel> get copyWith =>
+  _$$HUGoalModelImplCopyWith<_$HUGoalModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

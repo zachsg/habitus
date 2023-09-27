@@ -94,11 +94,11 @@ class _$JoinHabitatModelCopyWithImpl<$Res, $Val extends JoinHabitatModel>
 }
 
 /// @nodoc
-abstract class _$$_JoinHabitatModelCopyWith<$Res>
+abstract class _$$JoinHabitatModelImplCopyWith<$Res>
     implements $JoinHabitatModelCopyWith<$Res> {
-  factory _$$_JoinHabitatModelCopyWith(
-          _$_JoinHabitatModel value, $Res Function(_$_JoinHabitatModel) then) =
-      __$$_JoinHabitatModelCopyWithImpl<$Res>;
+  factory _$$JoinHabitatModelImplCopyWith(_$JoinHabitatModelImpl value,
+          $Res Function(_$JoinHabitatModelImpl) then) =
+      __$$JoinHabitatModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -112,11 +112,11 @@ abstract class _$$_JoinHabitatModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_JoinHabitatModelCopyWithImpl<$Res>
-    extends _$JoinHabitatModelCopyWithImpl<$Res, _$_JoinHabitatModel>
-    implements _$$_JoinHabitatModelCopyWith<$Res> {
-  __$$_JoinHabitatModelCopyWithImpl(
-      _$_JoinHabitatModel _value, $Res Function(_$_JoinHabitatModel) _then)
+class __$$JoinHabitatModelImplCopyWithImpl<$Res>
+    extends _$JoinHabitatModelCopyWithImpl<$Res, _$JoinHabitatModelImpl>
+    implements _$$JoinHabitatModelImplCopyWith<$Res> {
+  __$$JoinHabitatModelImplCopyWithImpl(_$JoinHabitatModelImpl _value,
+      $Res Function(_$JoinHabitatModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -127,7 +127,7 @@ class __$$_JoinHabitatModelCopyWithImpl<$Res>
     Object? loading = null,
     Object? error = freezed,
   }) {
-    return _then(_$_JoinHabitatModel(
+    return _then(_$JoinHabitatModelImpl(
       habitat: null == habitat
           ? _value.habitat
           : habitat // ignore: cast_nullable_to_non_nullable
@@ -150,16 +150,16 @@ class __$$_JoinHabitatModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_JoinHabitatModel implements _JoinHabitatModel {
-  _$_JoinHabitatModel(
+class _$JoinHabitatModelImpl implements _JoinHabitatModel {
+  _$JoinHabitatModelImpl(
       {required this.habitat,
       required final List<HUHabitatModel> habitats,
       this.loading = false,
       this.error})
       : _habitats = habitats;
 
-  factory _$_JoinHabitatModel.fromJson(Map<String, dynamic> json) =>
-      _$$_JoinHabitatModelFromJson(json);
+  factory _$JoinHabitatModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$JoinHabitatModelImplFromJson(json);
 
   @override
   final HUHabitatModel habitat;
@@ -186,7 +186,7 @@ class _$_JoinHabitatModel implements _JoinHabitatModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_JoinHabitatModel &&
+            other is _$JoinHabitatModelImpl &&
             (identical(other.habitat, habitat) || other.habitat == habitat) &&
             const DeepCollectionEquality().equals(other._habitats, _habitats) &&
             (identical(other.loading, loading) || other.loading == loading) &&
@@ -201,12 +201,13 @@ class _$_JoinHabitatModel implements _JoinHabitatModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_JoinHabitatModelCopyWith<_$_JoinHabitatModel> get copyWith =>
-      __$$_JoinHabitatModelCopyWithImpl<_$_JoinHabitatModel>(this, _$identity);
+  _$$JoinHabitatModelImplCopyWith<_$JoinHabitatModelImpl> get copyWith =>
+      __$$JoinHabitatModelImplCopyWithImpl<_$JoinHabitatModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_JoinHabitatModelToJson(
+    return _$$JoinHabitatModelImplToJson(
       this,
     );
   }
@@ -217,10 +218,10 @@ abstract class _JoinHabitatModel implements JoinHabitatModel {
       {required final HUHabitatModel habitat,
       required final List<HUHabitatModel> habitats,
       final bool loading,
-      final String? error}) = _$_JoinHabitatModel;
+      final String? error}) = _$JoinHabitatModelImpl;
 
   factory _JoinHabitatModel.fromJson(Map<String, dynamic> json) =
-      _$_JoinHabitatModel.fromJson;
+      _$JoinHabitatModelImpl.fromJson;
 
   @override
   HUHabitatModel get habitat;
@@ -232,6 +233,6 @@ abstract class _JoinHabitatModel implements JoinHabitatModel {
   String? get error;
   @override
   @JsonKey(ignore: true)
-  _$$_JoinHabitatModelCopyWith<_$_JoinHabitatModel> get copyWith =>
+  _$$JoinHabitatModelImplCopyWith<_$JoinHabitatModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

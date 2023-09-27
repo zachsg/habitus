@@ -6,12 +6,13 @@ part of 'bottom_nav_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_BottomNavModel _$$_BottomNavModelFromJson(Map<String, dynamic> json) =>
-    _$_BottomNavModel(
+_$BottomNavModelImpl _$$BottomNavModelImplFromJson(Map<String, dynamic> json) =>
+    _$BottomNavModelImpl(
       index: json['index'] as int? ?? 1,
     );
 
-Map<String, dynamic> _$$_BottomNavModelToJson(_$_BottomNavModel instance) =>
+Map<String, dynamic> _$$BottomNavModelImplToJson(
+        _$BottomNavModelImpl instance) =>
     <String, dynamic>{
       'index': instance.index,
     };

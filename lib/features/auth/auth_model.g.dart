@@ -6,7 +6,8 @@ part of 'auth_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AuthModel _$$_AuthModelFromJson(Map<String, dynamic> json) => _$_AuthModel(
+_$AuthModelImpl _$$AuthModelImplFromJson(Map<String, dynamic> json) =>
+    _$AuthModelImpl(
       email: json['email'] as String? ?? '',
       password: json['password'] as String? ?? '',
       confirmPassword: json['confirmPassword'] as String? ?? '',
@@ -14,7 +15,7 @@ _$_AuthModel _$$_AuthModelFromJson(Map<String, dynamic> json) => _$_AuthModel(
       error: json['error'] as String?,
     );
 
-Map<String, dynamic> _$$_AuthModelToJson(_$_AuthModel instance) =>
+Map<String, dynamic> _$$AuthModelImplToJson(_$AuthModelImpl instance) =>
     <String, dynamic>{
       'email': instance.email,
       'password': instance.password,

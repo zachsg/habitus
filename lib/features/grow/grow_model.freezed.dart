@@ -100,10 +100,11 @@ class _$GrowModelCopyWithImpl<$Res, $Val extends GrowModel>
 }
 
 /// @nodoc
-abstract class _$$_GrowModelCopyWith<$Res> implements $GrowModelCopyWith<$Res> {
-  factory _$$_GrowModelCopyWith(
-          _$_GrowModel value, $Res Function(_$_GrowModel) then) =
-      __$$_GrowModelCopyWithImpl<$Res>;
+abstract class _$$GrowModelImplCopyWith<$Res>
+    implements $GrowModelCopyWith<$Res> {
+  factory _$$GrowModelImplCopyWith(
+          _$GrowModelImpl value, $Res Function(_$GrowModelImpl) then) =
+      __$$GrowModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -118,11 +119,11 @@ abstract class _$$_GrowModelCopyWith<$Res> implements $GrowModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_GrowModelCopyWithImpl<$Res>
-    extends _$GrowModelCopyWithImpl<$Res, _$_GrowModel>
-    implements _$$_GrowModelCopyWith<$Res> {
-  __$$_GrowModelCopyWithImpl(
-      _$_GrowModel _value, $Res Function(_$_GrowModel) _then)
+class __$$GrowModelImplCopyWithImpl<$Res>
+    extends _$GrowModelCopyWithImpl<$Res, _$GrowModelImpl>
+    implements _$$GrowModelImplCopyWith<$Res> {
+  __$$GrowModelImplCopyWithImpl(
+      _$GrowModelImpl _value, $Res Function(_$GrowModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -134,7 +135,7 @@ class __$$_GrowModelCopyWithImpl<$Res>
     Object? isPaused = null,
     Object? error = freezed,
   }) {
-    return _then(_$_GrowModel(
+    return _then(_$GrowModelImpl(
       habitat: null == habitat
           ? _value.habitat
           : habitat // ignore: cast_nullable_to_non_nullable
@@ -161,16 +162,16 @@ class __$$_GrowModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_GrowModel implements _GrowModel {
-  _$_GrowModel(
+class _$GrowModelImpl implements _GrowModel {
+  _$GrowModelImpl(
       {required this.habitat,
       this.loading = false,
       this.elapsed = 0,
       this.isPaused = false,
       this.error});
 
-  factory _$_GrowModel.fromJson(Map<String, dynamic> json) =>
-      _$$_GrowModelFromJson(json);
+  factory _$GrowModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GrowModelImplFromJson(json);
 
   @override
   final HUHabitatModel habitat;
@@ -195,7 +196,7 @@ class _$_GrowModel implements _GrowModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GrowModel &&
+            other is _$GrowModelImpl &&
             (identical(other.habitat, habitat) || other.habitat == habitat) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.elapsed, elapsed) || other.elapsed == elapsed) &&
@@ -212,12 +213,12 @@ class _$_GrowModel implements _GrowModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GrowModelCopyWith<_$_GrowModel> get copyWith =>
-      __$$_GrowModelCopyWithImpl<_$_GrowModel>(this, _$identity);
+  _$$GrowModelImplCopyWith<_$GrowModelImpl> get copyWith =>
+      __$$GrowModelImplCopyWithImpl<_$GrowModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GrowModelToJson(
+    return _$$GrowModelImplToJson(
       this,
     );
   }
@@ -229,10 +230,10 @@ abstract class _GrowModel implements GrowModel {
       final bool loading,
       final int elapsed,
       final bool isPaused,
-      final String? error}) = _$_GrowModel;
+      final String? error}) = _$GrowModelImpl;
 
   factory _GrowModel.fromJson(Map<String, dynamic> json) =
-      _$_GrowModel.fromJson;
+      _$GrowModelImpl.fromJson;
 
   @override
   HUHabitatModel get habitat;
@@ -246,6 +247,6 @@ abstract class _GrowModel implements GrowModel {
   String? get error;
   @override
   @JsonKey(ignore: true)
-  _$$_GrowModelCopyWith<_$_GrowModel> get copyWith =>
+  _$$GrowModelImplCopyWith<_$GrowModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

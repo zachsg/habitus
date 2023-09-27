@@ -6,8 +6,9 @@ part of 'join_habitat_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_JoinHabitatModel _$$_JoinHabitatModelFromJson(Map<String, dynamic> json) =>
-    _$_JoinHabitatModel(
+_$JoinHabitatModelImpl _$$JoinHabitatModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$JoinHabitatModelImpl(
       habitat: HUHabitatModel.fromJson(json['habitat'] as Map<String, dynamic>),
       habitats: (json['habitats'] as List<dynamic>)
           .map((e) => HUHabitatModel.fromJson(e as Map<String, dynamic>))
@@ -16,7 +17,8 @@ _$_JoinHabitatModel _$$_JoinHabitatModelFromJson(Map<String, dynamic> json) =>
       error: json['error'] as String?,
     );
 
-Map<String, dynamic> _$$_JoinHabitatModelToJson(_$_JoinHabitatModel instance) =>
+Map<String, dynamic> _$$JoinHabitatModelImplToJson(
+        _$JoinHabitatModelImpl instance) =>
     <String, dynamic>{
       'habitat': instance.habitat,
       'habitats': instance.habitats,

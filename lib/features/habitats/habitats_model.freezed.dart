@@ -84,11 +84,11 @@ class _$HabitatsModelCopyWithImpl<$Res, $Val extends HabitatsModel>
 }
 
 /// @nodoc
-abstract class _$$_HabitatsModelCopyWith<$Res>
+abstract class _$$HabitatsModelImplCopyWith<$Res>
     implements $HabitatsModelCopyWith<$Res> {
-  factory _$$_HabitatsModelCopyWith(
-          _$_HabitatsModel value, $Res Function(_$_HabitatsModel) then) =
-      __$$_HabitatsModelCopyWithImpl<$Res>;
+  factory _$$HabitatsModelImplCopyWith(
+          _$HabitatsModelImpl value, $Res Function(_$HabitatsModelImpl) then) =
+      __$$HabitatsModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -99,11 +99,11 @@ abstract class _$$_HabitatsModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_HabitatsModelCopyWithImpl<$Res>
-    extends _$HabitatsModelCopyWithImpl<$Res, _$_HabitatsModel>
-    implements _$$_HabitatsModelCopyWith<$Res> {
-  __$$_HabitatsModelCopyWithImpl(
-      _$_HabitatsModel _value, $Res Function(_$_HabitatsModel) _then)
+class __$$HabitatsModelImplCopyWithImpl<$Res>
+    extends _$HabitatsModelCopyWithImpl<$Res, _$HabitatsModelImpl>
+    implements _$$HabitatsModelImplCopyWith<$Res> {
+  __$$HabitatsModelImplCopyWithImpl(
+      _$HabitatsModelImpl _value, $Res Function(_$HabitatsModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -114,7 +114,7 @@ class __$$_HabitatsModelCopyWithImpl<$Res>
     Object? loading = null,
     Object? error = freezed,
   }) {
-    return _then(_$_HabitatsModel(
+    return _then(_$HabitatsModelImpl(
       habitats: null == habitats
           ? _value._habitats
           : habitats // ignore: cast_nullable_to_non_nullable
@@ -137,8 +137,8 @@ class __$$_HabitatsModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_HabitatsModel implements _HabitatsModel {
-  _$_HabitatsModel(
+class _$HabitatsModelImpl implements _HabitatsModel {
+  _$HabitatsModelImpl(
       {required final List<HUHabitatModel> habitats,
       required final List<HUActionModel> actions,
       this.loading = false,
@@ -146,8 +146,8 @@ class _$_HabitatsModel implements _HabitatsModel {
       : _habitats = habitats,
         _actions = actions;
 
-  factory _$_HabitatsModel.fromJson(Map<String, dynamic> json) =>
-      _$$_HabitatsModelFromJson(json);
+  factory _$HabitatsModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HabitatsModelImplFromJson(json);
 
   final List<HUHabitatModel> _habitats;
   @override
@@ -180,7 +180,7 @@ class _$_HabitatsModel implements _HabitatsModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_HabitatsModel &&
+            other is _$HabitatsModelImpl &&
             const DeepCollectionEquality().equals(other._habitats, _habitats) &&
             const DeepCollectionEquality().equals(other._actions, _actions) &&
             (identical(other.loading, loading) || other.loading == loading) &&
@@ -199,12 +199,12 @@ class _$_HabitatsModel implements _HabitatsModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_HabitatsModelCopyWith<_$_HabitatsModel> get copyWith =>
-      __$$_HabitatsModelCopyWithImpl<_$_HabitatsModel>(this, _$identity);
+  _$$HabitatsModelImplCopyWith<_$HabitatsModelImpl> get copyWith =>
+      __$$HabitatsModelImplCopyWithImpl<_$HabitatsModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_HabitatsModelToJson(
+    return _$$HabitatsModelImplToJson(
       this,
     );
   }
@@ -215,10 +215,10 @@ abstract class _HabitatsModel implements HabitatsModel {
       {required final List<HUHabitatModel> habitats,
       required final List<HUActionModel> actions,
       final bool loading,
-      final String? error}) = _$_HabitatsModel;
+      final String? error}) = _$HabitatsModelImpl;
 
   factory _HabitatsModel.fromJson(Map<String, dynamic> json) =
-      _$_HabitatsModel.fromJson;
+      _$HabitatsModelImpl.fromJson;
 
   @override
   List<HUHabitatModel> get habitats;
@@ -230,6 +230,6 @@ abstract class _HabitatsModel implements HabitatsModel {
   String? get error;
   @override
   @JsonKey(ignore: true)
-  _$$_HabitatsModelCopyWith<_$_HabitatsModel> get copyWith =>
+  _$$HabitatsModelImplCopyWith<_$HabitatsModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

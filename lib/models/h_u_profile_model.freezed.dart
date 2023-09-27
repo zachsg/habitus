@@ -151,11 +151,11 @@ class _$HUProfileModelCopyWithImpl<$Res, $Val extends HUProfileModel>
 }
 
 /// @nodoc
-abstract class _$$_HUProfileModelCopyWith<$Res>
+abstract class _$$HUProfileModelImplCopyWith<$Res>
     implements $HUProfileModelCopyWith<$Res> {
-  factory _$$_HUProfileModelCopyWith(
-          _$_HUProfileModel value, $Res Function(_$_HUProfileModel) then) =
-      __$$_HUProfileModelCopyWithImpl<$Res>;
+  factory _$$HUProfileModelImplCopyWith(_$HUProfileModelImpl value,
+          $Res Function(_$HUProfileModelImpl) then) =
+      __$$HUProfileModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -175,11 +175,11 @@ abstract class _$$_HUProfileModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_HUProfileModelCopyWithImpl<$Res>
-    extends _$HUProfileModelCopyWithImpl<$Res, _$_HUProfileModel>
-    implements _$$_HUProfileModelCopyWith<$Res> {
-  __$$_HUProfileModelCopyWithImpl(
-      _$_HUProfileModel _value, $Res Function(_$_HUProfileModel) _then)
+class __$$HUProfileModelImplCopyWithImpl<$Res>
+    extends _$HUProfileModelCopyWithImpl<$Res, _$HUProfileModelImpl>
+    implements _$$HUProfileModelImplCopyWith<$Res> {
+  __$$HUProfileModelImplCopyWithImpl(
+      _$HUProfileModelImpl _value, $Res Function(_$HUProfileModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -199,7 +199,7 @@ class __$$_HUProfileModelCopyWithImpl<$Res>
     Object? isPro = null,
     Object? acceptedTerms = null,
   }) {
-    return _then(_$_HUProfileModel(
+    return _then(_$HUProfileModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -258,8 +258,8 @@ class __$$_HUProfileModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_HUProfileModel implements _HUProfileModel {
-  _$_HUProfileModel(
+class _$HUProfileModelImpl implements _HUProfileModel {
+  _$HUProfileModelImpl(
       {required this.id,
       @JsonKey(name: 'updated_at') required this.updatedAt,
       this.name = '',
@@ -277,8 +277,8 @@ class _$_HUProfileModel implements _HUProfileModel {
         _goals = goals,
         _habinauts = habinauts;
 
-  factory _$_HUProfileModel.fromJson(Map<String, dynamic> json) =>
-      _$$_HUProfileModelFromJson(json);
+  factory _$HUProfileModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HUProfileModelImplFromJson(json);
 
   @override
   final String id;
@@ -346,7 +346,7 @@ class _$_HUProfileModel implements _HUProfileModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_HUProfileModel &&
+            other is _$HUProfileModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
@@ -387,12 +387,13 @@ class _$_HUProfileModel implements _HUProfileModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_HUProfileModelCopyWith<_$_HUProfileModel> get copyWith =>
-      __$$_HUProfileModelCopyWithImpl<_$_HUProfileModel>(this, _$identity);
+  _$$HUProfileModelImplCopyWith<_$HUProfileModelImpl> get copyWith =>
+      __$$HUProfileModelImplCopyWithImpl<_$HUProfileModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_HUProfileModelToJson(
+    return _$$HUProfileModelImplToJson(
       this,
     );
   }
@@ -413,10 +414,10 @@ abstract class _HUProfileModel implements HUProfileModel {
           @JsonKey(name: 'push_token') final String pushToken,
           @JsonKey(name: 'is_pro') final bool isPro,
           @JsonKey(name: 'accepted_terms') final bool acceptedTerms}) =
-      _$_HUProfileModel;
+      _$HUProfileModelImpl;
 
   factory _HUProfileModel.fromJson(Map<String, dynamic> json) =
-      _$_HUProfileModel.fromJson;
+      _$HUProfileModelImpl.fromJson;
 
   @override
   String get id;
@@ -450,6 +451,6 @@ abstract class _HUProfileModel implements HUProfileModel {
   bool get acceptedTerms;
   @override
   @JsonKey(ignore: true)
-  _$$_HUProfileModelCopyWith<_$_HUProfileModel> get copyWith =>
+  _$$HUProfileModelImplCopyWith<_$HUProfileModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
