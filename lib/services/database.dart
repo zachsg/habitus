@@ -372,7 +372,7 @@ class Database {
       final listOfPossibleReactionsJsons = await supabase
           .from(possibleReactionsTable)
           .select()
-          .eq('action_id', 0);
+          .in_('action_id', [0, 1, 2]).order('id', ascending: true);
 
       final List<HUReactionModel> reactions = [];
       for (final reactionJson in listOfPossibleReactionsJsons) {

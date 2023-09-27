@@ -25,9 +25,11 @@ class HabitatReactionsWidget extends ConsumerWidget {
     return Row(
       children: [
         const SizedBox(width: 32.0),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: _reactionWidgets(context, profiles),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: _reactionWidgets(context, profiles),
+          ),
         ),
       ],
     );
