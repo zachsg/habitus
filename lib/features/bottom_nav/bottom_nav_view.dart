@@ -29,6 +29,8 @@ class _BottomNavViewState extends ConsumerState<BottomNavView>
     WidgetsBinding.instance.addObserver(this);
 
     ref.read(profileProvider.notifier).loadProfile();
+    ref.read(habitatsProvider.notifier).loadHabitats();
+    ref.read(habitatsProvider.notifier).loadActions();
 
     super.initState();
   }

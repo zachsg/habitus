@@ -21,7 +21,7 @@ class _HabitusAppState extends ConsumerState<HabitusApp>
     _controller = AnimationController(
       duration: const Duration(seconds: 10),
       vsync: this,
-    )..repeat();
+    );
     super.initState();
   }
 
@@ -35,8 +35,8 @@ class _HabitusAppState extends ConsumerState<HabitusApp>
   Widget build(BuildContext context) {
     final theme = ref.watch(themeProvider);
 
-    return AnimatedBuilder(
-      animation: _controller,
+    return ListenableBuilder(
+      listenable: theme,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,

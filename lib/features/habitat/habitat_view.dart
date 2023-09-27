@@ -40,13 +40,18 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
 
   @override
   Widget build(BuildContext context) {
-    final loading = ref.watch(habitatProvider(widget.habitat)).loading;
-    final day = ref.watch(habitatProvider(widget.habitat)).day;
+    print('habitat: build');
+
+    final habitatP = ref.watch(habitatProvider(widget.habitat));
+    final loading = habitatP.loading;
+    final day = habitatP.day;
     final today = DateTime.now();
     final isToday = day.isAfter(today.copyWith(hour: 0, minute: 0)) &&
         day.isBefore(today.copyWith(hour: 24, minute: 59));
+
     final profile = ref.watch(profileProvider).profile;
-    final actions = ref.watch(habitatProvider(widget.habitat)).actions;
+
+    final actions = habitatP.actions;
     final myActions =
         actions.where((action) => action.ownerId == profile.id).toList();
 

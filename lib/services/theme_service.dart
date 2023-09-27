@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ThemeService {
+class ThemeService with ChangeNotifier {
   final SharedPreferences _prefs;
-  ThemeService(this._prefs);
+  ThemeService(this._prefs, this.theme);
 
   static const _themeKey = 'theme';
   static const _minimalKey = 'minimal';
+
+  ThemeMode theme;
 
   ThemeMode themeMode() {
     final themeValue = _prefs.getInt(_themeKey);
@@ -17,6 +19,10 @@ class ThemeService {
 
   Future<void> updateThemeMode(ThemeMode theme) async {
     await _prefs.setInt(_themeKey, theme.index);
+
+    this.theme = theme;
+
+    notifyListeners();
   }
 
   bool minimalTimer() {

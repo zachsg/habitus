@@ -16,14 +16,16 @@ class HabitatsTakeActionButtonWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return TextButton(
-      onPressed: () => context.pushNamed(
-        GrowView.routeName,
-        pathParameters: {
-          'id': habitat.id.toString(),
-          'habitat_id': habitat.id.toString(),
-        },
-        extra: habitat,
-      ),
+      onPressed: () {
+        context.pushNamed(
+          GrowView.routeName,
+          pathParameters: {
+            'id': habitat.id.toString(),
+            'habitat_id': habitat.id.toString(),
+          },
+          extra: habitat,
+        );
+      },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -9,11 +9,13 @@ part 'habitat.g.dart';
 @riverpod
 class Habitat extends _$Habitat {
   @override
-  HabitatModel build(HUHabitatModel habitat) => HabitatModel(
-        habitat: habitat,
-        day: DateTime.now(),
-        loading: true,
-      );
+  HabitatModel build(HUHabitatModel habitat) {
+    return HabitatModel(
+      habitat: habitat,
+      day: DateTime.now(),
+      loading: true,
+    );
+  }
 
   Future<void> loadProfiles() async {
     final ids = [

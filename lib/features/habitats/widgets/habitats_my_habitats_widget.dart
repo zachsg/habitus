@@ -26,12 +26,12 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
             itemBuilder: (context, index) {
               final habitat = habitats[index];
 
-              final DateFormat yesterdayFormmater = DateFormat('MMM d');
-              final DateFormat todayFormmater = DateFormat('h:mm a');
+              final DateFormat yesterdayFormatter = DateFormat('MMM d');
+              final DateFormat todayFormatter = DateFormat('h:mm a');
               final date = habitat.updatedAt
                       .isAfter(DateTime.now().copyWith(hour: 0, minute: 0))
-                  ? todayFormmater.format(habitat.updatedAt.toLocal())
-                  : yesterdayFormmater.format(habitat.updatedAt.toLocal());
+                  ? todayFormatter.format(habitat.updatedAt.toLocal())
+                  : yesterdayFormatter.format(habitat.updatedAt.toLocal());
 
               return Padding(
                 padding: const EdgeInsets.symmetric(
@@ -42,11 +42,13 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                   margin: EdgeInsets.zero,
                   child: InkWell(
                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                    onTap: () => context.pushNamed(
-                      HabitatView.routeName,
-                      pathParameters: {'id': habitat.id.toString()},
-                      extra: habitat,
-                    ),
+                    onTap: () {
+                      context.pushNamed(
+                        HabitatView.routeName,
+                        pathParameters: {'id': habitat.id.toString()},
+                        extra: habitat,
+                      );
+                    },
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -109,10 +111,6 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                             ],
                           ),
                         ),
-                        // Container(
-                        //   color: Theme.of(context).colorScheme.primary,
-                        //   height: 1,
-                        // ),
                         HabitatsHabitatProgressWidget(habitat: habitat),
                       ],
                     ),

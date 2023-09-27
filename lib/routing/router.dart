@@ -33,7 +33,9 @@ final router = GoRouter(
     GoRoute(
       path: BottomNavView.routeName,
       name: BottomNavView.routeName,
-      builder: (context, state) => const BottomNavView(),
+      builder: (context, state) {
+        return const BottomNavView();
+      },
       routes: [
         GoRoute(
           path: HabitatsView.routeName,
@@ -48,16 +50,21 @@ final router = GoRouter(
             GoRoute(
               path: '${HabitatView.routeName}/:id',
               name: HabitatView.routeName,
-              builder: (context, state) => HabitatView(
-                habitat: state.extra as HUHabitatModel,
-              ),
+              builder: (context, state) {
+                final habit = state.extra as HUHabitatModel;
+
+                return HabitatView(habitat: habit);
+              },
               routes: [
                 GoRoute(
                   path: '${GrowView.routeName}/:habitat_id',
                   name: GrowView.routeName,
-                  builder: (context, state) => GrowView(
-                    habitatAndAction: state.extra as HUHabitatAndActionModel,
-                  ),
+                  builder: (context, state) {
+                    final habitAndAction =
+                        state.extra as HUHabitatAndActionModel;
+
+                    return GrowView(habitatAndAction: habitAndAction);
+                  },
                 ),
               ],
             ),
