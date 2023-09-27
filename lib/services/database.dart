@@ -16,6 +16,7 @@ class Database {
   static const deletionsTable = 'deletion_requests';
   static const reactionsTable = 'reactions';
   static const possibleReactionsTable = 'possible_reactions';
+  static const calloutsTable = 'callouts';
 
   /// Create or update user profile: Return true if no errors, false if errors.
   static Future<bool> createProfile(HUProfileModel profile) async {
@@ -450,6 +451,24 @@ class Database {
       return reactions;
     } on Exception catch (e) {
       throw GenericErrorException(e.toString());
+    }
+  }
+
+  static Future<bool> addCallout(HUCalloutModel callout) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    final calloutJson = callout.toJson();
+    calloutJson.removeWhere((key, value) => key == 'id');
+
+    try {
+      await supabase.from(calloutsTable).insert(calloutJson);
+
+      return true;
+    } on Exception catch (_) {
+      return false;
     }
   }
 }

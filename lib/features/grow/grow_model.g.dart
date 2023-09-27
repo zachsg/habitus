@@ -12,6 +12,7 @@ _$GrowModelImpl _$$GrowModelImplFromJson(Map<String, dynamic> json) =>
       loading: json['loading'] as bool? ?? false,
       elapsed: json['elapsed'] as int? ?? 0,
       isPaused: json['isPaused'] as bool? ?? false,
+      calloutId: json['calloutId'] as String? ?? '',
       error: json['error'] as String?,
     );
 
@@ -21,5 +22,6 @@ Map<String, dynamic> _$$GrowModelImplToJson(_$GrowModelImpl instance) =>
       'loading': instance.loading,
       'elapsed': instance.elapsed,
       'isPaused': instance.isPaused,
+      'calloutId': instance.calloutId,
       'error': instance.error,
     };

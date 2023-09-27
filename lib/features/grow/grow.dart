@@ -51,6 +51,14 @@ class Grow extends _$Grow {
 
     final success = await Database.saveAction(state.habitat, action);
     if (success) {
+      final callout = HUCalloutModel(
+        id: -1,
+        createdAt: DateTime.now().toLocal(),
+        caller: profile.id,
+        callee: state.calloutId,
+      );
+      final success2 = await Database.addCallout(callout);
+
       await ref.read(habitatProvider(state.habitat).notifier).loadProfiles();
       await ref.read(habitatProvider(state.habitat).notifier).loadActions();
       await ref
@@ -63,5 +71,9 @@ class Grow extends _$Grow {
     state = state.copyWith(loading: false);
 
     return success;
+  }
+
+  void setCalloutId(String id) {
+    state = state.copyWith(calloutId: id);
   }
 }
