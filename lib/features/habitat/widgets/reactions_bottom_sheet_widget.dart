@@ -140,10 +140,6 @@ class _ReactionsBottomSheetWidgetState
 
                                 await Database.react(myReaction);
 
-                                widget.reload();
-
-                                setState(() => _loading = false);
-
                                 final actionProfile = ref
                                     .read(habitatProvider(widget.habitat))
                                     .profiles
@@ -153,14 +149,18 @@ class _ReactionsBottomSheetWidgetState
                                 final token = actionProfile.pushToken;
                                 final title = widget.habitat.name;
                                 final subtitle =
-                                    '@${profile.handle} just reacted to your activity with "${reaction.text}"';
+                                    '@${profile.handle} just reacted to your activity with \'${reaction.text}\'';
 
-                                RemoteNotificationService
+                                await RemoteNotificationService
                                     .newReactionNotification(
                                   token: token,
                                   title: title,
                                   subtitle: subtitle,
                                 );
+
+                                widget.reload();
+
+                                setState(() => _loading = false);
 
                                 if (context.mounted) {
                                   context.pop();
