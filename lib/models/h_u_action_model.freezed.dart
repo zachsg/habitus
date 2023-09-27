@@ -111,11 +111,11 @@ class _$HUActionModelCopyWithImpl<$Res, $Val extends HUActionModel>
 }
 
 /// @nodoc
-abstract class _$$_HUActionModelCopyWith<$Res>
+abstract class _$$HUActionModelImplCopyWith<$Res>
     implements $HUActionModelCopyWith<$Res> {
-  factory _$$_HUActionModelCopyWith(
-          _$_HUActionModel value, $Res Function(_$_HUActionModel) then) =
-      __$$_HUActionModelCopyWithImpl<$Res>;
+  factory _$$HUActionModelImplCopyWith(
+          _$HUActionModelImpl value, $Res Function(_$HUActionModelImpl) then) =
+      __$$HUActionModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -131,11 +131,11 @@ abstract class _$$_HUActionModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_HUActionModelCopyWithImpl<$Res>
-    extends _$HUActionModelCopyWithImpl<$Res, _$_HUActionModel>
-    implements _$$_HUActionModelCopyWith<$Res> {
-  __$$_HUActionModelCopyWithImpl(
-      _$_HUActionModel _value, $Res Function(_$_HUActionModel) _then)
+class __$$HUActionModelImplCopyWithImpl<$Res>
+    extends _$HUActionModelCopyWithImpl<$Res, _$HUActionModelImpl>
+    implements _$$HUActionModelImplCopyWith<$Res> {
+  __$$HUActionModelImplCopyWithImpl(
+      _$HUActionModelImpl _value, $Res Function(_$HUActionModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -148,7 +148,7 @@ class __$$_HUActionModelCopyWithImpl<$Res>
     Object? reactions = null,
     Object? goal = null,
   }) {
-    return _then(_$_HUActionModel(
+    return _then(_$HUActionModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -179,8 +179,8 @@ class __$$_HUActionModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_HUActionModel implements _HUActionModel {
-  _$_HUActionModel(
+class _$HUActionModelImpl implements _HUActionModel {
+  _$HUActionModelImpl(
       {required this.id,
       @JsonKey(name: 'habitat_id') required this.habitatId,
       @JsonKey(name: 'owner_id') required this.ownerId,
@@ -189,8 +189,8 @@ class _$_HUActionModel implements _HUActionModel {
       required this.goal})
       : _reactions = reactions;
 
-  factory _$_HUActionModel.fromJson(Map<String, dynamic> json) =>
-      _$$_HUActionModelFromJson(json);
+  factory _$HUActionModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HUActionModelImplFromJson(json);
 
   @override
   final int id;
@@ -224,7 +224,7 @@ class _$_HUActionModel implements _HUActionModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_HUActionModel &&
+            other is _$HUActionModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.habitatId, habitatId) ||
                 other.habitatId == habitatId) &&
@@ -244,12 +244,12 @@ class _$_HUActionModel implements _HUActionModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_HUActionModelCopyWith<_$_HUActionModel> get copyWith =>
-      __$$_HUActionModelCopyWithImpl<_$_HUActionModel>(this, _$identity);
+  _$$HUActionModelImplCopyWith<_$HUActionModelImpl> get copyWith =>
+      __$$HUActionModelImplCopyWithImpl<_$HUActionModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_HUActionModelToJson(
+    return _$$HUActionModelImplToJson(
       this,
     );
   }
@@ -262,10 +262,10 @@ abstract class _HUActionModel implements HUActionModel {
       @JsonKey(name: 'owner_id') required final String ownerId,
       @JsonKey(name: 'created_at') required final DateTime createdAt,
       final List<HUReactionModel> reactions,
-      required final HUGoalModel goal}) = _$_HUActionModel;
+      required final HUGoalModel goal}) = _$HUActionModelImpl;
 
   factory _HUActionModel.fromJson(Map<String, dynamic> json) =
-      _$_HUActionModel.fromJson;
+      _$HUActionModelImpl.fromJson;
 
   @override
   int get id;
@@ -284,6 +284,6 @@ abstract class _HUActionModel implements HUActionModel {
   HUGoalModel get goal;
   @override
   @JsonKey(ignore: true)
-  _$$_HUActionModelCopyWith<_$_HUActionModel> get copyWith =>
+  _$$HUActionModelImplCopyWith<_$HUActionModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

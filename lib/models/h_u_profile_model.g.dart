@@ -6,8 +6,8 @@ part of 'h_u_profile_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_HUProfileModel _$$_HUProfileModelFromJson(Map<String, dynamic> json) =>
-    _$_HUProfileModel(
+_$HUProfileModelImpl _$$HUProfileModelImplFromJson(Map<String, dynamic> json) =>
+    _$HUProfileModelImpl(
       id: json['id'] as String,
       updatedAt: DateTime.parse(json['updated_at'] as String),
       name: json['name'] as String? ?? '',
@@ -31,7 +31,8 @@ _$_HUProfileModel _$$_HUProfileModelFromJson(Map<String, dynamic> json) =>
       acceptedTerms: json['accepted_terms'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$_HUProfileModelToJson(_$_HUProfileModel instance) =>
+Map<String, dynamic> _$$HUProfileModelImplToJson(
+        _$HUProfileModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'updated_at': instance.updatedAt.toIso8601String(),

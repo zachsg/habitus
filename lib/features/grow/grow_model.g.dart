@@ -6,7 +6,8 @@ part of 'grow_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_GrowModel _$$_GrowModelFromJson(Map<String, dynamic> json) => _$_GrowModel(
+_$GrowModelImpl _$$GrowModelImplFromJson(Map<String, dynamic> json) =>
+    _$GrowModelImpl(
       habitat: HUHabitatModel.fromJson(json['habitat'] as Map<String, dynamic>),
       loading: json['loading'] as bool? ?? false,
       elapsed: json['elapsed'] as int? ?? 0,
@@ -14,7 +15,7 @@ _$_GrowModel _$$_GrowModelFromJson(Map<String, dynamic> json) => _$_GrowModel(
       error: json['error'] as String?,
     );
 
-Map<String, dynamic> _$$_GrowModelToJson(_$_GrowModel instance) =>
+Map<String, dynamic> _$$GrowModelImplToJson(_$GrowModelImpl instance) =>
     <String, dynamic>{
       'habitat': instance.habitat,
       'loading': instance.loading,

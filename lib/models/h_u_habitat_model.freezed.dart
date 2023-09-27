@@ -139,11 +139,11 @@ class _$HUHabitatModelCopyWithImpl<$Res, $Val extends HUHabitatModel>
 }
 
 /// @nodoc
-abstract class _$$_HUHabitatModelCopyWith<$Res>
+abstract class _$$HUHabitatModelImplCopyWith<$Res>
     implements $HUHabitatModelCopyWith<$Res> {
-  factory _$$_HUHabitatModelCopyWith(
-          _$_HUHabitatModel value, $Res Function(_$_HUHabitatModel) then) =
-      __$$_HUHabitatModelCopyWithImpl<$Res>;
+  factory _$$HUHabitatModelImplCopyWith(_$HUHabitatModelImpl value,
+          $Res Function(_$HUHabitatModelImpl) then) =
+      __$$HUHabitatModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -163,11 +163,11 @@ abstract class _$$_HUHabitatModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_HUHabitatModelCopyWithImpl<$Res>
-    extends _$HUHabitatModelCopyWithImpl<$Res, _$_HUHabitatModel>
-    implements _$$_HUHabitatModelCopyWith<$Res> {
-  __$$_HUHabitatModelCopyWithImpl(
-      _$_HUHabitatModel _value, $Res Function(_$_HUHabitatModel) _then)
+class __$$HUHabitatModelImplCopyWithImpl<$Res>
+    extends _$HUHabitatModelCopyWithImpl<$Res, _$HUHabitatModelImpl>
+    implements _$$HUHabitatModelImplCopyWith<$Res> {
+  __$$HUHabitatModelImplCopyWithImpl(
+      _$HUHabitatModelImpl _value, $Res Function(_$HUHabitatModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -184,7 +184,7 @@ class __$$_HUHabitatModelCopyWithImpl<$Res>
     Object? isOpen = null,
     Object? cap = null,
   }) {
-    return _then(_$_HUHabitatModel(
+    return _then(_$HUHabitatModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -231,8 +231,8 @@ class __$$_HUHabitatModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_HUHabitatModel implements _HUHabitatModel {
-  _$_HUHabitatModel(
+class _$HUHabitatModelImpl implements _HUHabitatModel {
+  _$HUHabitatModelImpl(
       {required this.id,
       @JsonKey(name: 'updated_at') required this.updatedAt,
       @JsonKey(name: 'creator_id') required this.creatorId,
@@ -246,8 +246,8 @@ class _$_HUHabitatModel implements _HUHabitatModel {
       : _admins = admins,
         _members = members;
 
-  factory _$_HUHabitatModel.fromJson(Map<String, dynamic> json) =>
-      _$$_HUHabitatModelFromJson(json);
+  factory _$HUHabitatModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HUHabitatModelImplFromJson(json);
 
   @override
   final int id;
@@ -299,7 +299,7 @@ class _$_HUHabitatModel implements _HUHabitatModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_HUHabitatModel &&
+            other is _$HUHabitatModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
@@ -332,12 +332,13 @@ class _$_HUHabitatModel implements _HUHabitatModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_HUHabitatModelCopyWith<_$_HUHabitatModel> get copyWith =>
-      __$$_HUHabitatModelCopyWithImpl<_$_HUHabitatModel>(this, _$identity);
+  _$$HUHabitatModelImplCopyWith<_$HUHabitatModelImpl> get copyWith =>
+      __$$HUHabitatModelImplCopyWithImpl<_$HUHabitatModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_HUHabitatModelToJson(
+    return _$$HUHabitatModelImplToJson(
       this,
     );
   }
@@ -354,10 +355,10 @@ abstract class _HUHabitatModel implements HUHabitatModel {
       final List<String> admins,
       final List<String> members,
       @JsonKey(name: 'is_open') final bool isOpen,
-      final int cap}) = _$_HUHabitatModel;
+      final int cap}) = _$HUHabitatModelImpl;
 
   factory _HUHabitatModel.fromJson(Map<String, dynamic> json) =
-      _$_HUHabitatModel.fromJson;
+      _$HUHabitatModelImpl.fromJson;
 
   @override
   int get id;
@@ -384,6 +385,6 @@ abstract class _HUHabitatModel implements HUHabitatModel {
   int get cap;
   @override
   @JsonKey(ignore: true)
-  _$$_HUHabitatModelCopyWith<_$_HUHabitatModel> get copyWith =>
+  _$$HUHabitatModelImplCopyWith<_$HUHabitatModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

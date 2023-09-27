@@ -91,11 +91,11 @@ class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
 }
 
 /// @nodoc
-abstract class _$$_SettingsModelCopyWith<$Res>
+abstract class _$$SettingsModelImplCopyWith<$Res>
     implements $SettingsModelCopyWith<$Res> {
-  factory _$$_SettingsModelCopyWith(
-          _$_SettingsModel value, $Res Function(_$_SettingsModel) then) =
-      __$$_SettingsModelCopyWithImpl<$Res>;
+  factory _$$SettingsModelImplCopyWith(
+          _$SettingsModelImpl value, $Res Function(_$SettingsModelImpl) then) =
+      __$$SettingsModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -106,11 +106,11 @@ abstract class _$$_SettingsModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SettingsModelCopyWithImpl<$Res>
-    extends _$SettingsModelCopyWithImpl<$Res, _$_SettingsModel>
-    implements _$$_SettingsModelCopyWith<$Res> {
-  __$$_SettingsModelCopyWithImpl(
-      _$_SettingsModel _value, $Res Function(_$_SettingsModel) _then)
+class __$$SettingsModelImplCopyWithImpl<$Res>
+    extends _$SettingsModelCopyWithImpl<$Res, _$SettingsModelImpl>
+    implements _$$SettingsModelImplCopyWith<$Res> {
+  __$$SettingsModelImplCopyWithImpl(
+      _$SettingsModelImpl _value, $Res Function(_$SettingsModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -121,7 +121,7 @@ class __$$_SettingsModelCopyWithImpl<$Res>
     Object? loading = null,
     Object? error = freezed,
   }) {
-    return _then(_$_SettingsModel(
+    return _then(_$SettingsModelImpl(
       profile: null == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
@@ -144,15 +144,15 @@ class __$$_SettingsModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SettingsModel implements _SettingsModel {
-  _$_SettingsModel(
+class _$SettingsModelImpl implements _SettingsModel {
+  _$SettingsModelImpl(
       {required this.profile,
       this.minimalTimer = false,
       this.loading = false,
       this.error});
 
-  factory _$_SettingsModel.fromJson(Map<String, dynamic> json) =>
-      _$$_SettingsModelFromJson(json);
+  factory _$SettingsModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SettingsModelImplFromJson(json);
 
   @override
   final HUProfileModel profile;
@@ -174,7 +174,7 @@ class _$_SettingsModel implements _SettingsModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SettingsModel &&
+            other is _$SettingsModelImpl &&
             (identical(other.profile, profile) || other.profile == profile) &&
             (identical(other.minimalTimer, minimalTimer) ||
                 other.minimalTimer == minimalTimer) &&
@@ -190,12 +190,12 @@ class _$_SettingsModel implements _SettingsModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SettingsModelCopyWith<_$_SettingsModel> get copyWith =>
-      __$$_SettingsModelCopyWithImpl<_$_SettingsModel>(this, _$identity);
+  _$$SettingsModelImplCopyWith<_$SettingsModelImpl> get copyWith =>
+      __$$SettingsModelImplCopyWithImpl<_$SettingsModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SettingsModelToJson(
+    return _$$SettingsModelImplToJson(
       this,
     );
   }
@@ -206,10 +206,10 @@ abstract class _SettingsModel implements SettingsModel {
       {required final HUProfileModel profile,
       final bool minimalTimer,
       final bool loading,
-      final String? error}) = _$_SettingsModel;
+      final String? error}) = _$SettingsModelImpl;
 
   factory _SettingsModel.fromJson(Map<String, dynamic> json) =
-      _$_SettingsModel.fromJson;
+      _$SettingsModelImpl.fromJson;
 
   @override
   HUProfileModel get profile;
@@ -221,6 +221,6 @@ abstract class _SettingsModel implements SettingsModel {
   String? get error;
   @override
   @JsonKey(ignore: true)
-  _$$_SettingsModelCopyWith<_$_SettingsModel> get copyWith =>
+  _$$SettingsModelImplCopyWith<_$SettingsModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

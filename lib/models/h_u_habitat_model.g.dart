@@ -6,8 +6,8 @@ part of 'h_u_habitat_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_HUHabitatModel _$$_HUHabitatModelFromJson(Map<String, dynamic> json) =>
-    _$_HUHabitatModel(
+_$HUHabitatModelImpl _$$HUHabitatModelImplFromJson(Map<String, dynamic> json) =>
+    _$HUHabitatModelImpl(
       id: json['id'] as int,
       updatedAt: DateTime.parse(json['updated_at'] as String),
       creatorId: json['creator_id'] as String,
@@ -26,7 +26,8 @@ _$_HUHabitatModel _$$_HUHabitatModelFromJson(Map<String, dynamic> json) =>
       cap: json['cap'] as int? ?? 10,
     );
 
-Map<String, dynamic> _$$_HUHabitatModelToJson(_$_HUHabitatModel instance) =>
+Map<String, dynamic> _$$HUHabitatModelImplToJson(
+        _$HUHabitatModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'updated_at': instance.updatedAt.toIso8601String(),

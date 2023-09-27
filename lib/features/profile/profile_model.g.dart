@@ -6,14 +6,14 @@ part of 'profile_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ProfileModel _$$_ProfileModelFromJson(Map<String, dynamic> json) =>
-    _$_ProfileModel(
+_$ProfileModelImpl _$$ProfileModelImplFromJson(Map<String, dynamic> json) =>
+    _$ProfileModelImpl(
       profile: HUProfileModel.fromJson(json['profile'] as Map<String, dynamic>),
       loading: json['loading'] as bool? ?? false,
       error: json['error'] as String?,
     );
 
-Map<String, dynamic> _$$_ProfileModelToJson(_$_ProfileModel instance) =>
+Map<String, dynamic> _$$ProfileModelImplToJson(_$ProfileModelImpl instance) =>
     <String, dynamic>{
       'profile': instance.profile,
       'loading': instance.loading,

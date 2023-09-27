@@ -101,11 +101,11 @@ class _$HUReactionModelCopyWithImpl<$Res, $Val extends HUReactionModel>
 }
 
 /// @nodoc
-abstract class _$$_HUReactionModelCopyWith<$Res>
+abstract class _$$HUReactionModelImplCopyWith<$Res>
     implements $HUReactionModelCopyWith<$Res> {
-  factory _$$_HUReactionModelCopyWith(
-          _$_HUReactionModel value, $Res Function(_$_HUReactionModel) then) =
-      __$$_HUReactionModelCopyWithImpl<$Res>;
+  factory _$$HUReactionModelImplCopyWith(_$HUReactionModelImpl value,
+          $Res Function(_$HUReactionModelImpl) then) =
+      __$$HUReactionModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -118,11 +118,11 @@ abstract class _$$_HUReactionModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_HUReactionModelCopyWithImpl<$Res>
-    extends _$HUReactionModelCopyWithImpl<$Res, _$_HUReactionModel>
-    implements _$$_HUReactionModelCopyWith<$Res> {
-  __$$_HUReactionModelCopyWithImpl(
-      _$_HUReactionModel _value, $Res Function(_$_HUReactionModel) _then)
+class __$$HUReactionModelImplCopyWithImpl<$Res>
+    extends _$HUReactionModelCopyWithImpl<$Res, _$HUReactionModelImpl>
+    implements _$$HUReactionModelImplCopyWith<$Res> {
+  __$$HUReactionModelImplCopyWithImpl(
+      _$HUReactionModelImpl _value, $Res Function(_$HUReactionModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -135,7 +135,7 @@ class __$$_HUReactionModelCopyWithImpl<$Res>
     Object? icon = null,
     Object? text = null,
   }) {
-    return _then(_$_HUReactionModel(
+    return _then(_$HUReactionModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -166,8 +166,8 @@ class __$$_HUReactionModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_HUReactionModel implements _HUReactionModel {
-  _$_HUReactionModel(
+class _$HUReactionModelImpl implements _HUReactionModel {
+  _$HUReactionModelImpl(
       {required this.id,
       @JsonKey(name: 'action_id') required this.actionId,
       @JsonKey(name: 'owner_id') required this.ownerId,
@@ -175,8 +175,8 @@ class _$_HUReactionModel implements _HUReactionModel {
       this.icon = '',
       this.text = ''});
 
-  factory _$_HUReactionModel.fromJson(Map<String, dynamic> json) =>
-      _$$_HUReactionModelFromJson(json);
+  factory _$HUReactionModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HUReactionModelImplFromJson(json);
 
   @override
   final int id;
@@ -205,7 +205,7 @@ class _$_HUReactionModel implements _HUReactionModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_HUReactionModel &&
+            other is _$HUReactionModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.actionId, actionId) ||
                 other.actionId == actionId) &&
@@ -224,12 +224,13 @@ class _$_HUReactionModel implements _HUReactionModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_HUReactionModelCopyWith<_$_HUReactionModel> get copyWith =>
-      __$$_HUReactionModelCopyWithImpl<_$_HUReactionModel>(this, _$identity);
+  _$$HUReactionModelImplCopyWith<_$HUReactionModelImpl> get copyWith =>
+      __$$HUReactionModelImplCopyWithImpl<_$HUReactionModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_HUReactionModelToJson(
+    return _$$HUReactionModelImplToJson(
       this,
     );
   }
@@ -242,10 +243,10 @@ abstract class _HUReactionModel implements HUReactionModel {
       @JsonKey(name: 'owner_id') required final String ownerId,
       @JsonKey(name: 'created_at') required final DateTime createdAt,
       final String icon,
-      final String text}) = _$_HUReactionModel;
+      final String text}) = _$HUReactionModelImpl;
 
   factory _HUReactionModel.fromJson(Map<String, dynamic> json) =
-      _$_HUReactionModel.fromJson;
+      _$HUReactionModelImpl.fromJson;
 
   @override
   int get id;
@@ -264,6 +265,6 @@ abstract class _HUReactionModel implements HUReactionModel {
   String get text;
   @override
   @JsonKey(ignore: true)
-  _$$_HUReactionModelCopyWith<_$_HUReactionModel> get copyWith =>
+  _$$HUReactionModelImplCopyWith<_$HUReactionModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

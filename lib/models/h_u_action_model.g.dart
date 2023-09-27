@@ -6,8 +6,8 @@ part of 'h_u_action_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_HUActionModel _$$_HUActionModelFromJson(Map<String, dynamic> json) =>
-    _$_HUActionModel(
+_$HUActionModelImpl _$$HUActionModelImplFromJson(Map<String, dynamic> json) =>
+    _$HUActionModelImpl(
       id: json['id'] as int,
       habitatId: json['habitat_id'] as int,
       ownerId: json['owner_id'] as String,
@@ -19,7 +19,7 @@ _$_HUActionModel _$$_HUActionModelFromJson(Map<String, dynamic> json) =>
       goal: HUGoalModel.fromJson(json['goal'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_HUActionModelToJson(_$_HUActionModel instance) =>
+Map<String, dynamic> _$$HUActionModelImplToJson(_$HUActionModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'habitat_id': instance.habitatId,

@@ -6,15 +6,15 @@ part of 'h_u_goal_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_HUGoalModel _$$_HUGoalModelFromJson(Map<String, dynamic> json) =>
-    _$_HUGoalModel(
+_$HUGoalModelImpl _$$HUGoalModelImplFromJson(Map<String, dynamic> json) =>
+    _$HUGoalModelImpl(
       habitatId: json['habitat_id'] as int,
       habit: json['habit'] as String,
       unit: $enumDecode(_$UnitEnumMap, json['unit']),
       value: json['value'] as int,
     );
 
-Map<String, dynamic> _$$_HUGoalModelToJson(_$_HUGoalModel instance) =>
+Map<String, dynamic> _$$HUGoalModelImplToJson(_$HUGoalModelImpl instance) =>
     <String, dynamic>{
       'habitat_id': instance.habitatId,
       'habit': instance.habit,

@@ -6,8 +6,9 @@ part of 'h_u_reaction_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_HUReactionModel _$$_HUReactionModelFromJson(Map<String, dynamic> json) =>
-    _$_HUReactionModel(
+_$HUReactionModelImpl _$$HUReactionModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$HUReactionModelImpl(
       id: json['id'] as int,
       actionId: json['action_id'] as int,
       ownerId: json['owner_id'] as String,
@@ -16,7 +17,8 @@ _$_HUReactionModel _$$_HUReactionModelFromJson(Map<String, dynamic> json) =>
       text: json['text'] as String? ?? '',
     );
 
-Map<String, dynamic> _$$_HUReactionModelToJson(_$_HUReactionModel instance) =>
+Map<String, dynamic> _$$HUReactionModelImplToJson(
+        _$HUReactionModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'action_id': instance.actionId,

@@ -62,22 +62,22 @@ class _$BottomNavModelCopyWithImpl<$Res, $Val extends BottomNavModel>
 }
 
 /// @nodoc
-abstract class _$$_BottomNavModelCopyWith<$Res>
+abstract class _$$BottomNavModelImplCopyWith<$Res>
     implements $BottomNavModelCopyWith<$Res> {
-  factory _$$_BottomNavModelCopyWith(
-          _$_BottomNavModel value, $Res Function(_$_BottomNavModel) then) =
-      __$$_BottomNavModelCopyWithImpl<$Res>;
+  factory _$$BottomNavModelImplCopyWith(_$BottomNavModelImpl value,
+          $Res Function(_$BottomNavModelImpl) then) =
+      __$$BottomNavModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int index});
 }
 
 /// @nodoc
-class __$$_BottomNavModelCopyWithImpl<$Res>
-    extends _$BottomNavModelCopyWithImpl<$Res, _$_BottomNavModel>
-    implements _$$_BottomNavModelCopyWith<$Res> {
-  __$$_BottomNavModelCopyWithImpl(
-      _$_BottomNavModel _value, $Res Function(_$_BottomNavModel) _then)
+class __$$BottomNavModelImplCopyWithImpl<$Res>
+    extends _$BottomNavModelCopyWithImpl<$Res, _$BottomNavModelImpl>
+    implements _$$BottomNavModelImplCopyWith<$Res> {
+  __$$BottomNavModelImplCopyWithImpl(
+      _$BottomNavModelImpl _value, $Res Function(_$BottomNavModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -85,7 +85,7 @@ class __$$_BottomNavModelCopyWithImpl<$Res>
   $Res call({
     Object? index = null,
   }) {
-    return _then(_$_BottomNavModel(
+    return _then(_$BottomNavModelImpl(
       index: null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -96,11 +96,11 @@ class __$$_BottomNavModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_BottomNavModel implements _BottomNavModel {
-  _$_BottomNavModel({this.index = 1});
+class _$BottomNavModelImpl implements _BottomNavModel {
+  _$BottomNavModelImpl({this.index = 1});
 
-  factory _$_BottomNavModel.fromJson(Map<String, dynamic> json) =>
-      _$$_BottomNavModelFromJson(json);
+  factory _$BottomNavModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BottomNavModelImplFromJson(json);
 
   @override
   @JsonKey()
@@ -115,7 +115,7 @@ class _$_BottomNavModel implements _BottomNavModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BottomNavModel &&
+            other is _$BottomNavModelImpl &&
             (identical(other.index, index) || other.index == index));
   }
 
@@ -126,27 +126,28 @@ class _$_BottomNavModel implements _BottomNavModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BottomNavModelCopyWith<_$_BottomNavModel> get copyWith =>
-      __$$_BottomNavModelCopyWithImpl<_$_BottomNavModel>(this, _$identity);
+  _$$BottomNavModelImplCopyWith<_$BottomNavModelImpl> get copyWith =>
+      __$$BottomNavModelImplCopyWithImpl<_$BottomNavModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BottomNavModelToJson(
+    return _$$BottomNavModelImplToJson(
       this,
     );
   }
 }
 
 abstract class _BottomNavModel implements BottomNavModel {
-  factory _BottomNavModel({final int index}) = _$_BottomNavModel;
+  factory _BottomNavModel({final int index}) = _$BottomNavModelImpl;
 
   factory _BottomNavModel.fromJson(Map<String, dynamic> json) =
-      _$_BottomNavModel.fromJson;
+      _$BottomNavModelImpl.fromJson;
 
   @override
   int get index;
   @override
   @JsonKey(ignore: true)
-  _$$_BottomNavModelCopyWith<_$_BottomNavModel> get copyWith =>
+  _$$BottomNavModelImplCopyWith<_$BottomNavModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
