@@ -40,8 +40,6 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
 
   @override
   Widget build(BuildContext context) {
-    print('habitat: build');
-
     final habitatP = ref.watch(habitatProvider(widget.habitat));
     final loading = habitatP.loading;
     final day = habitatP.day;
