@@ -7,7 +7,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../../models/xmodels.dart';
 import '../../../services/database.dart';
+import '../../../services/remote_notification_service.dart';
 import '../../profile/profile.dart';
+import '../habitat.dart';
 
 class ReactionsBottomSheetWidget extends ConsumerStatefulWidget {
   const ReactionsBottomSheetWidget({
@@ -107,24 +109,24 @@ class _ReactionsBottomSheetWidgetState
                     horizontal: 16.0,
                     vertical: 8.0,
                   ),
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: _reactions.length,
-                    itemBuilder: (context, index) {
-                      final reaction = _reactions[index];
+                  child: _loading
+                      ? const CircularProgressIndicator.adaptive()
+                      : ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: _reactions.length,
+                          itemBuilder: (context2, index) {
+                            final reaction = _reactions[index];
 
-                      bool alreadyReacted = false;
-                      for (final r in _alreadyReactions) {
-                        if (r.text == reaction.text) {
-                          alreadyReacted = true;
-                        }
-                      }
+                            bool alreadyReacted = false;
+                            for (final r in _alreadyReactions) {
+                              if (r.text == reaction.text) {
+                                alreadyReacted = true;
+                              }
+                            }
 
-                      return _loading
-                          ? const CircularProgressIndicator.adaptive()
-                          : ListTile(
+                            return ListTile(
                               enabled: alreadyReacted ? false : true,
                               onTap: () async {
                                 // TODO: Add the reaction to the activity and close the sheet
@@ -141,6 +143,24 @@ class _ReactionsBottomSheetWidgetState
                                 widget.reload();
 
                                 setState(() => _loading = false);
+
+                                final actionProfile = ref
+                                    .read(habitatProvider(widget.habitat))
+                                    .profiles
+                                    .firstWhere((profile) =>
+                                        profile.id == widget.action.ownerId);
+
+                                final token = actionProfile.pushToken;
+                                final title = widget.habitat.name;
+                                final subtitle =
+                                    '@${profile.handle} just reacted to your activity with "${reaction.text}"';
+
+                                RemoteNotificationService
+                                    .newReactionNotification(
+                                  token: token,
+                                  title: title,
+                                  subtitle: subtitle,
+                                );
 
                                 if (context.mounted) {
                                   context.pop();
@@ -241,8 +261,8 @@ class _ReactionsBottomSheetWidgetState
                                         : Icons.add_circle,
                               ),
                             );
-                    },
-                  ),
+                          },
+                        ),
                 ),
               ],
             ),
