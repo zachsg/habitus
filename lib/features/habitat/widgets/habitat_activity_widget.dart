@@ -95,11 +95,13 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                     children: [
                       const SizedBox(height: 8.0),
                       GestureDetector(
-                        onLongPress: () => widget.isToday ? _reactionsSheet(
-                          context,
-                          ref.watch(profileProvider).profile,
-                          action,
-                        ) : null,
+                        onLongPress: () => widget.isToday
+                            ? _reactionsSheet(
+                                context,
+                                ref.watch(profileProvider).profile,
+                                action,
+                              )
+                            : null,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -135,15 +137,17 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                                         ref.watch(profileProvider).profile,
                                         action,
                                       ),
-                                      child: widget.isToday ? Icon(
-                                        size: 20.0,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        isIOS
-                                            ? CupertinoIcons.add_circled
-                                            : Icons.add_circle,
-                                      ) : const SizedBox(),
+                                      child: widget.isToday
+                                          ? Icon(
+                                              size: 20.0,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                              isIOS
+                                                  ? CupertinoIcons.add_circled
+                                                  : Icons.add_circle,
+                                            )
+                                          : const SizedBox(),
                                     ),
                                   ),
                                 ],
@@ -181,6 +185,7 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
+      showDragHandle: true,
       builder: (BuildContext context) => ReactionsBottomSheetWidget(
         habitat: widget.habitat,
         profile: profile,

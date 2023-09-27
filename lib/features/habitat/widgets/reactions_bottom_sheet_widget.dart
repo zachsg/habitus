@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../models/xmodels.dart';
 import '../../../services/database.dart';
+import '../../profile/profile.dart';
 
 class ReactionsBottomSheetWidget extends ConsumerStatefulWidget {
   const ReactionsBottomSheetWidget({
@@ -60,6 +61,12 @@ class _ReactionsBottomSheetWidgetState
 
     const title = 'Add Reaction';
 
+    final profile = ref.watch(profileProvider).profile;
+    final isMyAction = profile.id == widget.action.ownerId;
+    if (!isMyAction) {
+      _reactions.removeWhere((reaction) => reaction.actionId == 1);
+    }
+
     return SafeArea(
       child: Padding(
         padding: MediaQuery.of(context).viewInsets,
@@ -68,99 +75,177 @@ class _ReactionsBottomSheetWidgetState
             vertical: 16.0,
             horizontal: 8.0,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    IconButton(
-                      onPressed: Navigator.of(context).pop,
-                      icon: const Icon(
-                        Icons.cancel_outlined,
-                        size: 32,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        title,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
-                    ),
-                  ],
+                      IconButton(
+                        onPressed: Navigator.of(context).pop,
+                        icon: const Icon(
+                          Icons.cancel_outlined,
+                          size: 32,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
-                ),
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: _reactions.length,
-                  itemBuilder: (context, index) {
-                    final reaction = _reactions[index];
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: _reactions.length,
+                    itemBuilder: (context, index) {
+                      final reaction = _reactions[index];
 
-                    bool alreadyReacted = false;
-                    for (final r in _alreadyReactions) {
-                      if (r.text == reaction.text) {
-                        alreadyReacted = true;
+                      bool alreadyReacted = false;
+                      for (final r in _alreadyReactions) {
+                        if (r.text == reaction.text) {
+                          alreadyReacted = true;
+                        }
                       }
-                    }
 
-                    return _loading
-                        ? const CircularProgressIndicator.adaptive()
-                        : ListTile(
-                            enabled: alreadyReacted ? false : true,
-                            onTap: () async {
-                              // TODO: Add the reaction to the activity and close the sheet
-                              final myReaction = reaction.copyWith(
-                                ownerId: widget.profile.id,
-                                createdAt: DateTime.now().toLocal(),
-                                actionId: widget.action.id,
-                              );
+                      return _loading
+                          ? const CircularProgressIndicator.adaptive()
+                          : ListTile(
+                              enabled: alreadyReacted ? false : true,
+                              onTap: () async {
+                                // TODO: Add the reaction to the activity and close the sheet
+                                final myReaction = reaction.copyWith(
+                                  ownerId: widget.profile.id,
+                                  createdAt: DateTime.now().toLocal(),
+                                  actionId: widget.action.id,
+                                );
 
-                              setState(() => _loading = true);
+                                setState(() => _loading = true);
 
-                              await Database.react(myReaction);
+                                await Database.react(myReaction);
 
-                              widget.reload();
+                                widget.reload();
 
-                              setState(() => _loading = false);
+                                setState(() => _loading = false);
 
-                              if (context.mounted) {
-                                context.pop();
-                              }
-                            },
-                            leading: Text(
-                              reaction.icon,
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            title: Text(
-                              reaction.text,
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            trailing: Icon(
-                              size: 28.0,
-                              color: Theme.of(context).colorScheme.primary,
-                              isIOS
-                                  ? alreadyReacted
-                                      ? CupertinoIcons.check_mark
-                                      : CupertinoIcons.add_circled
-                                  : alreadyReacted
-                                      ? Icons.check_circle
-                                      : Icons.add_circle,
-                            ),
-                          );
-                  },
+                                if (context.mounted) {
+                                  context.pop();
+                                }
+                              },
+                              // leading: Text(
+                              //   reaction.icon,
+                              //   style: Theme.of(context).textTheme.titleLarge,
+                              // ),
+                              title: Text(
+                                reaction.text,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              subtitle: reaction.actionId == 1
+                                  ? Row(
+                                      children: [
+                                        Container(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .tertiary,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8.0),
+                                            child: Text(
+                                              'Self Pat'.toUpperCase(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall
+                                                  ?.copyWith(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onTertiary),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : reaction.actionId == 2
+                                      ? Row(
+                                          children: [
+                                            Container(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8.0),
+                                                child: Text(
+                                                  'Pat Pat'.toUpperCase(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.copyWith(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .onPrimary),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : Row(
+                                          children: [
+                                            Container(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .error,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8.0),
+                                                child: Text(
+                                                  'Smack Pat'.toUpperCase(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.copyWith(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .onError),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                              trailing: Icon(
+                                size: 28.0,
+                                color: Theme.of(context).colorScheme.primary,
+                                isIOS
+                                    ? alreadyReacted
+                                        ? CupertinoIcons.check_mark
+                                        : CupertinoIcons.add_circled
+                                    : alreadyReacted
+                                        ? Icons.check_circle
+                                        : Icons.add_circle,
+                              ),
+                            );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
