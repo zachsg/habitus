@@ -24,7 +24,7 @@ class HabitatReactionsWidget extends ConsumerWidget {
 
     return Row(
       children: [
-        const SizedBox(width: 32.0),
+        const SizedBox(width: 16.0),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,6 +46,7 @@ class HabitatReactionsWidget extends ConsumerWidget {
           profiles.firstWhere((profile) => profile.id == reaction.ownerId);
 
       final child = Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           Text(
             '@${profile.handle}',
