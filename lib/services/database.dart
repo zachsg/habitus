@@ -190,7 +190,10 @@ class Database {
     }
   }
 
-  static Future<List<HUCalloutModel>> calloutsWithHabitatId(int id) async {
+  static Future<List<HUCalloutModel>> calloutsWithHabitatId({
+    required int id,
+    required bool isDone,
+  }) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();
@@ -202,13 +205,20 @@ class Database {
       final start = day.copyWith(hour: 0, minute: 0);
       final end = day.copyWith(hour: 24, minute: 59);
 
-      final calloutsJson = await supabase
-          .from(calloutsTable)
-          .select()
-          .eq('habitat_id', id)
-          .eq('done', false)
-          .gt('created_at', start.toUtc())
-          .lt('created_at', end.toUtc());
+      final calloutsJson = isDone
+          ? await supabase
+              .from(calloutsTable)
+              .select()
+              .eq('habitat_id', id)
+              .eq('done', false)
+              .gt('created_at', start.toUtc())
+              .lt('created_at', end.toUtc())
+          : await supabase
+              .from(calloutsTable)
+              .select()
+              .eq('habitat_id', id)
+              .gt('created_at', start.toUtc())
+              .lt('created_at', end.toUtc());
 
       List<HUCalloutModel> callouts = [];
       for (final calloutJson in calloutsJson) {
@@ -451,8 +461,8 @@ class Database {
     }
   }
 
-  static Future<List<HUReactionModel>> myReactionsForAction(
-      int actionId) async {
+  static Future<List<HUReactionModel>> myReactionsForActivity(
+      int activityId) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();
@@ -464,7 +474,7 @@ class Database {
           .from(reactionsTable)
           .select()
           .eq('owner_id', id)
-          .eq('action_id', actionId);
+          .or('action_id.eq.$activityId,callout_id.eq.$activityId');
 
       final List<HUReactionModel> reactions = [];
       for (final reactionJson in listOfReactionsJsons) {
@@ -496,15 +506,18 @@ class Database {
     }
   }
 
-  static Future<List<HUReactionModel>> reactions(List<int> ids) async {
+  static Future<List<HUReactionModel>> reactions({
+    required List<int> actions,
+    required List<int> callouts,
+  }) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();
     }
 
     try {
-      final listOfReactionsJsons =
-          await supabase.from(reactionsTable).select().in_('action_id', ids);
+      final listOfReactionsJsons = await supabase.from(reactionsTable).select().or(
+          'action_id.in.(${actions.join(',')}),callout_id.in.(${callouts.join(',')})');
 
       final List<HUReactionModel> reactions = [];
       for (final reactionJson in listOfReactionsJsons) {
@@ -548,7 +561,11 @@ class Database {
         final c = callout.copyWith(done: true);
         ids.add(c.id);
       }
-      await supabase.from(calloutsTable).update({'done': true}).in_('id', ids);
+      final time = DateTime.now().toLocal().toIso8601String();
+      await supabase.from(calloutsTable).update({
+        'created_at': time,
+        'done': true,
+      }).in_('id', ids);
 
       return true;
     } on Exception catch (_) {

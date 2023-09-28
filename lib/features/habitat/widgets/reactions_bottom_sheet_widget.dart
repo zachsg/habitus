@@ -16,13 +16,13 @@ class ReactionsBottomSheetWidget extends ConsumerStatefulWidget {
     super.key,
     required this.habitat,
     required this.profile,
-    required this.action,
+    required this.activity,
     required this.reload,
   });
 
   final HUHabitatModel habitat;
   final HUProfileModel profile;
-  final HUActionModel action;
+  final Object activity;
   final VoidCallback reload;
 
   @override
@@ -44,8 +44,14 @@ class _ReactionsBottomSheetWidgetState
 
   Future<void> _loadPossibleReactions() async {
     final reactions = await Database.possibleReactions([]);
-    final alreadyReactions =
-        await Database.myReactionsForAction(widget.action.id);
+    List<HUReactionModel> alreadyReactions = [];
+    if (widget.activity is HUActionModel) {
+      final id = (widget.activity as HUActionModel).id;
+      alreadyReactions = await Database.myReactionsForActivity(id);
+    } else if (widget.activity is HUCalloutModel) {
+      final id = (widget.activity as HUCalloutModel).id;
+      alreadyReactions = await Database.myReactionsForActivity(id);
+    }
 
     _reactions.clear();
     _alreadyReactions.clear();
@@ -63,8 +69,13 @@ class _ReactionsBottomSheetWidgetState
 
     const title = 'Add Reaction';
 
+    bool isCallout = widget.activity is HUCalloutModel;
+
     final profile = ref.watch(profileProvider).profile;
-    final isMyAction = profile.id == widget.action.ownerId;
+    final isMyAction = isCallout
+        ? profile.id == (widget.activity as HUCalloutModel).caller
+        : profile.id == (widget.activity as HUActionModel).ownerId;
+
     if (!isMyAction) {
       _reactions.removeWhere((reaction) => reaction.actionId == 1);
     }
@@ -130,11 +141,23 @@ class _ReactionsBottomSheetWidgetState
                               enabled: alreadyReacted ? false : true,
                               onTap: () async {
                                 // TODO: Add the reaction to the activity and close the sheet
-                                final myReaction = reaction.copyWith(
-                                  ownerId: widget.profile.id,
-                                  createdAt: DateTime.now().toLocal(),
-                                  actionId: widget.action.id,
-                                );
+                                final isCallout =
+                                    (widget.activity is HUCalloutModel);
+                                final myReaction = isCallout
+                                    ? reaction.copyWith(
+                                        ownerId: widget.profile.id,
+                                        createdAt: DateTime.now().toLocal(),
+                                        calloutId:
+                                            (widget.activity as HUCalloutModel)
+                                                .id,
+                                      )
+                                    : reaction.copyWith(
+                                        ownerId: widget.profile.id,
+                                        createdAt: DateTime.now().toLocal(),
+                                        actionId:
+                                            (widget.activity as HUActionModel)
+                                                .id,
+                                      );
 
                                 setState(() => _loading = true);
 
@@ -143,8 +166,13 @@ class _ReactionsBottomSheetWidgetState
                                 final actionProfile = ref
                                     .read(habitatProvider(widget.habitat))
                                     .profiles
-                                    .firstWhere((profile) =>
-                                        profile.id == widget.action.ownerId);
+                                    .firstWhere((profile) => isCallout
+                                        ? profile.id ==
+                                            (widget.activity as HUCalloutModel)
+                                                .caller
+                                        : profile.id ==
+                                            (widget.activity as HUActionModel)
+                                                .ownerId);
 
                                 final token = actionProfile.pushToken;
                                 final title = widget.habitat.name;

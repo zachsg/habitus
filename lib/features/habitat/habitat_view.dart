@@ -50,7 +50,9 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
 
     final profile = ref.watch(profileProvider).profile;
 
+    final callouts = habitatP.callouts;
     final actions = habitatP.actions;
+
     final myActions =
         actions.where((action) => action.ownerId == profile.id).toList();
 
@@ -95,6 +97,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
                             HabitatActivityWidget(
                               habitat: widget.habitat,
                               actions: actions,
+                              callouts: callouts,
                               isToday: isToday,
                             ),
                             const SizedBox(height: 96),

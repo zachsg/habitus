@@ -71,7 +71,8 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                   bool calledOut = false;
                   final profile = ref.watch(profileProvider).profile;
                   for (final callout in ref.watch(habitatsProvider).callouts) {
-                    if (callout.callee == profile.id) {
+                    if (callout.callee == profile.id &&
+                        habitat.id == callout.habitatId) {
                       calledOut = true;
                       break;
                     }
