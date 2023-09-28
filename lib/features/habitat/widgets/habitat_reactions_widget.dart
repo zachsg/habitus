@@ -8,13 +8,11 @@ class HabitatReactionsWidget extends ConsumerWidget {
   const HabitatReactionsWidget({
     super.key,
     required this.profile,
-    required this.action,
     required this.habitat,
     required this.reactions,
   });
 
   final HUProfileModel profile;
-  final HUActionModel action;
   final HUHabitatModel habitat;
   final List<HUReactionModel> reactions;
 

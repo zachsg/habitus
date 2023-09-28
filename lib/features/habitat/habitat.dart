@@ -59,7 +59,10 @@ class Habitat extends _$Habitat {
   }
 
   Future<void> loadCallouts() async {
-    final callouts = await Database.calloutsWithHabitatId(state.habitat.id);
+    final callouts = await Database.calloutsWithHabitatId(
+      id: state.habitat.id,
+      isDone: false,
+    );
 
     state = state.copyWith(callouts: callouts);
   }

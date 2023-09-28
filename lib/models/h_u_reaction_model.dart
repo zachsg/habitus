@@ -7,7 +7,8 @@ part 'h_u_reaction_model.g.dart';
 class HUReactionModel with _$HUReactionModel {
   factory HUReactionModel({
     required int id,
-    @JsonKey(name: 'action_id') required int actionId,
+    @Default(0) @JsonKey(name: 'action_id') int actionId,
+    @Default(0) @JsonKey(name: 'callout_id') int calloutId,
     @JsonKey(name: 'owner_id') required String ownerId,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @Default('') String icon,

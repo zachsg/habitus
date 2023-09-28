@@ -23,6 +23,8 @@ mixin _$HUReactionModel {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'action_id')
   int get actionId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'callout_id')
+  int get calloutId => throw _privateConstructorUsedError;
   @JsonKey(name: 'owner_id')
   String get ownerId => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
@@ -45,6 +47,7 @@ abstract class $HUReactionModelCopyWith<$Res> {
   $Res call(
       {int id,
       @JsonKey(name: 'action_id') int actionId,
+      @JsonKey(name: 'callout_id') int calloutId,
       @JsonKey(name: 'owner_id') String ownerId,
       @JsonKey(name: 'created_at') DateTime createdAt,
       String icon,
@@ -66,6 +69,7 @@ class _$HUReactionModelCopyWithImpl<$Res, $Val extends HUReactionModel>
   $Res call({
     Object? id = null,
     Object? actionId = null,
+    Object? calloutId = null,
     Object? ownerId = null,
     Object? createdAt = null,
     Object? icon = null,
@@ -79,6 +83,10 @@ class _$HUReactionModelCopyWithImpl<$Res, $Val extends HUReactionModel>
       actionId: null == actionId
           ? _value.actionId
           : actionId // ignore: cast_nullable_to_non_nullable
+              as int,
+      calloutId: null == calloutId
+          ? _value.calloutId
+          : calloutId // ignore: cast_nullable_to_non_nullable
               as int,
       ownerId: null == ownerId
           ? _value.ownerId
@@ -111,6 +119,7 @@ abstract class _$$HUReactionModelImplCopyWith<$Res>
   $Res call(
       {int id,
       @JsonKey(name: 'action_id') int actionId,
+      @JsonKey(name: 'callout_id') int calloutId,
       @JsonKey(name: 'owner_id') String ownerId,
       @JsonKey(name: 'created_at') DateTime createdAt,
       String icon,
@@ -130,6 +139,7 @@ class __$$HUReactionModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? actionId = null,
+    Object? calloutId = null,
     Object? ownerId = null,
     Object? createdAt = null,
     Object? icon = null,
@@ -143,6 +153,10 @@ class __$$HUReactionModelImplCopyWithImpl<$Res>
       actionId: null == actionId
           ? _value.actionId
           : actionId // ignore: cast_nullable_to_non_nullable
+              as int,
+      calloutId: null == calloutId
+          ? _value.calloutId
+          : calloutId // ignore: cast_nullable_to_non_nullable
               as int,
       ownerId: null == ownerId
           ? _value.ownerId
@@ -169,7 +183,8 @@ class __$$HUReactionModelImplCopyWithImpl<$Res>
 class _$HUReactionModelImpl implements _HUReactionModel {
   _$HUReactionModelImpl(
       {required this.id,
-      @JsonKey(name: 'action_id') required this.actionId,
+      @JsonKey(name: 'action_id') this.actionId = 0,
+      @JsonKey(name: 'callout_id') this.calloutId = 0,
       @JsonKey(name: 'owner_id') required this.ownerId,
       @JsonKey(name: 'created_at') required this.createdAt,
       this.icon = '',
@@ -183,6 +198,9 @@ class _$HUReactionModelImpl implements _HUReactionModel {
   @override
   @JsonKey(name: 'action_id')
   final int actionId;
+  @override
+  @JsonKey(name: 'callout_id')
+  final int calloutId;
   @override
   @JsonKey(name: 'owner_id')
   final String ownerId;
@@ -198,7 +216,7 @@ class _$HUReactionModelImpl implements _HUReactionModel {
 
   @override
   String toString() {
-    return 'HUReactionModel(id: $id, actionId: $actionId, ownerId: $ownerId, createdAt: $createdAt, icon: $icon, text: $text)';
+    return 'HUReactionModel(id: $id, actionId: $actionId, calloutId: $calloutId, ownerId: $ownerId, createdAt: $createdAt, icon: $icon, text: $text)';
   }
 
   @override
@@ -209,6 +227,8 @@ class _$HUReactionModelImpl implements _HUReactionModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.actionId, actionId) ||
                 other.actionId == actionId) &&
+            (identical(other.calloutId, calloutId) ||
+                other.calloutId == calloutId) &&
             (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -218,8 +238,8 @@ class _$HUReactionModelImpl implements _HUReactionModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, actionId, ownerId, createdAt, icon, text);
+  int get hashCode => Object.hash(
+      runtimeType, id, actionId, calloutId, ownerId, createdAt, icon, text);
 
   @JsonKey(ignore: true)
   @override
@@ -239,7 +259,8 @@ class _$HUReactionModelImpl implements _HUReactionModel {
 abstract class _HUReactionModel implements HUReactionModel {
   factory _HUReactionModel(
       {required final int id,
-      @JsonKey(name: 'action_id') required final int actionId,
+      @JsonKey(name: 'action_id') final int actionId,
+      @JsonKey(name: 'callout_id') final int calloutId,
       @JsonKey(name: 'owner_id') required final String ownerId,
       @JsonKey(name: 'created_at') required final DateTime createdAt,
       final String icon,
@@ -253,6 +274,9 @@ abstract class _HUReactionModel implements HUReactionModel {
   @override
   @JsonKey(name: 'action_id')
   int get actionId;
+  @override
+  @JsonKey(name: 'callout_id')
+  int get calloutId;
   @override
   @JsonKey(name: 'owner_id')
   String get ownerId;

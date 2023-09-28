@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../helpers/strings.dart';
 import '../../../models/xmodels.dart';
@@ -38,14 +39,17 @@ class HabitatCalloutBoxWidget extends ConsumerWidget {
                       .withOpacity(0.7),
                   width: 2.0),
             ),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: _calloutBadges(profiles, callouts),
+            child: InkWell(
+              onTap: () => _showSessionCompleteDialog(context),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 32.0, vertical: 16.0),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: _calloutBadges(profiles, callouts),
+                  ),
                 ),
               ),
             ),
@@ -54,42 +58,77 @@ class HabitatCalloutBoxWidget extends ConsumerWidget {
       ),
     );
   }
-}
 
-List<Widget> _calloutBadges(
-  List<HUProfileModel> profiles,
-  List<HUCalloutModel> callouts,
-) {
-  List<Widget> children = [];
+  List<Widget> _calloutBadges(
+    List<HUProfileModel> profiles,
+    List<HUCalloutModel> callouts,
+  ) {
+    List<Widget> children = [];
 
-  final Set<String> calloutIds = {};
-  for (final callout in callouts) {
-    calloutIds.add(callout.callee);
-  }
+    final calloutsNotDone = callouts.toList();
+    calloutsNotDone.removeWhere((callout) => callout.done);
 
-  final List<String> calloutIdsAll = [];
-  for (final callout in callouts) {
-    calloutIdsAll.add(callout.callee);
-  }
-
-  for (final calloutId in calloutIds) {
-    final profile = profiles.firstWhere((p) => p.id == calloutId);
-
-    int count = 0;
-    for (final id in calloutIdsAll) {
-      if (id == profile.id) {
-        count += 1;
-      }
+    final Set<String> calloutIds = {};
+    for (final callout in calloutsNotDone) {
+      calloutIds.add(callout.callee);
     }
 
-    final badge = CalloutBadgeMember(
-      text: 'x$count',
-      handle: profile.handle,
-    );
-    children.add(badge);
+    final List<String> calloutIdsAll = [];
+    for (final callout in calloutsNotDone) {
+      calloutIdsAll.add(callout.callee);
+    }
+
+    for (final calloutId in calloutIds) {
+      final profile = profiles.firstWhere((p) => p.id == calloutId);
+
+      int count = 0;
+      for (final id in calloutIdsAll) {
+        if (id == profile.id) {
+          count += 1;
+        }
+      }
+
+      final badge = CalloutBadgeMember(
+        text: 'x$count',
+        handle: profile.handle,
+      );
+      children.add(badge);
+    }
+
+    return children;
   }
 
-  return children;
+  Future<void> _showSessionCompleteDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(calloutDialogTitleString),
+          content: StatefulBuilder(builder: (context, setState) {
+            return const Text(calloutDialogBodyString);
+          }),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: context.pop,
+                  child: Text(
+                    calloutDialogDoneString,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 class CalloutBadgeMember extends ConsumerWidget {

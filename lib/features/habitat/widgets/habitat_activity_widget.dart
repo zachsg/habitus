@@ -17,11 +17,13 @@ class HabitatActivityWidget extends ConsumerStatefulWidget {
     super.key,
     required this.habitat,
     required this.actions,
+    required this.callouts,
     required this.isToday,
   });
 
   final HUHabitatModel habitat;
   final List<HUActionModel> actions;
+  final List<HUCalloutModel> callouts;
   final bool isToday;
 
   @override
@@ -45,13 +47,20 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
   }
 
   Future<void> _loadReactions() async {
-    final Set<int> ids = {};
-
+    final Set<int> actionIds = {};
     for (final action in widget.actions) {
-      ids.add(action.id);
+      actionIds.add(action.id);
     }
 
-    final reactions = await Database.reactions(ids.toList());
+    final Set<int> calloutIds = {};
+    for (final callout in widget.callouts) {
+      calloutIds.add(callout.id);
+    }
+
+    final reactions = await Database.reactions(
+      actions: actionIds.toList(),
+      callouts: calloutIds.toList(),
+    );
     _reactions.clear();
     if (reactions.isNotEmpty) {
       setState(() => _reactions.addAll(reactions));
@@ -62,17 +71,33 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
   Widget build(BuildContext context) {
     final isIOS = Platform.isIOS;
 
-    final actions = ref.watch(habitatProvider(widget.habitat)).actions;
-    final profiles = ref.watch(habitatProvider(widget.habitat)).profiles;
+    final habitatP = ref.watch(habitatProvider(widget.habitat));
+    final actions = habitatP.actions;
+    final profiles = habitatP.profiles;
+    final callouts = habitatP.callouts;
 
     final DateFormat formatter = DateFormat('h:mm a');
 
-    final List<HUActionModel> actionsSorted = List.from(actions);
-    if (actions.isNotEmpty) {
-      actionsSorted.sort((a, b) => a.createdAt.isAfter(b.createdAt) ? 1 : 0);
+    final List<Object> activities = List.from(actions);
+    activities.addAll(callouts);
+    if (activities.isNotEmpty) {
+      activities.sort((a, b) {
+        final createdA = a is HUActionModel
+            ? a.createdAt
+            : a is HUCalloutModel
+                ? a.createdAt
+                : DateTime.now();
+        final createdB = b is HUActionModel
+            ? b.createdAt
+            : b is HUCalloutModel
+                ? b.createdAt
+                : DateTime.now();
+
+        return createdA.isAfter(createdB) ? 1 : 0;
+      });
     }
 
-    return actionsSorted.isEmpty
+    return activities.isEmpty
         ? const SizedBox()
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,93 +110,270 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: actionsSorted.length,
+                itemCount: activities.length,
                 itemBuilder: (context, index) {
-                  final action = actionsSorted[index];
-                  final profile = profiles
-                      .firstWhere((profile) => profile.id == action.ownerId);
+                  final activity = activities[index];
 
-                  return Column(
-                    children: [
-                      const SizedBox(height: 8.0),
-                      GestureDetector(
-                        onLongPress: () => widget.isToday
-                            ? _reactionsSheet(
-                                context,
-                                ref.watch(profileProvider).profile,
-                                action,
-                              )
-                            : null,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Wrap(
-                                children: [
-                                  Text(
-                                    '@${profile.handle}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(width: 4.0),
-                                  Text(
-                                    '${_actionName(action.goal)} '
-                                    'for ${action.goal.value} '
-                                    '${action.goal.value == 1 ? action.goal.unit.name.substring(0, action.goal.unit.name.length - 1) : action.goal.unit.name}',
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0,
+                  if (activity is HUActionModel) {
+                    final profile = profiles.firstWhere(
+                        (profile) => profile.id == activity.ownerId);
+
+                    return Column(
+                      children: [
+                        const SizedBox(height: 8.0),
+                        GestureDetector(
+                          onLongPress: () => widget.isToday
+                              ? _reactionsSheet(
+                                  context,
+                                  ref.watch(profileProvider).profile,
+                                  activity,
+                                )
+                              : null,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Wrap(
+                                  children: [
+                                    Text(
+                                      '@${profile.handle}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.bold),
                                     ),
-                                    child: InkWell(
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(50.0),
-                                      ),
-                                      onTap: () => _reactionsSheet(
-                                        context,
-                                        ref.watch(profileProvider).profile,
-                                        action,
-                                      ),
-                                      child: widget.isToday
-                                          ? Icon(
-                                              size: 20.0,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primary,
-                                              isIOS
-                                                  ? CupertinoIcons.add_circled
-                                                  : Icons.add_circle,
-                                            )
-                                          : const SizedBox(),
+                                    const SizedBox(width: 4.0),
+                                    Text(
+                                      '${_actionName(activity.goal)} '
+                                      'for ${activity.goal.value} '
+                                      '${activity.goal.value == 1 ? activity.goal.unit.name.substring(0, activity.goal.unit.name.length - 1) : activity.goal.unit.name}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
                                     ),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0,
+                                      ),
+                                      child: InkWell(
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(50.0),
+                                        ),
+                                        onTap: () => _reactionsSheet(
+                                          context,
+                                          ref.watch(profileProvider).profile,
+                                          activity,
+                                        ),
+                                        child: widget.isToday
+                                            ? Icon(
+                                                size: 20.0,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
+                                                isIOS
+                                                    ? CupertinoIcons.add_circled
+                                                    : Icons.add_circle,
+                                              )
+                                            : const SizedBox(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Text(
-                              formatter.format(action.createdAt.toLocal()),
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ],
+                              Text(
+                                formatter.format(activity.createdAt.toLocal()),
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      HabitatReactionsWidget(
-                        profile: ref.watch(profileProvider).profile,
-                        action: action,
-                        habitat: widget.habitat,
-                        reactions: _reactions
-                            .where((reaction) => reaction.actionId == action.id)
-                            .toList(),
-                      ),
-                      const SizedBox(height: 8.0),
-                      const Divider(),
-                    ],
-                  );
+                        HabitatReactionsWidget(
+                          profile: ref.watch(profileProvider).profile,
+                          habitat: widget.habitat,
+                          reactions: _reactions
+                              .where((reaction) =>
+                                  reaction.actionId == activity.id)
+                              .toList(),
+                        ),
+                        const SizedBox(height: 8.0),
+                        const Divider(),
+                      ],
+                    );
+                  } else if (activity is HUCalloutModel) {
+                    final callerProfile = habitatP.profiles
+                        .firstWhere((profile) => profile.id == activity.caller);
+                    final calleeProfile = habitatP.profiles
+                        .firstWhere((profile) => profile.id == activity.callee);
+                    final isDone = activity.done;
+
+                    return Column(
+                      children: [
+                        const SizedBox(height: 8.0),
+                        GestureDetector(
+                          onLongPress: () => widget.isToday
+                              ? _reactionsSheet(
+                                  context,
+                                  ref.watch(profileProvider).profile,
+                                  activity,
+                                )
+                              : null,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: isDone
+                                    ? Wrap(
+                                        children: [
+                                          Text(
+                                            '@${calleeProfile.handle}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
+                                          const SizedBox(width: 4.0),
+                                          Text(
+                                            'beat',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium,
+                                          ),
+                                          const SizedBox(width: 4.0),
+                                          Text(
+                                            '@${callerProfile.handle}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
+                                          Text(
+                                            '\'s callout',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0,
+                                            ),
+                                            child: InkWell(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(50.0),
+                                              ),
+                                              onTap: () => _reactionsSheet(
+                                                context,
+                                                ref
+                                                    .watch(profileProvider)
+                                                    .profile,
+                                                activity,
+                                              ),
+                                              child: widget.isToday
+                                                  ? Icon(
+                                                      size: 20.0,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary,
+                                                      isIOS
+                                                          ? CupertinoIcons
+                                                              .add_circled
+                                                          : Icons.add_circle,
+                                                    )
+                                                  : const SizedBox(),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    : Wrap(
+                                        children: [
+                                          Text(
+                                            '@${callerProfile.handle}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
+                                          const SizedBox(width: 4.0),
+                                          Text(
+                                            'called out',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium,
+                                          ),
+                                          const SizedBox(width: 4.0),
+                                          Text(
+                                            '@${calleeProfile.handle}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0,
+                                            ),
+                                            child: InkWell(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(50.0),
+                                              ),
+                                              onTap: () => _reactionsSheet(
+                                                context,
+                                                ref
+                                                    .watch(profileProvider)
+                                                    .profile,
+                                                activity,
+                                              ),
+                                              child: widget.isToday
+                                                  ? Icon(
+                                                      size: 20.0,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary,
+                                                      isIOS
+                                                          ? CupertinoIcons
+                                                              .add_circled
+                                                          : Icons.add_circle,
+                                                    )
+                                                  : const SizedBox(),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                              ),
+                              Text(
+                                formatter.format(activity.createdAt.toLocal()),
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                        ),
+                        HabitatReactionsWidget(
+                          profile: ref.watch(profileProvider).profile,
+                          habitat: widget.habitat,
+                          reactions: _reactions
+                              .where((reaction) =>
+                                  reaction.calloutId == activity.id)
+                              .toList(),
+                        ),
+                        const SizedBox(height: 8.0),
+                        const Divider(),
+                      ],
+                    );
+                  }
+
+                  return const SizedBox();
                 },
               ),
             ],
@@ -181,7 +383,7 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
   void _reactionsSheet(
     BuildContext context,
     HUProfileModel profile,
-    HUActionModel action,
+    Object activity,
   ) {
     showModalBottomSheet<void>(
       context: context,
@@ -190,7 +392,7 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
       builder: (BuildContext context) => ReactionsBottomSheetWidget(
         habitat: widget.habitat,
         profile: profile,
-        action: action,
+        activity: activity,
         reload: _loadReactions,
       ),
     );
