@@ -21,9 +21,7 @@ class HabitatsView extends ConsumerWidget {
       body: SafeArea(
         child: provider.loading
             ? const Center(child: CircularProgressIndicator.adaptive())
-            : provider.habitats.isEmpty
-                ? const HabitatsEmptyStateWidget()
-                : const HabitatsMyHabitatsWidget(),
+            : const HabitatsMyHabitatsWidget(),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/auth/sign_in_view.dart';
@@ -46,6 +47,16 @@ final router = GoRouter(
               path: JoinHabitatView.routeName,
               name: JoinHabitatView.routeName,
               builder: (context, state) => const JoinHabitatView(),
+              pageBuilder: (context, state) {
+                return MaterialPage(
+                  child: HeroControllerScope(
+                    controller: MaterialApp.createMaterialHeroController(),
+                    child: LayoutBuilder(
+                      builder: (ctx, constraints) => const JoinHabitatView(),
+                    ),
+                  ),
+                );
+              },
             ),
             GoRoute(
               path: '${HabitatView.routeName}/:id',
