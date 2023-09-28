@@ -6,7 +6,7 @@ part of 'habitats.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$habitatsHash() => r'4765840cc64e3562a55771eacb182408b4b8c574';
+String _$habitatsHash() => r'cfeca7469b5aafd990ee80e81034b69bf0bac3b7';
 
 /// See also [Habitats].
 @ProviderFor(Habitats)

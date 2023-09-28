@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import '../features/auth/sign_in_view.dart';
 import '../features/auth/sign_up_view.dart';
-import '../features/bottom_nav/bottom_nav_view.dart';
 import '../features/grow/grow_view.dart';
 import '../features/join_habitat/join_habitat_view.dart';
 import '../features/profile/profile_view.dart';
@@ -32,52 +31,42 @@ final router = GoRouter(
       builder: (context, state) => const SignInView(),
     ),
     GoRoute(
-      path: BottomNavView.routeName,
-      name: BottomNavView.routeName,
-      builder: (context, state) {
-        return const BottomNavView();
-      },
+      path: HabitatsView.routeName,
+      name: HabitatsView.routeName,
+      builder: (context, state) => const HabitatsView(),
       routes: [
         GoRoute(
-          path: HabitatsView.routeName,
-          name: HabitatsView.routeName,
-          builder: (context, state) => const HabitatsView(),
+          path: JoinHabitatView.routeName,
+          name: JoinHabitatView.routeName,
+          builder: (context, state) => const JoinHabitatView(),
+          pageBuilder: (context, state) {
+            return MaterialPage(
+              child: HeroControllerScope(
+                controller: MaterialApp.createMaterialHeroController(),
+                child: LayoutBuilder(
+                  builder: (ctx, constraints) => const JoinHabitatView(),
+                ),
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '${HabitatView.routeName}/:id',
+          name: HabitatView.routeName,
+          builder: (context, state) {
+            final habit = state.extra as HUHabitatModel;
+
+            return HabitatView(habitat: habit);
+          },
           routes: [
             GoRoute(
-              path: JoinHabitatView.routeName,
-              name: JoinHabitatView.routeName,
-              builder: (context, state) => const JoinHabitatView(),
-              pageBuilder: (context, state) {
-                return MaterialPage(
-                  child: HeroControllerScope(
-                    controller: MaterialApp.createMaterialHeroController(),
-                    child: LayoutBuilder(
-                      builder: (ctx, constraints) => const JoinHabitatView(),
-                    ),
-                  ),
-                );
-              },
-            ),
-            GoRoute(
-              path: '${HabitatView.routeName}/:id',
-              name: HabitatView.routeName,
+              path: '${GrowView.routeName}/:habitat_id',
+              name: GrowView.routeName,
               builder: (context, state) {
-                final habit = state.extra as HUHabitatModel;
+                final habitAndAction = state.extra as HUHabitatAndActionModel;
 
-                return HabitatView(habitat: habit);
+                return GrowView(habitatAndAction: habitAndAction);
               },
-              routes: [
-                GoRoute(
-                  path: '${GrowView.routeName}/:habitat_id',
-                  name: GrowView.routeName,
-                  builder: (context, state) {
-                    final habitAndAction =
-                        state.extra as HUHabitatAndActionModel;
-
-                    return GrowView(habitatAndAction: habitAndAction);
-                  },
-                ),
-              ],
             ),
           ],
         ),

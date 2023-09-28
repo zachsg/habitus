@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../services/database.dart';
 import '../auth/sign_up_view.dart';
-import '../bottom_nav/bottom_nav_view.dart';
+import '../habitats/habitats_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -29,7 +29,7 @@ class _SplashViewState extends State<SplashView> {
 
     final session = supabase.auth.currentSession;
     if (session != null) {
-      context.goNamed(BottomNavView.routeName);
+      context.goNamed(HabitatsView.routeName);
     } else {
       context.goNamed(SignUpView.routeName);
     }
