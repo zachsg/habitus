@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../helpers/constants.dart';
 import '../../helpers/strings.dart';
-import '../join_habitat/join_habitat_view.dart';
 import 'habitats.dart';
 import 'widgets/xwidgets.dart';
 
@@ -28,25 +24,6 @@ class HabitatsView extends ConsumerWidget {
             : provider.habitats.isEmpty
                 ? const HabitatsEmptyStateWidget()
                 : const HabitatsMyHabitatsWidget(),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => context.pushNamed(JoinHabitatView.routeName),
-        label: Row(
-          children: [
-            const Text(newHabitString),
-            const SizedBox(width: 8),
-            SvgPicture.asset(
-              habitusLogoSvg,
-              semanticsLabel: habitusLogoString,
-              width: 24,
-              height: 24,
-              colorFilter: ColorFilter.mode(
-                Theme.of(context).colorScheme.onPrimaryContainer,
-                BlendMode.srcIn,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
