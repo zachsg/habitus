@@ -561,7 +561,7 @@ class Database {
         final c = callout.copyWith(done: true);
         ids.add(c.id);
       }
-      final time = DateTime.now().toIso8601String();
+      final time = DateTime.now().toUtc().toIso8601String();
       await supabase.from(calloutsTable).update({
         'created_at': time,
         'done': true,
