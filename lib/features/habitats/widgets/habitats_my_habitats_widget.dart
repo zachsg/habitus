@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 
 import '../../habitat/habitat_view.dart';
 import '../../join_habitat/join_habitat_view.dart';
+import '../../profile/profile.dart';
 import '../habitats.dart';
 import 'xwidgets.dart';
 
@@ -67,6 +68,15 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                       ? todayFormatter.format(habitat.updatedAt.toLocal())
                       : yesterdayFormatter.format(habitat.updatedAt.toLocal());
 
+                  bool calledOut = false;
+                  final profile = ref.watch(profileProvider).profile;
+                  for (final callout in ref.watch(habitatsProvider).callouts) {
+                    if (callout.callee == profile.id) {
+                      calledOut = true;
+                      break;
+                    }
+                  }
+
                   return Padding(
                     padding: EdgeInsets.only(
                       top: index == 0 || index == 1 ? 0.0 : 2.0,
@@ -75,7 +85,9 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                     child: Stack(
                       children: [
                         Card(
-                          color: Theme.of(context).colorScheme.errorContainer,
+                          color: calledOut
+                              ? Theme.of(context).colorScheme.errorContainer
+                              : null,
                           child: InkWell(
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8.0)),
@@ -152,15 +164,17 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                             ),
                           ),
                         ),
-                        Positioned(
-                          top: -4.0,
-                          left: -4.0,
-                          child: Icon(
-                            Icons.report,
-                            color: Theme.of(context).colorScheme.error,
-                            size: 32.0,
-                          ),
-                        ),
+                        calledOut
+                            ? Positioned(
+                                top: -4.0,
+                                left: -4.0,
+                                child: Icon(
+                                  Icons.report,
+                                  color: Theme.of(context).colorScheme.error,
+                                  size: 32.0,
+                                ),
+                              )
+                            : const SizedBox(),
                       ],
                     ),
                   );
