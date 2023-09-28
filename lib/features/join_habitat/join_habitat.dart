@@ -5,8 +5,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../helpers/strings.dart';
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
-import '../bottom_nav/bottom_nav_view.dart';
 import '../habitats/habitats.dart';
+import '../habitats/habitats_view.dart';
 import '../profile/profile.dart';
 import 'join_habitat_model.dart';
 
@@ -109,7 +109,7 @@ class JoinHabitat extends _$JoinHabitat {
     state = state.copyWith(loading: false);
 
     if (context.mounted) {
-      context.goNamed(BottomNavView.routeName);
+      context.goNamed(HabitatsView.routeName);
     }
   }
 

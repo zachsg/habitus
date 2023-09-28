@@ -169,6 +169,7 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                             .toList(),
                       ),
                       const SizedBox(height: 8.0),
+                      const Divider(),
                     ],
                   );
                 },

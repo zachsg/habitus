@@ -11,6 +11,7 @@ class Habitats extends _$Habitats {
   HabitatsModel build() => HabitatsModel(
         habitats: [],
         actions: [],
+        callouts: [],
         loading: true,
       );
 
@@ -27,6 +28,15 @@ class Habitats extends _$Habitats {
     try {
       final actions = await Database.myActionsForToday();
       state = state.copyWith(actions: actions, loading: false);
+    } on Exception catch (_) {
+      state = state.copyWith(error: 'An error occurred', loading: false);
+    }
+  }
+
+  Future<void> loadCallouts() async {
+    try {
+      final callouts = await Database.allOfMyCalloutsToday();
+      state = state.copyWith(callouts: callouts, loading: false);
     } on Exception catch (_) {
       state = state.copyWith(error: 'An error occurred', loading: false);
     }

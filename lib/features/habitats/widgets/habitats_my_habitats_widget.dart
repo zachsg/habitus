@@ -72,81 +72,96 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                       top: index == 0 || index == 1 ? 0.0 : 2.0,
                       bottom: index == habitats.length - 1 ? 0.0 : 2.0,
                     ),
-                    child: Card(
-                      child: InkWell(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8.0)),
-                        onTap: () {
-                          context.pushNamed(
-                            HabitatView.routeName,
-                            pathParameters: {'id': habitat.id.toString()},
-                            extra: habitat,
-                          );
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: 0,
-                                right: 0,
-                                left: 0,
-                                child: Column(
-                                  children: [
-                                    const SizedBox(height: 8.0),
-                                    HabitatsHabitatProgressWidget(
-                                        habitat: habitat),
-                                    const SizedBox(height: 8.0),
-                                    Text(
-                                      habitat.name,
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
+                    child: Stack(
+                      children: [
+                        Card(
+                          color: Theme.of(context).colorScheme.errorContainer,
+                          child: InkWell(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8.0)),
+                            onTap: () {
+                              context.pushNamed(
+                                HabitatView.routeName,
+                                pathParameters: {'id': habitat.id.toString()},
+                                extra: habitat,
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    left: 0,
+                                    child: Column(
                                       children: [
+                                        const SizedBox(height: 8.0),
+                                        HabitatsHabitatProgressWidget(
+                                            habitat: habitat),
+                                        const SizedBox(height: 8.0),
                                         Text(
-                                          '${habitat.members.length + habitat.admins.length + 1}',
+                                          habitat.name,
+                                          textAlign: TextAlign.center,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyMedium,
+                                              .titleMedium,
                                         ),
-                                        const SizedBox(width: 4.0),
-                                        Icon(
-                                          isIOS
-                                              ? CupertinoIcons.group_solid
-                                              : Icons.group,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimaryContainer,
-                                        )
                                       ],
                                     ),
-                                    Text(
-                                      date,
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                  Positioned(
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              '${habitat.members.length + habitat.admins.length + 1}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
+                                            ),
+                                            const SizedBox(width: 4.0),
+                                            Icon(
+                                              isIOS
+                                                  ? CupertinoIcons.group_solid
+                                                  : Icons.group,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimaryContainer,
+                                            )
+                                          ],
+                                        ),
+                                        Text(
+                                          date,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall,
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
+                        Positioned(
+                          top: -4.0,
+                          left: -4.0,
+                          child: Icon(
+                            Icons.report,
+                            color: Theme.of(context).colorScheme.error,
+                            size: 32.0,
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 }

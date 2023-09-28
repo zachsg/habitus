@@ -25,6 +25,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
     final loading = ref.watch(profileProvider).loading;
 
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

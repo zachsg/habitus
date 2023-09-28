@@ -10,6 +10,7 @@ class HabitatsModel with _$HabitatsModel {
   factory HabitatsModel({
     required List<HUHabitatModel> habitats,
     required List<HUActionModel> actions,
+    required List<HUCalloutModel> callouts,
     @Default(false) bool loading,
     String? error,
   }) = _HabitatsModel;

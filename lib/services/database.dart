@@ -222,6 +222,38 @@ class Database {
     }
   }
 
+  static Future<List<HUCalloutModel>> allOfMyCalloutsToday() async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    final day = DateTime.now();
+
+    try {
+      final start = day.copyWith(hour: 0, minute: 0);
+      final end = day.copyWith(hour: 24, minute: 59);
+
+      final calloutsJson = await supabase
+          .from(calloutsTable)
+          .select()
+          .eq('callee', user.id)
+          .eq('done', false)
+          .gt('created_at', start.toUtc())
+          .lt('created_at', end.toUtc());
+
+      List<HUCalloutModel> callouts = [];
+      for (final calloutJson in calloutsJson) {
+        final callout = HUCalloutModel.fromJson(calloutJson);
+        callouts.add(callout);
+      }
+
+      return callouts;
+    } on Exception catch (_) {
+      return [];
+    }
+  }
+
   static Future<List<HUActionModel>> myActionsForToday() async {
     final user = supabase.auth.currentUser;
     if (user == null) {

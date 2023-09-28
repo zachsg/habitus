@@ -7,7 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
-import '../bottom_nav/bottom_nav_view.dart';
+import '../habitats/habitats_view.dart';
 import 'auth_model.dart';
 
 part 'auth.g.dart';
@@ -52,7 +52,7 @@ class Auth extends _$Auth {
     state = state.copyWith(loading: false);
 
     if (context.mounted) {
-      context.goNamed(BottomNavView.routeName);
+      context.goNamed(HabitatsView.routeName);
     }
   }
 
@@ -93,7 +93,7 @@ class Auth extends _$Auth {
     state = state.copyWith(loading: false);
 
     if (context.mounted) {
-      context.goNamed(BottomNavView.routeName);
+      context.goNamed(HabitatsView.routeName);
     }
   }
 
