@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../../models/xmodels.dart';
 import '../../profile/profile.dart';
@@ -38,26 +39,12 @@ class HabitatsHabitatProgressWidget extends ConsumerWidget {
       progress = 1;
     }
 
-    return Row(
-      children: [
-        Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
-                borderRadius: BorderRadius.only(
-                  bottomRight: progress == 1
-                      ? const Radius.circular(12.0)
-                      : const Radius.circular(0.0),
-                  bottomLeft: const Radius.circular(12.0),
-                ),
-              ),
-              height: 20,
-              width: (MediaQuery.of(context).size.width - 32) * progress,
-            ),
-          ],
-        ),
-      ],
+    return CircularPercentIndicator(
+      radius: 48.0,
+      lineWidth: 20.0,
+      percent: progress,
+      center: Text("${(progress * 100).round()}%"),
+      progressColor: Theme.of(context).colorScheme.primary,
     );
   }
 }
