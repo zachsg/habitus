@@ -6,6 +6,7 @@ Android:
 - Build app bundle: `flutter build appbundle`
 
 iOS:
+- Run `flutter build ios` to re-build app from command line (and ensure version changes get pushed to Xcode)
 - Open XCWorkspace file in ios/ directory in Xcode
 - Set build target to "Any iOS device (arm64)"
 - Product > Archive
