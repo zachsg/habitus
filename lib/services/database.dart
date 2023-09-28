@@ -206,6 +206,7 @@ class Database {
           .from(calloutsTable)
           .select()
           .eq('habitat_id', id)
+          .eq('done', false)
           .gt('created_at', start.toUtc())
           .lt('created_at', end.toUtc());
 
@@ -510,10 +511,12 @@ class Database {
     }
 
     try {
+      final List<int> ids = [];
       for (final callout in callouts) {
         final c = callout.copyWith(done: true);
-        await supabase.from(calloutsTable).update(c.toJson());
+        ids.add(c.id);
       }
+      await supabase.from(calloutsTable).update({'done': true}).in_('id', ids);
 
       return true;
     } on Exception catch (_) {

@@ -6,6 +6,7 @@ import '../../../helpers/strings.dart';
 import '../../../helpers/extensions.dart';
 import '../../../models/xmodels.dart';
 import '../../habitat/habitat.dart';
+import '../../profile/profile.dart';
 
 class GrowCalloutWidget extends ConsumerStatefulWidget {
   const GrowCalloutWidget(
@@ -20,7 +21,7 @@ class GrowCalloutWidget extends ConsumerStatefulWidget {
 }
 
 class _GrowCalloutWidgetState extends ConsumerState<GrowCalloutWidget> {
-  int? _value = 1;
+  int? _value;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class _GrowCalloutWidgetState extends ConsumerState<GrowCalloutWidget> {
         ref.watch(habitatProvider(widget.habitatAndAction.habitat)).profiles;
     final actions =
         ref.watch(habitatProvider(widget.habitatAndAction.habitat)).actions;
+    final profile = ref.watch(profileProvider).profile;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +44,13 @@ class _GrowCalloutWidgetState extends ConsumerState<GrowCalloutWidget> {
           spacing: 16.0,
           runSpacing: 16.0,
           children: _habitmates(
-              context, ref, widget.habitatAndAction.habitat, profiles, actions),
+            context,
+            ref,
+            widget.habitatAndAction.habitat,
+            profiles,
+            profile,
+            actions,
+          ),
         ),
       ],
     );
@@ -53,6 +61,7 @@ class _GrowCalloutWidgetState extends ConsumerState<GrowCalloutWidget> {
     WidgetRef ref,
     HUHabitatModel habitat,
     List<HUProfileModel> profiles,
+    HUProfileModel myProfile,
     List<HUActionModel> actions,
   ) {
     final List<Widget> children = [];
@@ -60,7 +69,10 @@ class _GrowCalloutWidgetState extends ConsumerState<GrowCalloutWidget> {
 
     int index = 0;
 
-    for (final profile in profiles) {
+    final profilesMinusMe = profiles.toList();
+    profilesMinusMe.removeWhere((profile) => profile.id == myProfile.id);
+
+    for (final profile in profilesMinusMe) {
       final goal =
           profile.goals.firstWhere((goal) => goal.habitatId == habitat.id);
 

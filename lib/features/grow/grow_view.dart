@@ -328,15 +328,19 @@ class _GrowViewState extends ConsumerState<GrowView>
         .toList();
     final profile = ref.read(profileProvider).profile;
     final calloutId = ref.read(growProvider(widget.habitatAndAction)).calloutId;
-    final calloutProfile =
-        profiles.firstWhere((profile) => profile.id == calloutId);
+    HUProfileModel? calloutProfile;
+    if (calloutId.isNotEmpty) {
+      calloutProfile =
+          profiles.firstWhere((profile) => profile.id == calloutId);
+    }
 
     profiles.removeWhere((p) => p.id == profile.id || p.pushToken.isEmpty);
 
     final habitat = widget.habitatAndAction.habitat;
     final title = habitat.name;
-    final subtitle =
-        '@${profile.handle} just finished ${_habitType().toLowerCase()} and called out @${calloutProfile.handle}';
+    final subtitle = calloutProfile != null
+        ? '@${profile.handle} just finished ${_habitType().toLowerCase()} and called out @${calloutProfile.handle}'
+        : '@${profile.handle} just finished ${_habitType().toLowerCase()}';
 
     List<String> tokens = [];
     for (final profile in profiles) {
