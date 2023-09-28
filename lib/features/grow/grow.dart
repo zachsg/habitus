@@ -60,15 +60,6 @@ class Grow extends _$Grow {
       );
       await Database.addCallout(callout);
 
-      await ref.read(habitatProvider(state.habitat).notifier).loadProfiles();
-      await ref.read(habitatProvider(state.habitat).notifier).loadActions();
-      await ref.read(habitatProvider(state.habitat).notifier).loadCallouts();
-      await ref
-          .read(habitatProvider(state.habitat).notifier)
-          .loadHabitatWithId(state.habitat.id);
-      await ref.read(habitatsProvider.notifier).loadHabitats();
-      await ref.read(habitatsProvider.notifier).loadActions();
-
       final callouts = ref.read(habitatProvider(state.habitat)).callouts;
       final List<String> calloutIds = [];
       for (final callout in callouts) {
@@ -80,6 +71,15 @@ class Grow extends _$Grow {
             callouts.where((callout) => callout.callee == profile.id).toList();
         await Database.markCalloutDone(c);
       }
+
+      await ref.read(habitatProvider(state.habitat).notifier).loadProfiles();
+      await ref.read(habitatProvider(state.habitat).notifier).loadActions();
+      await ref.read(habitatProvider(state.habitat).notifier).loadCallouts();
+      await ref
+          .read(habitatProvider(state.habitat).notifier)
+          .loadHabitatWithId(state.habitat.id);
+      await ref.read(habitatsProvider.notifier).loadHabitats();
+      await ref.read(habitatsProvider.notifier).loadActions();
     }
 
     state = state.copyWith(loading: false);
