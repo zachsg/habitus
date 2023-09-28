@@ -27,6 +27,8 @@ class _HabitatsViewState extends ConsumerState<HabitatsView>
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
+
     ref.read(profileProvider.notifier).loadProfile();
     ref.read(habitatsProvider.notifier).loadHabitats();
     ref.read(habitatsProvider.notifier).loadActions();
