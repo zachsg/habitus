@@ -44,7 +44,15 @@ class HabitatsHabitatProgressWidget extends ConsumerWidget {
       lineWidth: 20.0,
       percent: progress,
       center: Text("${(progress * 100).round()}%"),
-      progressColor: Theme.of(context).colorScheme.primary,
+      linearGradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: const Alignment(0.8, 1),
+        colors: <Color>[
+          Theme.of(context).colorScheme.primaryContainer,
+          Theme.of(context).colorScheme.primary,
+        ], // Gradient from https://learnui.design/tools/gradient-generator.html
+        tileMode: TileMode.mirror,
+      ),
     );
   }
 }

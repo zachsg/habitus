@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../bottom_nav/bottom_nav.dart';
+import '../../settings/settings_view.dart';
 import '../profile.dart';
 
 class ProfileHeaderWidget extends ConsumerWidget {
@@ -12,7 +13,7 @@ class ProfileHeaderWidget extends ConsumerWidget {
     final profile = ref.watch(profileProvider).profile;
 
     return GestureDetector(
-      onTap: () => ref.read(bottomNavProvider.notifier).setPage(2),
+      onTap: () => context.pushReplacementNamed(SettingsView.routeName),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
