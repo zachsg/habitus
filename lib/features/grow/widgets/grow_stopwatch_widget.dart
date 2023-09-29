@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lottie/lottie.dart';
 
 import '../../../helpers/providers.dart';
 import '../../../helpers/strings.dart';
@@ -27,6 +28,7 @@ class GrowStopwatchWidget extends ConsumerStatefulWidget {
 
 class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
     with WidgetsBindingObserver {
+  final _isIOS = Platform.isIOS;
   late Timer _timer;
   late GrowStopwatch _stopwatch;
 
@@ -126,12 +128,14 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
                 : Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 16),
-          LottieBuilder.asset(
-            'assets/gifs/hourglass.json',
-            width: 164,
-            height: 164,
-            fit: BoxFit.contain,
+          Icon(
+            _isIOS ? CupertinoIcons.stopwatch : Icons.timer_outlined,
+            size: 128.0,
+            color: themeP.minimalTimer()
+                ? Colors.white.withOpacity(0.7)
+                : Theme.of(context).colorScheme.onBackground,
           ),
+          const SizedBox(height: 24.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
