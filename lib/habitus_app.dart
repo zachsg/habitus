@@ -44,12 +44,12 @@ class _HabitusAppState extends ConsumerState<HabitusApp>
           title: appNameString,
           themeMode: theme.themeMode(),
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
             useMaterial3: true,
           ),
           darkTheme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.green,
+              seedColor: Colors.blue,
               brightness: Brightness.dark,
             ),
             useMaterial3: true,
