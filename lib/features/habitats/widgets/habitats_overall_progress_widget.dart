@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../profile/profile.dart';
 import '../habitats.dart';
@@ -36,49 +37,39 @@ class HabitatsOverallProgressWidget extends ConsumerWidget {
       progress /= possible;
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SizedBox(
-        height: 192,
-        width: 192,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Image.asset(
-              'assets/images/progress_${_progressRounder(progress)}.png',
-            ),
-          ],
+    return SizedBox(
+      height: MediaQuery.of(context).size.width / 1.5,
+      width: MediaQuery.of(context).size.width / 1.5,
+      child: Center(
+        child: CircularPercentIndicator(
+          linearGradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: const Alignment(0.8, 1),
+            colors: <Color>[
+              Theme.of(context).colorScheme.primaryContainer,
+              Theme.of(context).colorScheme.primary,
+            ], // Gradient from https://learnui.design/tools/gradient-generator.html
+            tileMode: TileMode.mirror,
+          ),
+          radius: MediaQuery.of(context).size.width / 3.5,
+          lineWidth: 36.0,
+          percent: progress,
+          center: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "${(progress * 100).round()}%",
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+              Text(
+                'Overall',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+          ),
         ),
       ),
     );
-  }
-
-  _progressRounder(double progress) {
-    progress *= 100;
-
-    switch (progress) {
-      case >= 100:
-        return 100;
-      case >= 90:
-        return 90;
-      case >= 80:
-        return 80;
-      case >= 70:
-        return 70;
-      case >= 60:
-        return 60;
-      case >= 50:
-        return 50;
-      case >= 40:
-        return 40;
-      case >= 30:
-        return 30;
-      case >= 20:
-        return 20;
-      case >= 10:
-        return 10;
-      default:
-        return 0;
-    }
   }
 }

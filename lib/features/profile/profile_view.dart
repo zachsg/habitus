@@ -33,7 +33,6 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
               ? const Center(child: CircularProgressIndicator.adaptive())
               : const Column(
                   children: [
-                    SizedBox(height: 32),
                     ProfileHeaderWidget(),
                     SizedBox(height: 32),
                     ProfileStatsRowWidget(),

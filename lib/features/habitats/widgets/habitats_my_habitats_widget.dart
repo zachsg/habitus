@@ -111,7 +111,8 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                                       children: [
                                         const SizedBox(height: 8.0),
                                         HabitatsHabitatProgressWidget(
-                                            habitat: habitat),
+                                          habitat: habitat,
+                                        ),
                                         const SizedBox(height: 8.0),
                                         Text(
                                           habitat.name,
