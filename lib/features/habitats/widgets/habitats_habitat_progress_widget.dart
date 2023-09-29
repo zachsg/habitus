@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -13,6 +15,7 @@ class HabitatsHabitatProgressWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isIOS = Platform.isIOS;
     final profile = ref.watch(profileProvider).profile;
     final allMyActions = ref.watch(habitatsProvider).actions;
 
@@ -43,16 +46,15 @@ class HabitatsHabitatProgressWidget extends ConsumerWidget {
       radius: 48.0,
       lineWidth: 20.0,
       percent: progress,
-      center: Text("${(progress * 100).round()}%"),
-      linearGradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: const Alignment(0.8, 1),
-        colors: <Color>[
-          Theme.of(context).colorScheme.primaryContainer,
-          Theme.of(context).colorScheme.primary,
-        ], // Gradient from https://learnui.design/tools/gradient-generator.html
-        tileMode: TileMode.mirror,
-      ),
+      center: progress == 1
+          ? CircleAvatar(
+              backgroundColor: Colors.yellow.shade800,
+              radius: 24,
+            )
+          : Text("${(progress * 100).round()}%"),
+      backgroundColor:
+          Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
+      progressColor: Theme.of(context).colorScheme.primary,
     );
   }
 }
