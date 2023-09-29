@@ -128,37 +128,42 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                                     bottom: 0,
                                     left: 0,
                                     right: 0,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              '${habitat.members.length + habitat.admins.length + 1}',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium,
-                                            ),
-                                            const SizedBox(width: 4.0),
-                                            Icon(
-                                              isIOS
-                                                  ? CupertinoIcons.group_solid
-                                                  : Icons.group,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onPrimaryContainer,
-                                            )
-                                          ],
-                                        ),
-                                        Text(
-                                          date,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall,
-                                        ),
-                                      ],
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                '${habitat.members.length + habitat.admins.length + 1}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium,
+                                              ),
+                                              const SizedBox(width: 4.0),
+                                              Icon(
+                                                isIOS
+                                                    ? CupertinoIcons.group_solid
+                                                    : Icons.group,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimaryContainer,
+                                              )
+                                            ],
+                                          ),
+                                          Text(
+                                            date,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
