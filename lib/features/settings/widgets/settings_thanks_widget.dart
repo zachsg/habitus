@@ -175,6 +175,16 @@ class SettingsThanksWidget extends ConsumerWidget {
               name: 'firebase_messaging',
               url: 'https://pub.dev/packages/firebase_messaging',
             ),
+            _thanksItem(
+              context: context,
+              name: 'cloud_functions',
+              url: 'https://pub.dev/packages/cloud_functions',
+            ),
+            _thanksItem(
+              context: context,
+              name: 'percent_indicator',
+              url: 'https://pub.dev/packages/percent_indicator',
+            ),
           ],
         ),
       ),
