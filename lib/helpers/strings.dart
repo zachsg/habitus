@@ -86,7 +86,7 @@ const handleErrorString = 'That handle is already taken!';
 const typeBioString = 'Write your bio';
 const bioErrorString = 'Error saving bio. Try again.';
 const genericErrorString = 'Uknown error';
-const minimalString = 'Minimal Timer?';
+const minimalString = 'Peaceful Timer';
 const themeString = 'App Theme';
 const thanksString = 'Acknowledgements';
 
