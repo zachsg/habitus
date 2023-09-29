@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitus/features/grow/grow.dart';
 
-import '../../../helpers/strings.dart';
 import '../../../helpers/extensions.dart';
+import '../../../helpers/strings.dart';
 import '../../../models/xmodels.dart';
 import '../../habitat/habitat.dart';
 import '../../profile/profile.dart';
@@ -22,6 +22,20 @@ class GrowCalloutWidget extends ConsumerStatefulWidget {
 
 class _GrowCalloutWidgetState extends ConsumerState<GrowCalloutWidget> {
   int? _value;
+  bool _loading = true;
+
+  @override
+  void initState() {
+    _loadLatestActions();
+    super.initState();
+  }
+
+  Future<void> _loadLatestActions() async {
+    await ref
+        .read(habitatProvider(widget.habitatAndAction.habitat).notifier)
+        .loadActions();
+    setState(() => _loading = false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,29 +45,31 @@ class _GrowCalloutWidgetState extends ConsumerState<GrowCalloutWidget> {
         ref.watch(habitatProvider(widget.habitatAndAction.habitat)).actions;
     final profile = ref.watch(profileProvider).profile;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Row(),
-        Text(
-          calloutString.toUpperCase(),
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        const SizedBox(height: 4.0),
-        Wrap(
-          spacing: 16.0,
-          runSpacing: 16.0,
-          children: _habitmates(
-            context,
-            ref,
-            widget.habitatAndAction.habitat,
-            profiles,
-            profile,
-            actions,
-          ),
-        ),
-      ],
-    );
+    return _loading
+        ? const CircularProgressIndicator.adaptive()
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(),
+              Text(
+                calloutString.toUpperCase(),
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 4.0),
+              Wrap(
+                spacing: 16.0,
+                runSpacing: 16.0,
+                children: _habitmates(
+                  context,
+                  ref,
+                  widget.habitatAndAction.habitat,
+                  profiles,
+                  profile,
+                  actions,
+                ),
+              ),
+            ],
+          );
   }
 
   List<Widget> _habitmates(
