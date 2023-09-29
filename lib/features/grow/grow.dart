@@ -51,19 +51,23 @@ class Grow extends _$Grow {
 
     final success = await Database.saveAction(state.habitat, action);
     if (success) {
-      final callout = HUCalloutModel(
-        id: -1,
-        habitatId: state.habitat.id,
-        createdAt: DateTime.now().toLocal(),
-        caller: profile.id,
-        callee: state.calloutId,
-      );
-      await Database.addCallout(callout);
+      if (state.calloutId.isNotEmpty) {
+        final callout = HUCalloutModel(
+          id: -1,
+          habitatId: state.habitat.id,
+          createdAt: DateTime.now().toLocal(),
+          caller: profile.id,
+          callee: state.calloutId,
+        );
+        await Database.addCallout(callout);
+      }
 
       final callouts = ref.read(habitatProvider(state.habitat)).callouts;
       final List<String> calloutIds = [];
       for (final callout in callouts) {
-        calloutIds.add(callout.callee);
+        if (!callout.done) {
+          calloutIds.add(callout.callee);
+        }
       }
 
       if (calloutIds.contains(profile.id)) {
