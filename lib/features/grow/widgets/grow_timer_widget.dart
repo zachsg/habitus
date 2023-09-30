@@ -101,6 +101,7 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
         _pauseCount += 1;
 
         WakelockPlus.disable();
+
         setState(() {
           pausedTime = DateTime.now();
           _stopwatch.stop();
