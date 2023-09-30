@@ -1,10 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
+import '../../../helpers/extensions.dart';
 import '../../../helpers/strings.dart';
 import '../../../models/xmodels.dart';
 import '../../../services/database.dart';
@@ -146,7 +147,7 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                                     ),
                                     const SizedBox(width: 4.0),
                                     Text(
-                                      '${_actionName(activity.goal)} '
+                                      '${activity.goal.habit.habitDid().toLowerCase()} '
                                       'for ${activity.goal.value} '
                                       '${activity.goal.value == 1 ? activity.goal.unit.name.substring(0, activity.goal.unit.name.length - 1) : activity.goal.unit.name}',
                                       style: Theme.of(context)
@@ -396,18 +397,5 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
         reload: _loadReactions,
       ),
     );
-  }
-
-  String _actionName(HUGoalModel goal) {
-    switch (goal.habit) {
-      case 'Read':
-        return 'read';
-      case 'Exercise':
-        return 'exercised';
-      case 'Meditate':
-        return 'meditated';
-      default:
-        return 'grew';
-    }
   }
 }
