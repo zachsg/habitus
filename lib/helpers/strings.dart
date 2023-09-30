@@ -46,6 +46,11 @@ const calloutDialogBodyString =
     'If you\'ve been called out, you can beat the callout (and leave the ring) by taking action towards your goal by completing a session with the Grow button.';
 const calloutDialogDoneString = 'Got It';
 
+// Habitat Settings
+const habitatSettingsTitleString = 'Habitat Settings';
+const habitatSettingsAdminString = 'Admin Options';
+const habitatSettingsMemberString = 'My Settings';
+
 // Grow
 const pauseString = 'I\'ve Rolled Enough';
 const goalMetString = 'Daily Habit Achieved!';
