@@ -39,6 +39,8 @@ class JoinHabitat extends _$JoinHabitat {
         value = 20;
       case meditateString:
         value = 10;
+      case cookString:
+        value = 10;
       default:
         value = 0;
     }

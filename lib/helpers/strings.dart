@@ -26,6 +26,7 @@ const joinHabitGoalString = 'Goal';
 const readString = 'Read';
 const exerciseString = 'Exercise';
 const meditateString = 'Meditate';
+const cookString = 'Cook';
 const showHabitatsString = 'Show Matching Habitats';
 const noHabitatsFoundString = 'No Matching Habitats Found';
 const joinHabitatsString = 'Join';

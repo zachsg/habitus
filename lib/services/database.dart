@@ -334,7 +334,8 @@ class Database {
   }
 
   static Future<List<HUHabitatModel>> habitatsWithNamesContaining(
-      String name) async {
+    String name,
+  ) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();
