@@ -47,32 +47,17 @@ class _GrowCalloutWidgetState extends ConsumerState<GrowCalloutWidget> {
 
     return _loading
         ? const CircularProgressIndicator.adaptive()
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Row(),
-              Text(
-                calloutString.toUpperCase(),
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 4.0),
-              Wrap(
-                spacing: 16.0,
-                runSpacing: 16.0,
-                children: _habitmates(
-                  context,
-                  ref,
-                  widget.habitatAndAction.habitat,
-                  profiles,
-                  profile,
-                  actions,
-                ),
-              ),
-            ],
+        : _habitmates(
+            context,
+            ref,
+            widget.habitatAndAction.habitat,
+            profiles,
+            profile,
+            actions,
           );
   }
 
-  List<Widget> _habitmates(
+  Widget _habitmates(
     BuildContext context,
     WidgetRef ref,
     HUHabitatModel habitat,
@@ -182,7 +167,25 @@ class _GrowCalloutWidgetState extends ConsumerState<GrowCalloutWidget> {
       );
     }).toList();
 
-    return filteredChildren;
+    return filteredChildren.isEmpty
+        ? const SizedBox()
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(),
+              Text(
+                calloutString.toUpperCase(),
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 4.0),
+              SingleChildScrollView(
+                child: Wrap(
+                    spacing: 16.0,
+                    runSpacing: 16.0,
+                    children: filteredChildren),
+              ),
+            ],
+          );
   }
 }
 

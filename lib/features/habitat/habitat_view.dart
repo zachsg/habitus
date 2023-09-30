@@ -51,6 +51,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
     final profile = ref.watch(profileProvider).profile;
 
     final callouts = habitatP.callouts;
+    final unFinishedCallouts = callouts.where((callout) => !callout.done);
     final actions = habitatP.actions;
 
     final myActions =
@@ -74,7 +75,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
               const SizedBox(height: 16.0),
               HabitatDaySelectorWidget(habitat: widget.habitat),
               const SizedBox(height: 16.0),
-              habitatP.callouts.isNotEmpty
+              unFinishedCallouts.isNotEmpty
                   ? HabitatCalloutBoxWidget(habitat: widget.habitat)
                   : const SizedBox(),
               const SizedBox(height: 24.0),
