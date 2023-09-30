@@ -67,7 +67,7 @@ class _HabitatsViewState extends ConsumerState<HabitatsView>
             icon: isIOS
                 ? const Icon(CupertinoIcons.settings_solid)
                 : const Icon(Icons.settings),
-          )
+          ),
         ],
       ),
       body: SafeArea(

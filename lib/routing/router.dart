@@ -4,12 +4,13 @@ import 'package:go_router/go_router.dart';
 import '../features/auth/sign_in_view.dart';
 import '../features/auth/sign_up_view.dart';
 import '../features/grow/grow_view.dart';
+import '../features/habitat/habitat_view.dart';
+import '../features/habitat_settings/habitat_settings_view.dart';
+import '../features/habitats/habitats_view.dart';
 import '../features/join_habitat/join_habitat_view.dart';
 import '../features/profile/profile_view.dart';
 import '../features/settings/settings_view.dart';
 import '../features/splash/splash_view.dart';
-import '../features/habitats/habitats_view.dart';
-import '../features/habitat/habitat_view.dart';
 import '../models/xmodels.dart';
 
 final router = GoRouter(
@@ -66,6 +67,15 @@ final router = GoRouter(
                 final habitAndAction = state.extra as HUHabitatAndActionModel;
 
                 return GrowView(habitatAndAction: habitAndAction);
+              },
+            ),
+            GoRoute(
+              path: '${HabitatSettingsView.routeName}/:habitat_settings_id',
+              name: HabitatSettingsView.routeName,
+              builder: (context, state) {
+                final habitat = state.extra as HUHabitatModel;
+
+                return HabitatSettingsView(habitat: habitat);
               },
             ),
           ],

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +11,7 @@ import '../../helpers/constants.dart';
 import '../../helpers/strings.dart';
 import '../../models/xmodels.dart';
 import '../grow/grow_view.dart';
+import '../habitat_settings/habitat_settings_view.dart';
 import '../profile/profile.dart';
 import 'habitat.dart';
 import 'widgets/xwidget.dart';
@@ -41,6 +45,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
 
   @override
   Widget build(BuildContext context) {
+    final isIOS = Platform.isIOS;
     final habitatP = ref.watch(habitatProvider(widget.habitat));
     final loading = habitatP.loading;
     final day = habitatP.day;
@@ -65,6 +70,21 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.habitat.name),
+        actions: [
+          IconButton(
+            onPressed: () => context.pushNamed(
+              HabitatSettingsView.routeName,
+              pathParameters: {
+                'id': widget.habitat.id.toString(),
+                'habitat_settings_id': widget.habitat.id.toString()
+              },
+              extra: widget.habitat,
+            ),
+            icon: isIOS
+                ? const Icon(CupertinoIcons.settings_solid)
+                : const Icon(Icons.settings),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         physics: const ScrollPhysics(),
