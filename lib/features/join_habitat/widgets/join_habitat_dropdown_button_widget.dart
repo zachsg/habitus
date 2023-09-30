@@ -9,10 +9,14 @@ class JoinHabitatDropdownButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dropdownOptions = [readString, exerciseString, meditateString];
+    final dropdownOptions = [
+      readString,
+      exerciseString,
+      meditateString,
+      cookString,
+    ];
 
     return Row(
-      // mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           joinHabitatHabitString,

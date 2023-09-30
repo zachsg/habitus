@@ -4,11 +4,12 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habitus/helpers/extensions.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../helpers/providers.dart';
-import '../../models/xmodels.dart';
 import '../../helpers/strings.dart';
+import '../../models/xmodels.dart';
 import '../../services/local_notification_service.dart';
 import '../../services/remote_notification_service.dart';
 import '../habitat/habitat.dart';
@@ -63,6 +64,8 @@ class _GrowViewState extends ConsumerState<GrowView>
     final icon = isIOS ? CupertinoIcons.eye_slash : Icons.visibility_off;
     final iconMinimal = isIOS ? CupertinoIcons.eye_fill : Icons.visibility;
 
+    final habitType = widget.habitatAndAction.habitat.goal.habit;
+
     return WillPopScope(
       onWillPop: () => saveOrDelete(ref, context, goalMet),
       child: AnimatedBuilder(
@@ -84,7 +87,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                       : Theme.of(context).colorScheme.onPrimaryContainer
                   : null,
               title: Text(
-                _habitType(),
+                habitType.habitDoing(),
               ),
               actions: [
                 IconButton(
@@ -148,7 +151,9 @@ class _GrowViewState extends ConsumerState<GrowView>
                       horizontal: 16.0,
                       vertical: 20.0,
                     ),
-                    child: Text(goalMet ? pauseString : 'Done ${_habitType()}'),
+                    child: Text(goalMet
+                        ? pauseString
+                        : 'Done ${habitType.habitDoing()}'),
                   ),
                 ),
               ],
@@ -178,32 +183,6 @@ class _GrowViewState extends ConsumerState<GrowView>
     return true;
   }
 
-  String _habitType() {
-    switch (widget.habitatAndAction.habitat.goal.habit) {
-      case 'Read':
-        return 'Reading';
-      case 'Exercise':
-        return 'Exercising';
-      case 'Meditate':
-        return 'Meditating';
-      default:
-        return 'Growing';
-    }
-  }
-
-  String _habitTypePast() {
-    switch (widget.habitatAndAction.habitat.goal.habit) {
-      case 'Read':
-        return 'Read';
-      case 'Exercise':
-        return 'Exercised';
-      case 'Meditate':
-        return 'Meditated';
-      default:
-        return 'Grew';
-    }
-  }
-
   Future<void> _playTone() async =>
       AudioPlayer().play(AssetSource('sounds/singing-bowl.mp3'), volume: 0.5);
 
@@ -216,6 +195,8 @@ class _GrowViewState extends ConsumerState<GrowView>
     final grow = ref.watch(growProvider(habitatAndAction));
     bool loading = false;
 
+    final habitType = widget.habitatAndAction.habitat.goal.habit;
+
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -226,7 +207,7 @@ class _GrowViewState extends ConsumerState<GrowView>
 
         return AlertDialog(
           title: Text(
-            'You ${_habitTypePast().toLowerCase()} '
+            'You ${habitType.habitDid().toLowerCase()} '
             'for ${elapsed.round()} '
             '${elapsed.round() == 1 ? habitatAndAction.habitat.goal.unit.name.substring(0, habitatAndAction.habitat.goal.unit.name.length - 1) : habitatAndAction.habitat.goal.unit.name}',
           ),
@@ -336,11 +317,13 @@ class _GrowViewState extends ConsumerState<GrowView>
 
     profiles.removeWhere((p) => p.id == profile.id || p.pushToken.isEmpty);
 
+    final habitType = widget.habitatAndAction.habitat.goal.habit;
+
     final habitat = widget.habitatAndAction.habitat;
     final title = habitat.name;
     final subtitle = calloutProfile != null
-        ? '@${profile.handle} just finished ${_habitType().toLowerCase()} and called out @${calloutProfile.handle}'
-        : '@${profile.handle} just finished ${_habitType().toLowerCase()}';
+        ? '@${profile.handle} just finished ${habitType.habitDoing().toLowerCase()} and called out @${calloutProfile.handle}'
+        : '@${profile.handle} just finished ${habitType.habitDoing().toLowerCase()}';
 
     List<String> tokens = [];
     for (final profile in profiles) {

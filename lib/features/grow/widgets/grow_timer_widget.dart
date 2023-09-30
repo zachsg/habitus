@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../../helpers/extensions.dart';
 import '../../../helpers/providers.dart';
 import '../../../models/xmodels.dart';
 import '../../../services/local_notification_service.dart';
@@ -57,14 +58,16 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
 
     var elapsed = 0;
 
+    final habitType = widget.habitatAndAction.habitat.goal.habit;
+
     final notificationSeconds =
         goalValue - (widget.habitatAndAction.elapsed * 60);
     if (notificationSeconds > 0) {
       LocalNotificationService().addNotification(
-        '${_habitType()} Done',
-        'You completed your ${_habitType().toLowerCase()} goal',
+        '${habitType.habitDoing()} Done',
+        'You completed your ${habitType.habitDoing().toLowerCase()} goal',
         DateTime.now().millisecondsSinceEpoch + (notificationSeconds * 1000),
-        channel: _habitType().toLowerCase(),
+        channel: habitType.habitDoing().toLowerCase(),
       );
     }
 
@@ -201,18 +204,5 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
               ),
       ],
     );
-  }
-
-  String _habitType() {
-    switch (widget.habitatAndAction.habitat.goal.habit) {
-      case 'Read':
-        return 'Reading';
-      case 'Exercise':
-        return 'Exercising';
-      case 'Meditate':
-        return 'Meditating';
-      default:
-        return 'Growing';
-    }
   }
 }

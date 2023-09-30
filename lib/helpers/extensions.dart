@@ -37,6 +37,36 @@ extension ShowSnackBar on BuildContext {
 }
 
 extension StringExtension on String {
+  String habitDoing() {
+    switch (this) {
+      case 'Read':
+        return 'Reading';
+      case 'Exercise':
+        return 'Exercising';
+      case 'Meditate':
+        return 'Meditating';
+      case 'Cook':
+        return 'Cooking';
+      default:
+        return 'Growing';
+    }
+  }
+
+  String habitDid() {
+    switch (this) {
+      case 'Read':
+        return 'Read';
+      case 'Exercise':
+        return 'Exercised';
+      case 'Meditate':
+        return 'Meditated';
+      case 'Cook':
+        return 'Cooked';
+      default:
+        return 'Grew';
+    }
+  }
+
   String toDate() {
     final parsedDate = DateTime.parse(this);
 
