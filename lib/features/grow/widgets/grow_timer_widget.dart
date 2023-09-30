@@ -35,6 +35,8 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
   late Timer _timer;
   late GrowStopwatch _stopwatch;
   late AnimationController _controller;
+  int _pauseCount = 0;
+  int _resumeCount = 0;
 
   DateTime pausedTime = DateTime.now();
   DateTime resumedTime = DateTime.now();
@@ -96,6 +98,8 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     switch (state) {
       case AppLifecycleState.paused:
+        _pauseCount += 1;
+
         WakelockPlus.disable();
         setState(() {
           pausedTime = DateTime.now();
@@ -103,16 +107,23 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
         });
         break;
       case AppLifecycleState.resumed:
+        _resumeCount += 1;
+
         WakelockPlus.enable();
 
         final elapsed = _stopwatch.elapsed;
 
-        setState(() {
-          resumedTime = DateTime.now();
-          final difference = resumedTime.difference(pausedTime);
-          _stopwatch.reset(newInitialOffset: difference + elapsed);
-          _stopwatch.start();
-        });
+        if (_resumeCount == _pauseCount) {
+          setState(() {
+            resumedTime = DateTime.now();
+            final difference = resumedTime.difference(pausedTime);
+            _stopwatch.reset(newInitialOffset: difference + elapsed);
+            _stopwatch.start();
+          });
+        } else {
+          _pauseCount = 0;
+          _resumeCount = 0;
+        }
         break;
       default:
     }
