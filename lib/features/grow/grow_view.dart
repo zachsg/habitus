@@ -205,14 +205,14 @@ class _GrowViewState extends ConsumerState<GrowView>
             ? grow.elapsed / 60
             : grow.elapsed / 60 - habitatAndAction.elapsed;
 
-        return AlertDialog(
-          title: Text(
-            'You ${habitType.habitDid().toLowerCase()} '
-            'for ${elapsed.round()} '
-            '${elapsed.round() == 1 ? habitatAndAction.habitat.goal.unit.name.substring(0, habitatAndAction.habitat.goal.unit.name.length - 1) : habitatAndAction.habitat.goal.unit.name}',
-          ),
-          content: StatefulBuilder(builder: (context, setState) {
-            return SingleChildScrollView(
+        return StatefulBuilder(builder: (context, setState) {
+          return AlertDialog(
+            title: Text(
+              'You ${habitType.habitDid().toLowerCase()} '
+              'for ${elapsed.round()} '
+              '${elapsed.round() == 1 ? habitatAndAction.habitat.goal.unit.name.substring(0, habitatAndAction.habitat.goal.unit.name.length - 1) : habitatAndAction.habitat.goal.unit.name}',
+            ),
+            content: SingleChildScrollView(
               child: ListBody(
                 children: [
                   elapsed.round() == 0
@@ -223,81 +223,82 @@ class _GrowViewState extends ConsumerState<GrowView>
                         ),
                 ],
               ),
-            );
-          }),
-          actions: [
-            loading
-                ? const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator.adaptive(),
-                    ],
-                  )
-                : Row(
-                    mainAxisAlignment: elapsed.round() == 0
-                        ? MainAxisAlignment.center
-                        : MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TextButton(
-                        child: Text(
-                          elapsed.round() == 0 ? 'Cancel' : 'Delete',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(
-                                  color: Theme.of(context).colorScheme.error),
+            ),
+            actions: [
+              loading
+                  ? const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator.adaptive(),
+                      ],
+                    )
+                  : Row(
+                      mainAxisAlignment: elapsed.round() == 0
+                          ? MainAxisAlignment.center
+                          : MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          child: Text(
+                            elapsed.round() == 0 ? 'Cancel' : 'Delete',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(
+                                    color: Theme.of(context).colorScheme.error),
+                          ),
+                          onPressed: () {
+                            WakelockPlus.disable();
+
+                            LocalNotificationService()
+                                .cancelNotificationWithId(0);
+
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        onPressed: () {
-                          WakelockPlus.disable();
+                        elapsed.round() == 0
+                            ? const SizedBox()
+                            : TextButton(
+                                child: Text(
+                                  'Save',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                                onPressed: () async {
+                                  setState(() => loading = true);
 
-                          LocalNotificationService()
-                              .cancelNotificationWithId(0);
+                                  WakelockPlus.disable();
 
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      elapsed.round() == 0
-                          ? const SizedBox()
-                          : TextButton(
-                              child: Text(
-                                'Save',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                  LocalNotificationService()
+                                      .cancelNotificationWithId(0);
+
+                                  await ref
+                                      .read(growProvider(habitatAndAction)
+                                          .notifier)
+                                      .save(goalMet);
+
+                                  _notifyNewAction();
+
+                                  setState(() => loading = false);
+
+                                  if (context.mounted) {
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                  }
+                                },
                               ),
-                              onPressed: () async {
-                                setState(() => loading = true);
-
-                                WakelockPlus.disable();
-
-                                LocalNotificationService()
-                                    .cancelNotificationWithId(0);
-
-                                await ref
-                                    .read(
-                                        growProvider(habitatAndAction).notifier)
-                                    .save(goalMet);
-
-                                _notifyNewAction();
-
-                                setState(() => loading = false);
-
-                                if (context.mounted) {
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context).pop();
-                                }
-                              },
-                            ),
-                    ],
-                  ),
-          ],
-        );
+                      ],
+                    ),
+            ],
+          );
+        });
       },
     );
   }
