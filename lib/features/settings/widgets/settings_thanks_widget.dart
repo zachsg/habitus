@@ -112,11 +112,6 @@ class SettingsThanksWidget extends ConsumerWidget {
             ),
             _thanksItem(
               context: context,
-              name: 'lottie',
-              url: 'https://pub.dev/packages/lottie',
-            ),
-            _thanksItem(
-              context: context,
               name: 'shared_preferences',
               url: 'https://pub.dev/packages/shared_preferences',
             ),
