@@ -4,8 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../helpers/strings.dart';
+import '../../services/database.dart';
+import '../auth/sign_in_view.dart';
 import '../profile/profile.dart';
 import '../profile/profile_view.dart';
 import '../settings/settings_view.dart';
@@ -29,6 +32,8 @@ class _HabitatsViewState extends ConsumerState<HabitatsView>
   void initState() {
     WidgetsBinding.instance.addObserver(this);
 
+    _watchAuthChanges();
+
     ref.read(profileProvider.notifier).loadProfile();
     ref.read(habitatsProvider.notifier).loadHabitats();
     ref.read(habitatsProvider.notifier).loadActions();
@@ -46,6 +51,23 @@ class _HabitatsViewState extends ConsumerState<HabitatsView>
         break;
       default:
     }
+  }
+
+  void _watchAuthChanges() {
+    final authSubscription = supabase.auth.onAuthStateChange.listen((data) {
+      final AuthChangeEvent event = data.event;
+      final Session? session = data.session;
+
+      switch (event) {
+        case AuthChangeEvent.signedIn:
+          context.goNamed(HabitatsView.routeName);
+          break;
+        case AuthChangeEvent.signedOut:
+          context.goNamed(SignInView.routeName);
+          break;
+        default:
+      }
+    });
   }
 
   @override
