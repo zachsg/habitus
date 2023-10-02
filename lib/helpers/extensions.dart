@@ -39,14 +39,24 @@ extension ShowSnackBar on BuildContext {
 extension StringExtension on String {
   String habitDoing() {
     switch (this) {
-      case 'Read':
-        return 'Reading';
+      case 'Cook':
+        return 'Cooking';
+      case 'Draw':
+        return 'Drawing';
       case 'Exercise':
         return 'Exercising';
       case 'Meditate':
         return 'Meditating';
-      case 'Cook':
-        return 'Cooking';
+      case 'Play':
+        return 'Playing';
+      case 'Read':
+        return 'Reading';
+      case 'Run':
+        return 'Running';
+      case 'Walk':
+        return 'Walking';
+      case 'Work':
+        return 'Working';
       default:
         return 'Growing';
     }
@@ -54,14 +64,24 @@ extension StringExtension on String {
 
   String habitDid() {
     switch (this) {
-      case 'Read':
-        return 'Read';
+      case 'Cook':
+        return 'Cooked';
+      case 'Draw':
+        return 'Drew';
       case 'Exercise':
         return 'Exercised';
       case 'Meditate':
         return 'Meditated';
-      case 'Cook':
-        return 'Cooked';
+      case 'Play':
+        return 'Played';
+      case 'Read':
+        return 'Read';
+      case 'Run':
+        return 'Ran';
+      case 'Walk':
+        return 'Walked';
+      case 'Work':
+        return 'Worked';
       default:
         return 'Grew';
     }
