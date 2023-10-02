@@ -62,6 +62,8 @@ class Grow extends _$Grow {
         await Database.addCallout(callout);
       }
 
+      await ref.read(habitatProvider(state.habitat).notifier).loadCallouts();
+
       final callouts = ref.read(habitatProvider(state.habitat)).callouts;
       final List<String> calloutIds = [];
       for (final callout in callouts) {
