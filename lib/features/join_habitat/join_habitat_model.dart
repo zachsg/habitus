@@ -10,6 +10,7 @@ class JoinHabitatModel with _$JoinHabitatModel {
   factory JoinHabitatModel({
     required HUHabitatModel habitat,
     required List<HUHabitatModel> habitats,
+    @JsonKey(name: 'is_joining') @Default(true) bool isJoining,
     @Default(false) bool loading,
     String? error,
   }) = _JoinHabitatModel;

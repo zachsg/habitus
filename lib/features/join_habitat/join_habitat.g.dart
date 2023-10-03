@@ -6,7 +6,7 @@ part of 'join_habitat.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$joinHabitatHash() => r'e0fc9e6e882b686040f080668325bc74f941045f';
+String _$joinHabitatHash() => r'941baaae834854fda7ad9d24c93cb083ffd39819';
 
 /// See also [JoinHabitat].
 @ProviderFor(JoinHabitat)

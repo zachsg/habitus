@@ -22,12 +22,6 @@ HabitatSettingsModel _$HabitatSettingsModelFromJson(Map<String, dynamic> json) {
 mixin _$HabitatSettingsModel {
   HUProfileModel get profile => throw _privateConstructorUsedError;
   HUHabitatModel get habitat => throw _privateConstructorUsedError;
-  @JsonKey(name: 'daily_goal')
-  int get dailyGoal => throw _privateConstructorUsedError;
-  @JsonKey(name: 'member_cap')
-  int get memberCap => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_private')
-  bool get isPrivate => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -46,9 +40,6 @@ abstract class $HabitatSettingsModelCopyWith<$Res> {
   $Res call(
       {HUProfileModel profile,
       HUHabitatModel habitat,
-      @JsonKey(name: 'daily_goal') int dailyGoal,
-      @JsonKey(name: 'member_cap') int memberCap,
-      @JsonKey(name: 'is_private') bool isPrivate,
       bool loading,
       String? error});
 
@@ -72,9 +63,6 @@ class _$HabitatSettingsModelCopyWithImpl<$Res,
   $Res call({
     Object? profile = null,
     Object? habitat = null,
-    Object? dailyGoal = null,
-    Object? memberCap = null,
-    Object? isPrivate = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -87,18 +75,6 @@ class _$HabitatSettingsModelCopyWithImpl<$Res,
           ? _value.habitat
           : habitat // ignore: cast_nullable_to_non_nullable
               as HUHabitatModel,
-      dailyGoal: null == dailyGoal
-          ? _value.dailyGoal
-          : dailyGoal // ignore: cast_nullable_to_non_nullable
-              as int,
-      memberCap: null == memberCap
-          ? _value.memberCap
-          : memberCap // ignore: cast_nullable_to_non_nullable
-              as int,
-      isPrivate: null == isPrivate
-          ? _value.isPrivate
-          : isPrivate // ignore: cast_nullable_to_non_nullable
-              as bool,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -138,9 +114,6 @@ abstract class _$$HabitatSettingsModelImplCopyWith<$Res>
   $Res call(
       {HUProfileModel profile,
       HUHabitatModel habitat,
-      @JsonKey(name: 'daily_goal') int dailyGoal,
-      @JsonKey(name: 'member_cap') int memberCap,
-      @JsonKey(name: 'is_private') bool isPrivate,
       bool loading,
       String? error});
 
@@ -163,9 +136,6 @@ class __$$HabitatSettingsModelImplCopyWithImpl<$Res>
   $Res call({
     Object? profile = null,
     Object? habitat = null,
-    Object? dailyGoal = null,
-    Object? memberCap = null,
-    Object? isPrivate = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -178,18 +148,6 @@ class __$$HabitatSettingsModelImplCopyWithImpl<$Res>
           ? _value.habitat
           : habitat // ignore: cast_nullable_to_non_nullable
               as HUHabitatModel,
-      dailyGoal: null == dailyGoal
-          ? _value.dailyGoal
-          : dailyGoal // ignore: cast_nullable_to_non_nullable
-              as int,
-      memberCap: null == memberCap
-          ? _value.memberCap
-          : memberCap // ignore: cast_nullable_to_non_nullable
-              as int,
-      isPrivate: null == isPrivate
-          ? _value.isPrivate
-          : isPrivate // ignore: cast_nullable_to_non_nullable
-              as bool,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -208,9 +166,6 @@ class _$HabitatSettingsModelImpl implements _HabitatSettingsModel {
   _$HabitatSettingsModelImpl(
       {required this.profile,
       required this.habitat,
-      @JsonKey(name: 'daily_goal') this.dailyGoal = 10,
-      @JsonKey(name: 'member_cap') this.memberCap = 10,
-      @JsonKey(name: 'is_private') this.isPrivate = false,
       this.loading = false,
       this.error});
 
@@ -222,15 +177,6 @@ class _$HabitatSettingsModelImpl implements _HabitatSettingsModel {
   @override
   final HUHabitatModel habitat;
   @override
-  @JsonKey(name: 'daily_goal')
-  final int dailyGoal;
-  @override
-  @JsonKey(name: 'member_cap')
-  final int memberCap;
-  @override
-  @JsonKey(name: 'is_private')
-  final bool isPrivate;
-  @override
   @JsonKey()
   final bool loading;
   @override
@@ -238,7 +184,7 @@ class _$HabitatSettingsModelImpl implements _HabitatSettingsModel {
 
   @override
   String toString() {
-    return 'HabitatSettingsModel(profile: $profile, habitat: $habitat, dailyGoal: $dailyGoal, memberCap: $memberCap, isPrivate: $isPrivate, loading: $loading, error: $error)';
+    return 'HabitatSettingsModel(profile: $profile, habitat: $habitat, loading: $loading, error: $error)';
   }
 
   @override
@@ -248,20 +194,14 @@ class _$HabitatSettingsModelImpl implements _HabitatSettingsModel {
             other is _$HabitatSettingsModelImpl &&
             (identical(other.profile, profile) || other.profile == profile) &&
             (identical(other.habitat, habitat) || other.habitat == habitat) &&
-            (identical(other.dailyGoal, dailyGoal) ||
-                other.dailyGoal == dailyGoal) &&
-            (identical(other.memberCap, memberCap) ||
-                other.memberCap == memberCap) &&
-            (identical(other.isPrivate, isPrivate) ||
-                other.isPrivate == isPrivate) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, profile, habitat, dailyGoal,
-      memberCap, isPrivate, loading, error);
+  int get hashCode =>
+      Object.hash(runtimeType, profile, habitat, loading, error);
 
   @JsonKey(ignore: true)
   @override
@@ -283,9 +223,6 @@ abstract class _HabitatSettingsModel implements HabitatSettingsModel {
   factory _HabitatSettingsModel(
       {required final HUProfileModel profile,
       required final HUHabitatModel habitat,
-      @JsonKey(name: 'daily_goal') final int dailyGoal,
-      @JsonKey(name: 'member_cap') final int memberCap,
-      @JsonKey(name: 'is_private') final bool isPrivate,
       final bool loading,
       final String? error}) = _$HabitatSettingsModelImpl;
 
@@ -296,15 +233,6 @@ abstract class _HabitatSettingsModel implements HabitatSettingsModel {
   HUProfileModel get profile;
   @override
   HUHabitatModel get habitat;
-  @override
-  @JsonKey(name: 'daily_goal')
-  int get dailyGoal;
-  @override
-  @JsonKey(name: 'member_cap')
-  int get memberCap;
-  @override
-  @JsonKey(name: 'is_private')
-  bool get isPrivate;
   @override
   bool get loading;
   @override
