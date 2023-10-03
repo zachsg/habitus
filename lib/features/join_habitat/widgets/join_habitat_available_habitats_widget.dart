@@ -27,8 +27,8 @@ class JoinHabitatAvailableHabitatsWidget extends ConsumerWidget {
                 title: Text(habitat.name),
                 subtitle: Text(
                   habitat.admins.isEmpty
-                      ? '${habitat.admins.length + habitat.members.length} members'
-                      : '${habitat.admins.length + habitat.members.length} members (${habitat.admins.length} admins)',
+                      ? '${habitat.admins.length + habitat.members.length + 1} members'
+                      : '${habitat.admins.length + habitat.members.length + 1} members (${habitat.admins.length} ${habitat.admins.length == 1 ? 'is an admin' : 'are admins'})',
                 ),
                 trailing: loading
                     ? const CircularProgressIndicator.adaptive()

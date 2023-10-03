@@ -89,6 +89,12 @@ class JoinHabitat extends _$JoinHabitat {
       0,
       name.length - 1,
     ));
+
+    habitats.removeWhere((habitat) {
+      final members = habitat.admins.length + habitat.members.length + 1;
+      return habitat.cap <= members;
+    });
+
     if (habitats.isEmpty) {
       state = state.copyWith(habitats: habitats, error: noHabitatsFoundString);
     } else {
