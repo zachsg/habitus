@@ -16,19 +16,20 @@ part 'join_habitat.g.dart';
 class JoinHabitat extends _$JoinHabitat {
   @override
   JoinHabitatModel build() => JoinHabitatModel(
-      habitat: HUHabitatModel(
-        id: -1,
-        updatedAt: DateTime.now(),
-        creatorId: supabase.auth.currentUser?.id ?? '',
-        goal: HUGoalModel(
-          habitatId: 1,
-          habit: readString,
-          unit: Unit.minutes,
-          value: 30,
+        habitat: HUHabitatModel(
+          id: -1,
+          updatedAt: DateTime.now(),
+          creatorId: supabase.auth.currentUser?.id ?? '',
+          goal: HUGoalModel(
+            habitatId: 1,
+            habit: readString,
+            unit: Unit.minutes,
+            value: 30,
+          ),
         ),
-      ),
-      habitats: [],
-      loading: false);
+        habitats: [],
+        loading: false,
+      );
 
   void updateHabitatGoalHabit(String habit) {
     int value;
@@ -58,12 +59,28 @@ class JoinHabitat extends _$JoinHabitat {
 
   void decrementHabitatGoalValue() {
     final value = state.habitat.goal.value;
-    if (value >= 5) {
+    if (value >= 10) {
       final goal = state.habitat.goal.copyWith(value: value - 5);
       final habitat = state.habitat.copyWith(goal: goal);
       state = state.copyWith(habitat: habitat);
     }
   }
+
+  void resetHabitat() => state = state.copyWith(
+        habitat: HUHabitatModel(
+          id: -1,
+          updatedAt: DateTime.now(),
+          creatorId: supabase.auth.currentUser?.id ?? '',
+          goal: HUGoalModel(
+            habitatId: 1,
+            habit: readString,
+            unit: Unit.minutes,
+            value: 30,
+          ),
+        ),
+        habitats: [],
+        loading: false,
+      );
 
   Future<void> findMatchingHabitats() async {
     state = state.copyWith(loading: true);
@@ -121,6 +138,8 @@ class JoinHabitat extends _$JoinHabitat {
     // 2. Add newly created habitat ID to user's profile 'habitats' and 'goals'
   }
 
-  void setIsJoining(bool isJoining) =>
-      state = state.copyWith(isJoining: isJoining);
+  void setIsJoining(bool isJoining) => state = state.copyWith(
+        isJoining: isJoining,
+        error: null,
+      );
 }

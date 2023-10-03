@@ -46,8 +46,10 @@ class _JoinHabitatIsJoiningToggleWidgetState
               activeColor: Theme.of(context).colorScheme.primary,
               activeTrackColor: Theme.of(context).colorScheme.primaryContainer,
               value: joinHabitat.isJoining,
-              onChanged: (isOn) =>
-                  ref.read(joinHabitatProvider.notifier).setIsJoining(isOn),
+              onChanged: (isOn) {
+                ref.read(joinHabitatProvider.notifier).setIsJoining(isOn);
+                ref.read(joinHabitatProvider.notifier).resetHabitat();
+              },
             );
           },
         ),
