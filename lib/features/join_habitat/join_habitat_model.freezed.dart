@@ -22,6 +22,8 @@ JoinHabitatModel _$JoinHabitatModelFromJson(Map<String, dynamic> json) {
 mixin _$JoinHabitatModel {
   HUHabitatModel get habitat => throw _privateConstructorUsedError;
   List<HUHabitatModel> get habitats => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_joining')
+  bool get isJoining => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -40,6 +42,7 @@ abstract class $JoinHabitatModelCopyWith<$Res> {
   $Res call(
       {HUHabitatModel habitat,
       List<HUHabitatModel> habitats,
+      @JsonKey(name: 'is_joining') bool isJoining,
       bool loading,
       String? error});
 
@@ -61,6 +64,7 @@ class _$JoinHabitatModelCopyWithImpl<$Res, $Val extends JoinHabitatModel>
   $Res call({
     Object? habitat = null,
     Object? habitats = null,
+    Object? isJoining = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -73,6 +77,10 @@ class _$JoinHabitatModelCopyWithImpl<$Res, $Val extends JoinHabitatModel>
           ? _value.habitats
           : habitats // ignore: cast_nullable_to_non_nullable
               as List<HUHabitatModel>,
+      isJoining: null == isJoining
+          ? _value.isJoining
+          : isJoining // ignore: cast_nullable_to_non_nullable
+              as bool,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -104,6 +112,7 @@ abstract class _$$JoinHabitatModelImplCopyWith<$Res>
   $Res call(
       {HUHabitatModel habitat,
       List<HUHabitatModel> habitats,
+      @JsonKey(name: 'is_joining') bool isJoining,
       bool loading,
       String? error});
 
@@ -124,6 +133,7 @@ class __$$JoinHabitatModelImplCopyWithImpl<$Res>
   $Res call({
     Object? habitat = null,
     Object? habitats = null,
+    Object? isJoining = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -136,6 +146,10 @@ class __$$JoinHabitatModelImplCopyWithImpl<$Res>
           ? _value._habitats
           : habitats // ignore: cast_nullable_to_non_nullable
               as List<HUHabitatModel>,
+      isJoining: null == isJoining
+          ? _value.isJoining
+          : isJoining // ignore: cast_nullable_to_non_nullable
+              as bool,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -154,6 +168,7 @@ class _$JoinHabitatModelImpl implements _JoinHabitatModel {
   _$JoinHabitatModelImpl(
       {required this.habitat,
       required final List<HUHabitatModel> habitats,
+      @JsonKey(name: 'is_joining') this.isJoining = true,
       this.loading = false,
       this.error})
       : _habitats = habitats;
@@ -172,6 +187,9 @@ class _$JoinHabitatModelImpl implements _JoinHabitatModel {
   }
 
   @override
+  @JsonKey(name: 'is_joining')
+  final bool isJoining;
+  @override
   @JsonKey()
   final bool loading;
   @override
@@ -179,7 +197,7 @@ class _$JoinHabitatModelImpl implements _JoinHabitatModel {
 
   @override
   String toString() {
-    return 'JoinHabitatModel(habitat: $habitat, habitats: $habitats, loading: $loading, error: $error)';
+    return 'JoinHabitatModel(habitat: $habitat, habitats: $habitats, isJoining: $isJoining, loading: $loading, error: $error)';
   }
 
   @override
@@ -189,14 +207,21 @@ class _$JoinHabitatModelImpl implements _JoinHabitatModel {
             other is _$JoinHabitatModelImpl &&
             (identical(other.habitat, habitat) || other.habitat == habitat) &&
             const DeepCollectionEquality().equals(other._habitats, _habitats) &&
+            (identical(other.isJoining, isJoining) ||
+                other.isJoining == isJoining) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, habitat,
-      const DeepCollectionEquality().hash(_habitats), loading, error);
+  int get hashCode => Object.hash(
+      runtimeType,
+      habitat,
+      const DeepCollectionEquality().hash(_habitats),
+      isJoining,
+      loading,
+      error);
 
   @JsonKey(ignore: true)
   @override
@@ -217,6 +242,7 @@ abstract class _JoinHabitatModel implements JoinHabitatModel {
   factory _JoinHabitatModel(
       {required final HUHabitatModel habitat,
       required final List<HUHabitatModel> habitats,
+      @JsonKey(name: 'is_joining') final bool isJoining,
       final bool loading,
       final String? error}) = _$JoinHabitatModelImpl;
 
@@ -227,6 +253,9 @@ abstract class _JoinHabitatModel implements JoinHabitatModel {
   HUHabitatModel get habitat;
   @override
   List<HUHabitatModel> get habitats;
+  @override
+  @JsonKey(name: 'is_joining')
+  bool get isJoining;
   @override
   bool get loading;
   @override

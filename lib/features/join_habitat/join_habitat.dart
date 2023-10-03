@@ -120,4 +120,7 @@ class JoinHabitat extends _$JoinHabitat {
     // 1. Ensure user is set as creator of habitat
     // 2. Add newly created habitat ID to user's profile 'habitats' and 'goals'
   }
+
+  void setIsJoining(bool isJoining) =>
+      state = state.copyWith(isJoining: isJoining);
 }

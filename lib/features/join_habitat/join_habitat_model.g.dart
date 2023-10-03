@@ -13,6 +13,7 @@ _$JoinHabitatModelImpl _$$JoinHabitatModelImplFromJson(
       habitats: (json['habitats'] as List<dynamic>)
           .map((e) => HUHabitatModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      isJoining: json['is_joining'] as bool? ?? true,
       loading: json['loading'] as bool? ?? false,
       error: json['error'] as String?,
     );
@@ -22,6 +23,7 @@ Map<String, dynamic> _$$JoinHabitatModelImplToJson(
     <String, dynamic>{
       'habitat': instance.habitat,
       'habitats': instance.habitats,
+      'is_joining': instance.isJoining,
       'loading': instance.loading,
       'error': instance.error,
     };

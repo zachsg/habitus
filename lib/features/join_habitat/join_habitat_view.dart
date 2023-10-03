@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../helpers/strings.dart';
+import 'join_habitat.dart';
 import 'widgets/xwidgets.dart';
 
 class JoinHabitatView extends ConsumerWidget {
@@ -11,28 +12,27 @@ class JoinHabitatView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final joinHabitat = ref.watch(joinHabitatProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(joinHabitatTitleString),
       ),
-      body: const SingleChildScrollView(
-        physics: ScrollPhysics(),
+      body: SingleChildScrollView(
+        physics: const ScrollPhysics(),
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 24.0,
             vertical: 16.0,
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              JoinHabitatDropdownButtonWidget(),
-              SizedBox(height: 32),
-              JoinHabitatGoalWidget(),
-              SizedBox(height: 32),
-              JoinHabitatShowHabitatsButtonWidget(),
-              SizedBox(height: 12),
-              Divider(),
-              SizedBox(height: 12),
-              JoinHabitatAvailableHabitatsWidget(),
+              const JoinHabitatIsJoiningToggleWidget(),
+              const SizedBox(height: 16.0),
+              joinHabitat.isJoining
+                  ? const JoinHabitatJoinWidget()
+                  : const JoinHabitatMakeWidget(),
             ],
           ),
         ),
