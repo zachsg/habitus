@@ -5,8 +5,8 @@ import '../../../data/habit_types.dart';
 import '../../../helpers/strings.dart';
 import '../join_habitat.dart';
 
-class JoinHabitatDropdownButtonWidget extends ConsumerWidget {
-  const JoinHabitatDropdownButtonWidget({super.key});
+class JoinHabitatMakeDropdownHabitWidget extends ConsumerWidget {
+  const JoinHabitatMakeDropdownHabitWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,8 +40,7 @@ class JoinHabitatDropdownButtonWidget extends ConsumerWidget {
                   .updateHabitatGoalHabit(habit);
             }
           },
-          items: HabitTypes.available
-              .map<DropdownMenuItem<String>>((String value) {
+          items: HabitTypes.all.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(

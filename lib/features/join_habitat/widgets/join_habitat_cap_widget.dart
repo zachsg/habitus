@@ -7,24 +7,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../helpers/strings.dart';
 import '../join_habitat.dart';
 
-class JoinHabitatGoalWidget extends ConsumerWidget {
-  const JoinHabitatGoalWidget({super.key});
+class JoinHabitatCapWidget extends ConsumerWidget {
+  const JoinHabitatCapWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final goal = ref.watch(joinHabitatProvider).habitat.goal;
+    final cap = ref.watch(joinHabitatProvider).habitat.cap;
     final isIOS = Platform.isIOS;
 
     return Row(
       children: [
         Text(
-          joinHabitatGoalString,
+          joinHabitatCapString,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const Text(':'),
         IconButton(
-          onPressed:
-              ref.read(joinHabitatProvider.notifier).decrementHabitatGoalValue,
+          onPressed: ref.read(joinHabitatProvider.notifier).decrementCap,
           icon: Icon(
             isIOS ? CupertinoIcons.minus_circle : Icons.remove_circle,
             size: 32,
@@ -33,7 +32,7 @@ class JoinHabitatGoalWidget extends ConsumerWidget {
         ),
         const SizedBox(width: 8),
         Text(
-          '${goal.value}',
+          '$cap',
           style: Theme.of(context)
               .textTheme
               .headlineMedium
@@ -41,8 +40,7 @@ class JoinHabitatGoalWidget extends ConsumerWidget {
         ),
         const SizedBox(width: 8),
         IconButton(
-          onPressed:
-              ref.read(joinHabitatProvider.notifier).incrementHabitatGoalValue,
+          onPressed: ref.read(joinHabitatProvider.notifier).incrementCap,
           icon: Icon(
             isIOS ? CupertinoIcons.add_circled : Icons.add_circle,
             size: 32,
@@ -51,11 +49,8 @@ class JoinHabitatGoalWidget extends ConsumerWidget {
         ),
         const SizedBox(width: 8),
         Text(
-          goal.unit.name,
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-        Text(
-          ' / day',
+          habitmatesString.toLowerCase(),
+          overflow: TextOverflow.fade,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
       ],

@@ -19,7 +19,7 @@ class JoinHabitatShowHabitatsButtonWidget extends ConsumerWidget {
                 height: 48,
                 child: CircularProgressIndicator.adaptive(),
               )
-            : ElevatedButton(
+            : FilledButton(
                 onPressed:
                     ref.read(joinHabitatProvider.notifier).findMatchingHabitats,
                 child: const Text(showHabitatsString),

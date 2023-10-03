@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:habitus/helpers/extensions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../data/animals.dart';
 import '../../helpers/strings.dart';
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
@@ -20,6 +22,7 @@ class JoinHabitat extends _$JoinHabitat {
           id: -1,
           updatedAt: DateTime.now(),
           creatorId: supabase.auth.currentUser?.id ?? '',
+          name: '${readString.habitDoing()} ${Animals.random().capitalize()}',
           goal: HUGoalModel(
             habitatId: 1,
             habit: readString,
@@ -43,10 +46,22 @@ class JoinHabitat extends _$JoinHabitat {
       case cookString:
         value = 10;
       default:
-        value = 0;
+        value = 10;
     }
     final goal = state.habitat.goal.copyWith(habit: habit, value: value);
-    final habitat = state.habitat.copyWith(goal: goal);
+
+    final name = state.habitat.name.split(' ');
+    final newName = '${habit.habitDoing()} ${name[1]}';
+
+    final habitat = state.habitat.copyWith(name: newName, goal: goal);
+    state = state.copyWith(habitat: habitat);
+  }
+
+  void updateHabitatNameHabit(String animal) {
+    final name = state.habitat.name.split(' ');
+    final newName = '${name.first} ${animal.capitalize()}';
+
+    final habitat = state.habitat.copyWith(name: newName);
     state = state.copyWith(habitat: habitat);
   }
 
@@ -66,11 +81,37 @@ class JoinHabitat extends _$JoinHabitat {
     }
   }
 
+  void incrementCap() {
+    final currentCap = state.habitat.cap;
+    if (currentCap > 9) {
+      return;
+    }
+
+    final habitat = state.habitat.copyWith(cap: currentCap + 1);
+    state = state.copyWith(habitat: habitat);
+  }
+
+  void decrementCap() {
+    final currentCap = state.habitat.cap;
+    if (currentCap < 3) {
+      return;
+    }
+
+    final habitat = state.habitat.copyWith(cap: currentCap - 1);
+    state = state.copyWith(habitat: habitat);
+  }
+
+  void setIsOpen(bool isOpen) {
+    final habitat = state.habitat.copyWith(isOpen: isOpen);
+    state = state.copyWith(habitat: habitat);
+  }
+
   void resetHabitat() => state = state.copyWith(
         habitat: HUHabitatModel(
           id: -1,
           updatedAt: DateTime.now(),
           creatorId: supabase.auth.currentUser?.id ?? '',
+          name: '${readString.habitDoing()} ${Animals.random().capitalize()}',
           goal: HUGoalModel(
             habitatId: 1,
             habit: readString,

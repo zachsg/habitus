@@ -22,7 +22,9 @@ const newHabitString = 'Build Habit';
 // Join Habitat
 const joinHabitatTitleString = 'Build A Habit';
 const joinHabitatHabitString = 'Habit';
-const joinHabitGoalString = 'Goal';
+const joinHabitatAnimalString = 'Animals';
+const joinHabitatGoalString = 'Goal';
+const joinHabitatCapString = 'Team cap';
 const readString = 'Read';
 const exerciseString = 'Exercise';
 const meditateString = 'Meditate';

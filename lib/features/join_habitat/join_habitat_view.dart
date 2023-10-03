@@ -22,7 +22,7 @@ class JoinHabitatView extends ConsumerWidget {
         physics: const ScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 24.0,
+            horizontal: 12.0,
             vertical: 16.0,
           ),
           child: Column(
