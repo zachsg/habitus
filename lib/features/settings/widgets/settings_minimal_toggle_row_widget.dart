@@ -57,6 +57,9 @@ class _SettingsMinimalToggleRowWidgetState
                   animation: _controller,
                   builder: (context, child) {
                     return Switch.adaptive(
+                      activeColor: Theme.of(context).colorScheme.primary,
+                      activeTrackColor:
+                          Theme.of(context).colorScheme.primaryContainer,
                       value: theme.minimalTimer(),
                       onChanged: (isOn) => theme.toggleMinimalTimer(),
                     );
