@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../data/habit_types.dart';
+import '../../../data/animals.dart';
 import '../../../helpers/strings.dart';
 import '../join_habitat.dart';
 
-class JoinHabitatDropdownButtonWidget extends ConsumerWidget {
-  const JoinHabitatDropdownButtonWidget({super.key});
+class JoinHabitatMakeDropdownAnimalWidget extends ConsumerWidget {
+  const JoinHabitatMakeDropdownAnimalWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final habitatName =
+        ref.watch(joinHabitatProvider).habitat.name.split(' ').toList();
+    final animal = habitatName.isEmpty
+        ? Animals.all.first
+        : habitatName.length > 1
+            ? habitatName[1]
+            : habitatName[0];
+
     return Row(
       children: [
         Text(
-          joinHabitatHabitString,
+          joinHabitatAnimalString,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const Text(':'),
         const SizedBox(width: 8),
         DropdownButton<String>(
-          value: ref.watch(joinHabitatProvider).habitat.goal.habit,
+          value: animal,
           icon: Icon(
             Icons.arrow_downward,
             color: Theme.of(context).colorScheme.primary,
@@ -33,15 +41,14 @@ class JoinHabitatDropdownButtonWidget extends ConsumerWidget {
             height: 2,
             color: Theme.of(context).colorScheme.primary,
           ),
-          onChanged: (String? habit) {
-            if (habit != null) {
+          onChanged: (String? animal) {
+            if (animal != null) {
               ref
                   .read(joinHabitatProvider.notifier)
-                  .updateHabitatGoalHabit(habit);
+                  .updateHabitatNameHabit(animal);
             }
           },
-          items: HabitTypes.available
-              .map<DropdownMenuItem<String>>((String value) {
+          items: Animals.all.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(

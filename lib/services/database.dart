@@ -356,7 +356,8 @@ class Database {
           .from(habitatsTable)
           .select()
           .like('name', '%$name%')
-          .not('id', 'in', ids);
+          .not('id', 'in', ids)
+          .not('is_open', 'eq', 'false');
 
       final List<HUHabitatModel> habitats = [];
       for (final habitatsJson in listOfHabitatsJsons) {

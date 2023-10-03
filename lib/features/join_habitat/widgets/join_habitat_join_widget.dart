@@ -10,15 +10,29 @@ class JoinHabitatJoinWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return const Column(
       children: [
-        JoinHabitatDropdownButtonWidget(),
-        SizedBox(height: 32),
-        JoinHabitatGoalWidget(),
-        SizedBox(height: 32),
-        JoinHabitatShowHabitatsButtonWidget(),
-        SizedBox(height: 12),
-        Divider(),
-        SizedBox(height: 12),
-        JoinHabitatAvailableHabitatsWidget(),
+        Card(
+          child: Padding(
+            padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+            child: Column(
+              children: [
+                JoinHabitatDropdownButtonWidget(),
+                SizedBox(height: 32),
+                JoinHabitatGoalWidget(),
+                SizedBox(height: 32),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 24.0),
+        Column(
+          children: [
+            JoinHabitatShowHabitatsButtonWidget(),
+            SizedBox(height: 12),
+            Divider(),
+            SizedBox(height: 12),
+            JoinHabitatAvailableHabitatsWidget(),
+          ],
+        )
       ],
     );
   }

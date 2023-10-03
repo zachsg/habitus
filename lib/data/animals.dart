@@ -1,8 +1,10 @@
+import 'dart:math';
+
 class Animals {
   static const all = [
+    'Badgers',
     'Bears',
     'Beavers',
-    'Blue Jays',
     'Cats',
     'Cows',
     'Crows',
@@ -42,5 +44,10 @@ class Animals {
         .where((animal) => animal.toLowerCase().contains(search.toLowerCase()))
         .toList();
     return likes;
+  }
+
+  static String random() {
+    final random = Random();
+    return all[random.nextInt(all.length)];
   }
 }
