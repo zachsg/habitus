@@ -370,6 +370,29 @@ class Database {
     }
   }
 
+  static Future<int> makeHabitat(HUHabitatModel habitat) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    final now = DateTime.now().toUtc();
+    final h = habitat.copyWith(updatedAt: now);
+    final habitatJson = h.toJson();
+    habitatJson.removeWhere((key, value) => key == 'id');
+
+    try {
+      final id = await supabase
+          .from(habitatsTable)
+          .insert(habitatJson)
+          .select('id')
+          .single();
+      return id['id'];
+    } on Exception catch (e) {
+      throw GenericErrorException(e.toString());
+    }
+  }
+
   static Future<bool> updateHabitat(HUHabitatModel habitat) async {
     final user = supabase.auth.currentUser;
     if (user == null) {

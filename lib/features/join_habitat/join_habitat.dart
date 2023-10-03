@@ -145,6 +145,37 @@ class JoinHabitat extends _$JoinHabitat {
     state = state.copyWith(loading: false);
   }
 
+  Future<void> makeHabitat(BuildContext context) async {
+    state = state.copyWith(loading: true);
+
+    // Make habitat
+    final profile = ref.read(profileProvider).profile;
+    final habitat = state.habitat.copyWith(creatorId: profile.id);
+    state = state.copyWith(habitat: habitat);
+    final id = await Database.makeHabitat(state.habitat);
+
+    // Update habitat with correct goal in database
+    final goal = state.habitat.goal.copyWith(habitatId: id);
+    final updateHabitat = state.habitat.copyWith(id: id, goal: goal);
+    state = state.copyWith(habitat: updateHabitat);
+    await Database.updateHabitat(state.habitat);
+
+    // Update user profile with new habitat
+    final goals = [...profile.goals, state.habitat.goal];
+    final updatedProfile = profile.copyWith(goals: goals);
+    await Database.updateProfileHabitatsAndGoals(updatedProfile);
+
+    // Reload habitats and use profile
+    await ref.read(habitatsProvider.notifier).loadHabitats();
+    await ref.read(profileProvider.notifier).loadProfile();
+
+    state = state.copyWith(loading: false);
+
+    if (context.mounted) {
+      context.goNamed(HabitatsView.routeName);
+    }
+  }
+
   Future<void> joinHabitat(BuildContext context, HUHabitatModel habitat) async {
     state = state.copyWith(loading: true);
 

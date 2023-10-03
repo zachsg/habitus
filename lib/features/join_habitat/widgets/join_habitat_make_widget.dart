@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habitus/features/join_habitat/join_habitat.dart';
 
 import 'xwidgets.dart';
 
@@ -8,6 +9,8 @@ class JoinHabitatMakeWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final joinHabitat = ref.watch(joinHabitatProvider);
+
     return Column(
       children: [
         const JoinHabitatSectionHeaderWidget(text: 'Admin'),
@@ -41,12 +44,13 @@ class JoinHabitatMakeWidget extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 32.0),
-        ElevatedButton(
-          onPressed: () {
-            // TODO: Make the habitat and set the user join as the creator
-          },
-          child: const Text('Make Your Habitat'),
-        ),
+        joinHabitat.loading
+            ? const CircularProgressIndicator.adaptive()
+            : FilledButton(
+                onPressed: () =>
+                    ref.read(joinHabitatProvider.notifier).makeHabitat(context),
+                child: const Text('Make Your Habitat'),
+              ),
       ],
     );
   }
