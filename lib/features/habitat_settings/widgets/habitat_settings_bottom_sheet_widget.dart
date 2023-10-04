@@ -13,6 +13,7 @@ class HabitatSettingsBottomSheetWidget extends ConsumerWidget {
     required this.child,
     this.actionText = 'Save',
     required this.onPressed,
+    required this.secondaryAction,
   });
 
   final HUHabitatModel habitat;
@@ -20,6 +21,7 @@ class HabitatSettingsBottomSheetWidget extends ConsumerWidget {
   final Widget child;
   final String actionText;
   final Future<void> Function() onPressed;
+  final Future<void> Function() secondaryAction;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,7 +49,12 @@ class HabitatSettingsBottomSheetWidget extends ConsumerWidget {
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     IconButton(
-                      onPressed: Navigator.of(context).pop,
+                      onPressed: () async {
+                        await secondaryAction();
+                        if (context.mounted) {
+                          Navigator.of(context).pop();
+                        }
+                      },
                       icon: const Icon(
                         Icons.cancel_outlined,
                         size: 32,
@@ -81,7 +88,7 @@ class HabitatSettingsBottomSheetWidget extends ConsumerWidget {
               const SizedBox(height: 16),
               ref.watch(habitatSettingsProvider(habitat)).loading
                   ? const CircularProgressIndicator.adaptive()
-                  : ElevatedButton(
+                  : FilledButton(
                       onPressed: onPressed,
                       child: Text(actionText),
                     ),

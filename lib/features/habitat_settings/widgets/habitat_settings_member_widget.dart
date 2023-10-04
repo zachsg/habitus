@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habitus/models/h_u_habitat_model.dart';
 
 import '../../../helpers/strings.dart';
 import 'xwidgets.dart';
 
 class HabitatSettingsMemberWidget extends ConsumerWidget {
-  const HabitatSettingsMemberWidget({super.key});
+  const HabitatSettingsMemberWidget({super.key, required this.habitat});
+
+  final HUHabitatModel habitat;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,11 +20,8 @@ class HabitatSettingsMemberWidget extends ConsumerWidget {
         ),
         HabitatSettingsSectionWidget(
           children: [
-            Row(),
-            Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: Text('Coming Soon'),
-            ),
+            HabitatSettingsGoalRowWidget(habitat: habitat),
+            Text('leave habitat'),
           ],
         ),
       ],

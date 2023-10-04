@@ -18,10 +18,9 @@ class HabitatSettingsAdminWidget extends ConsumerWidget {
         HabitatSettingsSectionWidget(
           children: [
             Row(),
-            Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: Text('Coming Soon'),
-            ),
+            Text('Set member cap'),
+            Text('Set to private / public'),
+            Text('Invite someone')
           ],
         ),
       ],

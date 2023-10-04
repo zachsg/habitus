@@ -52,6 +52,7 @@ const calloutDialogDoneString = 'Got It';
 const habitatSettingsTitleString = 'Habitat Settings';
 const habitatSettingsAdminString = 'Admin Options';
 const habitatSettingsMemberString = 'My Settings';
+const editNameGoalString = 'Edit Your Goal';
 
 // Grow
 const pauseString = 'I\'ve Rolled Enough';

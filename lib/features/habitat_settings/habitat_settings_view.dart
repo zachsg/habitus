@@ -28,7 +28,7 @@ class HabitatSettingsView extends ConsumerWidget {
           children: [
             if (iAmAdmin) const HabitatSettingsAdminWidget(),
             SizedBox(height: iAmAdmin ? 24.0 : 16.0),
-            const HabitatSettingsMemberWidget(),
+            HabitatSettingsMemberWidget(habitat: habitat),
           ],
         ),
       ),

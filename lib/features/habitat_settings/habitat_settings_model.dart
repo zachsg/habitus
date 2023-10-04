@@ -8,8 +8,8 @@ part 'habitat_settings_model.g.dart';
 @freezed
 class HabitatSettingsModel with _$HabitatSettingsModel {
   factory HabitatSettingsModel({
-    required HUProfileModel profile,
     required HUHabitatModel habitat,
+    required HUProfileModel profile,
     @Default(false) bool loading,
     String? error,
   }) = _HabitatSettingsModel;
