@@ -101,6 +101,7 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _stopwatch.stop();
     _timer.cancel();
     super.dispose();
