@@ -1,14 +1,14 @@
 class HabitTypes {
   static const all = [
     'Cook',
-    'Draw',
+    // 'Draw',
     'Exercise',
     'Meditate',
-    'Play',
+    // 'Play',
     'Read',
-    'Run',
-    'Walk',
-    'Work',
+    // 'Run',
+    // 'Walk',
+    // 'Work',
   ];
 
   static const available = [
