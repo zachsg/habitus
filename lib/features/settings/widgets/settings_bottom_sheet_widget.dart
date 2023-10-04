@@ -77,7 +77,7 @@ class SettingsBottomSheetWidget extends ConsumerWidget {
               const SizedBox(height: 16),
               ref.watch(settingsProvider).loading
                   ? const CircularProgressIndicator.adaptive()
-                  : ElevatedButton(
+                  : FilledButton(
                       onPressed: onPressed,
                       child: Text(actionText),
                     ),
