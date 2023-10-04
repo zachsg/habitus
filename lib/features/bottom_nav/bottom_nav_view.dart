@@ -6,10 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../helpers/strings.dart';
 import '../habitats/habitats.dart';
+import '../habitats/habitats_view.dart';
 import '../profile/profile.dart';
 import '../profile/profile_view.dart';
 import '../settings/settings_view.dart';
-import '../habitats/habitats_view.dart';
 import 'bottom_nav.dart';
 import 'widgets/xwidgets.dart';
 
@@ -33,6 +33,12 @@ class _BottomNavViewState extends ConsumerState<BottomNavView>
     ref.read(habitatsProvider.notifier).loadActions();
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override

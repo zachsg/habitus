@@ -36,6 +36,7 @@ dependencies:
   firebase_messaging: ^14.6.9
   cloud_functions: ^4.4.2
   percent_indicator: ^4.2.3
+  permission_handler: ^11.0.0
 
 dev_dependencies:
   flutter_test:

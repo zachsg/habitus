@@ -132,6 +132,7 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _stopwatch.stop();
     _timer.cancel();
     _controller.dispose();
