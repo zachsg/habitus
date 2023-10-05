@@ -79,30 +79,33 @@ class _HabitatsViewState extends ConsumerState<HabitatsView>
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(habitatsProvider);
+    final profile = ref.watch(profileProvider).profile;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(homeTitleString),
-        leading: IconButton(
-          onPressed: () => context.pushNamed(ProfileView.routeName),
-          icon: isIOS
-              ? const Icon(CupertinoIcons.person_alt_circle)
-              : const Icon(Icons.face_outlined),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () => context.pushNamed(SettingsView.routeName),
-            icon: isIOS
-                ? const Icon(CupertinoIcons.settings_solid)
-                : const Icon(Icons.settings),
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: provider.loading
-            ? const Center(child: CircularProgressIndicator.adaptive())
-            : const HabitatsMyHabitatsWidget(),
-      ),
-    );
+    return profile.acceptedTerms
+        ? Scaffold(
+            appBar: AppBar(
+              title: const Text(homeTitleString),
+              leading: IconButton(
+                onPressed: () => context.pushNamed(ProfileView.routeName),
+                icon: isIOS
+                    ? const Icon(CupertinoIcons.person_alt_circle)
+                    : const Icon(Icons.face_outlined),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () => context.pushNamed(SettingsView.routeName),
+                  icon: isIOS
+                      ? const Icon(CupertinoIcons.settings_solid)
+                      : const Icon(Icons.settings),
+                ),
+              ],
+            ),
+            body: SafeArea(
+              child: provider.loading
+                  ? const Center(child: CircularProgressIndicator.adaptive())
+                  : const HabitatsMyHabitatsWidget(),
+            ),
+          )
+        : const EulaWidget();
   }
 }
