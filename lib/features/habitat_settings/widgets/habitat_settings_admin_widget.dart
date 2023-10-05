@@ -18,9 +18,10 @@ class HabitatSettingsAdminWidget extends ConsumerWidget {
         HabitatSettingsSectionWidget(
           children: [
             Row(),
-            Text('Set member cap'),
-            Text('Set to private / public'),
-            Text('Invite someone')
+            Text('Coming Soon!'),
+            // Text('Set member cap'),
+            // Text('Set to private / public'),
+            // Text('Invite someone')
           ],
         ),
       ],

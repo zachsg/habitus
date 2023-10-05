@@ -263,7 +263,7 @@ extension IntExtension on int {
     } else {
       if (this % 60 == 0) {
         final hours = (this / 60).round();
-        return '${hours}hrs';
+        return hours == 1 ? '${hours}hr' : '${hours}hrs';
       } else {
         final hours = (this / 60).floor();
         final minutes = this % 60;
