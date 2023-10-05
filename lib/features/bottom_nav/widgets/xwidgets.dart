@@ -1,1 +1,1 @@
-export 'eula_widget.dart';
+export '../../habitats/widgets/eula_widget.dart';
