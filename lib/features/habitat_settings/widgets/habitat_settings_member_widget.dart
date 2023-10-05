@@ -21,7 +21,8 @@ class HabitatSettingsMemberWidget extends ConsumerWidget {
         HabitatSettingsSectionWidget(
           children: [
             HabitatSettingsGoalRowWidget(habitat: habitat),
-            Text('leave habitat'),
+            const HabitatSettingsSectionDividerWidget(),
+            HabitatSettingsLeaveRowWidget(habitat: habitat),
           ],
         ),
       ],

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 
 import '../../../helpers/extensions.dart';
 import '../../../helpers/strings.dart';
@@ -77,8 +76,6 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
     final profiles = habitatP.profiles;
     final callouts = habitatP.callouts;
 
-    final DateFormat formatter = DateFormat('h:mm a');
-
     final List<Object> activities = List.from(actions);
     activities.addAll(callouts);
     if (activities.isNotEmpty) {
@@ -148,8 +145,7 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                                     const SizedBox(width: 4.0),
                                     Text(
                                       '${activity.goal.habit.habitDid().toLowerCase()} '
-                                      'for ${activity.goal.value} '
-                                      '${activity.goal.value == 1 ? activity.goal.unit.name.substring(0, activity.goal.unit.name.length - 1) : activity.goal.unit.name}',
+                                      'for ${activity.goal.value.toTimeLong()}',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium,
@@ -184,7 +180,7 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                                 ),
                               ),
                               Text(
-                                formatter.format(activity.createdAt.toLocal()),
+                                activity.createdAt.toLocal().friendly(),
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
                             ],
@@ -354,7 +350,7 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                                       ),
                               ),
                               Text(
-                                formatter.format(activity.createdAt.toLocal()),
+                                activity.createdAt.toLocal().friendly(),
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
                             ],

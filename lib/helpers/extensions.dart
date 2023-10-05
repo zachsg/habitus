@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'app_colors.dart';
 
@@ -53,6 +54,8 @@ extension StringExtension on String {
         return 'Reading';
       case 'Run':
         return 'Running';
+      case 'Sleep':
+        return 'Sleeping';
       case 'Walk':
         return 'Walking';
       case 'Work':
@@ -78,6 +81,8 @@ extension StringExtension on String {
         return 'Read';
       case 'Run':
         return 'Ran';
+      case 'Sleep':
+        return 'Slept';
       case 'Walk':
         return 'Walked';
       case 'Work':
@@ -95,6 +100,18 @@ extension StringExtension on String {
 
   String capitalize() {
     return "${this[0].toUpperCase()}${substring(1)}";
+  }
+}
+
+extension DateTimeExtension on DateTime {
+  String friendly() {
+    final DateFormat formatter = DateFormat('h:mm a');
+    return formatter.format(this);
+  }
+
+  String friendlyYesterday() {
+    final DateFormat formatter = DateFormat('MMM d');
+    return formatter.format(this);
   }
 }
 
@@ -227,6 +244,31 @@ extension IntExtension on int {
         return 'Sun';
       default:
         return 'n/a';
+    }
+  }
+
+  String toTimeShort() {
+    if (this < 60) {
+      return '${this}m';
+    } else {
+      final hours = this / 60;
+      final minutes = this - (hours * 60);
+      return '${hours}h ${minutes}m';
+    }
+  }
+
+  String toTimeLong() {
+    if (this < 60) {
+      return '${this}min';
+    } else {
+      if (this % 60 == 0) {
+        final hours = (this / 60).round();
+        return '${hours}hrs';
+      } else {
+        final hours = (this / 60).floor();
+        final minutes = this % 60;
+        return '${hours}hrs ${minutes}min';
+      }
     }
   }
 }

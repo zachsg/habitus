@@ -24,7 +24,7 @@ const joinHabitatTitleString = 'Build A Habit';
 const joinHabitatHabitString = 'Habit';
 const joinHabitatAnimalString = 'Animals';
 const joinHabitatGoalString = 'Goal';
-const joinHabitatCapString = 'Team cap';
+const joinHabitatCapString = 'Habitat size cap';
 const readString = 'Read';
 const exerciseString = 'Exercise';
 const meditateString = 'Meditate';
@@ -53,6 +53,12 @@ const habitatSettingsTitleString = 'Habitat Settings';
 const habitatSettingsAdminString = 'Admin Options';
 const habitatSettingsMemberString = 'My Settings';
 const editNameGoalString = 'Edit Your Goal';
+const habitatSettingsLeaveString = 'Leave Habitat';
+const habitatSettingsLeaveYesString = 'Yes';
+const habitatSettingsLeaveNoString = 'Cancel';
+const habitatSettingsLeaveDialogTitleString = 'Leave Habitat';
+const habitatSettingsLeaveDialogBodyString =
+    'Are you sure you want to leave the habitat?';
 
 // Grow
 const pauseString = 'I\'ve Rolled Enough';

@@ -47,12 +47,6 @@ class JoinHabitatCapWidget extends ConsumerWidget {
             color: Theme.of(context).colorScheme.primary,
           ),
         ),
-        const SizedBox(width: 8),
-        Text(
-          habitmatesString.toLowerCase(),
-          overflow: TextOverflow.fade,
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
       ],
     );
   }

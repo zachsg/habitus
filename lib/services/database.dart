@@ -393,6 +393,24 @@ class Database {
     }
   }
 
+  static Future<bool> deleteHabitat(HUHabitatModel habitat) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    try {
+      await supabase
+          .from(habitatsTable)
+          .delete()
+          .eq('id', habitat.id)
+          .eq('creator_id', user.id);
+      return true;
+    } on Exception catch (e) {
+      throw GenericErrorException(e.toString());
+    }
+  }
+
   static Future<bool> updateHabitat(HUHabitatModel habitat) async {
     final user = supabase.auth.currentUser;
     if (user == null) {

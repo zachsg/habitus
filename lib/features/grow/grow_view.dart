@@ -209,8 +209,7 @@ class _GrowViewState extends ConsumerState<GrowView>
           return AlertDialog(
             title: Text(
               'You ${habitType.habitDid().toLowerCase()} '
-              'for ${elapsed.round()} '
-              '${elapsed.round() == 1 ? habitatAndAction.habitat.goal.unit.name.substring(0, habitatAndAction.habitat.goal.unit.name.length - 1) : habitatAndAction.habitat.goal.unit.name}',
+              'for ${elapsed.round().toTimeLong()}',
             ),
             content: SingleChildScrollView(
               child: ListBody(
