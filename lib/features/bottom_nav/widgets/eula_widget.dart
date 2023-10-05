@@ -10,7 +10,7 @@ class EulaWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Habitus Terms'),
+        title: const Text('Mobn Terms'),
       ),
       body: SafeArea(
         child: Column(
@@ -114,8 +114,8 @@ class EulaWidget extends ConsumerWidget {
   String _eulaSubtitle() {
     const text = 'This End-User License Agreement (EULA) is a legal'
         ' agreement between you (either as an individual or on behalf'
-        ' of an entity) and Habitus, Inc. regarding your use of Habitus\''
-        ' applications, including Habitus for iOS and Android and'
+        ' of an entity) and Mobn, Inc. regarding your use of Mobn\''
+        ' applications, including Mobn for iOS and Android and'
         ' associated documentation (the "Software"). IF YOU DO'
         ' NOT AGREE TO ALL OF THE TERMS OF THIS EULA, DO NOT USE'
         ' THE SOFTWARE.';
@@ -139,7 +139,7 @@ class EulaWidget extends ConsumerWidget {
         ' and manage your user account; (2) to engage with other'
         ' users of the service; and (3) to create and manage content.\n\n'
         'This Software is provided "as-is" with no warranties, and you'
-        ' agree that Habitus is not liable for anything you do with it.\n\n'
+        ' agree that Mobn is not liable for anything you do with it.\n\n'
         'You really ought to just go ahead and read the whole EULA. It\'s'
         ' not all that long. You should not only rely on this summary.';
 
@@ -173,7 +173,7 @@ class EulaWidget extends ConsumerWidget {
         ' purpose consistent with this EULA. Your license to use the'
         ' Software is expressly conditioned upon your agreement to all'
         ' of the terms of this EULA. This software is licensed, not'
-        ' sold. Habitus reserves all other rights not granted by this EULA.';
+        ' sold. Mobn reserves all other rights not granted by this EULA.';
 
     return text;
   }
@@ -212,7 +212,7 @@ class EulaWidget extends ConsumerWidget {
         ' physical harassment.\n\n'
         'Unwanted Sexual Content & Graphic Objectification: While'
         ' some consensual nudity and adult content is permitted on'
-        ' Habitus, we prohibit unwanted sexual conduct and graphic'
+        ' Mobn, we prohibit unwanted sexual conduct and graphic'
         ' objectification that sexually objectifies an individual'
         ' without their consent. This includes, but is not limited'
         ' to: (1) sending someone unsolicited, (2) and/or unwanted'
@@ -256,7 +256,7 @@ class EulaWidget extends ConsumerWidget {
         ' account; (2) to engage with other users of the service; and (3)'
         ' to create and manage content. If you would like to learn more'
         ' about the specific information we send, please reach out'
-        ' to help@habitusapp.io.';
+        ' to help@Mobnapp.io.';
 
     return text;
   }
@@ -287,7 +287,7 @@ class EulaWidget extends ConsumerWidget {
         ' To the extent the terms of the licenses applicable to Open-Source'
         ' Components require Licensor to make an offer to provide source code'
         ' in connection with the Product, such offer is hereby made, and you'
-        ' may exercise it by contacting help@habitusapp.io.';
+        ' may exercise it by contacting help@Mobnapp.io.';
 
     return text;
   }
@@ -301,11 +301,11 @@ class EulaWidget extends ConsumerWidget {
   String _intellectualPropertySubtitle() {
     const text = 'The Software and all worldwide copyrights, trade secrets,'
         ' and other intellectual property rights therein are the exclusive'
-        ' property of Habitus. Habitus reserves all rights in and to the'
+        ' property of Mobn. Mobn reserves all rights in and to the'
         ' Software not expressly granted to you in this EULA.\n\n'
-        'The names Habitus, Habitmates, Habinauts and related Habitus logos'
-        ' and/or stylized names are trademarks of Habitus. You agree not to'
-        ' display or use these trademarks in any manner without Habitus\''
+        'The names Mobn, Habitmates, Habinauts and related Mobn logos'
+        ' and/or stylized names are trademarks of Mobn. You agree not to'
+        ' display or use these trademarks in any manner without Mobn\''
         ' prior, written permission.';
 
     return text;
@@ -320,7 +320,7 @@ class EulaWidget extends ConsumerWidget {
   String _disclaimersSubtitle() {
     const text = 'THE SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, AND NO'
         ' WARRANTY, EITHER EXPRESS OR IMPLIED, IS GIVEN. YOUR USE OF THE'
-        ' SOFTWARE IS AT YOUR SOLE RISK. Habitus does not warrant that (i)'
+        ' SOFTWARE IS AT YOUR SOLE RISK. Mobn does not warrant that (i)'
         ' the Software will meet your specific requirements; (ii) the'
         ' Software is fully compatible with any particular platform; (iii)'
         ' your use of the Software will be uninterrupted, timely, secure, or'
@@ -329,11 +329,11 @@ class EulaWidget extends ConsumerWidget {
         ' products, services, information, or other material purchased or'
         ' obtained by you through the Software will meet your expectations;'
         ' or (vi) any errors in the Software will be corrected.\n\n'
-        'YOU EXPRESSLY UNDERSTAND AND AGREE THAT HABITUS SHALL NOT BE LIABLE'
+        'YOU EXPRESSLY UNDERSTAND AND AGREE THAT Mobn SHALL NOT BE LIABLE'
         ' FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR'
         ' EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO, DAMAGES FOR LOSS'
         ' OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES'
-        ' (EVEN IF HABITUS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH'
+        ' (EVEN IF Mobn HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH'
         ' DAMAGES) RELATED TO THE SOFTWARE, including, for example: (i) the'
         ' use or the inability to use the Software; (ii) the cost of'
         ' procurement of substitute goods and services resulting from any'
@@ -343,9 +343,9 @@ class EulaWidget extends ConsumerWidget {
         ' transmissions or data; (iv) statements or conduct of any'
         ' third-party on the Software; (v) or any other matter relating to'
         ' the Software.\n\n'
-        'Habitus reserves the right at any time and from time to time to'
+        'Mobn reserves the right at any time and from time to time to'
         ' modify or discontinue, temporarily or permanently, the Software'
-        ' (or any part thereof) with or without notice. Habitus shall not'
+        ' (or any part thereof) with or without notice. Mobn shall not'
         ' be liable to you or to any third-party for any modification,'
         ' price change, suspension or discontinuance of the Software.';
 
@@ -359,18 +359,18 @@ class EulaWidget extends ConsumerWidget {
   }
 
   String _miscSubtitle() {
-    const text = 'The failure of Habitus to exercise or enforce any right or'
+    const text = 'The failure of Mobn to exercise or enforce any right or'
         ' provision of this EULA shall not constitute a waiver of'
         ' such right or provision.\n\n'
         'This EULA constitutes the entire agreement between you'
-        ' and Habitus and governs your use of the Software,'
-        ' superseding any prior agreements between you and Habitus'
+        ' and Mobn and governs your use of the Software,'
+        ' superseding any prior agreements between you and Mobn'
         ' (including, but not limited to, any prior versions of the EULA).\n\n'
         'You agree that this EULA and your use of the Software'
         ' are governed under California law and any dispute related'
         ' to the Software must be brought in a tribunal of competent'
         ' jurisdiction located in or near San Francisco, California.\n\n'
-        'Please send any questions about this EULA to help@habitusapp.io.';
+        'Please send any questions about this EULA to help@Mobnapp.io.';
 
     return text;
   }
