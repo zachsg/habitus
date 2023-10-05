@@ -203,8 +203,8 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
                                 habitatAndAction.elapsed == 0
                                     ? const SizedBox()
                                     : Text(
-                                        'You did ${habitatAndAction.elapsed} '
-                                        'min of your goal ealier today',
+                                        'You did ${habitatAndAction.elapsed.toTimeLong()} '
+                                        'of your goal earlier today',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall,

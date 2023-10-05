@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
+import 'package:habitus/helpers/extensions.dart';
 
 import '../../habitat/habitat_view.dart';
 import '../../join_habitat/join_habitat_view.dart';
@@ -61,12 +61,10 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                 } else {
                   final habitat = habitats[index];
 
-                  final DateFormat yesterdayFormatter = DateFormat('MMM d');
-                  final DateFormat todayFormatter = DateFormat('h:mm a');
                   final date = habitat.updatedAt
                           .isAfter(DateTime.now().copyWith(hour: 0, minute: 0))
-                      ? todayFormatter.format(habitat.updatedAt.toLocal())
-                      : yesterdayFormatter.format(habitat.updatedAt.toLocal());
+                      ? habitat.updatedAt.toLocal().friendly()
+                      : habitat.updatedAt.toLocal().friendlyYesterday();
 
                   bool calledOut = false;
                   final profile = ref.watch(profileProvider).profile;

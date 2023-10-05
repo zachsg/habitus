@@ -7,6 +7,7 @@ class HabitTypes {
     // 'Play',
     'Read',
     // 'Run',
+    // 'Sleep',
     // 'Walk',
     // 'Work',
   ];

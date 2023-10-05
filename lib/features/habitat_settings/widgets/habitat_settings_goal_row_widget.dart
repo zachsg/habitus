@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habitus/helpers/extensions.dart';
 
 import '../../../helpers/strings.dart';
 import '../../../models/xmodels.dart';
@@ -21,6 +22,7 @@ class HabitatSettingsGoalRowWidget extends ConsumerWidget {
       onPressed: () {
         showModalBottomSheet<void>(
           context: context,
+          isDismissible: false,
           isScrollControlled: true,
           builder: (BuildContext context) {
             return HabitatSettingsBottomSheetWidget(
@@ -53,7 +55,7 @@ class HabitatSettingsGoalRowWidget extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  '${goal.value} minutes',
+                  goal.value.toTimeLong(),
                   style: Theme.of(context).textTheme.bodyLarge,
                   overflow: TextOverflow.ellipsis,
                 ),

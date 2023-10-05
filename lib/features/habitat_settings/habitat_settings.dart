@@ -28,7 +28,7 @@ class HabitatSettings extends _$HabitatSettings {
     await ref.read(habitatsProvider.notifier).loadHabitats();
     await ref.read(profileProvider.notifier).loadProfile();
 
-    // Pop context to dismiss the sheet
+    // Dismiss the sheet
     if (context.mounted) {
       Navigator.of(context).pop();
     }
@@ -82,5 +82,91 @@ class HabitatSettings extends _$HabitatSettings {
     final habitat = state.habitat.copyWith(goal: habitatGoal);
 
     state = state.copyWith(profile: profile, habitat: habitat);
+  }
+
+  Future<void> leaveHabitat() async {
+    // Get latest version of habitat just in case we have a dated copy
+    final habitat = await Database.habitatWithId(state.habitat.id);
+
+    // Remove user from habitat.
+    final isOwner = habitat.creatorId == state.profile.id;
+    final isAdmin = habitat.admins.contains(state.profile.id);
+    final userGoal =
+        state.profile.goals.firstWhere((goal) => goal.habitatId == habitat.id);
+    final newGoal =
+        habitat.goal.copyWith(value: habitat.goal.value - userGoal.value);
+    if (isOwner) {
+      final areAdmins = habitat.admins.isNotEmpty;
+      final areMembers = habitat.members.isNotEmpty;
+      if (areAdmins) {
+        // Promote an admin to owner
+
+        final newCreator = habitat.admins.first;
+        habitat.admins.removeAt(0);
+
+        final updatedHabitat = habitat.copyWith(
+          creatorId: newCreator,
+          admins: habitat.admins,
+          goal: newGoal,
+        );
+
+        await Database.updateHabitat(updatedHabitat);
+      } else if (areMembers) {
+        // Promote another member to owner
+        String newCreator = '';
+        List<String> newMembers = [];
+        for (final member in habitat.members) {
+          if (habitat.members.first == member) {
+            newCreator = member;
+          } else {
+            newMembers.add(member);
+          }
+        }
+
+        final updatedHabitat = habitat.copyWith(
+          creatorId: newCreator,
+          members: newMembers,
+          goal: newGoal,
+        );
+
+        await Database.updateHabitat(updatedHabitat);
+      } else {
+        // I'm the only one here... delete the habitat
+        await Database.deleteHabitat(habitat);
+      }
+    } else if (isAdmin) {
+      // I am an admin, remove me
+      final newAdmins =
+          habitat.admins.where((admin) => admin != state.profile.id).toList();
+
+      final updatedHabitat = habitat.copyWith(
+        admins: newAdmins,
+        goal: newGoal,
+      );
+
+      await Database.updateHabitat(updatedHabitat);
+    } else {
+      // I am a member, remove me
+      final newMembers = habitat.members
+          .where((member) => member != state.profile.id)
+          .toList();
+
+      final updatedHabitat = habitat.copyWith(
+        members: newMembers,
+        goal: newGoal,
+      );
+
+      await Database.updateHabitat(updatedHabitat);
+    }
+
+    // Remove the habitat and goal from the user's profile
+    final goals = state.profile.goals
+        .where((goal) => goal.habitatId != habitat.id)
+        .toList();
+    final updatedProfile = state.profile.copyWith(goals: goals);
+
+    await Database.updateProfileHabitatsAndGoals(updatedProfile);
+
+    await ref.read(habitatsProvider.notifier).loadHabitats();
   }
 }
