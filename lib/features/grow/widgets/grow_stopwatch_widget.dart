@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../../helpers/providers.dart';
 import '../../../helpers/strings.dart';
@@ -58,6 +57,10 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
       ref
           .read(growProvider(widget.habitatAndAction).notifier)
           .setElapsed(elapsed);
+
+      setState(() {
+        pausedTime = DateTime.now();
+      });
     });
 
     super.initState();
@@ -66,34 +69,42 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     switch (state) {
-      case AppLifecycleState.paused:
-        _pauseCount += 1;
-
-        WakelockPlus.disable();
-
-        setState(() {
-          pausedTime = DateTime.now();
-          _stopwatch.stop();
-        });
-        break;
+      // case AppLifecycleState.paused:
+      //   _pauseCount += 1;
+      //
+      //   WakelockPlus.disable();
+      //
+      //   setState(() {
+      //     pausedTime = DateTime.now();
+      //     _stopwatch.stop();
+      //   });
+      //   break;
       case AppLifecycleState.resumed:
-        _resumeCount += 1;
-
-        WakelockPlus.enable();
-
         final elapsed = _stopwatch.elapsed;
+        resumedTime = DateTime.now();
+        final difference = resumedTime.difference(pausedTime);
+        setState(() {
+          _stopwatch.reset(newInitialOffset: difference + elapsed);
+          _stopwatch.start();
+        });
 
-        if (_resumeCount == _pauseCount) {
-          setState(() {
-            resumedTime = DateTime.now();
-            final difference = resumedTime.difference(pausedTime);
-            _stopwatch.reset(newInitialOffset: difference + elapsed);
-            _stopwatch.start();
-          });
-        } else {
-          _pauseCount = 0;
-          _resumeCount = 0;
-        }
+        // _resumeCount += 1;
+        //
+        // WakelockPlus.enable();
+        //
+        // final elapsed = _stopwatch.elapsed;
+        //
+        // if (_resumeCount == _pauseCount) {
+        //   setState(() {
+        //     resumedTime = DateTime.now();
+        //     final difference = resumedTime.difference(pausedTime);
+        //     _stopwatch.reset(newInitialOffset: difference + elapsed);
+        //     _stopwatch.start();
+        //   });
+        // } else {
+        //   _pauseCount = 0;
+        //   _resumeCount = 0;
+        // }
         break;
       default:
     }
