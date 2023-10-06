@@ -61,7 +61,7 @@ class LocalNotificationService {
       noticeDetail,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
-      androidScheduleMode: AndroidScheduleMode.inexact,
+      androidScheduleMode: AndroidScheduleMode.exact,
     );
   }
 

@@ -31,11 +31,10 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
   final _isIOS = Platform.isIOS;
   late Timer _timer;
   late GrowStopwatch _stopwatch;
-  int _pauseCount = 0;
-  int _resumeCount = 0;
 
-  DateTime pausedTime = DateTime.now();
-  DateTime resumedTime = DateTime.now();
+  bool _isInactive = false;
+  DateTime _pausedTime = DateTime.now();
+  DateTime _resumedTime = DateTime.now();
 
   @override
   void initState() {
@@ -58,9 +57,10 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
           .read(growProvider(widget.habitatAndAction).notifier)
           .setElapsed(elapsed);
 
-      setState(() {
-        pausedTime = DateTime.now();
-      });
+      if (!_isInactive) {
+        _pausedTime = DateTime.now();
+      }
+      ;
     });
 
     super.initState();
@@ -69,42 +69,19 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     switch (state) {
-      // case AppLifecycleState.paused:
-      //   _pauseCount += 1;
-      //
-      //   WakelockPlus.disable();
-      //
-      //   setState(() {
-      //     pausedTime = DateTime.now();
-      //     _stopwatch.stop();
-      //   });
-      //   break;
+      case AppLifecycleState.inactive:
+        _stopwatch.stop();
+        _isInactive = true;
+        break;
       case AppLifecycleState.resumed:
+        _isInactive = false;
+        _resumedTime = DateTime.now();
         final elapsed = _stopwatch.elapsed;
-        resumedTime = DateTime.now();
-        final difference = resumedTime.difference(pausedTime);
+        final difference = _resumedTime.difference(_pausedTime);
         setState(() {
           _stopwatch.reset(newInitialOffset: difference + elapsed);
           _stopwatch.start();
         });
-
-        // _resumeCount += 1;
-        //
-        // WakelockPlus.enable();
-        //
-        // final elapsed = _stopwatch.elapsed;
-        //
-        // if (_resumeCount == _pauseCount) {
-        //   setState(() {
-        //     resumedTime = DateTime.now();
-        //     final difference = resumedTime.difference(pausedTime);
-        //     _stopwatch.reset(newInitialOffset: difference + elapsed);
-        //     _stopwatch.start();
-        //   });
-        // } else {
-        //   _pauseCount = 0;
-        //   _resumeCount = 0;
-        // }
         break;
       default:
     }
