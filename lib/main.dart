@@ -27,11 +27,15 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Permission.notification.isDenied.then((value) {
+    if (value) {
+      Permission.notification.request();
+    }
+  });
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  // FirebaseFunctions.instance.useFunctionsEmulator('http://localhost', 5001);
 
   // Listen for messages when the app is in the background
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -40,12 +44,6 @@ Future<void> main() async {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     if (message.notification != null) {
       print('Message also contained a notification: ${message.notification}');
-    }
-  });
-
-  await Permission.notification.isDenied.then((value) {
-    if (value) {
-      Permission.notification.request();
     }
   });
 
