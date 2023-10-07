@@ -18,6 +18,21 @@ class Database {
   static const possibleReactionsTable = 'possible_reactions';
   static const calloutsTable = 'callouts';
 
+  static Future<bool> checkHandleAvailability(String handle) async {
+    try {
+      List<dynamic> results =
+          await supabase.from(profilesTable).select().ilike('handle', handle);
+
+      if (results.isEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    } on Exception catch (_) {
+      return false;
+    }
+  }
+
   /// Create or update user profile: Return true if no errors, false if errors.
   static Future<bool> createProfile(HUProfileModel profile) async {
     final profileJson = profile.toJson();

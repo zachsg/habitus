@@ -9,6 +9,8 @@ class AuthModel with _$AuthModel {
     @Default('') String email,
     @Default('') String password,
     @Default('') String confirmPassword,
+    @Default('') String name,
+    @Default('') String handle,
     @Default(false) bool loading,
     String? error,
   }) = _AuthModel;

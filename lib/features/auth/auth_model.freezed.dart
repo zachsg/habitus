@@ -23,6 +23,8 @@ mixin _$AuthModel {
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   String get confirmPassword => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get handle => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -41,6 +43,8 @@ abstract class $AuthModelCopyWith<$Res> {
       {String email,
       String password,
       String confirmPassword,
+      String name,
+      String handle,
       bool loading,
       String? error});
 }
@@ -61,6 +65,8 @@ class _$AuthModelCopyWithImpl<$Res, $Val extends AuthModel>
     Object? email = null,
     Object? password = null,
     Object? confirmPassword = null,
+    Object? name = null,
+    Object? handle = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -76,6 +82,14 @@ class _$AuthModelCopyWithImpl<$Res, $Val extends AuthModel>
       confirmPassword: null == confirmPassword
           ? _value.confirmPassword
           : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      handle: null == handle
+          ? _value.handle
+          : handle // ignore: cast_nullable_to_non_nullable
               as String,
       loading: null == loading
           ? _value.loading
@@ -101,6 +115,8 @@ abstract class _$$AuthModelImplCopyWith<$Res>
       {String email,
       String password,
       String confirmPassword,
+      String name,
+      String handle,
       bool loading,
       String? error});
 }
@@ -119,6 +135,8 @@ class __$$AuthModelImplCopyWithImpl<$Res>
     Object? email = null,
     Object? password = null,
     Object? confirmPassword = null,
+    Object? name = null,
+    Object? handle = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -134,6 +152,14 @@ class __$$AuthModelImplCopyWithImpl<$Res>
       confirmPassword: null == confirmPassword
           ? _value.confirmPassword
           : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      handle: null == handle
+          ? _value.handle
+          : handle // ignore: cast_nullable_to_non_nullable
               as String,
       loading: null == loading
           ? _value.loading
@@ -154,6 +180,8 @@ class _$AuthModelImpl implements _AuthModel {
       {this.email = '',
       this.password = '',
       this.confirmPassword = '',
+      this.name = '',
+      this.handle = '',
       this.loading = false,
       this.error});
 
@@ -171,13 +199,19 @@ class _$AuthModelImpl implements _AuthModel {
   final String confirmPassword;
   @override
   @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String handle;
+  @override
+  @JsonKey()
   final bool loading;
   @override
   final String? error;
 
   @override
   String toString() {
-    return 'AuthModel(email: $email, password: $password, confirmPassword: $confirmPassword, loading: $loading, error: $error)';
+    return 'AuthModel(email: $email, password: $password, confirmPassword: $confirmPassword, name: $name, handle: $handle, loading: $loading, error: $error)';
   }
 
   @override
@@ -190,14 +224,16 @@ class _$AuthModelImpl implements _AuthModel {
                 other.password == password) &&
             (identical(other.confirmPassword, confirmPassword) ||
                 other.confirmPassword == confirmPassword) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.handle, handle) || other.handle == handle) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, email, password, confirmPassword, loading, error);
+  int get hashCode => Object.hash(runtimeType, email, password, confirmPassword,
+      name, handle, loading, error);
 
   @JsonKey(ignore: true)
   @override
@@ -218,6 +254,8 @@ abstract class _AuthModel implements AuthModel {
       {final String email,
       final String password,
       final String confirmPassword,
+      final String name,
+      final String handle,
       final bool loading,
       final String? error}) = _$AuthModelImpl;
 
@@ -230,6 +268,10 @@ abstract class _AuthModel implements AuthModel {
   String get password;
   @override
   String get confirmPassword;
+  @override
+  String get name;
+  @override
+  String get handle;
   @override
   bool get loading;
   @override
