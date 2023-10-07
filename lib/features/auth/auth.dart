@@ -2,9 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:habitus/helpers/extensions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../helpers/strings.dart';
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
 import '../habitats/habitats_view.dart';
@@ -19,6 +21,15 @@ class Auth extends _$Auth {
 
   void setEmail(String email) {
     state = state.copyWith(email: email);
+  }
+
+  void setName(String name) {
+    state = state.copyWith(name: name);
+  }
+
+  void setHandle(String handle) {
+    final handleTrimmed = handle.trim().replaceAll(' ', '');
+    state = state.copyWith(handle: handleTrimmed);
   }
 
   void setPassword(String password) {
@@ -38,21 +49,30 @@ class Auth extends _$Auth {
   Future<void> signUp(BuildContext context) async {
     state = state.copyWith(loading: true, error: null);
 
-    try {
-      await supabase.auth.signUp(
-        email: state.email,
-        password: state.password,
-      );
-      await _createProfile();
-    } on AuthException catch (error) {
-      state = state.copyWith(error: error.message, loading: false);
-      return;
-    }
+    // Check whether handle is available
+    final handleIsAvailable =
+        await Database.checkHandleAvailability(state.handle);
 
-    state = state.copyWith(loading: false);
+    if (handleIsAvailable) {
+      // Handle is unique, sign up
+      try {
+        await supabase.auth.signUp(
+          email: state.email,
+          password: state.password,
+        );
+        await _createProfile();
+      } on AuthException catch (error) {
+        state = state.copyWith(error: error.message, loading: false);
+        return;
+      }
 
-    if (context.mounted) {
-      context.goNamed(HabitatsView.routeName);
+      state = state.copyWith(loading: false);
+
+      if (context.mounted) {
+        context.goNamed(HabitatsView.routeName);
+      }
+    } else {
+      state = state.copyWith(loading: false, error: handleIsTakenErrorString);
     }
   }
 
@@ -62,10 +82,10 @@ class Auth extends _$Auth {
       return;
     } else {
       final email = supabase.auth.currentUser?.email ?? '';
-      final name = email.split('@').first;
-      final random = Random();
-      final randomDigits = '${random.nextInt(10)}${random.nextInt(10)}';
-      final handle = '${email.split('@').first}$randomDigits';
+      final name = state.name.isNotEmpty
+          ? state.name.capitalize()
+          : state.handle.capitalize();
+      final handle = state.handle;
       final profile = HUProfileModel(
         id: id,
         updatedAt: DateTime.now(),

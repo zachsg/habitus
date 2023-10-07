@@ -1,5 +1,5 @@
-const appNameString = 'Habitus';
-const habitusLogoString = 'Habitus Logo';
+const appNameString = 'Mobn';
+const habitusLogoString = 'Mobn Logo';
 
 // Auth
 const signUpTitleString = 'Sign Up';
@@ -13,6 +13,7 @@ const passwordAgainString = 'Confirm password';
 const createPasswordString = 'Create a password';
 const confirmPasswordString = 'Confirm your password';
 const typePasswordString = 'Enter your password';
+const handleIsTakenErrorString = 'Handle already taken';
 
 // Home
 const homeTitleString = 'Habitats';

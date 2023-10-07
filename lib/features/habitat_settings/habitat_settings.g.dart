@@ -6,7 +6,7 @@ part of 'habitat_settings.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$habitatSettingsHash() => r'8ca11b7bd2acc987f1254259885ed660a9c3d07b';
+String _$habitatSettingsHash() => r'bc81c19c3a35c83e49f15faf7f46f8f561f0201b';
 
 /// Copied from Dart SDK
 class _SystemHash {
