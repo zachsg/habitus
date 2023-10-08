@@ -52,9 +52,7 @@ class Database {
       }
 
       return profiles;
-
-      //.ilike(column, pattern)
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       return [];
     }
   }
