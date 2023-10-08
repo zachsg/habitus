@@ -26,7 +26,7 @@ class HabitatSettingsView extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            if (iAmAdmin) const HabitatSettingsAdminWidget(),
+            if (iAmAdmin) HabitatSettingsAdminWidget(habitat: habitat),
             SizedBox(height: iAmAdmin ? 24.0 : 16.0),
             HabitatSettingsMemberWidget(habitat: habitat),
           ],

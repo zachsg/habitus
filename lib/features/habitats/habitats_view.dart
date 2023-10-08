@@ -60,9 +60,8 @@ class _HabitatsViewState extends ConsumerState<HabitatsView>
   }
 
   void _watchAuthChanges() {
-    final authSubscription = supabase.auth.onAuthStateChange.listen((data) {
+    supabase.auth.onAuthStateChange.listen((data) {
       final AuthChangeEvent event = data.event;
-      final Session? session = data.session;
 
       switch (event) {
         case AuthChangeEvent.signedIn:

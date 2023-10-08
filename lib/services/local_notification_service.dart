@@ -7,7 +7,8 @@ class LocalNotificationService {
   final _localNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   Future<void> setup() async {
-    const androidSetting = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const androidSetting =
+        AndroidInitializationSettings('@mipmap/ic_stat_mobn_black_icon');
     const iosSetting = DarwinInitializationSettings();
 
     const initSettings =

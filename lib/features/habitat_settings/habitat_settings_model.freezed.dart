@@ -22,6 +22,9 @@ HabitatSettingsModel _$HabitatSettingsModelFromJson(Map<String, dynamic> json) {
 mixin _$HabitatSettingsModel {
   HUHabitatModel get habitat => throw _privateConstructorUsedError;
   HUProfileModel get profile => throw _privateConstructorUsedError;
+  String get search => throw _privateConstructorUsedError;
+  List<HUProfileModel> get possibleInvites =>
+      throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -40,6 +43,8 @@ abstract class $HabitatSettingsModelCopyWith<$Res> {
   $Res call(
       {HUHabitatModel habitat,
       HUProfileModel profile,
+      String search,
+      List<HUProfileModel> possibleInvites,
       bool loading,
       String? error});
 
@@ -63,6 +68,8 @@ class _$HabitatSettingsModelCopyWithImpl<$Res,
   $Res call({
     Object? habitat = null,
     Object? profile = null,
+    Object? search = null,
+    Object? possibleInvites = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -75,6 +82,14 @@ class _$HabitatSettingsModelCopyWithImpl<$Res,
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as HUProfileModel,
+      search: null == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as String,
+      possibleInvites: null == possibleInvites
+          ? _value.possibleInvites
+          : possibleInvites // ignore: cast_nullable_to_non_nullable
+              as List<HUProfileModel>,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -114,6 +129,8 @@ abstract class _$$HabitatSettingsModelImplCopyWith<$Res>
   $Res call(
       {HUHabitatModel habitat,
       HUProfileModel profile,
+      String search,
+      List<HUProfileModel> possibleInvites,
       bool loading,
       String? error});
 
@@ -136,6 +153,8 @@ class __$$HabitatSettingsModelImplCopyWithImpl<$Res>
   $Res call({
     Object? habitat = null,
     Object? profile = null,
+    Object? search = null,
+    Object? possibleInvites = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -148,6 +167,14 @@ class __$$HabitatSettingsModelImplCopyWithImpl<$Res>
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as HUProfileModel,
+      search: null == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as String,
+      possibleInvites: null == possibleInvites
+          ? _value._possibleInvites
+          : possibleInvites // ignore: cast_nullable_to_non_nullable
+              as List<HUProfileModel>,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -166,8 +193,11 @@ class _$HabitatSettingsModelImpl implements _HabitatSettingsModel {
   _$HabitatSettingsModelImpl(
       {required this.habitat,
       required this.profile,
+      this.search = '',
+      final List<HUProfileModel> possibleInvites = const [],
       this.loading = false,
-      this.error});
+      this.error})
+      : _possibleInvites = possibleInvites;
 
   factory _$HabitatSettingsModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$HabitatSettingsModelImplFromJson(json);
@@ -178,13 +208,25 @@ class _$HabitatSettingsModelImpl implements _HabitatSettingsModel {
   final HUProfileModel profile;
   @override
   @JsonKey()
+  final String search;
+  final List<HUProfileModel> _possibleInvites;
+  @override
+  @JsonKey()
+  List<HUProfileModel> get possibleInvites {
+    if (_possibleInvites is EqualUnmodifiableListView) return _possibleInvites;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_possibleInvites);
+  }
+
+  @override
+  @JsonKey()
   final bool loading;
   @override
   final String? error;
 
   @override
   String toString() {
-    return 'HabitatSettingsModel(habitat: $habitat, profile: $profile, loading: $loading, error: $error)';
+    return 'HabitatSettingsModel(habitat: $habitat, profile: $profile, search: $search, possibleInvites: $possibleInvites, loading: $loading, error: $error)';
   }
 
   @override
@@ -194,14 +236,17 @@ class _$HabitatSettingsModelImpl implements _HabitatSettingsModel {
             other is _$HabitatSettingsModelImpl &&
             (identical(other.habitat, habitat) || other.habitat == habitat) &&
             (identical(other.profile, profile) || other.profile == profile) &&
+            (identical(other.search, search) || other.search == search) &&
+            const DeepCollectionEquality()
+                .equals(other._possibleInvites, _possibleInvites) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, habitat, profile, loading, error);
+  int get hashCode => Object.hash(runtimeType, habitat, profile, search,
+      const DeepCollectionEquality().hash(_possibleInvites), loading, error);
 
   @JsonKey(ignore: true)
   @override
@@ -223,6 +268,8 @@ abstract class _HabitatSettingsModel implements HabitatSettingsModel {
   factory _HabitatSettingsModel(
       {required final HUHabitatModel habitat,
       required final HUProfileModel profile,
+      final String search,
+      final List<HUProfileModel> possibleInvites,
       final bool loading,
       final String? error}) = _$HabitatSettingsModelImpl;
 
@@ -233,6 +280,10 @@ abstract class _HabitatSettingsModel implements HabitatSettingsModel {
   HUHabitatModel get habitat;
   @override
   HUProfileModel get profile;
+  @override
+  String get search;
+  @override
+  List<HUProfileModel> get possibleInvites;
   @override
   bool get loading;
   @override

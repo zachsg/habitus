@@ -10,6 +10,8 @@ class HabitatSettingsModel with _$HabitatSettingsModel {
   factory HabitatSettingsModel({
     required HUHabitatModel habitat,
     required HUProfileModel profile,
+    @Default('') String search,
+    @Default([]) List<HUProfileModel> possibleInvites,
     @Default(false) bool loading,
     String? error,
   }) = _HabitatSettingsModel;

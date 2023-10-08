@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../helpers/strings.dart';
+import '../../../models/xmodels.dart';
 import 'xwidgets.dart';
 
 class HabitatSettingsAdminWidget extends ConsumerWidget {
-  const HabitatSettingsAdminWidget({super.key});
+  const HabitatSettingsAdminWidget({super.key, required this.habitat});
+
+  final HUHabitatModel habitat;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,11 +20,9 @@ class HabitatSettingsAdminWidget extends ConsumerWidget {
         ),
         HabitatSettingsSectionWidget(
           children: [
-            Row(),
-            Text('Coming Soon!'),
+            HabitatSettingsInviteHabitmateRowWidget(habitat: habitat),
             // Text('Set member cap'),
             // Text('Set to private / public'),
-            // Text('Invite someone')
           ],
         ),
       ],
