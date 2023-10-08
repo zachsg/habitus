@@ -33,6 +33,32 @@ class Database {
     }
   }
 
+  static Future<List<HUProfileModel>> searchForHabitmates(String text) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      return [];
+    }
+
+    try {
+      final profilesJson = await supabase
+          .from(profilesTable)
+          .select()
+          .or('name.ilike.%$text%,handle.ilike.%$text%');
+
+      List<HUProfileModel> profiles = [];
+      for (final profileJson in profilesJson) {
+        final profile = HUProfileModel.fromJson(profileJson);
+        profiles.add(profile);
+      }
+
+      return profiles;
+
+      //.ilike(column, pattern)
+    } on Exception catch (e) {
+      return [];
+    }
+  }
+
   /// Create or update user profile: Return true if no errors, false if errors.
   static Future<bool> createProfile(HUProfileModel profile) async {
     final profileJson = profile.toJson();
@@ -451,11 +477,10 @@ class Database {
       throw NoAuthException();
     }
 
-    final id = user.id;
     try {
       await supabase.from(profilesTable).update({
         'goals': profile.goals,
-      }).eq('id', id);
+      }).eq('id', profile.id);
       return true;
     } on Exception catch (e) {
       throw GenericErrorException(e.toString());

@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
+import '../habitat/habitat.dart';
 import '../habitats/habitats.dart';
 import 'habitat_settings_model.dart';
 
@@ -16,6 +17,62 @@ class HabitatSettings extends _$HabitatSettings {
         habitat: habitat,
         profile: ref.read(profileProvider).profile,
       );
+
+  Future<void> searchForHabitmates(String searchTerm) async {
+    state = state.copyWith(loading: true);
+
+    final matches = await Database.searchForHabitmates(searchTerm);
+
+    final me = state.profile.id;
+    final creator = state.habitat.creatorId;
+    final admins = state.habitat.admins;
+    final members = state.habitat.members;
+    final Set<String> matchesToRemove = {};
+    matchesToRemove.addAll({me, creator, ...admins, ...members});
+
+    final List<HUProfileModel> matchesCleaned = [];
+    for (final match in matches) {
+      if (!matchesToRemove.contains(match.id)) {
+        matchesCleaned.add(match);
+      }
+    }
+
+    state = state.copyWith(possibleInvites: matchesCleaned, loading: false);
+  }
+
+  Future<void> invite(HUProfileModel profile) async {
+    state = state.copyWith(loading: true);
+
+    final parentHabitat = state.habitat;
+
+    final goal = state.habitat.goal.copyWith(value: 10);
+    final goals = [...profile.goals, goal];
+    final updatedProfile = profile.copyWith(goals: goals);
+    await Database.updateProfileHabitatsAndGoals(updatedProfile);
+
+    final habitatGoal =
+        state.habitat.goal.copyWith(value: state.habitat.goal.value + 10);
+
+    final habitatUpdated = state.habitat.copyWith(
+      goal: habitatGoal,
+      members: [...state.habitat.members, profile.id],
+    );
+    await Database.updateHabitat(habitatUpdated);
+
+    final habitat = await Database.habitatWithId(state.habitat.id);
+    state = state.copyWith(habitat: habitat);
+    await searchForHabitmates(state.search);
+
+    await ref.read(habitatsProvider.notifier).loadHabitats();
+    await ref
+        .read(habitatProvider(parentHabitat).notifier)
+        .loadHabitatWithId(parentHabitat.id);
+    await ref.read(habitatProvider(parentHabitat).notifier).loadProfiles();
+
+    state = state.copyWith(loading: false);
+  }
+
+  void setSearch(String search) => state = state.copyWith(search: search);
 
   Future<void> saveNewGoal(BuildContext context) async {
     // Update habitat team goal

@@ -60,6 +60,9 @@ const habitatSettingsLeaveNoString = 'Cancel';
 const habitatSettingsLeaveDialogTitleString = 'Leave Habitat';
 const habitatSettingsLeaveDialogBodyString =
     'Are you sure you want to leave the habitat?';
+const habitatSettingsInviteString = 'Invite habitmate';
+const habitatSettingsHabitmateSearchString = 'Find habitmate';
+const habitatSettingsHabitmateSearchHintString = 'Type name or handle';
 
 // Grow
 const pauseString = 'I\'ve Rolled Enough';

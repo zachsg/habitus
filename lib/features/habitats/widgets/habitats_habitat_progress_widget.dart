@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -15,7 +13,6 @@ class HabitatsHabitatProgressWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isIOS = Platform.isIOS;
     final profile = ref.watch(profileProvider).profile;
     final allMyActions = ref.watch(habitatsProvider).actions;
 
