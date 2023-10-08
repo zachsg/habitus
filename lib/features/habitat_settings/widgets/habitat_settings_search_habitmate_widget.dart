@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habitus/helpers/extensions.dart';
 
 import '../../../helpers/strings.dart';
 import '../../../models/xmodels.dart';
@@ -58,9 +59,16 @@ class _HabitatSettingsSearchHabitmateWidgetState
             onChanged: (text) => ref
                 .read(habitatSettingsProvider(widget.habitat).notifier)
                 .setSearch(text),
-            onFieldSubmitted: (text) => ref
-                .read(habitatSettingsProvider(widget.habitat).notifier)
-                .searchForHabitmates(text),
+            onFieldSubmitted: (text) {
+              if (text.isEmpty) {
+                const message = 'Enter someone\'s name or handle';
+                context.showSnackBar(message: message);
+              } else {
+                ref
+                    .read(habitatSettingsProvider(widget.habitat).notifier)
+                    .searchForHabitmates(text);
+              }
+            },
           ),
         ),
         IconButton(
@@ -68,12 +76,17 @@ class _HabitatSettingsSearchHabitmateWidgetState
             final text =
                 ref.read(habitatSettingsProvider(widget.habitat)).search;
 
-            await ref
-                .read(habitatSettingsProvider(widget.habitat).notifier)
-                .searchForHabitmates(text);
+            if (text.isEmpty) {
+              const message = 'Enter someone\'s name or handle';
+              context.showSnackBar(message: message);
+            } else {
+              await ref
+                  .read(habitatSettingsProvider(widget.habitat).notifier)
+                  .searchForHabitmates(text);
 
-            if (context.mounted) {
-              FocusScope.of(context).unfocus();
+              if (context.mounted) {
+                FocusScope.of(context).unfocus();
+              }
             }
           },
           color: Theme.of(context).colorScheme.primary,

@@ -28,8 +28,12 @@ class HabitatSettingsInviteHabitmateRowWidget extends ConsumerWidget {
               onPressed: () async {
                 Navigator.of(context).pop();
               },
-              secondaryAction: () async {},
-              actionText: 'Done',
+              secondaryAction: () async {
+                ref
+                    .read(habitatSettingsProvider(habitat).notifier)
+                    .clearPossibleInvites();
+              },
+              actionText: 'Close',
               habitat: habitat,
               child: HabitatSettingsInviteHabitmateWidget(habitat: habitat),
             );

@@ -18,8 +18,6 @@ class HabitatSettingsInviteHabitmateWidget extends ConsumerWidget {
       children: [
         HabitatSettingsSearchHabitmateWidget(habitat: habitat),
         HabitatSettingsPossibleHabitmatesWidget(habitat: habitat),
-        // Search widget
-        // Search results widget
       ],
     );
   }

@@ -26,73 +26,79 @@ class HabitatSettingsBottomSheetWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
-      child: Padding(
-        padding: MediaQuery.of(context).viewInsets,
+      child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 16.0,
-            horizontal: 8.0,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    IconButton(
-                      onPressed: () async {
-                        await secondaryAction();
-                        if (context.mounted) {
-                          Navigator.of(context).pop();
-                        }
-                      },
-                      icon: const Icon(
-                        Icons.cancel_outlined,
-                        size: 32,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
-                ),
-                child: child,
-              ),
-              if (ref.watch(habitatSettingsProvider(habitat)).error != null)
+          padding: MediaQuery.of(context).viewInsets,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 24.0,
+              horizontal: 8.0,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 16.0,
+                  ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        ref.watch(habitatSettingsProvider(habitat)).error ??
-                            genericErrorString,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.error),
+                        title,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          await secondaryAction();
+                          if (context.mounted) {
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        icon: const Icon(
+                          Icons.cancel_outlined,
+                          size: 32,
+                        ),
                       ),
                     ],
                   ),
                 ),
-              const SizedBox(height: 16),
-              ref.watch(habitatSettingsProvider(habitat)).loading
-                  ? const CircularProgressIndicator.adaptive()
-                  : FilledButton(
-                      onPressed: onPressed,
-                      child: Text(actionText),
+                // const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  child: child,
+                ),
+                if (ref.watch(habitatSettingsProvider(habitat)).error != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          ref.watch(habitatSettingsProvider(habitat)).error ??
+                              genericErrorString,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                  color: Theme.of(context).colorScheme.error),
+                        ),
+                      ],
                     ),
-            ],
+                  ),
+                const SizedBox(height: 16),
+                ref.watch(habitatSettingsProvider(habitat)).loading
+                    ? const CircularProgressIndicator.adaptive()
+                    : FilledButton(
+                        onPressed: onPressed,
+                        child: Text(actionText),
+                      ),
+                const SizedBox(height: 12.0),
+              ],
+            ),
           ),
         ),
       ),

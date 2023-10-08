@@ -72,6 +72,11 @@ class HabitatSettings extends _$HabitatSettings {
     state = state.copyWith(loading: false);
   }
 
+  void clearPossibleInvites() => state = state.copyWith(
+        possibleInvites: [],
+        search: '',
+      );
+
   void setSearch(String search) => state = state.copyWith(search: search);
 
   Future<void> saveNewGoal(BuildContext context) async {
