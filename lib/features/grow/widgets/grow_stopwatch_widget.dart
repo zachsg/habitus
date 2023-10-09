@@ -60,7 +60,6 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
       if (!_isInactive) {
         _pausedTime = DateTime.now();
       }
-      ;
     });
 
     super.initState();

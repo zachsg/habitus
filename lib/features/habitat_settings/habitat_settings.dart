@@ -79,6 +79,7 @@ class HabitatSettings extends _$HabitatSettings {
       token: token,
       title: title,
       subtitle: subtitle,
+      habitat: habitat,
     );
 
     state = state.copyWith(loading: false);

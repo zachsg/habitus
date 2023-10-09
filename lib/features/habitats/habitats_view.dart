@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,8 +9,10 @@ import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../helpers/strings.dart';
+import '../../models/xmodels.dart';
 import '../../services/database.dart';
 import '../auth/sign_in_view.dart';
+import '../habitat/habitat_view.dart';
 import '../profile/profile.dart';
 import '../profile/profile_view.dart';
 import '../settings/settings_view.dart';
@@ -31,6 +35,17 @@ class _HabitatsViewState extends ConsumerState<HabitatsView>
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
+
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      // If you got here from a notifation, go to the correct habitat
+      final habitatJson = json.decode(message.data['habitat']);
+      final habitat = HUHabitatModel.fromJson(habitatJson);
+      context.pushNamed(
+        HabitatView.routeName,
+        pathParameters: {'id': habitat.id.toString()},
+        extra: habitat,
+      );
+    });
 
     _watchAuthChanges();
 
