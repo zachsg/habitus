@@ -1,5 +1,5 @@
-# habitus
-Habitus app.
+# Mobn
+Mobn app.
 
 ## Building
 ### Production

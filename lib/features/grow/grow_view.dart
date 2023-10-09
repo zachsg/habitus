@@ -334,6 +334,7 @@ class _GrowViewState extends ConsumerState<GrowView>
       tokens: tokens,
       title: title,
       subtitle: subtitle,
+      habitat: habitat,
     );
   }
 }

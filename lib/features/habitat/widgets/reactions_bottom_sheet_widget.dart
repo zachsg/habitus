@@ -184,6 +184,7 @@ class _ReactionsBottomSheetWidgetState
                                   token: token,
                                   title: title,
                                   subtitle: subtitle,
+                                  habitat: widget.habitat,
                                 );
 
                                 widget.reload();

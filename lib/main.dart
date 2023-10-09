@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -7,9 +8,12 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'features/habitat/habitat_view.dart';
 import 'firebase_options.dart';
 import 'habitus_app.dart';
 import 'helpers/providers.dart';
+import 'models/xmodels.dart';
+import 'routing/router.dart';
 import 'services/database.dart';
 import 'services/local_notification_service.dart';
 
