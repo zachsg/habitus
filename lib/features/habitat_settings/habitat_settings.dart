@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
+import '../../services/remote_notification_service.dart';
 import '../habitat/habitat.dart';
 import '../habitats/habitats.dart';
 import 'habitat_settings_model.dart';
@@ -68,6 +69,17 @@ class HabitatSettings extends _$HabitatSettings {
         .read(habitatProvider(parentHabitat).notifier)
         .loadHabitatWithId(parentHabitat.id);
     await ref.read(habitatProvider(parentHabitat).notifier).loadProfiles();
+
+    final token = profile.pushToken;
+    final title = 'Added to ${habitat.name}';
+    final inviter = ref.read(profileProvider).profile;
+    final subtitle = '@${inviter.handle} just added you to ${habitat.name}';
+
+    await RemoteNotificationService.inviteNotification(
+      token: token,
+      title: title,
+      subtitle: subtitle,
+    );
 
     state = state.copyWith(loading: false);
   }

@@ -30,4 +30,17 @@ class RemoteNotificationService {
     });
     final data = res.data;
   }
+
+  static Future<void> inviteNotification({
+    required String token,
+    required String title,
+    required String subtitle,
+  }) async {
+    final res = await supabase.functions.invoke('invited', body: {
+      'token': token,
+      'title': title,
+      'subtitle': subtitle,
+    });
+    final data = res.data;
+  }
 }
