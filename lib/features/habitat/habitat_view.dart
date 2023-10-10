@@ -28,6 +28,8 @@ class HabitatView extends ConsumerStatefulWidget {
 }
 
 class _HabitatViewState extends ConsumerState<HabitatView> {
+  bool _settingsLoading = false;
+
   @override
   void initState() {
     _initialDataLoad();
@@ -71,19 +73,34 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
       appBar: AppBar(
         title: Text(widget.habitat.name),
         actions: [
-          IconButton(
-            onPressed: () => context.pushNamed(
-              HabitatSettingsView.routeName,
-              pathParameters: {
-                'id': widget.habitat.id.toString(),
-                'habitat_settings_id': widget.habitat.id.toString()
-              },
-              extra: widget.habitat,
-            ),
-            icon: isIOS
-                ? const Icon(CupertinoIcons.settings_solid)
-                : const Icon(Icons.settings),
-          ),
+          _settingsLoading
+              ? const CircularProgressIndicator.adaptive()
+              : IconButton(
+                  onPressed: () async {
+                    setState(() => _settingsLoading = true);
+                    await ref
+                        .read(habitatProvider(widget.habitat).notifier)
+                        .loadHabitatWithId(widget.habitat.id);
+                    setState(() => _settingsLoading = false);
+
+                    final habitat =
+                        ref.read(habitatProvider(widget.habitat)).habitat;
+
+                    if (context.mounted) {
+                      context.pushNamed(
+                        HabitatSettingsView.routeName,
+                        pathParameters: {
+                          'id': habitat.id.toString(),
+                          'habitat_settings_id': habitat.id.toString()
+                        },
+                        extra: habitat,
+                      );
+                    }
+                  },
+                  icon: isIOS
+                      ? const Icon(CupertinoIcons.settings_solid)
+                      : const Icon(Icons.settings),
+                ),
         ],
       ),
       body: SingleChildScrollView(

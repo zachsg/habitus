@@ -12,13 +12,12 @@ class RemoteNotificationService {
     required String subtitle,
     required HUHabitatModel habitat,
   }) async {
-    final res = await supabase.functions.invoke('new-action', body: {
+    await supabase.functions.invoke('new-action', body: {
       'tokens': tokens,
       'title': title,
       'subtitle': subtitle,
       'habitat': habitat,
     });
-    final data = res.data;
   }
 
   static Future<void> newReactionNotification({
@@ -27,13 +26,12 @@ class RemoteNotificationService {
     required String subtitle,
     required HUHabitatModel habitat,
   }) async {
-    final res = await supabase.functions.invoke('new-reaction', body: {
+    await supabase.functions.invoke('new-reaction', body: {
       'token': token,
       'title': title,
       'subtitle': subtitle,
       'habitat': habitat,
     });
-    final data = res.data;
   }
 
   static Future<void> inviteNotification({
@@ -42,12 +40,11 @@ class RemoteNotificationService {
     required String subtitle,
     required HUHabitatModel habitat,
   }) async {
-    final res = await supabase.functions.invoke('invited', body: {
+    await supabase.functions.invoke('invited', body: {
       'token': token,
       'title': title,
       'subtitle': subtitle,
       'habitat': habitat,
     });
-    final data = res.data;
   }
 }
