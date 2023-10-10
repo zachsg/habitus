@@ -37,6 +37,11 @@ class _HabitatsViewState extends ConsumerState<HabitatsView>
     WidgetsBinding.instance.addObserver(this);
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      ref.read(profileProvider.notifier).loadProfile();
+      ref.read(habitatsProvider.notifier).loadHabitats();
+      ref.read(habitatsProvider.notifier).loadActions();
+      ref.read(habitatsProvider.notifier).loadCallouts();
+
       // If you got here from a notifation, go to the correct habitat
       final habitatJson = json.decode(message.data['habitat']);
       final habitat = HUHabitatModel.fromJson(habitatJson);

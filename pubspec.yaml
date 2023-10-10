@@ -2,7 +2,7 @@ name: habitus
 description: Mobn. Habit sharing. Execute on your individual goals as a habitat.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 0.1.6+100
+version: 0.1.6+102
 
 environment:
   sdk: ">=3.1.3 <4.0.0"
@@ -13,8 +13,8 @@ dependencies:
 
   cupertino_icons: ^1.0.6
   flutter_svg: ^2.0.7
-  go_router: ^11.1.2
-  supabase_flutter: ^1.10.21
+  go_router: ^11.1.3
+  supabase_flutter: ^1.10.22
   flutter_riverpod: ^2.4.3
   riverpod_annotation: ^2.2.0
   freezed: ^2.4.3
