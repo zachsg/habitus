@@ -42,14 +42,16 @@ class _HabitatsViewState extends ConsumerState<HabitatsView>
       ref.read(habitatsProvider.notifier).loadActions();
       ref.read(habitatsProvider.notifier).loadCallouts();
 
-      // If you got here from a notifation, go to the correct habitat
-      final habitatJson = json.decode(message.data['habitat']);
-      final habitat = HUHabitatModel.fromJson(habitatJson);
-      context.pushNamed(
-        HabitatView.routeName,
-        pathParameters: {'id': habitat.id.toString()},
-        extra: habitat,
-      );
+      // If the notification contains a habitat, go to the correct habitat
+      if (message.data['habitat'] != null) {
+        final habitatJson = json.decode(message.data['habitat']);
+        final habitat = HUHabitatModel.fromJson(habitatJson);
+        context.pushNamed(
+          HabitatView.routeName,
+          pathParameters: {'id': habitat.id.toString()},
+          extra: habitat,
+        );
+      }
     });
 
     _watchAuthChanges();

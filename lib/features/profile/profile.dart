@@ -38,9 +38,7 @@ class Profile extends _$Profile {
       final profile = await Database.profile();
       state = state.copyWith(profile: profile, loading: false);
 
-      if (profile.pushToken.isEmpty) {
-        _firebaseMessagingSetup();
-      }
+      _firebaseMessagingSetup();
     } on Exception catch (_) {}
   }
 
@@ -93,8 +91,10 @@ class Profile extends _$Profile {
 
     // TODO: Register with FCM
     String? token = await messaging.getToken();
-    if (token != null) {
-      savePushToken(token);
+    if (token != state.profile.pushToken) {
+      if (token != null) {
+        await savePushToken(token);
+      }
     }
 
     if (kDebugMode) {
