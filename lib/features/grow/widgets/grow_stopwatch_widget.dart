@@ -40,7 +40,12 @@ class _GrowStopwatchWidgetState extends ConsumerState<GrowStopwatchWidget>
   void initState() {
     WidgetsBinding.instance.addObserver(this);
 
-    _stopwatch = GrowStopwatch()..start();
+    final alreadyElapsed =
+        ref.read(growProvider(widget.habitatAndAction)).alreadyElapsed;
+
+    _stopwatch = GrowStopwatch(
+      initialOffset: Duration(seconds: alreadyElapsed),
+    )..start();
 
     var elapsed = 0;
 
