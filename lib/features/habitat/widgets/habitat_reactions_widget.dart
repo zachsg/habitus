@@ -40,8 +40,14 @@ class HabitatReactionsWidget extends ConsumerWidget {
     List<Widget> children = [];
 
     for (final reaction in reactions) {
-      final profile =
-          profiles.firstWhere((profile) => profile.id == reaction.ownerId);
+      final profile = profiles.firstWhere(
+        (profile) => profile.id == reaction.ownerId,
+        orElse: () => HUProfileModel(
+          id: '-1',
+          handle: 'redacted',
+          updatedAt: DateTime.now(),
+        ),
+      );
 
       final child = Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,

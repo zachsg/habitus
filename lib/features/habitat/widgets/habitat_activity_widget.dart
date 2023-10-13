@@ -114,7 +114,13 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
 
                   if (activity is HUActionModel) {
                     final profile = profiles.firstWhere(
-                        (profile) => profile.id == activity.ownerId);
+                      (profile) => profile.id == activity.ownerId,
+                      orElse: () => HUProfileModel(
+                        id: '-1',
+                        handle: 'redacted',
+                        updatedAt: DateTime.now(),
+                      ),
+                    );
 
                     return Column(
                       children: [
@@ -199,10 +205,22 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                       ],
                     );
                   } else if (activity is HUCalloutModel) {
-                    final callerProfile = habitatP.profiles
-                        .firstWhere((profile) => profile.id == activity.caller);
-                    final calleeProfile = habitatP.profiles
-                        .firstWhere((profile) => profile.id == activity.callee);
+                    final callerProfile = habitatP.profiles.firstWhere(
+                      (profile) => profile.id == activity.caller,
+                      orElse: () => HUProfileModel(
+                        id: '-1',
+                        handle: 'redacted',
+                        updatedAt: DateTime.now(),
+                      ),
+                    );
+                    final calleeProfile = habitatP.profiles.firstWhere(
+                      (profile) => profile.id == activity.callee,
+                      orElse: () => HUProfileModel(
+                        id: '-1',
+                        handle: 'redacted',
+                        updatedAt: DateTime.now(),
+                      ),
+                    );
                     final isDone = activity.done;
 
                     return Column(
