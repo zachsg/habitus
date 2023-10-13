@@ -31,7 +31,7 @@ class Grow extends _$Grow {
   }
 
   Future<bool> save(bool goalMet) async {
-    final elapsed = goalMet
+    final elapsed = goalMet || state.alreadyElapsed > 0
         ? (state.elapsed / 60).round()
         : (state.elapsed / 60).round() - habitatAndAction.elapsed;
 
