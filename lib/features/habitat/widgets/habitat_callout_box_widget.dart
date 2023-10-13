@@ -79,7 +79,14 @@ class HabitatCalloutBoxWidget extends ConsumerWidget {
     }
 
     for (final calloutId in calloutIds) {
-      final profile = profiles.firstWhere((p) => p.id == calloutId);
+      final profile = profiles.firstWhere(
+        (p) => p.id == calloutId,
+        orElse: () => HUProfileModel(
+          id: '-1',
+          handle: 'redacted',
+          updatedAt: DateTime.now(),
+        ),
+      );
 
       int count = 0;
       for (final id in calloutIdsAll) {
