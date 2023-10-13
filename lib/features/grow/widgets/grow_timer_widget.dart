@@ -35,6 +35,7 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
   late GrowStopwatch _stopwatch;
   late AnimationController _controller;
   bool _isInactive = false;
+  bool _goalComplete = false;
 
   DateTime _pausedTime = DateTime.now();
   DateTime _resumedTime = DateTime.now();
@@ -78,6 +79,9 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
           ..reset();
       } else {
         elapsed = _stopwatch.elapsed.inSeconds;
+        ref
+            .read(growProvider(widget.habitatAndAction).notifier)
+            .setAlreadyElapsed(elapsed - widget.habitatAndAction.elapsed * 60);
       }
 
       ref
@@ -85,7 +89,8 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
           .setElapsed(elapsed);
 
       if (goalValue <= elapsed) {
-        widget.finished();
+        setState(() => _goalComplete = true);
+        // widget.finished();
       }
 
       if (!_isInactive) {
@@ -154,55 +159,61 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
 
     final habitatAndAction = widget.habitatAndAction;
 
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: GrowCircleWidget(
-            color: Theme.of(context).colorScheme.inversePrimary,
-            milliseconds: 0,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: GrowCircleWidget(
-            color: Theme.of(context).colorScheme.primary,
-            milliseconds: duration,
-          ),
-        ),
-        isPaused
-            ? const SizedBox()
-            : AnimatedBuilder(
-                animation: _controller,
-                builder: (context, child) {
-                  return themeP.minimalTimer()
-                      ? const SizedBox()
-                      : Positioned.fill(
-                          child: Align(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  '$minutes:$secondsText',
-                                  style:
-                                      Theme.of(context).textTheme.displayLarge,
-                                ),
-                                habitatAndAction.elapsed == 0
-                                    ? const SizedBox()
-                                    : Text(
-                                        'You did ${habitatAndAction.elapsed.toTimeLong()} '
-                                        'of your goal earlier today',
+    return _goalComplete
+        ? GrowStopwatchWidget(
+            profile: widget.profile,
+            habitatAndAction: widget.habitatAndAction,
+          )
+        : Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: GrowCircleWidget(
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                  milliseconds: 0,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: GrowCircleWidget(
+                  color: Theme.of(context).colorScheme.primary,
+                  milliseconds: duration,
+                ),
+              ),
+              isPaused
+                  ? const SizedBox()
+                  : AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, child) {
+                        return themeP.minimalTimer()
+                            ? const SizedBox()
+                            : Positioned.fill(
+                                child: Align(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        '$minutes:$secondsText',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodySmall,
-                                      )
-                              ],
-                            ),
-                          ),
-                        );
-                },
-              ),
-      ],
-    );
+                                            .displayLarge,
+                                      ),
+                                      habitatAndAction.elapsed == 0
+                                          ? const SizedBox()
+                                          : Text(
+                                              'You did ${habitatAndAction.elapsed.toTimeLong()} '
+                                              'of your goal earlier today',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall,
+                                            )
+                                    ],
+                                  ),
+                                ),
+                              );
+                      },
+                    ),
+            ],
+          );
   }
 }

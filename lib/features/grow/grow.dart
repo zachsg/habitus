@@ -22,6 +22,10 @@ class Grow extends _$Grow {
     state = state.copyWith(elapsed: elapsed);
   }
 
+  void setAlreadyElapsed(int elapsed) {
+    state = state.copyWith(alreadyElapsed: elapsed);
+  }
+
   void setPaused(bool paused) {
     state = state.copyWith(isPaused: paused, loading: false);
   }
