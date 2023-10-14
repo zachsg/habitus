@@ -29,7 +29,16 @@ class HabitatSettings extends _$HabitatSettings {
     final admins = state.habitat.admins;
     final members = state.habitat.members;
     final Set<String> matchesToRemove = {};
-    matchesToRemove.addAll({me, creator, ...admins, ...members});
+    matchesToRemove.addAll({
+      me,
+      creator,
+      ...admins,
+      ...members,
+      'ce12b645-8698-442b-93ea-b2e3e0a9586e', // Habitus
+      '8541403c-9039-488f-a9b0-e471717e5631', // Mobn
+      '84f2b88c-8ad8-4fd7-a996-4950324f353c', // Demo
+      '213d8a2d-9a2f-41f2-ac24-f1d51f39022d', // redacted
+    });
 
     final List<HUProfileModel> matchesCleaned = [];
     for (final match in matches) {
