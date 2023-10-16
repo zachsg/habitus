@@ -30,11 +30,7 @@ class Grow extends _$Grow {
     state = state.copyWith(isPaused: paused, loading: false);
   }
 
-  Future<bool> save(bool goalMet) async {
-    final elapsed = goalMet || state.alreadyElapsed > 0
-        ? (state.elapsed / 60).round()
-        : (state.elapsed / 60).round() - habitatAndAction.elapsed;
-
+  Future<bool> save(int elapsed) async {
     if (elapsed < 1) {
       return true;
     }
@@ -43,7 +39,7 @@ class Grow extends _$Grow {
 
     final profile = ref.read(profileProvider).profile;
     final createdAt = DateTime.now().toUtc();
-    final goal = habitatAndAction.habitat.goal.copyWith(value: elapsed);
+    final goal = habitatAndAction.habitat.goal.copyWith(value: elapsed.round());
 
     final action = HUActionModel(
       id: 0,
