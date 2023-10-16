@@ -90,7 +90,7 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
 
       if (goalValue <= elapsed) {
         setState(() => _goalComplete = true);
-        // widget.finished();
+        widget.finished();
       }
 
       if (!_isInactive) {

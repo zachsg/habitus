@@ -116,19 +116,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                         profile: profile,
                         habitatAndAction: widget.habitatAndAction,
                         finished: () {
-                          ref
-                              .read(growProvider(widget.habitatAndAction)
-                                  .notifier)
-                              .setPaused(true);
-
                           _playTone();
-
-                          _showSessionCompleteDialog(
-                            ref,
-                            context,
-                            widget.habitatAndAction,
-                            goalMet,
-                          );
                         },
                       ),
                 const SizedBox(height: 16.0),
@@ -281,7 +269,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                                   await ref
                                       .read(growProvider(habitatAndAction)
                                           .notifier)
-                                      .save(goalMet);
+                                      .save(elapsed.round());
 
                                   _notifyNewAction();
 
