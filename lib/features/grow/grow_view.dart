@@ -189,9 +189,10 @@ class _GrowViewState extends ConsumerState<GrowView>
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        final elapsed = goalMet || grow.alreadyElapsed > 0
-            ? grow.elapsed / 60
-            : grow.elapsed / 60 - habitatAndAction.elapsed;
+        final elapsed =
+            goalMet || grow.alreadyElapsed - habitatAndAction.elapsed > 0
+                ? grow.elapsed / 60
+                : grow.elapsed / 60 - habitatAndAction.elapsed;
 
         return StatefulBuilder(builder: (context, setState) {
           return AlertDialog(
