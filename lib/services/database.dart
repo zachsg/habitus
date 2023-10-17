@@ -639,8 +639,10 @@ class Database {
     try {
       final List<int> ids = [];
       for (final callout in callouts) {
-        final c = callout.copyWith(done: true);
-        ids.add(c.id);
+        if (!callout.done) {
+          final c = callout.copyWith(done: true);
+          ids.add(c.id);
+        }
       }
       final time = DateTime.now().toUtc().toIso8601String();
       await supabase.from(calloutsTable).update({

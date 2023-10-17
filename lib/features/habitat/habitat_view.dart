@@ -167,8 +167,8 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
                   const Text(takeActionString),
                   const SizedBox(width: 8),
                   SvgPicture.asset(
-                    habitusLogoSvg,
-                    semanticsLabel: habitusLogoString,
+                    mobnLogoSvg,
+                    semanticsLabel: mobnLogoString,
                     width: 24,
                     height: 24,
                     colorFilter: ColorFilter.mode(
