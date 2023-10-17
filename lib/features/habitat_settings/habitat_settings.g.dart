@@ -6,7 +6,7 @@ part of 'habitat_settings.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$habitatSettingsHash() => r'1d115484151a7b0b30aef79924666ea50dec39de';
+String _$habitatSettingsHash() => r'2adc6508ca8d8d28355d53c0a0f24f140d62d1a4';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -56,7 +56,6 @@ class HabitatSettingsFamily extends Family<HabitatSettingsModel> {
     );
   }
 
-  @visibleForOverriding
   @override
   HabitatSettingsProvider getProviderOverride(
     covariant HabitatSettingsProvider provider,
@@ -173,4 +172,4 @@ class _HabitatSettingsProviderElement
   HUHabitatModel get habitat => (origin as HabitatSettingsProvider).habitat;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, inference_failure_on_uninitialized_variable, inference_failure_on_function_return_type, inference_failure_on_untyped_parameter
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

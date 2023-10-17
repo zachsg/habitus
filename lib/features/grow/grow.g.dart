@@ -6,7 +6,7 @@ part of 'grow.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$growHash() => r'f1cfcf19b6e5b966c8f0c6ae0db0ec6387a3bfc9';
+String _$growHash() => r'167ea7628c997e7adc77920611ca50d6ace4b2cd';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -55,7 +55,6 @@ class GrowFamily extends Family<GrowModel> {
     );
   }
 
-  @visibleForOverriding
   @override
   GrowProvider getProviderOverride(
     covariant GrowProvider provider,
@@ -166,4 +165,4 @@ class _GrowProviderElement extends NotifierProviderElement<Grow, GrowModel>
       (origin as GrowProvider).habitatAndAction;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, inference_failure_on_uninitialized_variable, inference_failure_on_function_return_type, inference_failure_on_untyped_parameter
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
