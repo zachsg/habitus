@@ -39,7 +39,7 @@ class Grow extends _$Grow {
 
     final profile = ref.read(profileProvider).profile;
     final createdAt = DateTime.now().toUtc();
-    final goal = habitatAndAction.habitat.goal.copyWith(value: elapsed.round());
+    final goal = habitatAndAction.habitat.goal.copyWith(value: elapsed);
 
     final action = HUActionModel(
       id: 0,
