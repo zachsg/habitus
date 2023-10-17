@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:habitus/models/xmodels.dart';
+import 'package:mobn/models/xmodels.dart';
 
 part 'h_u_profile_model.freezed.dart';
 part 'h_u_profile_model.g.dart';

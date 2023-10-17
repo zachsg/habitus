@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:habitus/helpers/extensions.dart';
+import 'package:mobn/helpers/extensions.dart';
 
 import '../../habitat/habitat_view.dart';
 import '../../join_habitat/join_habitat_view.dart';

@@ -4,7 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitus/helpers/extensions.dart';
+import 'package:mobn/helpers/extensions.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../helpers/providers.dart';

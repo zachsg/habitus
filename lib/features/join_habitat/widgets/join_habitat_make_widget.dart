@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitus/features/join_habitat/join_habitat.dart';
+import 'package:mobn/features/join_habitat/join_habitat.dart';
 
 import 'xwidgets.dart';
 

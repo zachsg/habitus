@@ -1,5 +1,5 @@
 const appNameString = 'Mobn';
-const habitusLogoString = 'Mobn Logo';
+const mobnLogoString = 'Mobn Logo';
 
 // Auth
 const signUpTitleString = 'Sign Up';

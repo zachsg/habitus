@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:habitus/features/profile/profile.dart';
+import 'package:mobn/features/profile/profile.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../models/xmodels.dart';

@@ -30,8 +30,8 @@ class HabitatsTakeActionButtonWidget extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           SvgPicture.asset(
-            habitusLogoSvg,
-            semanticsLabel: habitusLogoString,
+            mobnLogoSvg,
+            semanticsLabel: mobnLogoString,
             width: 24,
             height: 24,
             colorFilter: ColorFilter.mode(
