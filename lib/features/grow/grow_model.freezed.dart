@@ -24,6 +24,7 @@ mixin _$GrowModel {
   bool get loading => throw _privateConstructorUsedError;
   int get elapsed => throw _privateConstructorUsedError;
   int get alreadyElapsed => throw _privateConstructorUsedError;
+  bool get goalMet => throw _privateConstructorUsedError;
   bool get isPaused => throw _privateConstructorUsedError;
   String get calloutId => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $GrowModelCopyWith<$Res> {
       bool loading,
       int elapsed,
       int alreadyElapsed,
+      bool goalMet,
       bool isPaused,
       String calloutId,
       String? error});
@@ -68,6 +70,7 @@ class _$GrowModelCopyWithImpl<$Res, $Val extends GrowModel>
     Object? loading = null,
     Object? elapsed = null,
     Object? alreadyElapsed = null,
+    Object? goalMet = null,
     Object? isPaused = null,
     Object? calloutId = null,
     Object? error = freezed,
@@ -89,6 +92,10 @@ class _$GrowModelCopyWithImpl<$Res, $Val extends GrowModel>
           ? _value.alreadyElapsed
           : alreadyElapsed // ignore: cast_nullable_to_non_nullable
               as int,
+      goalMet: null == goalMet
+          ? _value.goalMet
+          : goalMet // ignore: cast_nullable_to_non_nullable
+              as bool,
       isPaused: null == isPaused
           ? _value.isPaused
           : isPaused // ignore: cast_nullable_to_non_nullable
@@ -126,6 +133,7 @@ abstract class _$$GrowModelImplCopyWith<$Res>
       bool loading,
       int elapsed,
       int alreadyElapsed,
+      bool goalMet,
       bool isPaused,
       String calloutId,
       String? error});
@@ -149,6 +157,7 @@ class __$$GrowModelImplCopyWithImpl<$Res>
     Object? loading = null,
     Object? elapsed = null,
     Object? alreadyElapsed = null,
+    Object? goalMet = null,
     Object? isPaused = null,
     Object? calloutId = null,
     Object? error = freezed,
@@ -170,6 +179,10 @@ class __$$GrowModelImplCopyWithImpl<$Res>
           ? _value.alreadyElapsed
           : alreadyElapsed // ignore: cast_nullable_to_non_nullable
               as int,
+      goalMet: null == goalMet
+          ? _value.goalMet
+          : goalMet // ignore: cast_nullable_to_non_nullable
+              as bool,
       isPaused: null == isPaused
           ? _value.isPaused
           : isPaused // ignore: cast_nullable_to_non_nullable
@@ -194,6 +207,7 @@ class _$GrowModelImpl implements _GrowModel {
       this.loading = false,
       this.elapsed = 0,
       this.alreadyElapsed = 0,
+      this.goalMet = false,
       this.isPaused = false,
       this.calloutId = '',
       this.error});
@@ -214,6 +228,9 @@ class _$GrowModelImpl implements _GrowModel {
   final int alreadyElapsed;
   @override
   @JsonKey()
+  final bool goalMet;
+  @override
+  @JsonKey()
   final bool isPaused;
   @override
   @JsonKey()
@@ -223,7 +240,7 @@ class _$GrowModelImpl implements _GrowModel {
 
   @override
   String toString() {
-    return 'GrowModel(habitat: $habitat, loading: $loading, elapsed: $elapsed, alreadyElapsed: $alreadyElapsed, isPaused: $isPaused, calloutId: $calloutId, error: $error)';
+    return 'GrowModel(habitat: $habitat, loading: $loading, elapsed: $elapsed, alreadyElapsed: $alreadyElapsed, goalMet: $goalMet, isPaused: $isPaused, calloutId: $calloutId, error: $error)';
   }
 
   @override
@@ -236,6 +253,7 @@ class _$GrowModelImpl implements _GrowModel {
             (identical(other.elapsed, elapsed) || other.elapsed == elapsed) &&
             (identical(other.alreadyElapsed, alreadyElapsed) ||
                 other.alreadyElapsed == alreadyElapsed) &&
+            (identical(other.goalMet, goalMet) || other.goalMet == goalMet) &&
             (identical(other.isPaused, isPaused) ||
                 other.isPaused == isPaused) &&
             (identical(other.calloutId, calloutId) ||
@@ -246,7 +264,7 @@ class _$GrowModelImpl implements _GrowModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, habitat, loading, elapsed,
-      alreadyElapsed, isPaused, calloutId, error);
+      alreadyElapsed, goalMet, isPaused, calloutId, error);
 
   @JsonKey(ignore: true)
   @override
@@ -268,6 +286,7 @@ abstract class _GrowModel implements GrowModel {
       final bool loading,
       final int elapsed,
       final int alreadyElapsed,
+      final bool goalMet,
       final bool isPaused,
       final String calloutId,
       final String? error}) = _$GrowModelImpl;
@@ -283,6 +302,8 @@ abstract class _GrowModel implements GrowModel {
   int get elapsed;
   @override
   int get alreadyElapsed;
+  @override
+  bool get goalMet;
   @override
   bool get isPaused;
   @override

@@ -12,11 +12,24 @@ part 'grow.g.dart';
 @Riverpod(keepAlive: true)
 class Grow extends _$Grow {
   @override
-  GrowModel build(HUHabitatAndActionModel habitatAndAction) => GrowModel(
-        habitat: habitatAndAction.habitat,
-        elapsed: habitatAndAction.elapsed * 60,
-        loading: false,
-      );
+  GrowModel build(HUHabitatAndActionModel habitatAndAction) {
+    final goal = ref
+        .read(profileProvider)
+        .profile
+        .goals
+        .firstWhere((goal) => goal.habitatId == habitatAndAction.habitat.id);
+
+    bool goalMet = false;
+    if (goal.value < habitatAndAction.elapsed) {
+      goalMet = true;
+    }
+    return GrowModel(
+      habitat: habitatAndAction.habitat,
+      elapsed: habitatAndAction.elapsed * 60,
+      loading: false,
+      goalMet: goalMet,
+    );
+  }
 
   void setElapsed(int elapsed) {
     state = state.copyWith(elapsed: elapsed);
@@ -24,6 +37,10 @@ class Grow extends _$Grow {
 
   void setAlreadyElapsed(int elapsed) {
     state = state.copyWith(alreadyElapsed: elapsed);
+  }
+
+  void setGoalMet(bool goalMet) {
+    state = state.copyWith(goalMet: goalMet);
   }
 
   void setPaused(bool paused) {
