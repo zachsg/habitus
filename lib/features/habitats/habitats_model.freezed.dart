@@ -22,6 +22,7 @@ HabitatsModel _$HabitatsModelFromJson(Map<String, dynamic> json) {
 mixin _$HabitatsModel {
   List<HUHabitatModel> get habitats => throw _privateConstructorUsedError;
   List<HUActionModel> get actions => throw _privateConstructorUsedError;
+  List<HUActionModel> get pastWeekActions => throw _privateConstructorUsedError;
   List<HUCalloutModel> get callouts => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
@@ -41,6 +42,7 @@ abstract class $HabitatsModelCopyWith<$Res> {
   $Res call(
       {List<HUHabitatModel> habitats,
       List<HUActionModel> actions,
+      List<HUActionModel> pastWeekActions,
       List<HUCalloutModel> callouts,
       bool loading,
       String? error});
@@ -61,6 +63,7 @@ class _$HabitatsModelCopyWithImpl<$Res, $Val extends HabitatsModel>
   $Res call({
     Object? habitats = null,
     Object? actions = null,
+    Object? pastWeekActions = null,
     Object? callouts = null,
     Object? loading = null,
     Object? error = freezed,
@@ -73,6 +76,10 @@ class _$HabitatsModelCopyWithImpl<$Res, $Val extends HabitatsModel>
       actions: null == actions
           ? _value.actions
           : actions // ignore: cast_nullable_to_non_nullable
+              as List<HUActionModel>,
+      pastWeekActions: null == pastWeekActions
+          ? _value.pastWeekActions
+          : pastWeekActions // ignore: cast_nullable_to_non_nullable
               as List<HUActionModel>,
       callouts: null == callouts
           ? _value.callouts
@@ -101,6 +108,7 @@ abstract class _$$HabitatsModelImplCopyWith<$Res>
   $Res call(
       {List<HUHabitatModel> habitats,
       List<HUActionModel> actions,
+      List<HUActionModel> pastWeekActions,
       List<HUCalloutModel> callouts,
       bool loading,
       String? error});
@@ -119,6 +127,7 @@ class __$$HabitatsModelImplCopyWithImpl<$Res>
   $Res call({
     Object? habitats = null,
     Object? actions = null,
+    Object? pastWeekActions = null,
     Object? callouts = null,
     Object? loading = null,
     Object? error = freezed,
@@ -131,6 +140,10 @@ class __$$HabitatsModelImplCopyWithImpl<$Res>
       actions: null == actions
           ? _value._actions
           : actions // ignore: cast_nullable_to_non_nullable
+              as List<HUActionModel>,
+      pastWeekActions: null == pastWeekActions
+          ? _value._pastWeekActions
+          : pastWeekActions // ignore: cast_nullable_to_non_nullable
               as List<HUActionModel>,
       callouts: null == callouts
           ? _value._callouts
@@ -154,11 +167,13 @@ class _$HabitatsModelImpl implements _HabitatsModel {
   _$HabitatsModelImpl(
       {required final List<HUHabitatModel> habitats,
       required final List<HUActionModel> actions,
+      required final List<HUActionModel> pastWeekActions,
       required final List<HUCalloutModel> callouts,
       this.loading = false,
       this.error})
       : _habitats = habitats,
         _actions = actions,
+        _pastWeekActions = pastWeekActions,
         _callouts = callouts;
 
   factory _$HabitatsModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -180,6 +195,14 @@ class _$HabitatsModelImpl implements _HabitatsModel {
     return EqualUnmodifiableListView(_actions);
   }
 
+  final List<HUActionModel> _pastWeekActions;
+  @override
+  List<HUActionModel> get pastWeekActions {
+    if (_pastWeekActions is EqualUnmodifiableListView) return _pastWeekActions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_pastWeekActions);
+  }
+
   final List<HUCalloutModel> _callouts;
   @override
   List<HUCalloutModel> get callouts {
@@ -196,7 +219,7 @@ class _$HabitatsModelImpl implements _HabitatsModel {
 
   @override
   String toString() {
-    return 'HabitatsModel(habitats: $habitats, actions: $actions, callouts: $callouts, loading: $loading, error: $error)';
+    return 'HabitatsModel(habitats: $habitats, actions: $actions, pastWeekActions: $pastWeekActions, callouts: $callouts, loading: $loading, error: $error)';
   }
 
   @override
@@ -206,6 +229,8 @@ class _$HabitatsModelImpl implements _HabitatsModel {
             other is _$HabitatsModelImpl &&
             const DeepCollectionEquality().equals(other._habitats, _habitats) &&
             const DeepCollectionEquality().equals(other._actions, _actions) &&
+            const DeepCollectionEquality()
+                .equals(other._pastWeekActions, _pastWeekActions) &&
             const DeepCollectionEquality().equals(other._callouts, _callouts) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
@@ -217,6 +242,7 @@ class _$HabitatsModelImpl implements _HabitatsModel {
       runtimeType,
       const DeepCollectionEquality().hash(_habitats),
       const DeepCollectionEquality().hash(_actions),
+      const DeepCollectionEquality().hash(_pastWeekActions),
       const DeepCollectionEquality().hash(_callouts),
       loading,
       error);
@@ -239,6 +265,7 @@ abstract class _HabitatsModel implements HabitatsModel {
   factory _HabitatsModel(
       {required final List<HUHabitatModel> habitats,
       required final List<HUActionModel> actions,
+      required final List<HUActionModel> pastWeekActions,
       required final List<HUCalloutModel> callouts,
       final bool loading,
       final String? error}) = _$HabitatsModelImpl;
@@ -250,6 +277,8 @@ abstract class _HabitatsModel implements HabitatsModel {
   List<HUHabitatModel> get habitats;
   @override
   List<HUActionModel> get actions;
+  @override
+  List<HUActionModel> get pastWeekActions;
   @override
   List<HUCalloutModel> get callouts;
   @override

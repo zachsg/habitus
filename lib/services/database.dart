@@ -303,6 +303,38 @@ class Database {
     }
   }
 
+  static Future<List<HUActionModel>> myActionsForPastWeek() async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    try {
+      final start = DateTime.now()
+          .copyWith(hour: 0, minute: 0)
+          .subtract(const Duration(days: 6));
+      final end = DateTime.now().copyWith(hour: 24, minute: 59);
+
+      final actionsJson = await supabase
+          .from(actionsTable)
+          .select()
+          .eq('owner_id', user.id)
+          .gt('created_at', start.toUtc())
+          .lt('created_at', end.toUtc())
+          .order('created_at');
+
+      List<HUActionModel> actions = [];
+      for (final actionJson in actionsJson) {
+        final action = HUActionModel.fromJson(actionJson);
+        actions.add(action);
+      }
+
+      return actions;
+    } on Exception catch (_) {
+      return [];
+    }
+  }
+
   static Future<List<HUActionModel>> myActionsForToday() async {
     final user = supabase.auth.currentUser;
     if (user == null) {
