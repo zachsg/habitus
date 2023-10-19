@@ -85,6 +85,37 @@ class HabitatsNotDoneWidget extends StatelessWidget {
   }
 }
 
+class HabitatsPartDoneWidget extends StatelessWidget {
+  const HabitatsPartDoneWidget({super.key, required this.day});
+
+  final String day;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          width: 20.0,
+          height: 20.0,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
+            shape: BoxShape.circle,
+          ),
+          child: Center(
+            child: Text(
+              day.toUpperCase(),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class HabitatsDoneWidget extends StatelessWidget {
   const HabitatsDoneWidget({super.key, required this.day});
 
@@ -92,22 +123,42 @@ class HabitatsDoneWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 20.0,
-      height: 20.0,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary,
-        shape: BoxShape.circle,
-      ),
-      child: Center(
-        child: Text(
-          day.toUpperCase(),
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+    return Stack(
+      children: [
+        Positioned(
+          child: Container(
+            width: 20.0,
+            height: 20.0,
+            decoration: BoxDecoration(
+              color: Colors.yellow.shade800,
+              shape: BoxShape.circle,
+            ),
+          ),
         ),
-      ),
+        Positioned(
+          top: 2,
+          bottom: 2,
+          left: 2,
+          right: 2,
+          child: Container(
+            width: 16.0,
+            height: 16.0,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Text(
+                day.toUpperCase(),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
