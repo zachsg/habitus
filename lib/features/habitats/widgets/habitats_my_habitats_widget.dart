@@ -119,6 +119,10 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                                               .textTheme
                                               .titleMedium,
                                         ),
+                                        const SizedBox(height: 6.0),
+                                        HabitatsPastWeekWidget(
+                                          habitat: habitat,
+                                        ),
                                       ],
                                     ),
                                   ),
