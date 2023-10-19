@@ -109,6 +109,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
+              const Row(),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               //   children: [
