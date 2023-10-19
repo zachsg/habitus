@@ -55,10 +55,10 @@ class HabitatsHabitatProgressWidget extends ConsumerWidget {
                   "${(progress * 100).round()}%",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
-                Text(
-                  'Today',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
+                // Text(
+                //   'Today',
+                //   style: Theme.of(context).textTheme.bodySmall,
+                // ),
               ],
             ),
       backgroundColor:
