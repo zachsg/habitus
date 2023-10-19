@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../models/xmodels.dart';
+import '../../profile/profile.dart';
 import '../habitats.dart';
 
 class HabitatsPastWeekWidget extends ConsumerWidget {
@@ -19,33 +20,48 @@ class HabitatsPastWeekWidget extends ConsumerWidget {
   }
 
   List<Widget> pastWeekActivity(WidgetRef ref) {
+    final profile = ref.read(profileProvider).profile;
+    final goal = profile.goals.firstWhere(
+      (goal) => goal.habitatId == habitat.id,
+      orElse: () =>
+          HUGoalModel(habitatId: -1, habit: '', unit: Unit.minutes, value: 0),
+    );
+
     final habitatsP = ref.read(habitatsProvider);
     final allActions = [...habitatsP.actions, ...habitatsP.pastWeekActions];
 
     final today = DateTime.now().copyWith(hour: 0, minute: 0);
     final DateFormat formatter = DateFormat('EEEE');
 
-    Map<String, bool> daysAndActions = {};
+    Map<String, Completion> daysAndActions = {};
     for (int i = 0; i < 7; i++) {
       final d = today.subtract(Duration(days: i));
       final formattedDate = formatter.format(d);
 
-      bool found = false;
+      Completion completion = Completion.undone;
+      int youDid = 0;
       for (final action in allActions) {
         if (action.createdAt.toLocal().day == d.day &&
             action.habitatId == habitat.id) {
-          found = true;
-          break;
+          youDid += action.goal.value;
         }
       }
 
-      daysAndActions.addAll({formattedDate: found});
+      if (youDid >= goal.value) {
+        completion = Completion.done;
+      } else if (youDid > 0) {
+        completion = Completion.sorta;
+      }
+
+      daysAndActions.addAll({formattedDate: completion});
     }
 
     final List<Widget> children = [];
     daysAndActions.forEach((key, value) {
-      if (value) {
+      if (value == Completion.done) {
         children.add(HabitatsDoneWidget(day: key[0]));
+      } else if (value == Completion.sorta) {
+        children.add(HabitatsPartDoneWidget(day: key[0]));
       } else {
         children.add(HabitatsNotDoneWidget(day: key[0]));
       }
@@ -53,6 +69,12 @@ class HabitatsPastWeekWidget extends ConsumerWidget {
 
     return children.reversed.toList();
   }
+}
+
+enum Completion {
+  done,
+  undone,
+  sorta;
 }
 
 class HabitatsNotDoneWidget extends StatelessWidget {
@@ -63,8 +85,8 @@ class HabitatsNotDoneWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 20.0,
-      height: 20.0,
+      width: 21.0,
+      height: 21.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100.0),
         border: Border.all(
@@ -95,8 +117,8 @@ class HabitatsPartDoneWidget extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          width: 20.0,
-          height: 20.0,
+          width: 21.0,
+          height: 21.0,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primary,
             shape: BoxShape.circle,
@@ -127,8 +149,8 @@ class HabitatsDoneWidget extends StatelessWidget {
       children: [
         Positioned(
           child: Container(
-            width: 20.0,
-            height: 20.0,
+            width: 21.0,
+            height: 21.0,
             decoration: BoxDecoration(
               color: Colors.yellow.shade800,
               shape: BoxShape.circle,
@@ -136,13 +158,13 @@ class HabitatsDoneWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 2,
-          bottom: 2,
-          left: 2,
-          right: 2,
+          top: 3,
+          bottom: 3,
+          left: 3,
+          right: 3,
           child: Container(
-            width: 16.0,
-            height: 16.0,
+            width: 14.0,
+            height: 14.0,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
               shape: BoxShape.circle,
