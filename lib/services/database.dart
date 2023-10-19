@@ -208,7 +208,7 @@ class Database {
 
     try {
       final start = day.copyWith(hour: 0, minute: 0);
-      final end = day.copyWith(hour: 24, minute: 59);
+      final end = day.copyWith(hour: 23, minute: 59);
 
       final actionsJson = await supabase
           .from(actionsTable)
@@ -242,7 +242,7 @@ class Database {
 
     try {
       final start = day.copyWith(hour: 0, minute: 0);
-      final end = day.copyWith(hour: 24, minute: 59);
+      final end = day.copyWith(hour: 23, minute: 59);
 
       final calloutsJson = isDone
           ? await supabase
@@ -281,7 +281,7 @@ class Database {
 
     try {
       final start = day.copyWith(hour: 0, minute: 0);
-      final end = day.copyWith(hour: 24, minute: 59);
+      final end = day.copyWith(hour: 23, minute: 59);
 
       final calloutsJson = await supabase
           .from(calloutsTable)
@@ -313,7 +313,7 @@ class Database {
       final start = DateTime.now()
           .copyWith(hour: 0, minute: 0)
           .subtract(const Duration(days: 6));
-      final end = DateTime.now().copyWith(hour: 24, minute: 59);
+      final end = DateTime.now().copyWith(hour: 23, minute: 59);
 
       final actionsJson = await supabase
           .from(actionsTable)
@@ -343,7 +343,7 @@ class Database {
 
     try {
       final start = DateTime.now().copyWith(hour: 0, minute: 0);
-      final end = DateTime.now().copyWith(hour: 24, minute: 59);
+      final end = DateTime.now().copyWith(hour: 23, minute: 59);
 
       final actionsJson = await supabase
           .from(actionsTable)

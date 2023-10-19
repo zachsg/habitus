@@ -22,7 +22,7 @@ class HabitatsPastWeekWidget extends ConsumerWidget {
     final habitatsP = ref.read(habitatsProvider);
     final allActions = [...habitatsP.actions, ...habitatsP.pastWeekActions];
 
-    final today = DateTime.now();
+    final today = DateTime.now().copyWith(hour: 0, minute: 0);
     final DateFormat formatter = DateFormat('EEEE');
 
     Map<String, bool> daysAndActions = {};
@@ -63,8 +63,8 @@ class HabitatsNotDoneWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 18.0,
-      height: 18.0,
+      width: 20.0,
+      height: 20.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100.0),
         border: Border.all(
@@ -93,8 +93,8 @@ class HabitatsDoneWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 18.0,
-      height: 18.0,
+      width: 20.0,
+      height: 20.0,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
         shape: BoxShape.circle,

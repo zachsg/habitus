@@ -34,7 +34,7 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 4.0,
                   crossAxisCount: 2,
-                  childAspectRatio: 0.80),
+                  childAspectRatio: 0.77),
               itemBuilder: (context, index) {
                 if (index == habitats.length) {
                   return Padding(
@@ -107,7 +107,7 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                                     left: 0,
                                     child: Column(
                                       children: [
-                                        const SizedBox(height: 8.0),
+                                        const SizedBox(height: 4.0),
                                         HabitatsHabitatProgressWidget(
                                           habitat: habitat,
                                         ),
@@ -119,7 +119,7 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                                               .textTheme
                                               .titleMedium,
                                         ),
-                                        const SizedBox(height: 6.0),
+                                        const SizedBox(height: 8.0),
                                         HabitatsPastWeekWidget(
                                           habitat: habitat,
                                         ),
