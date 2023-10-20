@@ -28,7 +28,7 @@ class Habitats extends _$Habitats {
 
   Future<void> loadActions() async {
     try {
-      final allActions = await Database.myActionsForPastWeek();
+      final allActions = await Database.myActionsForPastXDays(7);
 
       List<HUActionModel> todayActions = [];
       List<HUActionModel> pastActions = [];

@@ -24,7 +24,6 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
       child: Column(
         children: [
           const HabitatsOverallProgressWidget(),
-          const SizedBox(height: 8.0),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
@@ -32,9 +31,10 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: habitats.length + 1,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: 4.0,
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.81),
+                crossAxisSpacing: 4.0,
+                crossAxisCount: 2,
+                childAspectRatio: 0.82,
+              ),
               itemBuilder: (context, index) {
                 if (index == habitats.length) {
                   return Padding(

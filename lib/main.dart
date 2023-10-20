@@ -43,7 +43,9 @@ Future<void> main() async {
   // Listen for messages when the app is in the foreground
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     if (message.notification != null) {
-      print('Message also contained a notification: ${message.notification}');
+      if (kDebugMode) {
+        print('Message also contained a notification: ${message.notification}');
+      }
     }
   });
 
