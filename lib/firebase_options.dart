@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD3HpW9sTFTxx4YkTQIX5kF0XvWsSs9Wyo',
-    appId: '1:817058635985:android:1ead10f7d6ab236e20e5f0',
+    appId: '1:817058635985:android:8f2db0f6657871ce20e5f0',
     messagingSenderId: '817058635985',
     projectId: 'habitusapp-ea298',
     storageBucket: 'habitusapp-ea298.appspot.com',
@@ -59,10 +59,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBEriIQ8ZsEU0_E1hvN3N9ar01MCUROFNc',
-    appId: '1:817058635985:ios:771193a63c6e832d20e5f0',
+    appId: '1:817058635985:ios:5b5f7b5e3156a63220e5f0',
     messagingSenderId: '817058635985',
     projectId: 'habitusapp-ea298',
     storageBucket: 'habitusapp-ea298.appspot.com',
-    iosBundleId: 'io.mobn.mobn',
+    iosBundleId: 'io.habitusapp.habitus',
   );
 }

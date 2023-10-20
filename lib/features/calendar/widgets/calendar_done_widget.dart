@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CalendarDoneWidget extends StatelessWidget {
-  const CalendarDoneWidget({super.key, required this.day});
+  const CalendarDoneWidget({
+    super.key,
+    required this.day,
+    this.width = 50.0,
+    this.height = 50.0,
+  });
 
   final String day;
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +18,8 @@ class CalendarDoneWidget extends StatelessWidget {
       children: [
         Positioned(
           child: Container(
-            width: 50.0,
-            height: 50.0,
+            width: width,
+            height: height,
             decoration: BoxDecoration(
               color: Colors.yellow.shade800,
               shape: BoxShape.circle,
@@ -22,8 +29,8 @@ class CalendarDoneWidget extends StatelessWidget {
         Positioned.fill(
           child: Align(
             child: Container(
-              width: 32.0,
-              height: 32.0,
+              width: width * 0.64,
+              height: height * 0.64,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
                 shape: BoxShape.circle,
