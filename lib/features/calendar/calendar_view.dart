@@ -88,29 +88,35 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
       ),
       body: Column(
         children: [
+          const SizedBox(height: 12.0),
           CalendarHabitatPickerWidget(habitats: widget.habitats),
           provider.actions.isNotEmpty
               ? Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          onPressed: ref
-                              .read(calendarProvider(widget.habitats).notifier)
-                              .prevMonth,
-                          icon: const Icon(Icons.arrow_back_ios),
-                        ),
-                        const SizedBox(width: 12.0),
-                        Text(provider.date.month.toMonthLong()),
-                        const SizedBox(width: 12.0),
-                        IconButton(
-                          onPressed: ref
-                              .read(calendarProvider(widget.habitats).notifier)
-                              .nextMonth,
-                          icon: const Icon(Icons.arrow_forward_ios),
-                        ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed: ref
+                                .read(
+                                    calendarProvider(widget.habitats).notifier)
+                                .prevMonth,
+                            icon: const Icon(Icons.arrow_back_ios),
+                          ),
+                          const SizedBox(width: 12.0),
+                          Text(provider.date.month.toMonthLong()),
+                          const SizedBox(width: 12.0),
+                          IconButton(
+                            onPressed: ref
+                                .read(
+                                    calendarProvider(widget.habitats).notifier)
+                                .nextMonth,
+                            icon: const Icon(Icons.arrow_forward_ios),
+                          ),
+                        ],
+                      ),
                     ),
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 16.0),
