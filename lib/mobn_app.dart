@@ -5,14 +5,14 @@ import 'helpers/providers.dart';
 import 'helpers/strings.dart';
 import 'routing/router.dart';
 
-class HabitusApp extends ConsumerStatefulWidget {
-  const HabitusApp({super.key});
+class MobnApp extends ConsumerStatefulWidget {
+  const MobnApp({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HabitusAppState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MobnAppState();
 }
 
-class _HabitusAppState extends ConsumerState<HabitusApp>
+class _MobnAppState extends ConsumerState<MobnApp>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 

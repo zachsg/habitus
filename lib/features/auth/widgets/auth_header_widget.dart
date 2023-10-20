@@ -16,8 +16,8 @@ class AuthHeaderWidget extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(
-            habitusLogoSvg,
-            semanticsLabel: habitusLogoString,
+            mobnLogoSvg,
+            semanticsLabel: mobnLogoString,
             width: 28,
             height: 28,
             colorFilter: ColorFilter.mode(

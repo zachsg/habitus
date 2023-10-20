@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitus/models/h_u_habitat_model.dart';
+import 'package:mobn/models/h_u_habitat_model.dart';
 
 import '../../../helpers/strings.dart';
 import 'xwidgets.dart';

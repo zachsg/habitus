@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'firebase_options.dart';
-import 'habitus_app.dart';
+import 'mobn_app.dart';
 import 'helpers/providers.dart';
 import 'services/database.dart';
 import 'services/local_notification_service.dart';
@@ -43,7 +43,9 @@ Future<void> main() async {
   // Listen for messages when the app is in the foreground
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     if (message.notification != null) {
-      print('Message also contained a notification: ${message.notification}');
+      if (kDebugMode) {
+        print('Message also contained a notification: ${message.notification}');
+      }
     }
   });
 
@@ -61,7 +63,7 @@ Future<void> main() async {
       overrides: [
         prefsProvider.overrideWithValue(preferences),
       ],
-      child: const HabitusApp(),
+      child: const MobnApp(),
     ),
   );
 }

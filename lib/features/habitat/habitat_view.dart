@@ -109,9 +109,21 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
-              const SizedBox(height: 16.0),
-              HabitatDaySelectorWidget(habitat: widget.habitat),
-              const SizedBox(height: 16.0),
+              const Row(),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: [
+              //     FilledButton(
+              //       onPressed: () {},
+              //       child: Text('Calendar'),
+              //     ),
+              //     FilledButton(
+              //       onPressed: () {},
+              //       child: Text('Leaderboard'),
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(height: 16.0),
               unFinishedCallouts.isNotEmpty
                   ? HabitatCalloutBoxWidget(habitat: widget.habitat)
                   : const SizedBox(),
@@ -119,13 +131,25 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
               loading
                   ? const CircularProgressIndicator.adaptive()
                   : actions.isEmpty & !isToday
-                      ? HabitatEmptyStateWidget(habitat: widget.habitat)
+                      ? Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              habitatGoalString.toUpperCase(),
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            HabitatDaySelectorWidget(habitat: widget.habitat),
+                            HabitatEmptyStateWidget(habitat: widget.habitat),
+                          ],
+                        )
                       : Column(
                           children: [
                             Text(
                               habitatGoalString.toUpperCase(),
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
+                            HabitatDaySelectorWidget(habitat: widget.habitat),
+                            const SizedBox(height: 16.0),
                             HabitatGoalProgressChartWidget(
                               habitat: widget.habitat,
                             ),
@@ -167,8 +191,8 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
                   const Text(takeActionString),
                   const SizedBox(width: 8),
                   SvgPicture.asset(
-                    habitusLogoSvg,
-                    semanticsLabel: habitusLogoString,
+                    mobnLogoSvg,
+                    semanticsLabel: mobnLogoString,
                     width: 24,
                     height: 24,
                     colorFilter: ColorFilter.mode(

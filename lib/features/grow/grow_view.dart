@@ -4,7 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habitus/helpers/extensions.dart';
+import 'package:mobn/helpers/extensions.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../helpers/providers.dart';
@@ -49,11 +49,8 @@ class _GrowViewState extends ConsumerState<GrowView>
 
   @override
   Widget build(BuildContext context) {
+    final grow = ref.watch(growProvider(widget.habitatAndAction));
     final profile = ref.watch(profileProvider).profile;
-    final goal = profile.goals.firstWhere(
-        (goal) => goal.habitatId == widget.habitatAndAction.habitat.id);
-
-    final goalMet = widget.habitatAndAction.elapsed >= goal.value;
 
     final themeP = ref.watch(themeProvider);
 
@@ -67,7 +64,7 @@ class _GrowViewState extends ConsumerState<GrowView>
     final habitType = widget.habitatAndAction.habitat.goal.habit;
 
     return WillPopScope(
-      onWillPop: () => saveOrDelete(ref, context, goalMet),
+      onWillPop: () => saveOrDelete(ref, context, grow.goalMet),
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
@@ -107,7 +104,7 @@ class _GrowViewState extends ConsumerState<GrowView>
             ),
             body: Column(
               children: [
-                goalMet
+                grow.goalMet
                     ? GrowStopwatchWidget(
                         profile: profile,
                         habitatAndAction: widget.habitatAndAction,
@@ -131,7 +128,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                       ref,
                       context,
                       widget.habitatAndAction,
-                      goalMet,
+                      grow.goalMet,
                     );
                   },
                   child: Padding(
@@ -139,7 +136,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                       horizontal: 16.0,
                       vertical: 20.0,
                     ),
-                    child: Text(goalMet
+                    child: Text(grow.goalMet
                         ? pauseString
                         : 'Done ${habitType.habitDoing()}'),
                   ),
@@ -185,13 +182,15 @@ class _GrowViewState extends ConsumerState<GrowView>
 
     final habitType = widget.habitatAndAction.habitat.goal.habit;
 
+    int elapsed = (grow.elapsed / 60).round();
+
     return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        final elapsed = goalMet || grow.alreadyElapsed > 0
-            ? grow.elapsed / 60
-            : grow.elapsed / 60 - habitatAndAction.elapsed;
+        if (!goalMet) {
+          elapsed -= habitatAndAction.elapsed;
+        }
 
         return StatefulBuilder(builder: (context, setState) {
           return AlertDialog(

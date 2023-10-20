@@ -1,3 +1,4 @@
+import 'package:mobn/models/xmodels.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../services/database.dart';
@@ -11,6 +12,7 @@ class Habitats extends _$Habitats {
   HabitatsModel build() => HabitatsModel(
         habitats: [],
         actions: [],
+        pastWeekActions: [],
         callouts: [],
         loading: true,
       );
@@ -26,8 +28,25 @@ class Habitats extends _$Habitats {
 
   Future<void> loadActions() async {
     try {
-      final actions = await Database.myActionsForToday();
-      state = state.copyWith(actions: actions, loading: false);
+      final allActions = await Database.myActionsForPastXDays(7);
+
+      List<HUActionModel> todayActions = [];
+      List<HUActionModel> pastActions = [];
+
+      final todayStart = DateTime.now().copyWith(hour: 0, minute: 0);
+
+      for (final action in allActions) {
+        if (action.createdAt.isAfter(todayStart)) {
+          todayActions.add(action);
+        } else {
+          pastActions.add(action);
+        }
+      }
+
+      state = state.copyWith(
+        actions: todayActions,
+        pastWeekActions: pastActions,
+      );
     } on Exception catch (_) {
       state = state.copyWith(error: 'An error occurred', loading: false);
     }
