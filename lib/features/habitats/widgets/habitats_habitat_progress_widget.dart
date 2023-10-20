@@ -48,7 +48,19 @@ class HabitatsHabitatProgressWidget extends ConsumerWidget {
               backgroundColor: Colors.yellow.shade800,
               radius: 24,
             )
-          : Text("${(progress * 100).round()}%"),
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "${(progress * 100).round()}%",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                // Text(
+                //   'Today',
+                //   style: Theme.of(context).textTheme.bodySmall,
+                // ),
+              ],
+            ),
       backgroundColor:
           Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
       progressColor: Theme.of(context).colorScheme.primary,

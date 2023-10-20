@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:habitus/helpers/extensions.dart';
+import 'package:mobn/helpers/extensions.dart';
 
 import '../../habitat/habitat_view.dart';
 import '../../join_habitat/join_habitat_view.dart';
@@ -24,7 +24,6 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
       child: Column(
         children: [
           const HabitatsOverallProgressWidget(),
-          const SizedBox(height: 8.0),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
@@ -32,9 +31,10 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: habitats.length + 1,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: 4.0,
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.80),
+                crossAxisSpacing: 4.0,
+                crossAxisCount: 2,
+                childAspectRatio: 0.82,
+              ),
               itemBuilder: (context, index) {
                 if (index == habitats.length) {
                   return Padding(
@@ -102,66 +102,67 @@ class HabitatsMyHabitatsWidget extends ConsumerWidget {
                               child: Stack(
                                 children: [
                                   Positioned(
-                                    top: 0,
+                                    top: 24,
                                     right: 0,
                                     left: 0,
                                     child: Column(
                                       children: [
-                                        const SizedBox(height: 8.0),
                                         HabitatsHabitatProgressWidget(
                                           habitat: habitat,
                                         ),
-                                        const SizedBox(height: 8.0),
+                                        const SizedBox(height: 12.0),
                                         Text(
                                           habitat.name,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.center,
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium,
                                         ),
+                                        const SizedBox(height: 12.0),
+                                        HabitatsPastWeekWidget(
+                                          habitat: habitat,
+                                        ),
                                       ],
                                     ),
                                   ),
                                   Positioned(
-                                    bottom: 0,
+                                    top: 0,
                                     left: 0,
                                     right: 0,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                '${habitat.members.length + habitat.admins.length + 1}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium,
-                                              ),
-                                              const SizedBox(width: 4.0),
-                                              Icon(
-                                                isIOS
-                                                    ? CupertinoIcons.group_solid
-                                                    : Icons.group,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onPrimaryContainer,
-                                              )
-                                            ],
-                                          ),
-                                          Text(
-                                            date,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall,
-                                          ),
-                                        ],
-                                      ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              '${habitat.members.length + habitat.admins.length + 1}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall,
+                                            ),
+                                            const SizedBox(width: 4.0),
+                                            Icon(
+                                              isIOS
+                                                  ? CupertinoIcons.group_solid
+                                                  : Icons.group,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimaryContainer,
+                                              size: 18.0,
+                                            )
+                                          ],
+                                        ),
+                                        Text(
+                                          date,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall,
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],

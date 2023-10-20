@@ -8,10 +8,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../helpers/strings.dart';
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
 import '../auth/sign_in_view.dart';
+import '../calendar/calendar_view.dart';
 import '../habitat/habitat_view.dart';
 import '../profile/profile.dart';
 import '../profile/profile_view.dart';
@@ -105,7 +105,15 @@ class _HabitatsViewState extends ConsumerState<HabitatsView>
     return profile.acceptedTerms
         ? Scaffold(
             appBar: AppBar(
-              title: const Text(homeTitleString),
+              title: provider.habitats.isNotEmpty
+                  ? IconButton(
+                      onPressed: () => context.pushNamed(
+                        CalendarView.routeName,
+                        extra: provider.habitats,
+                      ),
+                      icon: const Icon(Icons.roofing),
+                    )
+                  : null,
               leading: IconButton(
                 onPressed: () => context.pushNamed(ProfileView.routeName),
                 icon: isIOS

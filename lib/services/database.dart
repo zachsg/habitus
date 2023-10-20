@@ -208,7 +208,7 @@ class Database {
 
     try {
       final start = day.copyWith(hour: 0, minute: 0);
-      final end = day.copyWith(hour: 24, minute: 59);
+      final end = day.copyWith(hour: 23, minute: 59);
 
       final actionsJson = await supabase
           .from(actionsTable)
@@ -242,7 +242,7 @@ class Database {
 
     try {
       final start = day.copyWith(hour: 0, minute: 0);
-      final end = day.copyWith(hour: 24, minute: 59);
+      final end = day.copyWith(hour: 23, minute: 59);
 
       final calloutsJson = isDone
           ? await supabase
@@ -281,7 +281,7 @@ class Database {
 
     try {
       final start = day.copyWith(hour: 0, minute: 0);
-      final end = day.copyWith(hour: 24, minute: 59);
+      final end = day.copyWith(hour: 23, minute: 59);
 
       final calloutsJson = await supabase
           .from(calloutsTable)
@@ -303,6 +303,38 @@ class Database {
     }
   }
 
+  static Future<List<HUActionModel>> myActionsForPastXDays(int days) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    try {
+      final start = DateTime.now()
+          .copyWith(hour: 0, minute: 0)
+          .subtract(Duration(days: days - 1));
+      final end = DateTime.now().copyWith(hour: 23, minute: 59);
+
+      final actionsJson = await supabase
+          .from(actionsTable)
+          .select()
+          .eq('owner_id', user.id)
+          .gt('created_at', start.toUtc())
+          .lt('created_at', end.toUtc())
+          .order('created_at');
+
+      List<HUActionModel> actions = [];
+      for (final actionJson in actionsJson) {
+        final action = HUActionModel.fromJson(actionJson);
+        actions.add(action);
+      }
+
+      return actions;
+    } on Exception catch (_) {
+      return [];
+    }
+  }
+
   static Future<List<HUActionModel>> myActionsForToday() async {
     final user = supabase.auth.currentUser;
     if (user == null) {
@@ -311,7 +343,7 @@ class Database {
 
     try {
       final start = DateTime.now().copyWith(hour: 0, minute: 0);
-      final end = DateTime.now().copyWith(hour: 24, minute: 59);
+      final end = DateTime.now().copyWith(hour: 23, minute: 59);
 
       final actionsJson = await supabase
           .from(actionsTable)
@@ -639,8 +671,10 @@ class Database {
     try {
       final List<int> ids = [];
       for (final callout in callouts) {
-        final c = callout.copyWith(done: true);
-        ids.add(c.id);
+        if (!callout.done) {
+          final c = callout.copyWith(done: true);
+          ids.add(c.id);
+        }
       }
       final time = DateTime.now().toUtc().toIso8601String();
       await supabase.from(calloutsTable).update({
