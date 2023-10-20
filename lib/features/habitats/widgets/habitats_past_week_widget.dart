@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../../../models/completion.dart';
 import '../../../models/xmodels.dart';
 import '../../profile/profile.dart';
 import '../habitats.dart';
+import 'xwidgets.dart';
 
 class HabitatsPastWeekWidget extends ConsumerWidget {
   const HabitatsPastWeekWidget({super.key, required this.habitat});
@@ -68,119 +70,5 @@ class HabitatsPastWeekWidget extends ConsumerWidget {
     });
 
     return children.reversed.toList();
-  }
-}
-
-enum Completion {
-  done,
-  undone,
-  sorta;
-}
-
-class HabitatsNotDoneWidget extends StatelessWidget {
-  const HabitatsNotDoneWidget({super.key, required this.day});
-
-  final String day;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 21.0,
-      height: 21.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(100.0),
-        border: Border.all(
-          width: 1,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-      ),
-      child: Center(
-        child: Text(
-          day.toUpperCase(),
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: Theme.of(context).colorScheme.primary),
-        ),
-      ),
-    );
-  }
-}
-
-class HabitatsPartDoneWidget extends StatelessWidget {
-  const HabitatsPartDoneWidget({super.key, required this.day});
-
-  final String day;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: 21.0,
-          height: 21.0,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Text(
-              day.toUpperCase(),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class HabitatsDoneWidget extends StatelessWidget {
-  const HabitatsDoneWidget({super.key, required this.day});
-
-  final String day;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned(
-          child: Container(
-            width: 21.0,
-            height: 21.0,
-            decoration: BoxDecoration(
-              color: Colors.yellow.shade800,
-              shape: BoxShape.circle,
-            ),
-          ),
-        ),
-        Positioned(
-          top: 3,
-          bottom: 3,
-          left: 3,
-          right: 3,
-          child: Container(
-            width: 14.0,
-            height: 14.0,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: Text(
-                day.toUpperCase(),
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
   }
 }
