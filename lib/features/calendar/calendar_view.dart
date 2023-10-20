@@ -1,10 +1,11 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
-import 'package:mobn/helpers/extensions.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../models/xmodels.dart';
-import '../profile/profile.dart';
 import 'calendar.dart';
 import 'widgets/xwidgets.dart';
 
@@ -26,161 +27,67 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
     super.initState();
   }
 
-  int _extraItemCount(DateTime firstDayOfMonth) {
-    final DateFormat formatter = DateFormat('EEEE');
-
-    final day = formatter.format(firstDayOfMonth);
-
-    switch (day) {
-      case 'Sunday':
-        return 0;
-      case 'Monday':
-        return 1;
-      case 'Tuesday':
-        return 2;
-      case 'Wednesday':
-        return 3;
-      case 'Thursday':
-        return 4;
-      case 'Friday':
-        return 5;
-      case 'Saturday':
-        return 6;
-      default:
-        return 0;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final isIOS = Platform.isIOS;
     final provider = ref.watch(calendarProvider(widget.habitats));
-    final profile = ref.read(profileProvider).profile;
-    final goal = profile.goals.firstWhere(
-      (goal) => goal.habitatId == provider.habitat.id,
-      orElse: () =>
-          HUGoalModel(habitatId: -1, habit: '', unit: Unit.minutes, value: 0),
-    );
-
-    final firstDayOfMonth = DateTime(
-      provider.date.year,
-      provider.date.month,
-      1,
-    );
-
-    final lastDayOfMonth = DateTime(
-      provider.date.year,
-      provider.date.month + 1,
-      0,
-    );
-
-    int count = 0;
-
-    final List<HUActionModel> actions = List.from(provider.actions);
-    actions.removeWhere((action) =>
-        action.habitatId != provider.habitat.id ||
-        action.createdAt.month != provider.date.month);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Progress'),
+        actions: [
+          IconButton(
+            onPressed: () => _showInfoDialog(context),
+            icon: Icon(isIOS ? CupertinoIcons.info : Icons.info_outline),
+          ),
+        ],
       ),
       body: Column(
         children: [
-          const SizedBox(height: 12.0),
           CalendarHabitatPickerWidget(habitats: widget.habitats),
           provider.actions.isNotEmpty
               ? Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: ref
-                                .read(
-                                    calendarProvider(widget.habitats).notifier)
-                                .prevMonth,
-                            icon: const Icon(Icons.arrow_back_ios),
-                          ),
-                          const SizedBox(width: 12.0),
-                          Text(provider.date.month.toMonthLong()),
-                          const SizedBox(width: 12.0),
-                          IconButton(
-                            onPressed: ref
-                                .read(
-                                    calendarProvider(widget.habitats).notifier)
-                                .nextMonth,
-                            icon: const Icon(Icons.arrow_forward_ios),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text('Su'),
-                          Text('Mo'),
-                          Text('Tu'),
-                          Text('We'),
-                          Text('Th'),
-                          Text('Fr'),
-                          Text('Sa'),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20.0,
-                        right: 20.0,
-                      ),
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        physics: const ScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisSpacing: 4.0,
-                          mainAxisSpacing: 4.0,
-                          crossAxisCount: 7,
-                          // childAspectRatio: 0.85,
-                        ),
-                        itemCount: lastDayOfMonth.day +
-                            _extraItemCount(firstDayOfMonth),
-                        itemBuilder: (context, index) {
-                          if (count < _extraItemCount(firstDayOfMonth)) {
-                            count += 1;
-                            return const Text('');
-                          } else {
-                            final dayNumber = index + 1 - count;
-                            int youDid = 0;
-                            final d = provider.date.copyWith(day: dayNumber);
-                            final today = DateTime.now();
-                            if (d.isBefore(today)) {
-                              for (final action in actions) {
-                                if (action.createdAt.toLocal().day == d.day) {
-                                  youDid += action.goal.value;
-                                }
-                              }
-                            }
-
-                            if (youDid >= goal.value) {
-                              return CalendarDoneWidget(day: '$dayNumber');
-                            } else if (youDid > 0) {
-                              return CalendarPartDoneWidget(day: '$dayNumber');
-                            } else {
-                              return CalendarNotDoneWidget(day: '$dayNumber');
-                            }
-                          }
-                        },
-                      ),
-                    ),
+                    CalendarMonthPickerWidget(habitats: widget.habitats),
+                    const CalendarCalendarHeaderWidget(),
+                    CalendarCalendarWidget(habitats: widget.habitats),
                   ],
                 )
               : const CircularProgressIndicator.adaptive(),
         ],
       ),
+    );
+  }
+
+  Future<void> _showInfoDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Legend'),
+          content: StatefulBuilder(builder: (context, setState) {
+            return const CalendarLegendWidget();
+          }),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: context.pop,
+                  child: Text(
+                    'Got It',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

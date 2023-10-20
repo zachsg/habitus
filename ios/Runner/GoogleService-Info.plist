@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>io.mobn.mobn</string>
+	<string>io.habitusapp.habitus</string>
 	<key>PROJECT_ID</key>
 	<string>habitusapp-ea298</string>
 	<key>STORAGE_BUCKET</key>
