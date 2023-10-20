@@ -10,6 +10,7 @@ class CalendarModel with _$CalendarModel {
   factory CalendarModel({
     required List<HUHabitatModel> habitats,
     required HUHabitatModel habitat,
+    required DateTime date,
     @Default([]) List<HUActionModel> actions,
     @Default(false) bool loading,
     String? error,

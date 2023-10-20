@@ -12,6 +12,7 @@ _$CalendarModelImpl _$$CalendarModelImplFromJson(Map<String, dynamic> json) =>
           .map((e) => HUHabitatModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       habitat: HUHabitatModel.fromJson(json['habitat'] as Map<String, dynamic>),
+      date: DateTime.parse(json['date'] as String),
       actions: (json['actions'] as List<dynamic>?)
               ?.map((e) => HUActionModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -24,6 +25,7 @@ Map<String, dynamic> _$$CalendarModelImplToJson(_$CalendarModelImpl instance) =>
     <String, dynamic>{
       'habitats': instance.habitats,
       'habitat': instance.habitat,
+      'date': instance.date.toIso8601String(),
       'actions': instance.actions,
       'loading': instance.loading,
       'error': instance.error,

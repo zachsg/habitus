@@ -22,6 +22,7 @@ CalendarModel _$CalendarModelFromJson(Map<String, dynamic> json) {
 mixin _$CalendarModel {
   List<HUHabitatModel> get habitats => throw _privateConstructorUsedError;
   HUHabitatModel get habitat => throw _privateConstructorUsedError;
+  DateTime get date => throw _privateConstructorUsedError;
   List<HUActionModel> get actions => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
@@ -41,6 +42,7 @@ abstract class $CalendarModelCopyWith<$Res> {
   $Res call(
       {List<HUHabitatModel> habitats,
       HUHabitatModel habitat,
+      DateTime date,
       List<HUActionModel> actions,
       bool loading,
       String? error});
@@ -63,6 +65,7 @@ class _$CalendarModelCopyWithImpl<$Res, $Val extends CalendarModel>
   $Res call({
     Object? habitats = null,
     Object? habitat = null,
+    Object? date = null,
     Object? actions = null,
     Object? loading = null,
     Object? error = freezed,
@@ -76,6 +79,10 @@ class _$CalendarModelCopyWithImpl<$Res, $Val extends CalendarModel>
           ? _value.habitat
           : habitat // ignore: cast_nullable_to_non_nullable
               as HUHabitatModel,
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       actions: null == actions
           ? _value.actions
           : actions // ignore: cast_nullable_to_non_nullable
@@ -111,6 +118,7 @@ abstract class _$$CalendarModelImplCopyWith<$Res>
   $Res call(
       {List<HUHabitatModel> habitats,
       HUHabitatModel habitat,
+      DateTime date,
       List<HUActionModel> actions,
       bool loading,
       String? error});
@@ -132,6 +140,7 @@ class __$$CalendarModelImplCopyWithImpl<$Res>
   $Res call({
     Object? habitats = null,
     Object? habitat = null,
+    Object? date = null,
     Object? actions = null,
     Object? loading = null,
     Object? error = freezed,
@@ -145,6 +154,10 @@ class __$$CalendarModelImplCopyWithImpl<$Res>
           ? _value.habitat
           : habitat // ignore: cast_nullable_to_non_nullable
               as HUHabitatModel,
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       actions: null == actions
           ? _value._actions
           : actions // ignore: cast_nullable_to_non_nullable
@@ -167,6 +180,7 @@ class _$CalendarModelImpl implements _CalendarModel {
   _$CalendarModelImpl(
       {required final List<HUHabitatModel> habitats,
       required this.habitat,
+      required this.date,
       final List<HUActionModel> actions = const [],
       this.loading = false,
       this.error})
@@ -186,6 +200,8 @@ class _$CalendarModelImpl implements _CalendarModel {
 
   @override
   final HUHabitatModel habitat;
+  @override
+  final DateTime date;
   final List<HUActionModel> _actions;
   @override
   @JsonKey()
@@ -203,7 +219,7 @@ class _$CalendarModelImpl implements _CalendarModel {
 
   @override
   String toString() {
-    return 'CalendarModel(habitats: $habitats, habitat: $habitat, actions: $actions, loading: $loading, error: $error)';
+    return 'CalendarModel(habitats: $habitats, habitat: $habitat, date: $date, actions: $actions, loading: $loading, error: $error)';
   }
 
   @override
@@ -213,6 +229,7 @@ class _$CalendarModelImpl implements _CalendarModel {
             other is _$CalendarModelImpl &&
             const DeepCollectionEquality().equals(other._habitats, _habitats) &&
             (identical(other.habitat, habitat) || other.habitat == habitat) &&
+            (identical(other.date, date) || other.date == date) &&
             const DeepCollectionEquality().equals(other._actions, _actions) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
@@ -224,6 +241,7 @@ class _$CalendarModelImpl implements _CalendarModel {
       runtimeType,
       const DeepCollectionEquality().hash(_habitats),
       habitat,
+      date,
       const DeepCollectionEquality().hash(_actions),
       loading,
       error);
@@ -246,6 +264,7 @@ abstract class _CalendarModel implements CalendarModel {
   factory _CalendarModel(
       {required final List<HUHabitatModel> habitats,
       required final HUHabitatModel habitat,
+      required final DateTime date,
       final List<HUActionModel> actions,
       final bool loading,
       final String? error}) = _$CalendarModelImpl;
@@ -257,6 +276,8 @@ abstract class _CalendarModel implements CalendarModel {
   List<HUHabitatModel> get habitats;
   @override
   HUHabitatModel get habitat;
+  @override
+  DateTime get date;
   @override
   List<HUActionModel> get actions;
   @override

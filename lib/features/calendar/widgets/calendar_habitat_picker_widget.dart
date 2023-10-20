@@ -15,25 +15,24 @@ class CalendarHabitatPickerWidget extends ConsumerWidget {
 
     return SizedBox(
       height: 64.0,
-      child: Expanded(
-        child: ListView.builder(
-          itemCount: provider.habitats.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            final habitat = provider.habitats[index];
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: provider.habitats.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          final habitat = provider.habitats[index];
 
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: ChoiceChip(
-                label: Text(habitat.name),
-                selected: provider.habitat.id == habitat.id,
-                onSelected: (bool selected) => ref
-                    .read(calendarProvider(habitats).notifier)
-                    .setHabitat(habitat),
-              ),
-            );
-          },
-        ),
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: ChoiceChip(
+              label: Text(habitat.name),
+              selected: provider.habitat.id == habitat.id,
+              onSelected: (bool selected) => ref
+                  .read(calendarProvider(habitats).notifier)
+                  .setHabitat(habitat),
+            ),
+          );
+        },
       ),
     );
   }
