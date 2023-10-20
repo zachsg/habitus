@@ -303,7 +303,7 @@ class Database {
     }
   }
 
-  static Future<List<HUActionModel>> myActionsForPastWeek() async {
+  static Future<List<HUActionModel>> myActionsForPastXDays(int days) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw NoAuthException();
@@ -312,7 +312,7 @@ class Database {
     try {
       final start = DateTime.now()
           .copyWith(hour: 0, minute: 0)
-          .subtract(const Duration(days: 6));
+          .subtract(Duration(days: days - 1));
       final end = DateTime.now().copyWith(hour: 23, minute: 59);
 
       final actionsJson = await supabase

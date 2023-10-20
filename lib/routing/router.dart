@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../features/auth/sign_in_view.dart';
 import '../features/auth/sign_up_view.dart';
+import '../features/calendar/calendar_view.dart';
 import '../features/grow/grow_view.dart';
 import '../features/habitat/habitat_view.dart';
 import '../features/habitat_settings/habitat_settings_view.dart';
@@ -65,7 +66,6 @@ final router = GoRouter(
               name: GrowView.routeName,
               builder: (context, state) {
                 final habitAndAction = state.extra as HUHabitatAndActionModel;
-
                 return GrowView(habitatAndAction: habitAndAction);
               },
             ),
@@ -74,11 +74,18 @@ final router = GoRouter(
               name: HabitatSettingsView.routeName,
               builder: (context, state) {
                 final habitat = state.extra as HUHabitatModel;
-
                 return HabitatSettingsView(habitat: habitat);
               },
             ),
           ],
+        ),
+        GoRoute(
+          path: CalendarView.routeName,
+          name: CalendarView.routeName,
+          builder: (context, state) {
+            final habitats = state.extra as List<HUHabitatModel>;
+            return CalendarView(habitats: habitats);
+          },
         ),
         GoRoute(
           path: ProfileView.routeName,
