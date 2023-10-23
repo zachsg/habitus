@@ -45,15 +45,13 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
       body: Column(
         children: [
           CalendarHabitatPickerWidget(habitats: widget.habitats),
-          provider.actions.isNotEmpty
-              ? Column(
-                  children: [
-                    CalendarMonthPickerWidget(habitats: widget.habitats),
-                    const CalendarCalendarHeaderWidget(),
-                    CalendarCalendarWidget(habitats: widget.habitats),
-                  ],
-                )
-              : const CircularProgressIndicator.adaptive(),
+          Column(
+            children: [
+              CalendarMonthPickerWidget(habitats: widget.habitats),
+              const CalendarCalendarHeaderWidget(),
+              CalendarCalendarWidget(habitats: widget.habitats),
+            ],
+          )
         ],
       ),
     );
