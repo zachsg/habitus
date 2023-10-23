@@ -124,6 +124,13 @@ class _GrowViewState extends ConsumerState<GrowView>
                         .read(growProvider(widget.habitatAndAction).notifier)
                         .setPaused(true);
 
+                    final elapsed =
+                        ref.read(growProvider(widget.habitatAndAction)).elapsed;
+                    ref
+                        .read(growProvider(widget.habitatAndAction).notifier)
+                        .setMaxElapsed(
+                            elapsed, widget.habitatAndAction.elapsed);
+
                     _showSessionCompleteDialog(
                       ref,
                       context,
@@ -158,6 +165,11 @@ class _GrowViewState extends ConsumerState<GrowView>
 
     ref.read(growProvider(widget.habitatAndAction).notifier).setPaused(true);
 
+    final elapsed = ref.read(growProvider(widget.habitatAndAction)).elapsed;
+    ref
+        .read(growProvider(widget.habitatAndAction).notifier)
+        .setMaxElapsed(elapsed, widget.habitatAndAction.elapsed);
+
     _showSessionCompleteDialog(
       ref,
       context,
@@ -177,6 +189,7 @@ class _GrowViewState extends ConsumerState<GrowView>
     HUHabitatAndActionModel habitatAndAction,
     bool goalMet,
   ) async {
+    final isIOS = Platform.isIOS;
     final grow = ref.watch(growProvider(habitatAndAction));
     bool loading = false;
 
@@ -192,12 +205,94 @@ class _GrowViewState extends ConsumerState<GrowView>
           elapsed -= habitatAndAction.elapsed;
         }
 
+        int elapsedInside = elapsed;
+        final maxElapsed = elapsedInside;
+        bool canDecrement = elapsedInside > 1;
+        bool canIncrement = elapsedInside < maxElapsed;
+
         return StatefulBuilder(builder: (context, setState) {
           return AlertDialog(
-            title: Text(
-              'You ${habitType.habitDid().toLowerCase()} '
-              'for ${elapsed.round().toTimeLong()}',
-            ),
+            title: elapsed > 0
+                ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'It looks like you ${habitType.habitDid().toLowerCase()} for',
+                        textAlign: TextAlign.center,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            disabledColor: Theme.of(context)
+                                .colorScheme
+                                .onBackground
+                                .withOpacity(0.3),
+                            onPressed: canDecrement
+                                ? () {
+                                    setState(() {
+                                      elapsedInside -= 1;
+                                      if (elapsedInside > 1) {
+                                        canDecrement = true;
+                                      } else {
+                                        canDecrement = false;
+                                      }
+                                      canIncrement = true;
+                                    });
+                                  }
+                                : null,
+                            icon: Icon(
+                              isIOS
+                                  ? CupertinoIcons.minus_circle
+                                  : Icons.remove_circle,
+                              size: 32,
+                              color: canDecrement
+                                  ? Theme.of(context).colorScheme.primary
+                                  : null,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            elapsedInside.toTimeLong(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(width: 8),
+                          IconButton(
+                            disabledColor: Theme.of(context)
+                                .colorScheme
+                                .onBackground
+                                .withOpacity(0.3),
+                            onPressed: canIncrement
+                                ? () {
+                                    setState(() {
+                                      elapsedInside += 1;
+                                      if (elapsedInside < maxElapsed) {
+                                        canIncrement = true;
+                                      } else {
+                                        canIncrement = false;
+                                      }
+                                      canDecrement = true;
+                                    });
+                                  }
+                                : null,
+                            icon: Icon(
+                              isIOS
+                                  ? CupertinoIcons.add_circled
+                                  : Icons.add_circle,
+                              size: 32,
+                              color: canIncrement
+                                  ? Theme.of(context).colorScheme.primary
+                                  : null,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                : Text('You ${habitType.habitDid().toLowerCase()} for <1 min'),
             content: SingleChildScrollView(
               child: ListBody(
                 children: [
@@ -268,7 +363,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                                   await ref
                                       .read(growProvider(habitatAndAction)
                                           .notifier)
-                                      .save(elapsed.round());
+                                      .save(elapsedInside);
 
                                   _notifyNewAction();
 

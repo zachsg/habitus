@@ -12,6 +12,7 @@ class GrowModel with _$GrowModel {
     @Default(false) bool loading,
     @Default(0) int elapsed,
     @Default(0) int alreadyElapsed,
+    @Default(0) int maxElapsed,
     @Default(false) bool goalMet,
     @Default(false) bool isPaused,
     @Default('') String calloutId,
