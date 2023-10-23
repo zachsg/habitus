@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 
 class CalendarNotDoneWidget extends StatelessWidget {
-  const CalendarNotDoneWidget({super.key, required this.day});
+  const CalendarNotDoneWidget({
+    super.key,
+    required this.day,
+    this.width = 50.0,
+    this.height = 50.0,
+  });
 
   final String day;
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 21.0,
-      height: 21.0,
+      width: width,
+      height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100.0),
         border: Border.all(
