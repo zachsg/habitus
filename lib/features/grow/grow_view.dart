@@ -124,13 +124,6 @@ class _GrowViewState extends ConsumerState<GrowView>
                         .read(growProvider(widget.habitatAndAction).notifier)
                         .setPaused(true);
 
-                    final elapsed =
-                        ref.read(growProvider(widget.habitatAndAction)).elapsed;
-                    ref
-                        .read(growProvider(widget.habitatAndAction).notifier)
-                        .setMaxElapsed(
-                            elapsed, widget.habitatAndAction.elapsed);
-
                     _showSessionCompleteDialog(
                       ref,
                       context,
@@ -164,11 +157,6 @@ class _GrowViewState extends ConsumerState<GrowView>
     WakelockPlus.disable();
 
     ref.read(growProvider(widget.habitatAndAction).notifier).setPaused(true);
-
-    final elapsed = ref.read(growProvider(widget.habitatAndAction)).elapsed;
-    ref
-        .read(growProvider(widget.habitatAndAction).notifier)
-        .setMaxElapsed(elapsed, widget.habitatAndAction.elapsed);
 
     _showSessionCompleteDialog(
       ref,

@@ -47,26 +47,6 @@ class Grow extends _$Grow {
     state = state.copyWith(isPaused: paused, loading: false);
   }
 
-  void setMaxElapsed(int elapsed, int previousElapsed) {
-    state = state.copyWith(maxElapsed: elapsed - previousElapsed);
-  }
-
-  void incrementSession() {
-    if (state.elapsed >= state.maxElapsed) {
-      return;
-    }
-
-    state = state.copyWith(elapsed: state.elapsed + 60);
-  }
-
-  void decrementSession() {
-    if (state.elapsed <= 60) {
-      return;
-    }
-
-    state = state.copyWith(elapsed: state.elapsed - 60);
-  }
-
   Future<bool> save(int elapsed) async {
     if (elapsed < 1) {
       return true;
