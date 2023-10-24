@@ -180,9 +180,10 @@ class _GrowCalloutWidgetState extends ConsumerState<GrowCalloutWidget> {
               const SizedBox(height: 4.0),
               SingleChildScrollView(
                 child: Wrap(
-                    spacing: 16.0,
-                    runSpacing: 16.0,
-                    children: filteredChildren),
+                  spacing: 16.0,
+                  runSpacing: 16.0,
+                  children: filteredChildren,
+                ),
               ),
             ],
           );

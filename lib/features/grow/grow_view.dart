@@ -200,6 +200,18 @@ class _GrowViewState extends ConsumerState<GrowView>
 
         return StatefulBuilder(builder: (context, setState) {
           return AlertDialog(
+            titlePadding: const EdgeInsets.only(
+              left: 24.0,
+              top: 24.0,
+              right: 24.0,
+              bottom: 4.0,
+            ),
+            contentPadding: const EdgeInsets.only(
+              left: 24.0,
+              top: 4.0,
+              right: 24.0,
+              bottom: 24.0,
+            ),
             title: elapsed > 0
                 ? Column(
                     mainAxisSize: MainAxisSize.min,
@@ -277,7 +289,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                             ),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   )
                 : Text('You ${habitType.habitDid().toLowerCase()} for <1 min'),
