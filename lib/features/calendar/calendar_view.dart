@@ -30,7 +30,6 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
   @override
   Widget build(BuildContext context) {
     final isIOS = Platform.isIOS;
-    final provider = ref.watch(calendarProvider(widget.habitats));
 
     return Scaffold(
       appBar: AppBar(

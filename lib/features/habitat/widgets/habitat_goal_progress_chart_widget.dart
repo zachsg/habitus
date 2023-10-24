@@ -140,7 +140,7 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
               context,
               avatar,
               size: 40.0,
-              borderColor: Theme.of(context).colorScheme.onBackground,
+              borderColor: color,
               isSvg: isSvg,
             )
           : const SizedBox(),
