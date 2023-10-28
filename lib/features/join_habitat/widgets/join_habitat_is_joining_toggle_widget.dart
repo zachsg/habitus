@@ -37,13 +37,24 @@ class _JoinHabitatIsJoiningToggleWidgetState
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('Make One'.toUpperCase()),
+        Text(
+          'Make One'.toUpperCase(),
+          style: joinHabitat.isJoining
+              ? Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.w200)
+              : Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary),
+        ),
         const SizedBox(width: 8.0),
         AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
             return Switch.adaptive(
               activeColor: Theme.of(context).colorScheme.primary,
+              inactiveTrackColor: Theme.of(context).colorScheme.primary,
               activeTrackColor: Theme.of(context).colorScheme.primaryContainer,
               value: joinHabitat.isJoining,
               onChanged: (isOn) {
@@ -54,7 +65,17 @@ class _JoinHabitatIsJoiningToggleWidgetState
           },
         ),
         const SizedBox(width: 8.0),
-        Text('Join One'.toUpperCase()),
+        Text(
+          'Join One'.toUpperCase(),
+          style: joinHabitat.isJoining
+              ? Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary)
+              : Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.w200),
+        ),
       ],
     );
   }
