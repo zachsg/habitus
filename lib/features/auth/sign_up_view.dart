@@ -38,6 +38,7 @@ class SignUpView extends ConsumerWidget {
               const AuthEmailTextFieldWidget(),
               const AuthPasswordTextFieldWidget(),
               const AuthConfirmPasswordTextFieldWidget(),
+              const AuthNameTextFieldWidget(),
               const AuthHandleTextFieldWidget(),
               const AuthErrorTextWidget(),
               isValid
