@@ -122,6 +122,8 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                       ),
                     );
 
+                    final profileIndex = profiles.indexOf(profile);
+
                     return Column(
                       children: [
                         const SizedBox(height: 8.0),
