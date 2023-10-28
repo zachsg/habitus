@@ -188,7 +188,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
               },
               label: Row(
                 children: [
-                  const Text(takeActionString),
+                  Text(widget.habitat.goal.habit),
                   const SizedBox(width: 8),
                   SvgPicture.asset(
                     mobnLogoSvg,
