@@ -148,7 +148,9 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                                           .textTheme
                                           .bodyMedium
                                           ?.copyWith(
-                                              fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                            color: profileIndex.toColor(),
+                                          ),
                                     ),
                                     const SizedBox(width: 4.0),
                                     Text(
@@ -225,6 +227,11 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                     );
                     final isDone = activity.done;
 
+                    final calleeIndex =
+                        habitatP.profiles.indexOf(calleeProfile);
+                    final callerIndex =
+                        habitatP.profiles.indexOf(callerProfile);
+
                     return Column(
                       children: [
                         const SizedBox(height: 8.0),
@@ -250,8 +257,9 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                                                 .textTheme
                                                 .bodyMedium
                                                 ?.copyWith(
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontWeight: FontWeight.bold,
+                                                  color: calleeIndex.toColor(),
+                                                ),
                                           ),
                                           const SizedBox(width: 4.0),
                                           Text(
@@ -267,8 +275,9 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                                                 .textTheme
                                                 .bodyMedium
                                                 ?.copyWith(
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontWeight: FontWeight.bold,
+                                                  color: callerIndex.toColor(),
+                                                ),
                                           ),
                                           Text(
                                             '\'s callout',
@@ -316,8 +325,9 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                                                 .textTheme
                                                 .bodyMedium
                                                 ?.copyWith(
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontWeight: FontWeight.bold,
+                                                  color: callerIndex.toColor(),
+                                                ),
                                           ),
                                           const SizedBox(width: 4.0),
                                           Text(
@@ -333,8 +343,9 @@ class _HabitatActivityWidgetState extends ConsumerState<HabitatActivityWidget> {
                                                 .textTheme
                                                 .bodyMedium
                                                 ?.copyWith(
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontWeight: FontWeight.bold,
+                                                  color: calleeIndex.toColor(),
+                                                ),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.symmetric(

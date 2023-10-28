@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobn/helpers/extensions.dart';
 
 import '../../../helpers/strings.dart';
 import '../../../models/xmodels.dart';
@@ -95,9 +96,12 @@ class HabitatCalloutBoxWidget extends ConsumerWidget {
         }
       }
 
+      final index = profiles.indexOf(profile);
+
       final badge = CalloutBadgeMember(
         text: 'x$count',
         handle: profile.handle,
+        index: index,
       );
       children.add(badge);
     }
@@ -139,10 +143,16 @@ class HabitatCalloutBoxWidget extends ConsumerWidget {
 }
 
 class CalloutBadgeMember extends ConsumerWidget {
-  const CalloutBadgeMember({super.key, required this.text, this.handle = ''});
+  const CalloutBadgeMember({
+    super.key,
+    required this.text,
+    this.handle = '',
+    required this.index,
+  });
 
   final String text;
   final String handle;
+  final int index;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -158,8 +168,7 @@ class CalloutBadgeMember extends ConsumerWidget {
               color: Theme.of(context).colorScheme.background,
               shape: BoxShape.circle,
               border: Border.all(
-                color:
-                    Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
+                color: index.toColor(),
                 width: 2,
               ),
               boxShadow: [
@@ -180,7 +189,9 @@ class CalloutBadgeMember extends ConsumerWidget {
           ),
           Text(
             '@$handle',
-            style: Theme.of(context).textTheme.bodySmall,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: index.toColor(),
+                ),
           ),
         ],
       ),
