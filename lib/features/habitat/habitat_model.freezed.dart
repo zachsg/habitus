@@ -25,6 +25,7 @@ mixin _$HabitatModel {
   List<HUProfileModel> get profiles => throw _privateConstructorUsedError;
   List<HUActionModel> get actions => throw _privateConstructorUsedError;
   List<HUCalloutModel> get callouts => throw _privateConstructorUsedError;
+  String get customReactionText => throw _privateConstructorUsedError;
   int get percentage => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
@@ -47,6 +48,7 @@ abstract class $HabitatModelCopyWith<$Res> {
       List<HUProfileModel> profiles,
       List<HUActionModel> actions,
       List<HUCalloutModel> callouts,
+      String customReactionText,
       int percentage,
       bool loading,
       String? error});
@@ -72,6 +74,7 @@ class _$HabitatModelCopyWithImpl<$Res, $Val extends HabitatModel>
     Object? profiles = null,
     Object? actions = null,
     Object? callouts = null,
+    Object? customReactionText = null,
     Object? percentage = null,
     Object? loading = null,
     Object? error = freezed,
@@ -97,6 +100,10 @@ class _$HabitatModelCopyWithImpl<$Res, $Val extends HabitatModel>
           ? _value.callouts
           : callouts // ignore: cast_nullable_to_non_nullable
               as List<HUCalloutModel>,
+      customReactionText: null == customReactionText
+          ? _value.customReactionText
+          : customReactionText // ignore: cast_nullable_to_non_nullable
+              as String,
       percentage: null == percentage
           ? _value.percentage
           : percentage // ignore: cast_nullable_to_non_nullable
@@ -135,6 +142,7 @@ abstract class _$$HabitatModelImplCopyWith<$Res>
       List<HUProfileModel> profiles,
       List<HUActionModel> actions,
       List<HUCalloutModel> callouts,
+      String customReactionText,
       int percentage,
       bool loading,
       String? error});
@@ -159,6 +167,7 @@ class __$$HabitatModelImplCopyWithImpl<$Res>
     Object? profiles = null,
     Object? actions = null,
     Object? callouts = null,
+    Object? customReactionText = null,
     Object? percentage = null,
     Object? loading = null,
     Object? error = freezed,
@@ -184,6 +193,10 @@ class __$$HabitatModelImplCopyWithImpl<$Res>
           ? _value._callouts
           : callouts // ignore: cast_nullable_to_non_nullable
               as List<HUCalloutModel>,
+      customReactionText: null == customReactionText
+          ? _value.customReactionText
+          : customReactionText // ignore: cast_nullable_to_non_nullable
+              as String,
       percentage: null == percentage
           ? _value.percentage
           : percentage // ignore: cast_nullable_to_non_nullable
@@ -209,6 +222,7 @@ class _$HabitatModelImpl implements _HabitatModel {
       final List<HUProfileModel> profiles = const [],
       final List<HUActionModel> actions = const [],
       final List<HUCalloutModel> callouts = const [],
+      this.customReactionText = '',
       this.percentage = 0,
       this.loading = false,
       this.error})
@@ -252,6 +266,9 @@ class _$HabitatModelImpl implements _HabitatModel {
 
   @override
   @JsonKey()
+  final String customReactionText;
+  @override
+  @JsonKey()
   final int percentage;
   @override
   @JsonKey()
@@ -261,7 +278,7 @@ class _$HabitatModelImpl implements _HabitatModel {
 
   @override
   String toString() {
-    return 'HabitatModel(habitat: $habitat, day: $day, profiles: $profiles, actions: $actions, callouts: $callouts, percentage: $percentage, loading: $loading, error: $error)';
+    return 'HabitatModel(habitat: $habitat, day: $day, profiles: $profiles, actions: $actions, callouts: $callouts, customReactionText: $customReactionText, percentage: $percentage, loading: $loading, error: $error)';
   }
 
   @override
@@ -274,6 +291,8 @@ class _$HabitatModelImpl implements _HabitatModel {
             const DeepCollectionEquality().equals(other._profiles, _profiles) &&
             const DeepCollectionEquality().equals(other._actions, _actions) &&
             const DeepCollectionEquality().equals(other._callouts, _callouts) &&
+            (identical(other.customReactionText, customReactionText) ||
+                other.customReactionText == customReactionText) &&
             (identical(other.percentage, percentage) ||
                 other.percentage == percentage) &&
             (identical(other.loading, loading) || other.loading == loading) &&
@@ -289,6 +308,7 @@ class _$HabitatModelImpl implements _HabitatModel {
       const DeepCollectionEquality().hash(_profiles),
       const DeepCollectionEquality().hash(_actions),
       const DeepCollectionEquality().hash(_callouts),
+      customReactionText,
       percentage,
       loading,
       error);
@@ -314,6 +334,7 @@ abstract class _HabitatModel implements HabitatModel {
       final List<HUProfileModel> profiles,
       final List<HUActionModel> actions,
       final List<HUCalloutModel> callouts,
+      final String customReactionText,
       final int percentage,
       final bool loading,
       final String? error}) = _$HabitatModelImpl;
@@ -331,6 +352,8 @@ abstract class _HabitatModel implements HabitatModel {
   List<HUActionModel> get actions;
   @override
   List<HUCalloutModel> get callouts;
+  @override
+  String get customReactionText;
   @override
   int get percentage;
   @override

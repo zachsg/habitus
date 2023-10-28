@@ -101,4 +101,7 @@ class Habitat extends _$Habitat {
     await loadActions();
     await loadCallouts();
   }
+
+  void setCustomReactionText(String text) =>
+      state = state.copyWith(customReactionText: text);
 }
