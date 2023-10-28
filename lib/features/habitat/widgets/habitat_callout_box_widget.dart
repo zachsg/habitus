@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobn/helpers/extensions.dart';
 
 import '../../../helpers/strings.dart';
 import '../../../models/xmodels.dart';
@@ -168,9 +167,7 @@ class CalloutBadgeMember extends ConsumerWidget {
               color: Theme.of(context).colorScheme.background,
               shape: BoxShape.circle,
               border: Border.all(
-                color: index.toColor(),
-                width: 2,
-              ),
+                  width: 2, color: Theme.of(context).colorScheme.onBackground),
               boxShadow: [
                 BoxShadow(
                   color: Theme.of(context)
@@ -189,9 +186,7 @@ class CalloutBadgeMember extends ConsumerWidget {
           ),
           Text(
             '@$handle',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: index.toColor(),
-                ),
+            style: Theme.of(context).textTheme.bodySmall,
           ),
         ],
       ),

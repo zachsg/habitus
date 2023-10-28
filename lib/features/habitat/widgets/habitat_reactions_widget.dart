@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobn/helpers/extensions.dart';
 
 import '../../../models/xmodels.dart';
 import '../habitat.dart';
@@ -50,17 +49,15 @@ class HabitatReactionsWidget extends ConsumerWidget {
         ),
       );
 
-      final profileIndex = profiles.indexOf(profile);
-
       final child = Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           Text(
             '@${profile.handle}',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: profileIndex.toColor(),
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(width: 4.0),
           Text(reaction.icon),

@@ -67,18 +67,14 @@ class HabitatHabitmatesWidget extends ConsumerWidget {
                 children: [
                   Text(
                     profile.name,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(color: index.toColor()),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   habitat.creatorId == profile.id
-                      ? Padding(
-                          padding: const EdgeInsets.only(left: 2.0),
+                      ? const Padding(
+                          padding: EdgeInsets.only(left: 2.0),
                           child: Icon(
                             Icons.star,
                             size: 18,
-                            color: index.toColor(),
                           ),
                         )
                       : habitat.admins.contains(profile.id)
@@ -98,7 +94,6 @@ class HabitatHabitmatesWidget extends ConsumerWidget {
                 '@${profile.handle}',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: index.toColor(),
                     ),
               ),
             ],
