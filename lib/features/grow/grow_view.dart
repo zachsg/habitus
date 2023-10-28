@@ -63,8 +63,13 @@ class _GrowViewState extends ConsumerState<GrowView>
 
     final habitType = widget.habitatAndAction.habitat.goal.habit;
 
+    final goal = profile.goals.firstWhere(
+        (goal) => goal.habitatId == widget.habitatAndAction.habitat.id);
+    final goalMet =
+        grow.goalMet || widget.habitatAndAction.elapsed >= goal.value;
+
     return WillPopScope(
-      onWillPop: () => saveOrDelete(ref, context, grow.goalMet),
+      onWillPop: () => saveOrDelete(ref, context, goalMet),
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
@@ -83,9 +88,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                       ? null
                       : Theme.of(context).colorScheme.onPrimaryContainer
                   : null,
-              title: Text(
-                habitType.habitDoing(),
-              ),
+              title: Text(habitType.habitDoing()),
               actions: [
                 IconButton(
                   padding: const EdgeInsets.all(12.0),
@@ -104,7 +107,7 @@ class _GrowViewState extends ConsumerState<GrowView>
             ),
             body: Column(
               children: [
-                grow.goalMet
+                goalMet
                     ? GrowStopwatchWidget(
                         profile: profile,
                         habitatAndAction: widget.habitatAndAction,
@@ -128,7 +131,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                       ref,
                       context,
                       widget.habitatAndAction,
-                      grow.goalMet,
+                      goalMet,
                     );
                   },
                   child: Padding(
@@ -136,7 +139,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                       horizontal: 16.0,
                       vertical: 20.0,
                     ),
-                    child: Text(grow.goalMet
+                    child: Text(goalMet
                         ? pauseString
                         : 'Done ${habitType.habitDoing()}'),
                   ),
@@ -296,7 +299,7 @@ class _GrowViewState extends ConsumerState<GrowView>
             content: SingleChildScrollView(
               child: ListBody(
                 children: [
-                  elapsed.round() == 0
+                  elapsed == 0
                       ? const SizedBox()
                       : GrowCalloutWidget(
                           habitatAndAction: widget.habitatAndAction,
