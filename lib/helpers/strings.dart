@@ -46,7 +46,7 @@ const emptyHabitString = 'No Activity For';
 const habitatCalloutString = 'Callout Ring';
 const calloutDialogTitleString = 'Callout Rules';
 const calloutDialogBodyString =
-    'If you\'ve been called out, you can beat the callout (and leave the ring) by taking action towards your goal by completing a session with the Grow button.';
+    'If you\'ve been called out, you can beat the callout (and leave the ring) by taking action towards your goal by logging a session.';
 const calloutDialogDoneString = 'Got It';
 
 // Habitat Settings

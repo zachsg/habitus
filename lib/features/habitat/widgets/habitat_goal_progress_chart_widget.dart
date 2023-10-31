@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,34 +17,84 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isIOS = Platform.isIOS;
+
     final profiles = ref.watch(habitatProvider(habitat)).profiles;
     final actions = ref.watch(habitatProvider(habitat)).actions;
 
-    return AspectRatio(
-      aspectRatio: 1.3,
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: PieChart(
-          PieChartData(
-            pieTouchData: PieTouchData(
-              touchCallback: (FlTouchEvent event, pieTouchResponse) {},
-            ),
-            borderData: FlBorderData(
-              show: false,
-            ),
-            sectionsSpace: 0,
-            centerSpaceRadius: 0,
-            sections: showingSections(
-              context: context,
-              ref: ref,
-              habitat: habitat,
-              goal: habitat.goal.value.toDouble(),
-              profiles: profiles,
-              actions: actions,
+    int total = 0;
+    int accomplished = 0;
+    int remaining = 0;
+    bool goalMet = false;
+
+    for (final profile in profiles) {
+      final goal =
+          profile.goals.firstWhere((goal) => goal.habitatId == habitat.id);
+      total += goal.value;
+    }
+
+    for (final action in actions) {
+      accomplished += action.goal.value;
+    }
+
+    if (accomplished >= total) {
+      goalMet = true;
+    } else {
+      remaining = total - accomplished;
+    }
+
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Align(
+            child: goalMet
+                ? Icon(
+                    isIOS ? CupertinoIcons.star_fill : Icons.star,
+                    size: 80.0,
+                    color: Colors.yellow.shade800,
+                  )
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        remaining.toTimeShort(),
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Text(
+                        'Remaining',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+          ),
+        ),
+        AspectRatio(
+          aspectRatio: 1.3,
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: PieChart(
+              PieChartData(
+                pieTouchData: PieTouchData(
+                  touchCallback: (FlTouchEvent event, pieTouchResponse) {},
+                ),
+                borderData: FlBorderData(
+                  show: false,
+                ),
+                sectionsSpace: 0,
+                centerSpaceRadius: 58,
+                sections: showingSections(
+                  context: context,
+                  ref: ref,
+                  habitat: habitat,
+                  goal: habitat.goal.value.toDouble(),
+                  profiles: profiles,
+                  actions: actions,
+                ),
+              ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 
@@ -129,17 +182,17 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
     return PieChartSectionData(
       color: color,
       value: value,
-      title: percentage == 100 ? '0%' : '${percentage.round()}%',
-      radius: 100.0,
+      title: '', //percentage == 100 ? '0%' : '${percentage.round()}%',
+      radius: 84.0,
       titleStyle: Theme.of(context)
           .textTheme
-          .titleSmall
+          .titleMedium
           ?.copyWith(fontWeight: FontWeight.bold),
       badgeWidget: avatar.isNotEmpty
           ? _Badge(
               context,
               avatar,
-              size: 40.0,
+              size: 48.0,
               borderColor: color,
               isSvg: isSvg,
             )
@@ -185,7 +238,12 @@ class _Badge extends StatelessWidget {
       ),
       padding: EdgeInsets.all(size * .15),
       child: Center(
-        child: isSvg ? SvgPicture.asset(svgAsset) : Text(svgAsset),
+        child: isSvg
+            ? SvgPicture.asset(svgAsset)
+            : Text(
+                svgAsset,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
       ),
     );
   }

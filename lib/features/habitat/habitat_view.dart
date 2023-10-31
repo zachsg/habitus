@@ -127,33 +127,33 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
               unFinishedCallouts.isNotEmpty
                   ? HabitatCalloutBoxWidget(habitat: widget.habitat)
                   : const SizedBox(),
-              const SizedBox(height: 24.0),
+              const SizedBox(height: 8.0),
               loading
                   ? const CircularProgressIndicator.adaptive()
                   : actions.isEmpty & !isToday
                       ? Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              habitatGoalString.toUpperCase(),
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
+                            // Text(
+                            //   habitatGoalString.toUpperCase(),
+                            //   style: Theme.of(context).textTheme.bodyMedium,
+                            // ),
                             HabitatDaySelectorWidget(habitat: widget.habitat),
                             HabitatEmptyStateWidget(habitat: widget.habitat),
                           ],
                         )
                       : Column(
                           children: [
-                            Text(
-                              habitatGoalString.toUpperCase(),
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
+                            // Text(
+                            //   habitatGoalString.toUpperCase(),
+                            //   style: Theme.of(context).textTheme.bodyMedium,
+                            // ),
                             HabitatDaySelectorWidget(habitat: widget.habitat),
-                            const SizedBox(height: 16.0),
+                            const SizedBox(height: 24.0),
                             HabitatGoalProgressChartWidget(
                               habitat: widget.habitat,
                             ),
-                            const SizedBox(height: 8.0),
+                            const SizedBox(height: 32.0),
                             HabitatHabitmatesWidget(habitat: widget.habitat),
                             const SizedBox(height: 32.0),
                             HabitatActivityWidget(
