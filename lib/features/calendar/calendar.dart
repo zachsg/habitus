@@ -49,6 +49,7 @@ class Calendar extends _$Calendar {
   }
 
   void prevMonth() {
-    state = state.copyWith(date: state.date.subtract(const Duration(days: 31)));
+    state = state.copyWith(
+        date: DateTime(state.date.year, state.date.month - 1, state.date.day));
   }
 }
