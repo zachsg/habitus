@@ -73,6 +73,7 @@ class _HabitatsViewState extends ConsumerState<HabitatsView>
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     switch (state) {
       case AppLifecycleState.resumed:
+        ref.read(profileProvider.notifier).loadProfile();
         ref.read(habitatsProvider.notifier).loadHabitats();
         ref.read(habitatsProvider.notifier).loadActions();
         ref.read(habitatsProvider.notifier).loadCallouts();

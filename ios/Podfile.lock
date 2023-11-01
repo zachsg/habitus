@@ -3,7 +3,7 @@ PODS:
     - Flutter
   - audioplayers_darwin (0.0.1):
     - Flutter
-  - cloud_functions (4.5.2):
+  - cloud_functions (4.5.3):
     - Firebase/Functions (= 10.16.0)
     - firebase_core
     - Flutter
@@ -15,10 +15,10 @@ PODS:
   - Firebase/Messaging (10.16.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 10.16.0)
-  - firebase_core (2.20.0):
+  - firebase_core (2.21.0):
     - Firebase/CoreOnly (= 10.16.0)
     - Flutter
-  - firebase_messaging (14.7.2):
+  - firebase_messaging (14.7.3):
     - Firebase/Messaging (= 10.16.0)
     - firebase_core
     - Flutter
@@ -182,10 +182,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   app_links: 5ef33d0d295a89d9d16bb81b0e3b0d5f70d6c875
   audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
-  cloud_functions: 784f85b51d386b7546960f1f168fa3df0675c21e
+  cloud_functions: acacc2473a46085dd367702b1b3316449b016e49
   Firebase: 25899099b77d255a636e3579c3d9dce10ec150d5
-  firebase_core: 2e0e89436a00b664a23bebb08859e5fede7215e9
-  firebase_messaging: 2b2ed8f43ca8289caebfa324ada472e527bebcdf
+  firebase_core: 68027ba03585e3efe1608e35d3ab2777a64eabe9
+  firebase_messaging: e11ea61b449e6e39741b8a309ddab803ef1eb5cd
   FirebaseAppCheckInterop: 82358cff9f33452dd44259e88eea5e562500b1cb
   FirebaseAuthInterop: b79fab8ce80e685145eee5f973d9ad5210e19d44
   FirebaseCore: 65a801af84cca84361ef9eac3fd868656968a53b

@@ -176,20 +176,21 @@ class _GrowViewState extends ConsumerState<GrowView>
 
   Future<void> _showSessionCompleteDialog(
     WidgetRef ref,
-    BuildContext context,
+    BuildContext context1,
     HUHabitatAndActionModel habitatAndAction,
     bool goalMet,
   ) async {
     final isIOS = Platform.isIOS;
     final grow = ref.watch(growProvider(habitatAndAction));
     bool loading = false;
+    String error = '';
 
     final habitType = widget.habitatAndAction.habitat.goal.habit;
 
     int elapsed = (grow.elapsed / 60).round();
 
     return showDialog(
-      context: context,
+      context: context1,
       barrierDismissible: false,
       builder: (BuildContext context) {
         if (!goalMet) {
@@ -305,6 +306,13 @@ class _GrowViewState extends ConsumerState<GrowView>
                           habitatAndAction: widget.habitatAndAction,
                           setState: setState,
                         ),
+                  if (error.isNotEmpty)
+                    Text(
+                      error,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context).colorScheme.error),
+                    ),
                 ],
               ),
             ),
@@ -363,18 +371,28 @@ class _GrowViewState extends ConsumerState<GrowView>
                                   LocalNotificationService()
                                       .cancelNotificationWithId(0);
 
-                                  await ref
+                                  final success = await ref
                                       .read(growProvider(habitatAndAction)
                                           .notifier)
                                       .save(elapsedInside);
 
-                                  _notifyNewAction();
-
                                   setState(() => loading = false);
 
-                                  if (context.mounted) {
-                                    Navigator.of(context).pop();
-                                    Navigator.of(context).pop();
+                                  if (success) {
+                                    setState(() => error = '');
+
+                                    _notifyNewAction();
+
+                                    if (context.mounted) {
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                    }
+                                  } else {
+                                    final growError = ref
+                                        .read(growProvider(habitatAndAction))
+                                        .error;
+                                    setState(() => error = growError ??
+                                        'No internet found, please try saving again');
                                   }
                                 },
                               ),

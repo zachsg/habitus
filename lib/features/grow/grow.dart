@@ -106,7 +106,10 @@ class Grow extends _$Grow {
       await ref.read(habitatsProvider.notifier).loadCallouts();
     }
 
-    state = state.copyWith(loading: false);
+    state = state.copyWith(
+      loading: false,
+      error: success ? null : 'Failed to save. Check network and try again.',
+    );
 
     return success;
   }

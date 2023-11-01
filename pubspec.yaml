@@ -2,7 +2,7 @@ name: mobn
 description: Mobn. Habit sharing. Execute on your individual goals as a habitat.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 0.3.5+122
+version: 0.3.6+124
 
 environment:
   sdk: ">=3.1.5 <4.0.0"
@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.6
-  flutter_svg: ^2.0.8
+  flutter_svg: ^2.0.9
   go_router: ^12.0.1
   supabase_flutter: ^1.10.24
   flutter_riverpod: ^2.4.5
@@ -30,9 +30,9 @@ dependencies:
   package_info_plus: ^4.2.0
   wakelock_plus: ^1.1.3
   url_launcher: ^6.2.1
-  firebase_core: ^2.20.0
-  firebase_messaging: ^14.7.2
-  cloud_functions: ^4.5.2
+  firebase_core: ^2.21.0
+  firebase_messaging: ^14.7.3
+  cloud_functions: ^4.5.3
   percent_indicator: ^4.2.3
   permission_handler: ^11.0.1
 
