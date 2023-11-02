@@ -50,6 +50,7 @@ class Calendar extends _$Calendar {
 
   void prevMonth() {
     state = state.copyWith(
-        date: DateTime(state.date.year, state.date.month - 1, state.date.day));
+      date: DateTime(state.date.year, state.date.month - 1, state.date.day),
+    );
   }
 }

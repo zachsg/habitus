@@ -37,16 +37,22 @@ class _JoinHabitatIsJoiningToggleWidgetState
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          'Make One'.toUpperCase(),
-          style: joinHabitat.isJoining
-              ? Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(fontWeight: FontWeight.w200)
-              : Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary),
+        GestureDetector(
+          onTap: () {
+            ref.read(joinHabitatProvider.notifier).setIsJoining(false);
+            ref.read(joinHabitatProvider.notifier).resetHabitat();
+          },
+          child: Text(
+            'Make One'.toUpperCase(),
+            style: joinHabitat.isJoining
+                ? Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(fontWeight: FontWeight.w200)
+                : Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary),
+          ),
         ),
         const SizedBox(width: 8.0),
         AnimatedBuilder(
@@ -65,16 +71,22 @@ class _JoinHabitatIsJoiningToggleWidgetState
           },
         ),
         const SizedBox(width: 8.0),
-        Text(
-          'Join One'.toUpperCase(),
-          style: joinHabitat.isJoining
-              ? Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary)
-              : Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(fontWeight: FontWeight.w200),
+        GestureDetector(
+          onTap: () {
+            ref.read(joinHabitatProvider.notifier).setIsJoining(true);
+            ref.read(joinHabitatProvider.notifier).resetHabitat();
+          },
+          child: Text(
+            'Join One'.toUpperCase(),
+            style: joinHabitat.isJoining
+                ? Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary)
+                : Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(fontWeight: FontWeight.w200),
+          ),
         ),
       ],
     );
