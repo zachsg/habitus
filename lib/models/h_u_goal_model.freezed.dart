@@ -25,6 +25,9 @@ mixin _$HUGoalModel {
   String get habit => throw _privateConstructorUsedError;
   Unit get unit => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
+  int get credits => throw _privateConstructorUsedError;
+  @JsonKey(name: 'days_off')
+  List<Day> get daysOff => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +45,9 @@ abstract class $HUGoalModelCopyWith<$Res> {
       {@JsonKey(name: 'habitat_id') int habitatId,
       String habit,
       Unit unit,
-      int value});
+      int value,
+      int credits,
+      @JsonKey(name: 'days_off') List<Day> daysOff});
 }
 
 /// @nodoc
@@ -62,6 +67,8 @@ class _$HUGoalModelCopyWithImpl<$Res, $Val extends HUGoalModel>
     Object? habit = null,
     Object? unit = null,
     Object? value = null,
+    Object? credits = null,
+    Object? daysOff = null,
   }) {
     return _then(_value.copyWith(
       habitatId: null == habitatId
@@ -80,6 +87,14 @@ class _$HUGoalModelCopyWithImpl<$Res, $Val extends HUGoalModel>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int,
+      credits: null == credits
+          ? _value.credits
+          : credits // ignore: cast_nullable_to_non_nullable
+              as int,
+      daysOff: null == daysOff
+          ? _value.daysOff
+          : daysOff // ignore: cast_nullable_to_non_nullable
+              as List<Day>,
     ) as $Val);
   }
 }
@@ -96,7 +111,9 @@ abstract class _$$HUGoalModelImplCopyWith<$Res>
       {@JsonKey(name: 'habitat_id') int habitatId,
       String habit,
       Unit unit,
-      int value});
+      int value,
+      int credits,
+      @JsonKey(name: 'days_off') List<Day> daysOff});
 }
 
 /// @nodoc
@@ -114,6 +131,8 @@ class __$$HUGoalModelImplCopyWithImpl<$Res>
     Object? habit = null,
     Object? unit = null,
     Object? value = null,
+    Object? credits = null,
+    Object? daysOff = null,
   }) {
     return _then(_$HUGoalModelImpl(
       habitatId: null == habitatId
@@ -132,6 +151,14 @@ class __$$HUGoalModelImplCopyWithImpl<$Res>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int,
+      credits: null == credits
+          ? _value.credits
+          : credits // ignore: cast_nullable_to_non_nullable
+              as int,
+      daysOff: null == daysOff
+          ? _value._daysOff
+          : daysOff // ignore: cast_nullable_to_non_nullable
+              as List<Day>,
     ));
   }
 }
@@ -143,7 +170,10 @@ class _$HUGoalModelImpl implements _HUGoalModel {
       {@JsonKey(name: 'habitat_id') required this.habitatId,
       required this.habit,
       required this.unit,
-      required this.value});
+      required this.value,
+      this.credits = 0,
+      @JsonKey(name: 'days_off') final List<Day> daysOff = const []})
+      : _daysOff = daysOff;
 
   factory _$HUGoalModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$HUGoalModelImplFromJson(json);
@@ -157,10 +187,21 @@ class _$HUGoalModelImpl implements _HUGoalModel {
   final Unit unit;
   @override
   final int value;
+  @override
+  @JsonKey()
+  final int credits;
+  final List<Day> _daysOff;
+  @override
+  @JsonKey(name: 'days_off')
+  List<Day> get daysOff {
+    if (_daysOff is EqualUnmodifiableListView) return _daysOff;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_daysOff);
+  }
 
   @override
   String toString() {
-    return 'HUGoalModel(habitatId: $habitatId, habit: $habit, unit: $unit, value: $value)';
+    return 'HUGoalModel(habitatId: $habitatId, habit: $habit, unit: $unit, value: $value, credits: $credits, daysOff: $daysOff)';
   }
 
   @override
@@ -172,12 +213,15 @@ class _$HUGoalModelImpl implements _HUGoalModel {
                 other.habitatId == habitatId) &&
             (identical(other.habit, habit) || other.habit == habit) &&
             (identical(other.unit, unit) || other.unit == unit) &&
-            (identical(other.value, value) || other.value == value));
+            (identical(other.value, value) || other.value == value) &&
+            (identical(other.credits, credits) || other.credits == credits) &&
+            const DeepCollectionEquality().equals(other._daysOff, _daysOff));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, habitatId, habit, unit, value);
+  int get hashCode => Object.hash(runtimeType, habitatId, habit, unit, value,
+      credits, const DeepCollectionEquality().hash(_daysOff));
 
   @JsonKey(ignore: true)
   @override
@@ -198,7 +242,9 @@ abstract class _HUGoalModel implements HUGoalModel {
       {@JsonKey(name: 'habitat_id') required final int habitatId,
       required final String habit,
       required final Unit unit,
-      required final int value}) = _$HUGoalModelImpl;
+      required final int value,
+      final int credits,
+      @JsonKey(name: 'days_off') final List<Day> daysOff}) = _$HUGoalModelImpl;
 
   factory _HUGoalModel.fromJson(Map<String, dynamic> json) =
       _$HUGoalModelImpl.fromJson;
@@ -212,6 +258,11 @@ abstract class _HUGoalModel implements HUGoalModel {
   Unit get unit;
   @override
   int get value;
+  @override
+  int get credits;
+  @override
+  @JsonKey(name: 'days_off')
+  List<Day> get daysOff;
   @override
   @JsonKey(ignore: true)
   _$$HUGoalModelImplCopyWith<_$HUGoalModelImpl> get copyWith =>

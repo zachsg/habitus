@@ -47,6 +47,40 @@ class Grow extends _$Grow {
     state = state.copyWith(isPaused: paused, loading: false);
   }
 
+  Future<bool> _addCredits(HUProfileModel profile, int elapsed) async {
+    final goal =
+        profile.goals.firstWhere((goal) => goal.habitatId == state.habitat.id);
+
+    int addOn = 1; // 1 credit if action taken
+    if (elapsed == goal.value) {
+      // 2 credits if goal met
+      addOn = 2;
+    } else if (elapsed > goal.value) {
+      // 3 credits if goal exceeded
+      addOn = 3;
+    }
+
+    final updatedGoal = goal.copyWith(credits: goal.credits + addOn);
+
+    final List<HUGoalModel> goals = [];
+    for (final g in profile.goals) {
+      if (g.habitatId == updatedGoal.habitatId) {
+        goals.add(updatedGoal);
+      } else {
+        goals.add(g);
+      }
+    }
+
+    final updateProfile = profile.copyWith(goals: goals);
+
+    final success = await Database.updateProfileHabitatsAndGoals(updateProfile);
+    if (success) {
+      await ref.read(profileProvider.notifier).loadProfile();
+    }
+
+    return success;
+  }
+
   Future<bool> save(int elapsed) async {
     if (elapsed < 1) {
       return true;
@@ -68,6 +102,8 @@ class Grow extends _$Grow {
 
     final success = await Database.saveAction(state.habitat, action);
     if (success) {
+      await _addCredits(profile, elapsed);
+
       if (state.calloutId.isNotEmpty) {
         final callout = HUCalloutModel(
           id: -1,

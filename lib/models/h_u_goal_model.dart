@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'day.dart';
 import 'xmodels.dart';
 
 part 'h_u_goal_model.freezed.dart';
@@ -12,6 +13,8 @@ class HUGoalModel with _$HUGoalModel {
     required String habit,
     required Unit unit,
     required int value,
+    @Default(0) int credits,
+    @JsonKey(name: 'days_off') @Default([]) List<Day> daysOff,
   }) = _HUGoalModel;
 
   factory HUGoalModel.fromJson(Map<String, Object?> json) =>

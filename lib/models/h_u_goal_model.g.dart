@@ -12,6 +12,11 @@ _$HUGoalModelImpl _$$HUGoalModelImplFromJson(Map<String, dynamic> json) =>
       habit: json['habit'] as String,
       unit: $enumDecode(_$UnitEnumMap, json['unit']),
       value: json['value'] as int,
+      credits: json['credits'] as int? ?? 0,
+      daysOff: (json['days_off'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$DayEnumMap, e))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$HUGoalModelImplToJson(_$HUGoalModelImpl instance) =>
@@ -20,10 +25,22 @@ Map<String, dynamic> _$$HUGoalModelImplToJson(_$HUGoalModelImpl instance) =>
       'habit': instance.habit,
       'unit': _$UnitEnumMap[instance.unit]!,
       'value': instance.value,
+      'credits': instance.credits,
+      'days_off': instance.daysOff.map((e) => _$DayEnumMap[e]!).toList(),
     };
 
 const _$UnitEnumMap = {
   Unit.miles: 'miles',
   Unit.steps: 'steps',
   Unit.minutes: 'minutes',
+};
+
+const _$DayEnumMap = {
+  Day.sunday: 'sunday',
+  Day.monday: 'monday',
+  Day.tuesday: 'tuesday',
+  Day.wednesday: 'wednesday',
+  Day.thursday: 'thursday',
+  Day.friday: 'friday',
+  Day.saturday: 'saturday',
 };
