@@ -25,11 +25,6 @@ mixin _$HUGoalModel {
   String get habit => throw _privateConstructorUsedError;
   Unit get unit => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
-  @JsonKey(name: 'date_of_last_credit')
-  DateTime? get dateOfLastCredit => throw _privateConstructorUsedError;
-  int get credits => throw _privateConstructorUsedError;
-  @JsonKey(name: 'days_off')
-  List<Day> get daysOff => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,10 +42,7 @@ abstract class $HUGoalModelCopyWith<$Res> {
       {@JsonKey(name: 'habitat_id') int habitatId,
       String habit,
       Unit unit,
-      int value,
-      @JsonKey(name: 'date_of_last_credit') DateTime? dateOfLastCredit,
-      int credits,
-      @JsonKey(name: 'days_off') List<Day> daysOff});
+      int value});
 }
 
 /// @nodoc
@@ -70,9 +62,6 @@ class _$HUGoalModelCopyWithImpl<$Res, $Val extends HUGoalModel>
     Object? habit = null,
     Object? unit = null,
     Object? value = null,
-    Object? dateOfLastCredit = freezed,
-    Object? credits = null,
-    Object? daysOff = null,
   }) {
     return _then(_value.copyWith(
       habitatId: null == habitatId
@@ -91,18 +80,6 @@ class _$HUGoalModelCopyWithImpl<$Res, $Val extends HUGoalModel>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int,
-      dateOfLastCredit: freezed == dateOfLastCredit
-          ? _value.dateOfLastCredit
-          : dateOfLastCredit // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      credits: null == credits
-          ? _value.credits
-          : credits // ignore: cast_nullable_to_non_nullable
-              as int,
-      daysOff: null == daysOff
-          ? _value.daysOff
-          : daysOff // ignore: cast_nullable_to_non_nullable
-              as List<Day>,
     ) as $Val);
   }
 }
@@ -119,10 +96,7 @@ abstract class _$$HUGoalModelImplCopyWith<$Res>
       {@JsonKey(name: 'habitat_id') int habitatId,
       String habit,
       Unit unit,
-      int value,
-      @JsonKey(name: 'date_of_last_credit') DateTime? dateOfLastCredit,
-      int credits,
-      @JsonKey(name: 'days_off') List<Day> daysOff});
+      int value});
 }
 
 /// @nodoc
@@ -140,9 +114,6 @@ class __$$HUGoalModelImplCopyWithImpl<$Res>
     Object? habit = null,
     Object? unit = null,
     Object? value = null,
-    Object? dateOfLastCredit = freezed,
-    Object? credits = null,
-    Object? daysOff = null,
   }) {
     return _then(_$HUGoalModelImpl(
       habitatId: null == habitatId
@@ -161,18 +132,6 @@ class __$$HUGoalModelImplCopyWithImpl<$Res>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int,
-      dateOfLastCredit: freezed == dateOfLastCredit
-          ? _value.dateOfLastCredit
-          : dateOfLastCredit // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      credits: null == credits
-          ? _value.credits
-          : credits // ignore: cast_nullable_to_non_nullable
-              as int,
-      daysOff: null == daysOff
-          ? _value._daysOff
-          : daysOff // ignore: cast_nullable_to_non_nullable
-              as List<Day>,
     ));
   }
 }
@@ -184,11 +143,7 @@ class _$HUGoalModelImpl implements _HUGoalModel {
       {@JsonKey(name: 'habitat_id') required this.habitatId,
       required this.habit,
       required this.unit,
-      required this.value,
-      @JsonKey(name: 'date_of_last_credit') this.dateOfLastCredit,
-      this.credits = 0,
-      @JsonKey(name: 'days_off') final List<Day> daysOff = const []})
-      : _daysOff = daysOff;
+      required this.value});
 
   factory _$HUGoalModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$HUGoalModelImplFromJson(json);
@@ -202,24 +157,10 @@ class _$HUGoalModelImpl implements _HUGoalModel {
   final Unit unit;
   @override
   final int value;
-  @override
-  @JsonKey(name: 'date_of_last_credit')
-  final DateTime? dateOfLastCredit;
-  @override
-  @JsonKey()
-  final int credits;
-  final List<Day> _daysOff;
-  @override
-  @JsonKey(name: 'days_off')
-  List<Day> get daysOff {
-    if (_daysOff is EqualUnmodifiableListView) return _daysOff;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_daysOff);
-  }
 
   @override
   String toString() {
-    return 'HUGoalModel(habitatId: $habitatId, habit: $habit, unit: $unit, value: $value, dateOfLastCredit: $dateOfLastCredit, credits: $credits, daysOff: $daysOff)';
+    return 'HUGoalModel(habitatId: $habitatId, habit: $habit, unit: $unit, value: $value)';
   }
 
   @override
@@ -231,17 +172,12 @@ class _$HUGoalModelImpl implements _HUGoalModel {
                 other.habitatId == habitatId) &&
             (identical(other.habit, habit) || other.habit == habit) &&
             (identical(other.unit, unit) || other.unit == unit) &&
-            (identical(other.value, value) || other.value == value) &&
-            (identical(other.dateOfLastCredit, dateOfLastCredit) ||
-                other.dateOfLastCredit == dateOfLastCredit) &&
-            (identical(other.credits, credits) || other.credits == credits) &&
-            const DeepCollectionEquality().equals(other._daysOff, _daysOff));
+            (identical(other.value, value) || other.value == value));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, habitatId, habit, unit, value,
-      dateOfLastCredit, credits, const DeepCollectionEquality().hash(_daysOff));
+  int get hashCode => Object.hash(runtimeType, habitatId, habit, unit, value);
 
   @JsonKey(ignore: true)
   @override
@@ -262,10 +198,7 @@ abstract class _HUGoalModel implements HUGoalModel {
       {@JsonKey(name: 'habitat_id') required final int habitatId,
       required final String habit,
       required final Unit unit,
-      required final int value,
-      @JsonKey(name: 'date_of_last_credit') final DateTime? dateOfLastCredit,
-      final int credits,
-      @JsonKey(name: 'days_off') final List<Day> daysOff}) = _$HUGoalModelImpl;
+      required final int value}) = _$HUGoalModelImpl;
 
   factory _HUGoalModel.fromJson(Map<String, dynamic> json) =
       _$HUGoalModelImpl.fromJson;
@@ -279,14 +212,6 @@ abstract class _HUGoalModel implements HUGoalModel {
   Unit get unit;
   @override
   int get value;
-  @override
-  @JsonKey(name: 'date_of_last_credit')
-  DateTime? get dateOfLastCredit;
-  @override
-  int get credits;
-  @override
-  @JsonKey(name: 'days_off')
-  List<Day> get daysOff;
   @override
   @JsonKey(ignore: true)
   _$$HUGoalModelImplCopyWith<_$HUGoalModelImpl> get copyWith =>

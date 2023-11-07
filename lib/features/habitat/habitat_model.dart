@@ -13,6 +13,7 @@ class HabitatModel with _$HabitatModel {
     @Default([]) List<HUProfileModel> profiles,
     @Default([]) List<HUActionModel> actions,
     @Default([]) List<HUCalloutModel> callouts,
+    @Default([]) List<HUCreditModel> credits,
     @Default('') String customReactionText,
     @Default(0) int percentage,
     @Default(false) bool loading,

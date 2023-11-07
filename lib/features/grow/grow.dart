@@ -1,3 +1,4 @@
+import 'package:mobn/helpers/extensions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../models/xmodels.dart';
@@ -47,51 +48,6 @@ class Grow extends _$Grow {
     state = state.copyWith(isPaused: paused, loading: false);
   }
 
-  Future<bool> _addCredits(HUProfileModel profile, int elapsed) async {
-    final goal =
-        profile.goals.firstWhere((goal) => goal.habitatId == state.habitat.id);
-
-    if (goal.dateOfLastCredit != null) {
-      if (goal.dateOfLastCredit!
-          .isAfter(DateTime.now().copyWith(hour: 0, minute: 0))) {
-        // Already received credits today, no more soup for you!
-        return true;
-      }
-    }
-
-    int addOn = 1; // 1 credit if action taken
-    if (elapsed == goal.value) {
-      // 2 credits if goal met
-      addOn = 2;
-    } else if (elapsed > goal.value) {
-      // 3 credits if goal exceeded
-      addOn = 3;
-    }
-
-    final updatedGoal = goal.copyWith(
-      credits: goal.credits + addOn,
-      dateOfLastCredit: DateTime.now().toUtc(),
-    );
-
-    final List<HUGoalModel> goals = [];
-    for (final g in profile.goals) {
-      if (g.habitatId == updatedGoal.habitatId) {
-        goals.add(updatedGoal);
-      } else {
-        goals.add(g);
-      }
-    }
-
-    final updateProfile = profile.copyWith(goals: goals);
-
-    final success = await Database.updateProfileHabitatsAndGoals(updateProfile);
-    if (success) {
-      await ref.read(profileProvider.notifier).loadProfile();
-    }
-
-    return success;
-  }
-
   Future<bool> save(int elapsed) async {
     if (elapsed < 1) {
       return true;
@@ -119,7 +75,7 @@ class Grow extends _$Grow {
 
     final success = await Database.saveAction(state.habitat, action);
     if (success) {
-      await _addCredits(profile, elapsed);
+      await _addCredits(elapsed);
 
       if (state.calloutId.isNotEmpty) {
         final callout = HUCalloutModel(
@@ -159,6 +115,9 @@ class Grow extends _$Grow {
           .loadCallouts();
       await ref
           .read(habitatProvider(habitatAndAction.habitat).notifier)
+          .loadCredits();
+      await ref
+          .read(habitatProvider(habitatAndAction.habitat).notifier)
           .loadHabitatWithId(state.habitat.id);
       await ref.read(habitatsProvider.notifier).loadHabitats();
       await ref.read(habitatsProvider.notifier).loadActions();
@@ -175,7 +134,7 @@ class Grow extends _$Grow {
         }
 
         if (accomplished >= habitat.teamGoal) {
-          await giveTeamCredit();
+          await _giveTeamCredit();
         }
       }
     }
@@ -188,52 +147,91 @@ class Grow extends _$Grow {
     return success;
   }
 
-  Future<void> giveTeamCredit() async {
-    await ref
-        .read(habitatProvider(state.habitat).notifier)
-        .loadHabitatWithId(state.habitat.id);
-    final habitatP = ref.read(habitatProvider(state.habitat));
+  void setCalloutId(String id) {
+    state = state.copyWith(calloutId: id);
+  }
 
+  Future<bool> _addCredits(int elapsed) async {
+    final profile = ref.read(profileProvider).profile;
+    final credits = ref.read(habitatProvider(habitatAndAction.habitat)).credits;
+    final today = DateTime.now();
+    final credit = credits.firstWhere(
+      (credit) =>
+          credit.ownerId == profile.id &&
+          credit.weekNumber == today.weekNumber() &&
+          credit.year == today.year,
+      orElse: () => HUCreditModel(
+        id: -1,
+        updatedAt: DateTime.now().toUtc(),
+        ownerId: profile.id,
+        habitatId: habitatAndAction.habitat.id,
+        year: today.year,
+        weekNumber: today.weekNumber(),
+        credits: 0,
+      ),
+    );
+
+    // If user already received credit today, do nothing
+    if (credit.id != -1 &&
+        credit.updatedAt.isAfter(today.copyWith(hour: 0, minute: 0))) {
+      return true;
+    }
+
+    final goal = profile.goals
+        .firstWhere((goal) => goal.habitatId == habitatAndAction.habitat.id);
+    int creditsEarned = 0;
+    if (elapsed < goal.value) {
+      creditsEarned = 1;
+    } else if (elapsed == goal.value) {
+      creditsEarned = 2;
+    } else {
+      creditsEarned = 3;
+    }
+
+    final updatedCredit = credit.copyWith(
+      credits: credit.credits + creditsEarned,
+      updatedAt: DateTime.now().toUtc(),
+    );
+    final success = await Database.addCredits(credit: updatedCredit);
+
+    return success;
+  }
+
+  Future<void> _giveTeamCredit() async {
+    final habitatP = ref.read(habitatProvider(state.habitat));
+    final today = DateTime.now();
     if (habitatP.habitat.teamGoalLastMet
-        .isAfter(DateTime.now().copyWith(hour: 0, minute: 0))) {
-      // Credit already given today
+        .isAfter(today.copyWith(hour: 0, minute: 0))) {
       return;
     }
 
-    // Give credit to each member of the team
     for (final profile in habitatP.profiles) {
-      final goal = profile.goals
-          .firstWhere((goal) => goal.habitatId == state.habitat.id);
+      final credit = habitatP.credits.firstWhere(
+        (credit) =>
+            credit.ownerId == profile.id &&
+            credit.weekNumber == today.weekNumber() &&
+            credit.year == today.year,
+        orElse: () => HUCreditModel(
+          id: -1,
+          updatedAt: DateTime.now().toUtc(),
+          ownerId: profile.id,
+          habitatId: habitatAndAction.habitat.id,
+          year: today.year,
+          weekNumber: today.weekNumber(),
+          credits: 0,
+        ),
+      );
 
-      final updatedGoal = goal.copyWith(credits: goal.credits + 5);
-
-      List<HUGoalModel> goals = [];
-      for (final g in profile.goals) {
-        if (g.habitatId == state.habitat.id) {
-          goals.add(updatedGoal);
-        } else {
-          goals.add(g);
-        }
-      }
-
-      final updateProfile = profile.copyWith(goals: goals);
-      await Database.updateProfileHabitatsAndGoals(updateProfile);
-
-      final p = ref.read(profileProvider).profile;
-      if (profile.id == p.id) {
-        await ref.read(profileProvider.notifier).loadProfile();
-      }
+      final updatedCredit = credit.copyWith(
+        credits: credit.credits + 5,
+        updatedAt: DateTime.now().toUtc(),
+      );
+      await Database.addCredits(credit: updatedCredit);
     }
-
-    await ref.read(habitatProvider(state.habitat).notifier).loadProfiles();
 
     // Update habitat date of last credit recieved by team
     final updatedHabitat =
         habitatP.habitat.copyWith(teamGoalLastMet: DateTime.now().toUtc());
     await Database.updateHabitat(updatedHabitat);
-  }
-
-  void setCalloutId(String id) {
-    state = state.copyWith(calloutId: id);
   }
 }

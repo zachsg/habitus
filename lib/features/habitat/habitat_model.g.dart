@@ -22,6 +22,10 @@ _$HabitatModelImpl _$$HabitatModelImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => HUCalloutModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      credits: (json['credits'] as List<dynamic>?)
+              ?.map((e) => HUCreditModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       customReactionText: json['customReactionText'] as String? ?? '',
       percentage: json['percentage'] as int? ?? 0,
       loading: json['loading'] as bool? ?? false,
@@ -35,6 +39,7 @@ Map<String, dynamic> _$$HabitatModelImplToJson(_$HabitatModelImpl instance) =>
       'profiles': instance.profiles,
       'actions': instance.actions,
       'callouts': instance.callouts,
+      'credits': instance.credits,
       'customReactionText': instance.customReactionText,
       'percentage': instance.percentage,
       'loading': instance.loading,

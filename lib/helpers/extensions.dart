@@ -113,6 +113,12 @@ extension DateTimeExtension on DateTime {
     final DateFormat formatter = DateFormat('MMM d');
     return formatter.format(this);
   }
+
+  int weekNumber() {
+    final now = DateTime.now().copyWith(month: 1, day: 1);
+    final from = DateTime.utc(now.year, now.month, now.day);
+    return (difference(from).inDays / 7).ceil();
+  }
 }
 
 extension IntExtension on int {

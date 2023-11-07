@@ -129,9 +129,6 @@ class JoinHabitat extends _$JoinHabitat {
       habit: updatedHabitat.type.name,
       unit: updatedHabitat.unit,
       value: updatedHabitat.teamGoal,
-      credits: 0,
-      dateOfLastCredit: now.subtract(const Duration(days: 1)),
-      daysOff: [],
     );
     final goals = [...profile.goals, goal];
     final updatedProfile = profile.copyWith(goals: goals);

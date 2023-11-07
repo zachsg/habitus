@@ -41,6 +41,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
     await ref.read(habitatProvider(widget.habitat).notifier).loadProfiles();
     await ref.read(habitatProvider(widget.habitat).notifier).loadActions();
     await ref.read(habitatProvider(widget.habitat).notifier).loadCallouts();
+    await ref.read(habitatProvider(widget.habitat).notifier).loadCredits();
     await ref
         .read(habitatProvider(widget.habitat).notifier)
         .loadHabitatWithId(widget.habitat.id);

@@ -1,5 +1,6 @@
 export 'h_u_action_model.dart';
 export 'h_u_callout_model.dart';
+export 'h_u_credit_model.dart';
 export 'h_u_goal_model.dart';
 export 'h_u_habitat_and_action_model.dart';
 export 'h_u_profile_model.dart';

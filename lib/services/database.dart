@@ -1,3 +1,4 @@
+import 'package:mobn/helpers/extensions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../helpers/exceptions.dart';
@@ -17,6 +18,7 @@ class Database {
   static const reactionsTable = 'reactions';
   static const possibleReactionsTable = 'possible_reactions';
   static const calloutsTable = 'callouts';
+  static const creditsTable = 'credits';
 
   static Future<bool> checkHandleAvailability(String handle) async {
     try {
@@ -682,6 +684,59 @@ class Database {
         'done': true,
       }).in_('id', ids);
 
+      return true;
+    } on Exception catch (_) {
+      return false;
+    }
+  }
+
+  static Future<List<HUCreditModel>> creditsWithHabitatId({
+    required int id,
+    int weekNumber = 0,
+  }) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    if (weekNumber == 0) {
+      final today = DateTime.now();
+      weekNumber = today.weekNumber();
+    }
+
+    try {
+      final creditsJson = await supabase
+          .from(creditsTable)
+          .select()
+          .eq('habitat_id', id)
+          .eq('week_number', weekNumber);
+
+      List<HUCreditModel> credits = [];
+      for (final creditJson in creditsJson) {
+        final credit = HUCreditModel.fromJson(creditJson);
+        credits.add(credit);
+      }
+
+      return credits;
+    } on Exception catch (_) {
+      return [];
+    }
+  }
+
+  static Future<bool> addCredits({required HUCreditModel credit}) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    final creditJson = credit.toJson();
+
+    if (credit.id == -1) {
+      creditJson.removeWhere((key, value) => key == 'id');
+    }
+
+    try {
+      await supabase.from(creditsTable).upsert(creditJson);
       return true;
     } on Exception catch (_) {
       return false;

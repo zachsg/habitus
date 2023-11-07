@@ -68,6 +68,12 @@ class Habitat extends _$Habitat {
     state = state.copyWith(callouts: callouts);
   }
 
+  Future<void> loadCredits() async {
+    final credits = await Database.creditsWithHabitatId(id: state.habitat.id);
+
+    state = state.copyWith(credits: credits);
+  }
+
   void setLoading(bool loading) {
     state = state.copyWith(loading: loading);
   }

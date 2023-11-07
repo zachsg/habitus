@@ -6,7 +6,7 @@ part of 'grow.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$growHash() => r'ec3659eb18029122511d80376bcfcdae554e1c6c';
+String _$growHash() => r'c350a2cca9de8ca939b7d8b17d0c2aa8cc74ceef';
 
 /// Copied from Dart SDK
 class _SystemHash {

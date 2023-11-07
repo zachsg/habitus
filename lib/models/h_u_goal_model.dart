@@ -13,9 +13,6 @@ class HUGoalModel with _$HUGoalModel {
     required String habit,
     required Unit unit,
     required int value,
-    @JsonKey(name: 'date_of_last_credit') DateTime? dateOfLastCredit,
-    @Default(0) int credits,
-    @JsonKey(name: 'days_off') @Default([]) List<Day> daysOff,
   }) = _HUGoalModel;
 
   factory HUGoalModel.fromJson(Map<String, Object?> json) =>
