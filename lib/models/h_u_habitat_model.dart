@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'habit_type.dart';
 import 'xmodels.dart';
 
 part 'h_u_habitat_model.freezed.dart';
@@ -13,7 +14,10 @@ class HUHabitatModel with _$HUHabitatModel {
     @JsonKey(name: 'creator_id') required String creatorId,
     @Default('') String name,
     @Default('') String header,
-    required HUGoalModel goal,
+    required HabitType type,
+    @Default(Unit.minutes) Unit unit,
+    @JsonKey(name: "team_goal") @Default(0) int teamGoal,
+    @JsonKey(name: 'team_goal_last_met') required DateTime teamGoalLastMet,
     @Default([]) List<String> admins,
     @Default([]) List<String> members,
     @JsonKey(name: 'is_open') @Default(true) bool isOpen,

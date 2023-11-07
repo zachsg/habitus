@@ -59,16 +59,16 @@ class _CountDownWidgetState extends ConsumerState<GrowTimerWidget>
 
     var elapsed = 0;
 
-    final habitType = widget.habitatAndAction.habitat.goal.habit;
+    final habitType = widget.habitatAndAction.habitat.type;
 
     final notificationSeconds =
         goalValue - (widget.habitatAndAction.elapsed * 60);
     if (notificationSeconds > 0) {
       LocalNotificationService().addNotification(
-        '${habitType.habitDoing()} Done',
-        'You completed your ${habitType.habitDoing().toLowerCase()} goal',
+        '${habitType.name.habitDoing()} Done',
+        'You completed your ${habitType.name.habitDoing().toLowerCase()} goal',
         DateTime.now().millisecondsSinceEpoch + (notificationSeconds * 1000),
-        channel: habitType.habitDoing().toLowerCase(),
+        channel: habitType.name.habitDoing().toLowerCase(),
       );
     }
 

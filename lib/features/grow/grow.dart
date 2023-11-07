@@ -51,6 +51,14 @@ class Grow extends _$Grow {
     final goal =
         profile.goals.firstWhere((goal) => goal.habitatId == state.habitat.id);
 
+    if (goal.dateOfLastCredit != null) {
+      if (goal.dateOfLastCredit!
+          .isAfter(DateTime.now().copyWith(hour: 0, minute: 0))) {
+        // Already received credits today, no more soup for you!
+        return true;
+      }
+    }
+
     int addOn = 1; // 1 credit if action taken
     if (elapsed == goal.value) {
       // 2 credits if goal met
@@ -60,7 +68,10 @@ class Grow extends _$Grow {
       addOn = 3;
     }
 
-    final updatedGoal = goal.copyWith(credits: goal.credits + addOn);
+    final updatedGoal = goal.copyWith(
+      credits: goal.credits + addOn,
+      dateOfLastCredit: DateTime.now().toUtc(),
+    );
 
     final List<HUGoalModel> goals = [];
     for (final g in profile.goals) {
@@ -90,7 +101,13 @@ class Grow extends _$Grow {
 
     final profile = ref.read(profileProvider).profile;
     final createdAt = DateTime.now().toUtc();
-    final goal = habitatAndAction.habitat.goal.copyWith(value: elapsed);
+    final habitat = habitatAndAction.habitat;
+    final goal = HUGoalModel(
+      habitatId: habitat.id,
+      habit: habitat.type.name,
+      unit: habitat.unit,
+      value: elapsed,
+    );
 
     final action = HUActionModel(
       id: 0,
@@ -131,15 +148,28 @@ class Grow extends _$Grow {
         await Database.markCalloutDone(c);
       }
 
-      await ref.read(habitatProvider(state.habitat).notifier).loadProfiles();
-      await ref.read(habitatProvider(state.habitat).notifier).loadActions();
-      await ref.read(habitatProvider(state.habitat).notifier).loadCallouts();
       await ref
-          .read(habitatProvider(state.habitat).notifier)
+          .read(habitatProvider(habitatAndAction.habitat).notifier)
+          .loadProfiles();
+      await ref
+          .read(habitatProvider(habitatAndAction.habitat).notifier)
+          .loadActions();
+      await ref
+          .read(habitatProvider(habitatAndAction.habitat).notifier)
+          .loadCallouts();
+      await ref
+          .read(habitatProvider(habitatAndAction.habitat).notifier)
           .loadHabitatWithId(state.habitat.id);
       await ref.read(habitatsProvider.notifier).loadHabitats();
       await ref.read(habitatsProvider.notifier).loadActions();
       await ref.read(habitatsProvider.notifier).loadCallouts();
+
+      final habitat =
+          ref.read(habitatProvider(habitatAndAction.habitat)).habitat;
+      if (habitat.teamGoalLastMet
+          .isBefore(DateTime.now().copyWith(hour: 0, minute: 0))) {
+        await giveTeamCredit();
+      }
     }
 
     state = state.copyWith(
@@ -148,6 +178,51 @@ class Grow extends _$Grow {
     );
 
     return success;
+  }
+
+  Future<void> giveTeamCredit() async {
+    await ref
+        .read(habitatProvider(state.habitat).notifier)
+        .loadHabitatWithId(state.habitat.id);
+    final habitatP = ref.read(habitatProvider(state.habitat));
+
+    if (habitatP.habitat.teamGoalLastMet
+        .isAfter(DateTime.now().copyWith(hour: 0, minute: 0))) {
+      // Credit already given today
+      return;
+    }
+
+    // Give credit to each member of the team
+    for (final profile in habitatP.profiles) {
+      final goal = profile.goals
+          .firstWhere((goal) => goal.habitatId == state.habitat.id);
+
+      final updatedGoal = goal.copyWith(credits: goal.credits + 5);
+
+      List<HUGoalModel> goals = [];
+      for (final g in profile.goals) {
+        if (g.habitatId == state.habitat.id) {
+          goals.add(updatedGoal);
+        } else {
+          goals.add(g);
+        }
+      }
+
+      final updateProfile = profile.copyWith(goals: goals);
+      await Database.updateProfileHabitatsAndGoals(updateProfile);
+
+      final p = ref.read(profileProvider).profile;
+      if (profile.id == p.id) {
+        await ref.read(profileProvider.notifier).loadProfile();
+      }
+    }
+
+    await ref.read(habitatProvider(state.habitat).notifier).loadProfiles();
+
+    // Update habitat date of last credit recieved by team
+    final updatedHabitat =
+        habitatP.habitat.copyWith(teamGoalLastMet: DateTime.now().toUtc());
+    await Database.updateHabitat(updatedHabitat);
   }
 
   void setCalloutId(String id) {

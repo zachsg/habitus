@@ -25,6 +25,8 @@ mixin _$HUGoalModel {
   String get habit => throw _privateConstructorUsedError;
   Unit get unit => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
+  @JsonKey(name: 'date_of_last_credit')
+  DateTime? get dateOfLastCredit => throw _privateConstructorUsedError;
   int get credits => throw _privateConstructorUsedError;
   @JsonKey(name: 'days_off')
   List<Day> get daysOff => throw _privateConstructorUsedError;
@@ -46,6 +48,7 @@ abstract class $HUGoalModelCopyWith<$Res> {
       String habit,
       Unit unit,
       int value,
+      @JsonKey(name: 'date_of_last_credit') DateTime? dateOfLastCredit,
       int credits,
       @JsonKey(name: 'days_off') List<Day> daysOff});
 }
@@ -67,6 +70,7 @@ class _$HUGoalModelCopyWithImpl<$Res, $Val extends HUGoalModel>
     Object? habit = null,
     Object? unit = null,
     Object? value = null,
+    Object? dateOfLastCredit = freezed,
     Object? credits = null,
     Object? daysOff = null,
   }) {
@@ -87,6 +91,10 @@ class _$HUGoalModelCopyWithImpl<$Res, $Val extends HUGoalModel>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int,
+      dateOfLastCredit: freezed == dateOfLastCredit
+          ? _value.dateOfLastCredit
+          : dateOfLastCredit // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       credits: null == credits
           ? _value.credits
           : credits // ignore: cast_nullable_to_non_nullable
@@ -112,6 +120,7 @@ abstract class _$$HUGoalModelImplCopyWith<$Res>
       String habit,
       Unit unit,
       int value,
+      @JsonKey(name: 'date_of_last_credit') DateTime? dateOfLastCredit,
       int credits,
       @JsonKey(name: 'days_off') List<Day> daysOff});
 }
@@ -131,6 +140,7 @@ class __$$HUGoalModelImplCopyWithImpl<$Res>
     Object? habit = null,
     Object? unit = null,
     Object? value = null,
+    Object? dateOfLastCredit = freezed,
     Object? credits = null,
     Object? daysOff = null,
   }) {
@@ -151,6 +161,10 @@ class __$$HUGoalModelImplCopyWithImpl<$Res>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as int,
+      dateOfLastCredit: freezed == dateOfLastCredit
+          ? _value.dateOfLastCredit
+          : dateOfLastCredit // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       credits: null == credits
           ? _value.credits
           : credits // ignore: cast_nullable_to_non_nullable
@@ -171,6 +185,7 @@ class _$HUGoalModelImpl implements _HUGoalModel {
       required this.habit,
       required this.unit,
       required this.value,
+      @JsonKey(name: 'date_of_last_credit') this.dateOfLastCredit,
       this.credits = 0,
       @JsonKey(name: 'days_off') final List<Day> daysOff = const []})
       : _daysOff = daysOff;
@@ -188,6 +203,9 @@ class _$HUGoalModelImpl implements _HUGoalModel {
   @override
   final int value;
   @override
+  @JsonKey(name: 'date_of_last_credit')
+  final DateTime? dateOfLastCredit;
+  @override
   @JsonKey()
   final int credits;
   final List<Day> _daysOff;
@@ -201,7 +219,7 @@ class _$HUGoalModelImpl implements _HUGoalModel {
 
   @override
   String toString() {
-    return 'HUGoalModel(habitatId: $habitatId, habit: $habit, unit: $unit, value: $value, credits: $credits, daysOff: $daysOff)';
+    return 'HUGoalModel(habitatId: $habitatId, habit: $habit, unit: $unit, value: $value, dateOfLastCredit: $dateOfLastCredit, credits: $credits, daysOff: $daysOff)';
   }
 
   @override
@@ -214,6 +232,8 @@ class _$HUGoalModelImpl implements _HUGoalModel {
             (identical(other.habit, habit) || other.habit == habit) &&
             (identical(other.unit, unit) || other.unit == unit) &&
             (identical(other.value, value) || other.value == value) &&
+            (identical(other.dateOfLastCredit, dateOfLastCredit) ||
+                other.dateOfLastCredit == dateOfLastCredit) &&
             (identical(other.credits, credits) || other.credits == credits) &&
             const DeepCollectionEquality().equals(other._daysOff, _daysOff));
   }
@@ -221,7 +241,7 @@ class _$HUGoalModelImpl implements _HUGoalModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, habitatId, habit, unit, value,
-      credits, const DeepCollectionEquality().hash(_daysOff));
+      dateOfLastCredit, credits, const DeepCollectionEquality().hash(_daysOff));
 
   @JsonKey(ignore: true)
   @override
@@ -243,6 +263,7 @@ abstract class _HUGoalModel implements HUGoalModel {
       required final String habit,
       required final Unit unit,
       required final int value,
+      @JsonKey(name: 'date_of_last_credit') final DateTime? dateOfLastCredit,
       final int credits,
       @JsonKey(name: 'days_off') final List<Day> daysOff}) = _$HUGoalModelImpl;
 
@@ -258,6 +279,9 @@ abstract class _HUGoalModel implements HUGoalModel {
   Unit get unit;
   @override
   int get value;
+  @override
+  @JsonKey(name: 'date_of_last_credit')
+  DateTime? get dateOfLastCredit;
   @override
   int get credits;
   @override

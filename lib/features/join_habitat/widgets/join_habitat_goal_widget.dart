@@ -12,7 +12,7 @@ class JoinHabitatGoalWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final goal = ref.watch(joinHabitatProvider).habitat.goal;
+    final provider = ref.watch(joinHabitatProvider);
     final isIOS = Platform.isIOS;
 
     return Row(
@@ -23,8 +23,7 @@ class JoinHabitatGoalWidget extends ConsumerWidget {
         ),
         const Text(':'),
         IconButton(
-          onPressed:
-              ref.read(joinHabitatProvider.notifier).decrementHabitatGoalValue,
+          onPressed: ref.read(joinHabitatProvider.notifier).decrementGoal,
           icon: Icon(
             isIOS ? CupertinoIcons.minus_circle : Icons.remove_circle,
             size: 32,
@@ -33,7 +32,7 @@ class JoinHabitatGoalWidget extends ConsumerWidget {
         ),
         const SizedBox(width: 8),
         Text(
-          '${goal.value}',
+          '${provider.goal}',
           style: Theme.of(context)
               .textTheme
               .headlineMedium
@@ -41,8 +40,7 @@ class JoinHabitatGoalWidget extends ConsumerWidget {
         ),
         const SizedBox(width: 8),
         IconButton(
-          onPressed:
-              ref.read(joinHabitatProvider.notifier).incrementHabitatGoalValue,
+          onPressed: ref.read(joinHabitatProvider.notifier).incrementGoal,
           icon: Icon(
             isIOS ? CupertinoIcons.add_circled : Icons.add_circle,
             size: 32,
@@ -51,7 +49,7 @@ class JoinHabitatGoalWidget extends ConsumerWidget {
         ),
         const SizedBox(width: 8),
         Text(
-          goal.unit.name,
+          provider.unit.name,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         Text(

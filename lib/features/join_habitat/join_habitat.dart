@@ -1,14 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobn/helpers/extensions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../data/animals.dart';
 import '../../helpers/strings.dart';
+import '../../models/animal.dart';
+import '../../models/habit_type.dart';
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
 import '../habitats/habitats.dart';
-import '../habitats/habitats_view.dart';
 import '../profile/profile.dart';
 import 'join_habitat_model.dart';
 
@@ -18,118 +16,73 @@ part 'join_habitat.g.dart';
 class JoinHabitat extends _$JoinHabitat {
   @override
   JoinHabitatModel build() => JoinHabitatModel(
-        habitat: HUHabitatModel(
-          id: -1,
-          updatedAt: DateTime.now(),
-          creatorId: supabase.auth.currentUser?.id ?? '',
-          name: '${readString.habitDoing()} ${Animals.random().capitalize()}',
-          goal: HUGoalModel(
-            habitatId: 1,
-            habit: readString,
-            unit: Unit.minutes,
-            value: 30,
-          ),
-        ),
         habitats: [],
         loading: false,
       );
 
-  void updateHabitatGoalHabit(String habit) {
+  void updateHabitType(HabitType type) {
     int value;
-    switch (habit) {
-      case readString:
+    switch (type) {
+      case HabitType.read:
         value = 30;
-      case exerciseString:
+      case HabitType.exercise:
         value = 20;
-      case meditateString:
+      case HabitType.meditate:
         value = 10;
-      case cookString:
+      case HabitType.cook:
         value = 10;
       default:
         value = 10;
     }
-    final goal = state.habitat.goal.copyWith(habit: habit, value: value);
 
-    final name = state.habitat.name.split(' ');
-    final newName = '${habit.habitDoing()} ${name[1]}';
-
-    final habitat = state.habitat.copyWith(name: newName, goal: goal);
-    state = state.copyWith(habitat: habitat);
+    state = state.copyWith(type: type, goal: value);
   }
 
-  void updateHabitatNameHabit(String animal) {
-    final name = state.habitat.name.split(' ');
-    final newName = '${name.first} ${animal.capitalize()}';
+  void updateAnimal(Animal animal) => state = state.copyWith(animal: animal);
 
-    final habitat = state.habitat.copyWith(name: newName);
-    state = state.copyWith(habitat: habitat);
-  }
+  void incrementGoal() => state = state.copyWith(goal: state.goal + 5);
 
-  void incrementHabitatGoalValue() {
-    final value = state.habitat.goal.value;
-    final goal = state.habitat.goal.copyWith(value: value + 5);
-    final habitat = state.habitat.copyWith(goal: goal);
-    state = state.copyWith(habitat: habitat);
-  }
-
-  void decrementHabitatGoalValue() {
-    final value = state.habitat.goal.value;
-    if (value >= 10) {
-      final goal = state.habitat.goal.copyWith(value: value - 5);
-      final habitat = state.habitat.copyWith(goal: goal);
-      state = state.copyWith(habitat: habitat);
+  void decrementGoal() {
+    if (state.goal >= 10) {
+      state = state.copyWith(goal: state.goal - 5);
     }
   }
 
   void incrementCap() {
-    final currentCap = state.habitat.cap;
-    if (currentCap > 9) {
+    if (state.cap > 9) {
       return;
     }
 
-    final habitat = state.habitat.copyWith(cap: currentCap + 1);
-    state = state.copyWith(habitat: habitat);
+    state = state.copyWith(cap: state.cap + 1);
   }
 
   void decrementCap() {
-    final currentCap = state.habitat.cap;
-    if (currentCap < 3) {
+    if (state.cap < 3) {
       return;
     }
 
-    final habitat = state.habitat.copyWith(cap: currentCap - 1);
-    state = state.copyWith(habitat: habitat);
+    state = state.copyWith(cap: state.cap - 1);
   }
 
-  void setIsOpen(bool isOpen) {
-    final habitat = state.habitat.copyWith(isOpen: isOpen);
-    state = state.copyWith(habitat: habitat);
-  }
+  void setIsOpen(bool isOpen) => state = state.copyWith(isOpen: isOpen);
 
   void resetHabitat() => state = state.copyWith(
-        habitat: HUHabitatModel(
-          id: -1,
-          updatedAt: DateTime.now(),
-          creatorId: supabase.auth.currentUser?.id ?? '',
-          name: '${readString.habitDoing()} ${Animals.random().capitalize()}',
-          goal: HUGoalModel(
-            habitatId: 1,
-            habit: readString,
-            unit: Unit.minutes,
-            value: 30,
-          ),
-        ),
+        unit: Unit.minutes,
+        goal: 10,
         habitats: [],
         loading: false,
       );
 
   Future<void> findMatchingHabitats() async {
     state = state.copyWith(loading: true);
-    final name = state.habitat.goal.habit;
-    final habitats = await Database.habitatsWithNamesContaining(name.substring(
-      0,
-      name.length - 1,
-    ));
+
+    final name = state.type.name.capitalize();
+    final habitats = await Database.habitatsWithNamesContaining(
+      name.substring(
+        0,
+        name.length - 1,
+      ),
+    );
 
     habitats.removeWhere((habitat) {
       final members = habitat.admins.length + habitat.members.length + 1;
@@ -145,75 +98,78 @@ class JoinHabitat extends _$JoinHabitat {
     state = state.copyWith(loading: false);
   }
 
-  Future<void> makeHabitat(BuildContext context) async {
+  Future<void> makeHabitat() async {
     state = state.copyWith(loading: true);
 
     // Make habitat
+    final name =
+        '${state.type.name.habitDoing()} ${state.animal.name.capitalize()}';
     final profile = ref.read(profileProvider).profile;
-    final habitat = state.habitat.copyWith(creatorId: profile.id);
-    state = state.copyWith(habitat: habitat);
-    final id = await Database.makeHabitat(state.habitat);
+    final now = DateTime.now().toLocal();
+    final habitat = HUHabitatModel(
+      id: -1,
+      updatedAt: now,
+      creatorId: profile.id,
+      name: name,
+      type: state.type,
+      unit: state.unit,
+      cap: state.cap,
+      isOpen: state.isOpen,
+      teamGoal: state.goal,
+      teamGoalLastMet: now.subtract(const Duration(days: 1)),
+    );
 
-    // Update habitat with correct goal in database
-    final goal = state.habitat.goal.copyWith(habitatId: id);
-    final updateHabitat = state.habitat.copyWith(id: id, goal: goal);
-    state = state.copyWith(habitat: updateHabitat);
-    await Database.updateHabitat(state.habitat);
+    final id = await Database.makeHabitat(habitat);
+
+    final updatedHabitat = habitat.copyWith(id: id);
 
     // Update user profile with new habitat
-    final goals = [...profile.goals, state.habitat.goal];
+    final goal = HUGoalModel(
+      habitatId: updatedHabitat.id,
+      habit: updatedHabitat.type.name,
+      unit: updatedHabitat.unit,
+      value: updatedHabitat.teamGoal,
+      credits: 0,
+      dateOfLastCredit: now.subtract(const Duration(days: 1)),
+      daysOff: [],
+    );
+    final goals = [...profile.goals, goal];
     final updatedProfile = profile.copyWith(goals: goals);
     await Database.updateProfileHabitatsAndGoals(updatedProfile);
 
     // Reload habitats and use profile
-    await ref.read(habitatsProvider.notifier).loadHabitats();
     await ref.read(profileProvider.notifier).loadProfile();
+    await ref.read(habitatsProvider.notifier).loadHabitats();
 
     state = state.copyWith(loading: false);
-
-    if (context.mounted) {
-      context.goNamed(HabitatsView.routeName);
-    }
   }
 
-  Future<void> joinHabitat(BuildContext context, HUHabitatModel habitat) async {
+  Future<void> joinHabitat(HUHabitatModel habitat) async {
     state = state.copyWith(loading: true);
 
-    final g = state.habitat.goal.copyWith(habitatId: habitat.id);
-    final h = state.habitat.copyWith(id: habitat.id, goal: g);
-    state = state.copyWith(habitat: h);
-
+    // Update user profile with new goal
     final profile = ref.read(profileProvider).profile;
-    final goals = [...profile.goals, state.habitat.goal];
+    final goal = HUGoalModel(
+      habitatId: habitat.id,
+      habit: habitat.type.name,
+      unit: habitat.unit,
+      value: state.goal,
+    );
+    final goals = [...profile.goals, goal];
     final updatedProfile = profile.copyWith(goals: goals);
-
     await Database.updateProfileHabitatsAndGoals(updatedProfile);
 
-    final goal = habitat.goal
-        .copyWith(value: habitat.goal.value + state.habitat.goal.value);
-
+    // Update habitat team goal and members
     final habitatUpdated = habitat.copyWith(
-      goal: goal,
+      teamGoal: habitat.teamGoal + state.goal,
       members: [...habitat.members, profile.id],
     );
-
     await Database.updateHabitat(habitatUpdated);
 
     await ref.read(habitatsProvider.notifier).loadHabitats();
-
     await ref.read(profileProvider.notifier).loadProfile();
 
     state = state.copyWith(loading: false);
-
-    if (context.mounted) {
-      context.goNamed(HabitatsView.routeName);
-    }
-  }
-
-  Future<void> createHabitat(BuildContext context) async {
-    // TODO: Create new habitat in DB
-    // 1. Ensure user is set as creator of habitat
-    // 2. Add newly created habitat ID to user's profile 'habitats' and 'goals'
   }
 
   void setIsJoining(bool isJoining) => state = state.copyWith(

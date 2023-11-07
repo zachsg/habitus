@@ -13,7 +13,10 @@ _$HUHabitatModelImpl _$$HUHabitatModelImplFromJson(Map<String, dynamic> json) =>
       creatorId: json['creator_id'] as String,
       name: json['name'] as String? ?? '',
       header: json['header'] as String? ?? '',
-      goal: HUGoalModel.fromJson(json['goal'] as Map<String, dynamic>),
+      type: $enumDecode(_$HabitTypeEnumMap, json['type']),
+      unit: $enumDecodeNullable(_$UnitEnumMap, json['unit']) ?? Unit.minutes,
+      teamGoal: json['team_goal'] as int? ?? 0,
+      teamGoalLastMet: DateTime.parse(json['team_goal_last_met'] as String),
       admins: (json['admins'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
@@ -34,9 +37,26 @@ Map<String, dynamic> _$$HUHabitatModelImplToJson(
       'creator_id': instance.creatorId,
       'name': instance.name,
       'header': instance.header,
-      'goal': instance.goal,
+      'type': _$HabitTypeEnumMap[instance.type]!,
+      'unit': _$UnitEnumMap[instance.unit]!,
+      'team_goal': instance.teamGoal,
+      'team_goal_last_met': instance.teamGoalLastMet.toIso8601String(),
       'admins': instance.admins,
       'members': instance.members,
       'is_open': instance.isOpen,
       'cap': instance.cap,
     };
+
+const _$HabitTypeEnumMap = {
+  HabitType.cook: 'cook',
+  HabitType.exercise: 'exercise',
+  HabitType.meditate: 'meditate',
+  HabitType.read: 'read',
+  HabitType.work: 'work',
+};
+
+const _$UnitEnumMap = {
+  Unit.miles: 'miles',
+  Unit.steps: 'steps',
+  Unit.minutes: 'minutes',
+};

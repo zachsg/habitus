@@ -12,7 +12,7 @@ class JoinHabitatCapWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cap = ref.watch(joinHabitatProvider).habitat.cap;
+    final cap = ref.watch(joinHabitatProvider).cap;
     final isIOS = Platform.isIOS;
 
     return Row(

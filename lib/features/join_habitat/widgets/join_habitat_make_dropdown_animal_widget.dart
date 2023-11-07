@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobn/helpers/extensions.dart';
 
-import '../../../data/animals.dart';
 import '../../../helpers/strings.dart';
+import '../../../models/animal.dart';
 import '../join_habitat.dart';
 
 class JoinHabitatMakeDropdownAnimalWidget extends ConsumerWidget {
@@ -10,14 +11,6 @@ class JoinHabitatMakeDropdownAnimalWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final habitatName =
-        ref.watch(joinHabitatProvider).habitat.name.split(' ').toList();
-    final animal = habitatName.isEmpty
-        ? Animals.all.first
-        : habitatName.length > 1
-            ? habitatName[1]
-            : habitatName[0];
-
     return Row(
       children: [
         Text(
@@ -26,8 +19,8 @@ class JoinHabitatMakeDropdownAnimalWidget extends ConsumerWidget {
         ),
         const Text(':'),
         const SizedBox(width: 8),
-        DropdownButton<String>(
-          value: animal,
+        DropdownButton<Animal>(
+          value: ref.watch(joinHabitatProvider).animal,
           icon: Icon(
             Icons.arrow_downward,
             color: Theme.of(context).colorScheme.primary,
@@ -41,18 +34,16 @@ class JoinHabitatMakeDropdownAnimalWidget extends ConsumerWidget {
             height: 2,
             color: Theme.of(context).colorScheme.primary,
           ),
-          onChanged: (String? animal) {
+          onChanged: (Animal? animal) {
             if (animal != null) {
-              ref
-                  .read(joinHabitatProvider.notifier)
-                  .updateHabitatNameHabit(animal);
+              ref.read(joinHabitatProvider.notifier).updateAnimal(animal);
             }
           },
-          items: Animals.all.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
+          items: Animal.values.map<DropdownMenuItem<Animal>>((Animal animal) {
+            return DropdownMenuItem<Animal>(
+              value: animal,
               child: Text(
-                value,
+                animal.name.capitalize(),
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium

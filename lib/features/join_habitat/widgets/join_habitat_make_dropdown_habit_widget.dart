@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobn/helpers/extensions.dart';
 
-import '../../../data/habit_types.dart';
 import '../../../helpers/strings.dart';
+import '../../../models/habit_type.dart';
 import '../join_habitat.dart';
 
 class JoinHabitatMakeDropdownHabitWidget extends ConsumerWidget {
@@ -18,8 +19,8 @@ class JoinHabitatMakeDropdownHabitWidget extends ConsumerWidget {
         ),
         const Text(':'),
         const SizedBox(width: 8),
-        DropdownButton<String>(
-          value: ref.watch(joinHabitatProvider).habitat.goal.habit,
+        DropdownButton<HabitType>(
+          value: ref.watch(joinHabitatProvider).type,
           icon: Icon(
             Icons.arrow_downward,
             color: Theme.of(context).colorScheme.primary,
@@ -33,18 +34,17 @@ class JoinHabitatMakeDropdownHabitWidget extends ConsumerWidget {
             height: 2,
             color: Theme.of(context).colorScheme.primary,
           ),
-          onChanged: (String? habit) {
-            if (habit != null) {
-              ref
-                  .read(joinHabitatProvider.notifier)
-                  .updateHabitatGoalHabit(habit);
+          onChanged: (HabitType? type) {
+            if (type != null) {
+              ref.read(joinHabitatProvider.notifier).updateHabitType(type);
             }
           },
-          items: HabitTypes.all.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
+          items: HabitType.values
+              .map<DropdownMenuItem<HabitType>>((HabitType type) {
+            return DropdownMenuItem<HabitType>(
+              value: type,
               child: Text(
-                value,
+                type.name.capitalize(),
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium

@@ -27,7 +27,12 @@ mixin _$HUHabitatModel {
   String get creatorId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get header => throw _privateConstructorUsedError;
-  HUGoalModel get goal => throw _privateConstructorUsedError;
+  HabitType get type => throw _privateConstructorUsedError;
+  Unit get unit => throw _privateConstructorUsedError;
+  @JsonKey(name: "team_goal")
+  int get teamGoal => throw _privateConstructorUsedError;
+  @JsonKey(name: 'team_goal_last_met')
+  DateTime get teamGoalLastMet => throw _privateConstructorUsedError;
   List<String> get admins => throw _privateConstructorUsedError;
   List<String> get members => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_open')
@@ -52,13 +57,14 @@ abstract class $HUHabitatModelCopyWith<$Res> {
       @JsonKey(name: 'creator_id') String creatorId,
       String name,
       String header,
-      HUGoalModel goal,
+      HabitType type,
+      Unit unit,
+      @JsonKey(name: "team_goal") int teamGoal,
+      @JsonKey(name: 'team_goal_last_met') DateTime teamGoalLastMet,
       List<String> admins,
       List<String> members,
       @JsonKey(name: 'is_open') bool isOpen,
       int cap});
-
-  $HUGoalModelCopyWith<$Res> get goal;
 }
 
 /// @nodoc
@@ -79,7 +85,10 @@ class _$HUHabitatModelCopyWithImpl<$Res, $Val extends HUHabitatModel>
     Object? creatorId = null,
     Object? name = null,
     Object? header = null,
-    Object? goal = null,
+    Object? type = null,
+    Object? unit = null,
+    Object? teamGoal = null,
+    Object? teamGoalLastMet = null,
     Object? admins = null,
     Object? members = null,
     Object? isOpen = null,
@@ -106,10 +115,22 @@ class _$HUHabitatModelCopyWithImpl<$Res, $Val extends HUHabitatModel>
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
               as String,
-      goal: null == goal
-          ? _value.goal
-          : goal // ignore: cast_nullable_to_non_nullable
-              as HUGoalModel,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as HabitType,
+      unit: null == unit
+          ? _value.unit
+          : unit // ignore: cast_nullable_to_non_nullable
+              as Unit,
+      teamGoal: null == teamGoal
+          ? _value.teamGoal
+          : teamGoal // ignore: cast_nullable_to_non_nullable
+              as int,
+      teamGoalLastMet: null == teamGoalLastMet
+          ? _value.teamGoalLastMet
+          : teamGoalLastMet // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       admins: null == admins
           ? _value.admins
           : admins // ignore: cast_nullable_to_non_nullable
@@ -128,14 +149,6 @@ class _$HUHabitatModelCopyWithImpl<$Res, $Val extends HUHabitatModel>
               as int,
     ) as $Val);
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $HUGoalModelCopyWith<$Res> get goal {
-    return $HUGoalModelCopyWith<$Res>(_value.goal, (value) {
-      return _then(_value.copyWith(goal: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -152,14 +165,14 @@ abstract class _$$HUHabitatModelImplCopyWith<$Res>
       @JsonKey(name: 'creator_id') String creatorId,
       String name,
       String header,
-      HUGoalModel goal,
+      HabitType type,
+      Unit unit,
+      @JsonKey(name: "team_goal") int teamGoal,
+      @JsonKey(name: 'team_goal_last_met') DateTime teamGoalLastMet,
       List<String> admins,
       List<String> members,
       @JsonKey(name: 'is_open') bool isOpen,
       int cap});
-
-  @override
-  $HUGoalModelCopyWith<$Res> get goal;
 }
 
 /// @nodoc
@@ -178,7 +191,10 @@ class __$$HUHabitatModelImplCopyWithImpl<$Res>
     Object? creatorId = null,
     Object? name = null,
     Object? header = null,
-    Object? goal = null,
+    Object? type = null,
+    Object? unit = null,
+    Object? teamGoal = null,
+    Object? teamGoalLastMet = null,
     Object? admins = null,
     Object? members = null,
     Object? isOpen = null,
@@ -205,10 +221,22 @@ class __$$HUHabitatModelImplCopyWithImpl<$Res>
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
               as String,
-      goal: null == goal
-          ? _value.goal
-          : goal // ignore: cast_nullable_to_non_nullable
-              as HUGoalModel,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as HabitType,
+      unit: null == unit
+          ? _value.unit
+          : unit // ignore: cast_nullable_to_non_nullable
+              as Unit,
+      teamGoal: null == teamGoal
+          ? _value.teamGoal
+          : teamGoal // ignore: cast_nullable_to_non_nullable
+              as int,
+      teamGoalLastMet: null == teamGoalLastMet
+          ? _value.teamGoalLastMet
+          : teamGoalLastMet // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       admins: null == admins
           ? _value._admins
           : admins // ignore: cast_nullable_to_non_nullable
@@ -238,7 +266,10 @@ class _$HUHabitatModelImpl implements _HUHabitatModel {
       @JsonKey(name: 'creator_id') required this.creatorId,
       this.name = '',
       this.header = '',
-      required this.goal,
+      required this.type,
+      this.unit = Unit.minutes,
+      @JsonKey(name: "team_goal") this.teamGoal = 0,
+      @JsonKey(name: 'team_goal_last_met') required this.teamGoalLastMet,
       final List<String> admins = const [],
       final List<String> members = const [],
       @JsonKey(name: 'is_open') this.isOpen = true,
@@ -264,7 +295,16 @@ class _$HUHabitatModelImpl implements _HUHabitatModel {
   @JsonKey()
   final String header;
   @override
-  final HUGoalModel goal;
+  final HabitType type;
+  @override
+  @JsonKey()
+  final Unit unit;
+  @override
+  @JsonKey(name: "team_goal")
+  final int teamGoal;
+  @override
+  @JsonKey(name: 'team_goal_last_met')
+  final DateTime teamGoalLastMet;
   final List<String> _admins;
   @override
   @JsonKey()
@@ -292,7 +332,7 @@ class _$HUHabitatModelImpl implements _HUHabitatModel {
 
   @override
   String toString() {
-    return 'HUHabitatModel(id: $id, updatedAt: $updatedAt, creatorId: $creatorId, name: $name, header: $header, goal: $goal, admins: $admins, members: $members, isOpen: $isOpen, cap: $cap)';
+    return 'HUHabitatModel(id: $id, updatedAt: $updatedAt, creatorId: $creatorId, name: $name, header: $header, type: $type, unit: $unit, teamGoal: $teamGoal, teamGoalLastMet: $teamGoalLastMet, admins: $admins, members: $members, isOpen: $isOpen, cap: $cap)';
   }
 
   @override
@@ -307,7 +347,12 @@ class _$HUHabitatModelImpl implements _HUHabitatModel {
                 other.creatorId == creatorId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.header, header) || other.header == header) &&
-            (identical(other.goal, goal) || other.goal == goal) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.unit, unit) || other.unit == unit) &&
+            (identical(other.teamGoal, teamGoal) ||
+                other.teamGoal == teamGoal) &&
+            (identical(other.teamGoalLastMet, teamGoalLastMet) ||
+                other.teamGoalLastMet == teamGoalLastMet) &&
             const DeepCollectionEquality().equals(other._admins, _admins) &&
             const DeepCollectionEquality().equals(other._members, _members) &&
             (identical(other.isOpen, isOpen) || other.isOpen == isOpen) &&
@@ -323,7 +368,10 @@ class _$HUHabitatModelImpl implements _HUHabitatModel {
       creatorId,
       name,
       header,
-      goal,
+      type,
+      unit,
+      teamGoal,
+      teamGoalLastMet,
       const DeepCollectionEquality().hash(_admins),
       const DeepCollectionEquality().hash(_members),
       isOpen,
@@ -351,7 +399,11 @@ abstract class _HUHabitatModel implements HUHabitatModel {
       @JsonKey(name: 'creator_id') required final String creatorId,
       final String name,
       final String header,
-      required final HUGoalModel goal,
+      required final HabitType type,
+      final Unit unit,
+      @JsonKey(name: "team_goal") final int teamGoal,
+      @JsonKey(name: 'team_goal_last_met')
+      required final DateTime teamGoalLastMet,
       final List<String> admins,
       final List<String> members,
       @JsonKey(name: 'is_open') final bool isOpen,
@@ -373,7 +425,15 @@ abstract class _HUHabitatModel implements HUHabitatModel {
   @override
   String get header;
   @override
-  HUGoalModel get goal;
+  HabitType get type;
+  @override
+  Unit get unit;
+  @override
+  @JsonKey(name: "team_goal")
+  int get teamGoal;
+  @override
+  @JsonKey(name: 'team_goal_last_met')
+  DateTime get teamGoalLastMet;
   @override
   List<String> get admins;
   @override

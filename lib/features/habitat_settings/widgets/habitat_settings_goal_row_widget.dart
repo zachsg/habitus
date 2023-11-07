@@ -27,9 +27,15 @@ class HabitatSettingsGoalRowWidget extends ConsumerWidget {
           builder: (BuildContext context) {
             return HabitatSettingsBottomSheetWidget(
               title: editNameGoalString,
-              onPressed: () async => await ref
-                  .read(habitatSettingsProvider(habitat).notifier)
-                  .saveNewGoal(context),
+              onPressed: () async {
+                await ref
+                    .read(habitatSettingsProvider(habitat).notifier)
+                    .saveNewGoal();
+
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                }
+              },
               secondaryAction: ref
                   .read(habitatSettingsProvider(habitat).notifier)
                   .cancelGoalEdits,

@@ -32,7 +32,7 @@ class _JoinHabitatIsPrivateWidgetState
 
   @override
   Widget build(BuildContext context) {
-    final joinHabitat = ref.watch(joinHabitatProvider);
+    final provider = ref.watch(joinHabitatProvider);
 
     return Row(
       children: [
@@ -47,7 +47,7 @@ class _JoinHabitatIsPrivateWidgetState
             return Switch.adaptive(
               activeColor: Theme.of(context).colorScheme.primary,
               activeTrackColor: Theme.of(context).colorScheme.primaryContainer,
-              value: joinHabitat.habitat.isOpen,
+              value: provider.isOpen,
               onChanged: (isOn) =>
                   ref.read(joinHabitatProvider.notifier).setIsOpen(isOn),
             );

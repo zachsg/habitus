@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobn/helpers/extensions.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../helpers/constants.dart';
@@ -166,7 +167,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
               },
               label: Row(
                 children: [
-                  Text(widget.habitat.goal.habit),
+                  Text(widget.habitat.type.name.capitalize()),
                   const SizedBox(width: 8),
                   SvgPicture.asset(
                     mobnLogoSvg,

@@ -55,16 +55,17 @@ class HabitatSettings extends _$HabitatSettings {
 
     final parentHabitat = state.habitat;
 
-    final goal = state.habitat.goal.copyWith(value: 10);
+    final goal = HUGoalModel(
+        habitatId: state.habitat.id,
+        habit: state.habitat.type.name,
+        unit: state.habitat.unit,
+        value: 10);
     final goals = [...profile.goals, goal];
     final updatedProfile = profile.copyWith(goals: goals);
     await Database.updateProfileHabitatsAndGoals(updatedProfile);
 
-    final habitatGoal =
-        state.habitat.goal.copyWith(value: state.habitat.goal.value + 10);
-
     final habitatUpdated = state.habitat.copyWith(
-      goal: habitatGoal,
+      teamGoal: state.habitat.teamGoal + 10,
       members: [...state.habitat.members, profile.id],
     );
     await Database.updateHabitat(habitatUpdated);
@@ -101,7 +102,7 @@ class HabitatSettings extends _$HabitatSettings {
 
   void setSearch(String search) => state = state.copyWith(search: search);
 
-  Future<void> saveNewGoal(BuildContext context) async {
+  Future<void> saveNewGoal() async {
     // Update habitat team goal
     await Database.updateHabitat(state.habitat);
 
@@ -109,13 +110,11 @@ class HabitatSettings extends _$HabitatSettings {
     await Database.updateProfileHabitatsAndGoals(state.profile);
 
     // Reload habitat and profile
+    await ref
+        .read(habitatProvider(state.habitat).notifier)
+        .loadHabitatWithId(state.habitat.id);
     await ref.read(habitatsProvider.notifier).loadHabitats();
     await ref.read(profileProvider.notifier).loadProfile();
-
-    // Dismiss the sheet
-    if (context.mounted) {
-      Navigator.of(context).pop();
-    }
   }
 
   Future<void> cancelGoalEdits() async {
@@ -136,14 +135,13 @@ class HabitatSettings extends _$HabitatSettings {
     }
     final profile = state.profile.copyWith(goals: updateProfileGoals);
 
-    HUGoalModel habitatGoal;
-    if (state.habitat.goal.value > 5) {
-      habitatGoal =
-          state.habitat.goal.copyWith(value: state.habitat.goal.value - 5);
+    int teamGoal;
+    if (state.habitat.teamGoal > 5) {
+      teamGoal = state.habitat.teamGoal - 5;
     } else {
-      habitatGoal = state.habitat.goal;
+      teamGoal = state.habitat.teamGoal;
     }
-    final habitat = state.habitat.copyWith(goal: habitatGoal);
+    final habitat = state.habitat.copyWith(teamGoal: teamGoal);
 
     state = state.copyWith(profile: profile, habitat: habitat);
   }
@@ -161,9 +159,8 @@ class HabitatSettings extends _$HabitatSettings {
     }
     final profile = state.profile.copyWith(goals: updateProfileGoals);
 
-    final habitatGoal =
-        state.habitat.goal.copyWith(value: state.habitat.goal.value + 5);
-    final habitat = state.habitat.copyWith(goal: habitatGoal);
+    final habitat =
+        state.habitat.copyWith(teamGoal: state.habitat.teamGoal + 5);
 
     state = state.copyWith(profile: profile, habitat: habitat);
   }
@@ -177,8 +174,8 @@ class HabitatSettings extends _$HabitatSettings {
     final isAdmin = habitat.admins.contains(state.profile.id);
     final userGoal =
         state.profile.goals.firstWhere((goal) => goal.habitatId == habitat.id);
-    final newGoal =
-        habitat.goal.copyWith(value: habitat.goal.value - userGoal.value);
+    final newTeamGoal = habitat.teamGoal - userGoal.value;
+
     if (isOwner) {
       final areAdmins = habitat.admins.isNotEmpty;
       final areMembers = habitat.members.isNotEmpty;
@@ -191,7 +188,7 @@ class HabitatSettings extends _$HabitatSettings {
         final updatedHabitat = habitat.copyWith(
           creatorId: newCreator,
           admins: habitat.admins,
-          goal: newGoal,
+          teamGoal: newTeamGoal,
         );
 
         await Database.updateHabitat(updatedHabitat);
@@ -210,7 +207,7 @@ class HabitatSettings extends _$HabitatSettings {
         final updatedHabitat = habitat.copyWith(
           creatorId: newCreator,
           members: newMembers,
-          goal: newGoal,
+          teamGoal: newTeamGoal,
         );
 
         await Database.updateHabitat(updatedHabitat);
@@ -225,7 +222,7 @@ class HabitatSettings extends _$HabitatSettings {
 
       final updatedHabitat = habitat.copyWith(
         admins: newAdmins,
-        goal: newGoal,
+        teamGoal: newTeamGoal,
       );
 
       await Database.updateHabitat(updatedHabitat);
@@ -237,7 +234,7 @@ class HabitatSettings extends _$HabitatSettings {
 
       final updatedHabitat = habitat.copyWith(
         members: newMembers,
-        goal: newGoal,
+        teamGoal: newTeamGoal,
       );
 
       await Database.updateHabitat(updatedHabitat);

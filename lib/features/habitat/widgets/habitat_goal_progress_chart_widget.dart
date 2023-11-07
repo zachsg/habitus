@@ -86,7 +86,7 @@ class HabitatGoalProgressChartWidget extends ConsumerWidget {
                   context: context,
                   ref: ref,
                   habitat: habitat,
-                  goal: habitat.goal.value.toDouble(),
+                  goal: habitat.teamGoal.toDouble(),
                   profiles: profiles,
                   actions: actions,
                 ),

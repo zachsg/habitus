@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobn/features/join_habitat/join_habitat.dart';
 
+import '../../habitats/habitats_view.dart';
 import 'xwidgets.dart';
 
 class JoinHabitatMakeWidget extends ConsumerWidget {
@@ -47,8 +49,13 @@ class JoinHabitatMakeWidget extends ConsumerWidget {
         joinHabitat.loading
             ? const CircularProgressIndicator.adaptive()
             : FilledButton(
-                onPressed: () =>
-                    ref.read(joinHabitatProvider.notifier).makeHabitat(context),
+                onPressed: () async {
+                  await ref.read(joinHabitatProvider.notifier).makeHabitat();
+
+                  if (context.mounted) {
+                    context.goNamed(HabitatsView.routeName);
+                  }
+                },
                 child: const Text('Make Your Habitat'),
               ),
       ],

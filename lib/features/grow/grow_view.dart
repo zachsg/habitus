@@ -61,7 +61,7 @@ class _GrowViewState extends ConsumerState<GrowView>
     final icon = isIOS ? CupertinoIcons.eye_slash : Icons.visibility_off;
     final iconMinimal = isIOS ? CupertinoIcons.eye_fill : Icons.visibility;
 
-    final habitType = widget.habitatAndAction.habitat.goal.habit;
+    final habitType = widget.habitatAndAction.habitat.type;
 
     final goal = profile.goals.firstWhere(
         (goal) => goal.habitatId == widget.habitatAndAction.habitat.id);
@@ -88,7 +88,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                       ? null
                       : Theme.of(context).colorScheme.onPrimaryContainer
                   : null,
-              title: Text(habitType.habitDoing()),
+              title: Text(habitType.name.habitDoing()),
               actions: [
                 IconButton(
                   padding: const EdgeInsets.all(12.0),
@@ -141,7 +141,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                     ),
                     child: Text(goalMet
                         ? pauseString
-                        : 'Done ${habitType.habitDoing()}'),
+                        : 'Done ${habitType.name.habitDoing()}'),
                   ),
                 ),
               ],
@@ -185,7 +185,7 @@ class _GrowViewState extends ConsumerState<GrowView>
     bool loading = false;
     String error = '';
 
-    final habitType = widget.habitatAndAction.habitat.goal.habit;
+    final habitType = widget.habitatAndAction.habitat.type;
 
     int elapsed = (grow.elapsed / 60).round();
 
@@ -221,7 +221,7 @@ class _GrowViewState extends ConsumerState<GrowView>
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'It looks like you ${habitType.habitDid().toLowerCase()} for',
+                        'It looks like you ${habitType.name.habitDid().toLowerCase()} for',
                         textAlign: TextAlign.center,
                       ),
                       Row(
@@ -296,7 +296,8 @@ class _GrowViewState extends ConsumerState<GrowView>
                       ),
                     ],
                   )
-                : Text('You ${habitType.habitDid().toLowerCase()} for <1 min'),
+                : Text(
+                    'You ${habitType.name.habitDid().toLowerCase()} for <1 min'),
             content: SingleChildScrollView(
               child: ListBody(
                 children: [
@@ -420,13 +421,13 @@ class _GrowViewState extends ConsumerState<GrowView>
 
     profiles.removeWhere((p) => p.id == profile.id || p.pushToken.isEmpty);
 
-    final habitType = widget.habitatAndAction.habitat.goal.habit;
+    final habitType = widget.habitatAndAction.habitat.type;
 
     final habitat = widget.habitatAndAction.habitat;
     final title = habitat.name;
     final subtitle = calloutProfile != null
-        ? '@${profile.handle} just finished ${habitType.habitDoing().toLowerCase()} and called out @${calloutProfile.handle}'
-        : '@${profile.handle} just finished ${habitType.habitDoing().toLowerCase()}';
+        ? '@${profile.handle} just finished ${habitType.name.habitDoing().toLowerCase()} and called out @${calloutProfile.handle}'
+        : '@${profile.handle} just finished ${habitType.name.habitDoing().toLowerCase()}';
 
     List<String> tokens = [];
     for (final profile in profiles) {

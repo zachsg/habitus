@@ -18,8 +18,12 @@ class CalendarCalendarWidget extends ConsumerWidget {
     final profile = ref.read(profileProvider).profile;
     final goal = profile.goals.firstWhere(
       (goal) => goal.habitatId == provider.habitat.id,
-      orElse: () =>
-          HUGoalModel(habitatId: -1, habit: '', unit: Unit.minutes, value: 0),
+      orElse: () => HUGoalModel(
+        habitatId: -1,
+        habit: '',
+        unit: Unit.minutes,
+        value: 0,
+      ),
     );
 
     final firstDayOfMonth = DateTime(

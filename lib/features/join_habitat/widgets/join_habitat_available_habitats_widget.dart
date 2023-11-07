@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../helpers/strings.dart';
+import '../../habitats/habitats_view.dart';
 import '../join_habitat.dart';
 
 class JoinHabitatAvailableHabitatsWidget extends ConsumerWidget {
@@ -34,9 +36,15 @@ class JoinHabitatAvailableHabitatsWidget extends ConsumerWidget {
                     ? const CircularProgressIndicator.adaptive()
                     : FilledButton(
                         child: const Text(joinHabitatsString),
-                        onPressed: () => ref
-                            .read(joinHabitatProvider.notifier)
-                            .joinHabitat(context, habitat),
+                        onPressed: () async {
+                          await ref
+                              .read(joinHabitatProvider.notifier)
+                              .joinHabitat(habitat);
+
+                          if (context.mounted) {
+                            context.goNamed(HabitatsView.routeName);
+                          }
+                        },
                       ),
               );
             },
