@@ -168,7 +168,15 @@ class Grow extends _$Grow {
           ref.read(habitatProvider(habitatAndAction.habitat)).habitat;
       if (habitat.teamGoalLastMet
           .isBefore(DateTime.now().copyWith(hour: 0, minute: 0))) {
-        await giveTeamCredit();
+        final actions = ref.read(habitatProvider(state.habitat)).actions;
+        int accomplished = elapsed;
+        for (final action in actions) {
+          accomplished += action.goal.value;
+        }
+
+        if (accomplished >= habitat.teamGoal) {
+          await giveTeamCredit();
+        }
       }
     }
 
