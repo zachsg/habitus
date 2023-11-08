@@ -23,7 +23,7 @@ class Leaderboard extends _$Leaderboard {
       );
 
   void setHabitat(HUHabitatModel habitat) {
-    state = state.copyWith(habitat: habitat);
+    state = state.copyWith(habitat: habitat, loading: true);
     _reload();
   }
 
@@ -35,7 +35,7 @@ class Leaderboard extends _$Leaderboard {
   Future<void> loadHabitats() async {
     try {
       final habitats = await Database.habitats();
-      state = state.copyWith(habitats: habitats, loading: false);
+      state = state.copyWith(habitats: habitats);
     } on Exception catch (_) {
       state = state.copyWith(error: 'An error occurred', loading: false);
     }
@@ -46,8 +46,6 @@ class Leaderboard extends _$Leaderboard {
   }
 
   Future<void> loadProfiles() async {
-    state = state.copyWith(loading: true);
-
     final ids = [
       state.habitat.creatorId,
       ...state.habitat.admins,
@@ -56,12 +54,10 @@ class Leaderboard extends _$Leaderboard {
 
     final profiles = await Database.profilesWithIds(ids);
 
-    state = state.copyWith(profiles: profiles, loading: false);
+    state = state.copyWith(profiles: profiles);
   }
 
   Future<void> loadCredits() async {
-    state = state.copyWith(loading: true);
-
     final credits = await Database.creditsWithHabitatId(id: state.habitat.id);
 
     // Sort profiles by most points to fewest
