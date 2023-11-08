@@ -6,7 +6,7 @@ part of 'leaderboard.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$leaderboardHash() => r'3cf69df7161c1ab65281aca5108a4bb8bacfc61f';
+String _$leaderboardHash() => r'2537b10bf71344c54f4fadd345cffecc4516bef2';
 
 /// See also [Leaderboard].
 @ProviderFor(Leaderboard)

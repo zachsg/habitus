@@ -31,8 +31,6 @@ class HabitatsView extends ConsumerStatefulWidget {
 
 class _HabitatsViewState extends ConsumerState<HabitatsView>
     with WidgetsBindingObserver {
-  final isIOS = Platform.isIOS;
-
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
@@ -129,16 +127,12 @@ class _HabitatsViewState extends ConsumerState<HabitatsView>
                   : null,
               leading: IconButton(
                 onPressed: () => context.pushNamed(ProfileView.routeName),
-                icon: isIOS
-                    ? const Icon(CupertinoIcons.person_alt_circle)
-                    : const Icon(Icons.face_outlined),
+                icon: const Icon(Icons.face_outlined),
               ),
               actions: [
                 IconButton(
                   onPressed: () => context.pushNamed(SettingsView.routeName),
-                  icon: isIOS
-                      ? const Icon(CupertinoIcons.settings_solid)
-                      : const Icon(Icons.settings),
+                  icon: const Icon(Icons.settings_outlined),
                 ),
               ],
             ),

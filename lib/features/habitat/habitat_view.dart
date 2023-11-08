@@ -49,7 +49,6 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
 
   @override
   Widget build(BuildContext context) {
-    final isIOS = Platform.isIOS;
     final habitatP = ref.watch(habitatProvider(widget.habitat));
     final loading = habitatP.loading;
     final day = habitatP.day;
@@ -99,9 +98,7 @@ class _HabitatViewState extends ConsumerState<HabitatView> {
                       );
                     }
                   },
-                  icon: isIOS
-                      ? const Icon(CupertinoIcons.settings_solid)
-                      : const Icon(Icons.settings),
+                  icon: const Icon(Icons.settings_outlined),
                 ),
         ],
       ),

@@ -24,6 +24,7 @@ mixin _$LeaderboardModel {
   List<HUHabitatModel> get habitats => throw _privateConstructorUsedError;
   List<HUProfileModel> get profiles => throw _privateConstructorUsedError;
   List<HUCreditModel> get credits => throw _privateConstructorUsedError;
+  bool get byCredit => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -44,6 +45,7 @@ abstract class $LeaderboardModelCopyWith<$Res> {
       List<HUHabitatModel> habitats,
       List<HUProfileModel> profiles,
       List<HUCreditModel> credits,
+      bool byCredit,
       bool loading,
       String? error});
 
@@ -67,6 +69,7 @@ class _$LeaderboardModelCopyWithImpl<$Res, $Val extends LeaderboardModel>
     Object? habitats = null,
     Object? profiles = null,
     Object? credits = null,
+    Object? byCredit = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -87,6 +90,10 @@ class _$LeaderboardModelCopyWithImpl<$Res, $Val extends LeaderboardModel>
           ? _value.credits
           : credits // ignore: cast_nullable_to_non_nullable
               as List<HUCreditModel>,
+      byCredit: null == byCredit
+          ? _value.byCredit
+          : byCredit // ignore: cast_nullable_to_non_nullable
+              as bool,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -120,6 +127,7 @@ abstract class _$$LeaderboardModelImplCopyWith<$Res>
       List<HUHabitatModel> habitats,
       List<HUProfileModel> profiles,
       List<HUCreditModel> credits,
+      bool byCredit,
       bool loading,
       String? error});
 
@@ -142,6 +150,7 @@ class __$$LeaderboardModelImplCopyWithImpl<$Res>
     Object? habitats = null,
     Object? profiles = null,
     Object? credits = null,
+    Object? byCredit = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -162,6 +171,10 @@ class __$$LeaderboardModelImplCopyWithImpl<$Res>
           ? _value._credits
           : credits // ignore: cast_nullable_to_non_nullable
               as List<HUCreditModel>,
+      byCredit: null == byCredit
+          ? _value.byCredit
+          : byCredit // ignore: cast_nullable_to_non_nullable
+              as bool,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -182,6 +195,7 @@ class _$LeaderboardModelImpl implements _LeaderboardModel {
       final List<HUHabitatModel> habitats = const [],
       final List<HUProfileModel> profiles = const [],
       final List<HUCreditModel> credits = const [],
+      this.byCredit = true,
       this.loading = false,
       this.error})
       : _habitats = habitats,
@@ -222,13 +236,16 @@ class _$LeaderboardModelImpl implements _LeaderboardModel {
 
   @override
   @JsonKey()
+  final bool byCredit;
+  @override
+  @JsonKey()
   final bool loading;
   @override
   final String? error;
 
   @override
   String toString() {
-    return 'LeaderboardModel(habitat: $habitat, habitats: $habitats, profiles: $profiles, credits: $credits, loading: $loading, error: $error)';
+    return 'LeaderboardModel(habitat: $habitat, habitats: $habitats, profiles: $profiles, credits: $credits, byCredit: $byCredit, loading: $loading, error: $error)';
   }
 
   @override
@@ -240,6 +257,8 @@ class _$LeaderboardModelImpl implements _LeaderboardModel {
             const DeepCollectionEquality().equals(other._habitats, _habitats) &&
             const DeepCollectionEquality().equals(other._profiles, _profiles) &&
             const DeepCollectionEquality().equals(other._credits, _credits) &&
+            (identical(other.byCredit, byCredit) ||
+                other.byCredit == byCredit) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
   }
@@ -252,6 +271,7 @@ class _$LeaderboardModelImpl implements _LeaderboardModel {
       const DeepCollectionEquality().hash(_habitats),
       const DeepCollectionEquality().hash(_profiles),
       const DeepCollectionEquality().hash(_credits),
+      byCredit,
       loading,
       error);
 
@@ -276,6 +296,7 @@ abstract class _LeaderboardModel implements LeaderboardModel {
       final List<HUHabitatModel> habitats,
       final List<HUProfileModel> profiles,
       final List<HUCreditModel> credits,
+      final bool byCredit,
       final bool loading,
       final String? error}) = _$LeaderboardModelImpl;
 
@@ -290,6 +311,8 @@ abstract class _LeaderboardModel implements LeaderboardModel {
   List<HUProfileModel> get profiles;
   @override
   List<HUCreditModel> get credits;
+  @override
+  bool get byCredit;
   @override
   bool get loading;
   @override

@@ -31,6 +31,7 @@ mixin _$HUCreditModel {
   @JsonKey(name: 'week_number')
   int get weekNumber => throw _privateConstructorUsedError;
   int get credits => throw _privateConstructorUsedError;
+  int get accomplished => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +52,8 @@ abstract class $HUCreditModelCopyWith<$Res> {
       @JsonKey(name: 'habitat_id') int habitatId,
       int year,
       @JsonKey(name: 'week_number') int weekNumber,
-      int credits});
+      int credits,
+      int accomplished});
 }
 
 /// @nodoc
@@ -74,6 +76,7 @@ class _$HUCreditModelCopyWithImpl<$Res, $Val extends HUCreditModel>
     Object? year = null,
     Object? weekNumber = null,
     Object? credits = null,
+    Object? accomplished = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -104,6 +107,10 @@ class _$HUCreditModelCopyWithImpl<$Res, $Val extends HUCreditModel>
           ? _value.credits
           : credits // ignore: cast_nullable_to_non_nullable
               as int,
+      accomplished: null == accomplished
+          ? _value.accomplished
+          : accomplished // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -123,7 +130,8 @@ abstract class _$$HUCreditModelImplCopyWith<$Res>
       @JsonKey(name: 'habitat_id') int habitatId,
       int year,
       @JsonKey(name: 'week_number') int weekNumber,
-      int credits});
+      int credits,
+      int accomplished});
 }
 
 /// @nodoc
@@ -144,6 +152,7 @@ class __$$HUCreditModelImplCopyWithImpl<$Res>
     Object? year = null,
     Object? weekNumber = null,
     Object? credits = null,
+    Object? accomplished = null,
   }) {
     return _then(_$HUCreditModelImpl(
       id: null == id
@@ -174,6 +183,10 @@ class __$$HUCreditModelImplCopyWithImpl<$Res>
           ? _value.credits
           : credits // ignore: cast_nullable_to_non_nullable
               as int,
+      accomplished: null == accomplished
+          ? _value.accomplished
+          : accomplished // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -188,7 +201,8 @@ class _$HUCreditModelImpl implements _HUCreditModel {
       @JsonKey(name: 'habitat_id') required this.habitatId,
       required this.year,
       @JsonKey(name: 'week_number') required this.weekNumber,
-      this.credits = 0});
+      this.credits = 0,
+      this.accomplished = 0});
 
   factory _$HUCreditModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$HUCreditModelImplFromJson(json);
@@ -213,10 +227,13 @@ class _$HUCreditModelImpl implements _HUCreditModel {
   @override
   @JsonKey()
   final int credits;
+  @override
+  @JsonKey()
+  final int accomplished;
 
   @override
   String toString() {
-    return 'HUCreditModel(id: $id, updatedAt: $updatedAt, ownerId: $ownerId, habitatId: $habitatId, year: $year, weekNumber: $weekNumber, credits: $credits)';
+    return 'HUCreditModel(id: $id, updatedAt: $updatedAt, ownerId: $ownerId, habitatId: $habitatId, year: $year, weekNumber: $weekNumber, credits: $credits, accomplished: $accomplished)';
   }
 
   @override
@@ -233,13 +250,15 @@ class _$HUCreditModelImpl implements _HUCreditModel {
             (identical(other.year, year) || other.year == year) &&
             (identical(other.weekNumber, weekNumber) ||
                 other.weekNumber == weekNumber) &&
-            (identical(other.credits, credits) || other.credits == credits));
+            (identical(other.credits, credits) || other.credits == credits) &&
+            (identical(other.accomplished, accomplished) ||
+                other.accomplished == accomplished));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, updatedAt, ownerId,
-      habitatId, year, weekNumber, credits);
+      habitatId, year, weekNumber, credits, accomplished);
 
   @JsonKey(ignore: true)
   @override
@@ -263,7 +282,8 @@ abstract class _HUCreditModel implements HUCreditModel {
       @JsonKey(name: 'habitat_id') required final int habitatId,
       required final int year,
       @JsonKey(name: 'week_number') required final int weekNumber,
-      final int credits}) = _$HUCreditModelImpl;
+      final int credits,
+      final int accomplished}) = _$HUCreditModelImpl;
 
   factory _HUCreditModel.fromJson(Map<String, dynamic> json) =
       _$HUCreditModelImpl.fromJson;
@@ -286,6 +306,8 @@ abstract class _HUCreditModel implements HUCreditModel {
   int get weekNumber;
   @override
   int get credits;
+  @override
+  int get accomplished;
   @override
   @JsonKey(ignore: true)
   _$$HUCreditModelImplCopyWith<_$HUCreditModelImpl> get copyWith =>

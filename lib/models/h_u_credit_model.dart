@@ -13,6 +13,7 @@ class HUCreditModel with _$HUCreditModel {
     required int year,
     @JsonKey(name: 'week_number') required int weekNumber,
     @Default(0) int credits,
+    @Default(0) int accomplished,
   }) = _HUCreditModel;
 
   factory HUCreditModel.fromJson(Map<String, Object?> json) =>

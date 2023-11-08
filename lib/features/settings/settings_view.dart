@@ -27,8 +27,6 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
 
   @override
   Widget build(BuildContext context) {
-    final isIOS = Platform.isIOS;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(settingsTitleString),
@@ -48,7 +46,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
                 },
               );
             },
-            icon: Icon(isIOS ? CupertinoIcons.info_circle : Icons.info),
+            icon: const Icon(Icons.info_outline),
           )
         ],
       ),

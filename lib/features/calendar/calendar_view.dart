@@ -29,15 +29,13 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
 
   @override
   Widget build(BuildContext context) {
-    final isIOS = Platform.isIOS;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Progress'),
         actions: [
           IconButton(
             onPressed: () => _showInfoDialog(context),
-            icon: Icon(isIOS ? CupertinoIcons.info : Icons.info_outline),
+            icon: const Icon(Icons.info_outline),
           ),
         ],
       ),

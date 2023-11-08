@@ -173,25 +173,27 @@ class Grow extends _$Grow {
       ),
     );
 
-    // If user already received credit today, do nothing
+    int creditsEarned = 0;
+    // If user already received credit today, no more credits
     if (credit.id != -1 &&
         credit.updatedAt.isAfter(today.copyWith(hour: 0, minute: 0))) {
-      return credit.credits;
-    }
-
-    final goal = profile.goals
-        .firstWhere((goal) => goal.habitatId == habitatAndAction.habitat.id);
-    int creditsEarned = 0;
-    if (elapsed < goal.value) {
-      creditsEarned = 1;
-    } else if (elapsed == goal.value) {
-      creditsEarned = 2;
+      creditsEarned = 0;
     } else {
-      creditsEarned = 3;
+      final goal = profile.goals
+          .firstWhere((goal) => goal.habitatId == habitatAndAction.habitat.id);
+
+      if (elapsed < goal.value) {
+        creditsEarned = 1;
+      } else if (elapsed == goal.value) {
+        creditsEarned = 2;
+      } else {
+        creditsEarned = 3;
+      }
     }
 
     final updatedCredit = credit.copyWith(
       credits: credit.credits + creditsEarned,
+      accomplished: credit.accomplished + elapsed,
       updatedAt: DateTime.now().toUtc(),
     );
     await Database.addCredits(credit: updatedCredit);

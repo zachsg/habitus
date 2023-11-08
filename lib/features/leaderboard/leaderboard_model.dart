@@ -12,6 +12,7 @@ class LeaderboardModel with _$LeaderboardModel {
     @Default([]) List<HUHabitatModel> habitats,
     @Default([]) List<HUProfileModel> profiles,
     @Default([]) List<HUCreditModel> credits,
+    @Default(true) bool byCredit,
     @Default(false) bool loading,
     String? error,
   }) = _LeaderboardModel;

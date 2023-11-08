@@ -22,6 +22,7 @@ _$LeaderboardModelImpl _$$LeaderboardModelImplFromJson(
               ?.map((e) => HUCreditModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      byCredit: json['byCredit'] as bool? ?? true,
       loading: json['loading'] as bool? ?? false,
       error: json['error'] as String?,
     );
@@ -33,6 +34,7 @@ Map<String, dynamic> _$$LeaderboardModelImplToJson(
       'habitats': instance.habitats,
       'profiles': instance.profiles,
       'credits': instance.credits,
+      'byCredit': instance.byCredit,
       'loading': instance.loading,
       'error': instance.error,
     };

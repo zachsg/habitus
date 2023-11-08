@@ -90,7 +90,11 @@ class Leaderboard extends _$Leaderboard {
         ),
       );
 
-      return creditA.credits > creditB.credits ? 0 : 1;
+      if (state.byCredit) {
+        return creditA.credits > creditB.credits ? 0 : 1;
+      } else {
+        return creditA.accomplished > creditB.accomplished ? 0 : 1;
+      }
     });
 
     state = state.copyWith(
@@ -99,4 +103,7 @@ class Leaderboard extends _$Leaderboard {
       loading: false,
     );
   }
+
+  void setIsByCredit(bool byCredit) =>
+      state = state.copyWith(byCredit: byCredit);
 }

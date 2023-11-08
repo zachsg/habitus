@@ -15,6 +15,7 @@ _$HUCreditModelImpl _$$HUCreditModelImplFromJson(Map<String, dynamic> json) =>
       year: json['year'] as int,
       weekNumber: json['week_number'] as int,
       credits: json['credits'] as int? ?? 0,
+      accomplished: json['accomplished'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$$HUCreditModelImplToJson(_$HUCreditModelImpl instance) =>
@@ -26,4 +27,5 @@ Map<String, dynamic> _$$HUCreditModelImplToJson(_$HUCreditModelImpl instance) =>
       'year': instance.year,
       'week_number': instance.weekNumber,
       'credits': instance.credits,
+      'accomplished': instance.accomplished,
     };
