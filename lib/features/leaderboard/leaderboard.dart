@@ -66,7 +66,7 @@ class Leaderboard extends _$Leaderboard {
     List<HUProfileModel> profiles = List.from(state.profiles);
 
     profiles.sort((a, b) {
-      final creditA = state.credits.firstWhere(
+      final creditA = credits.firstWhere(
         (credit) => credit.ownerId == a.id,
         orElse: () => HUCreditModel(
           updatedAt: today,
@@ -78,7 +78,7 @@ class Leaderboard extends _$Leaderboard {
         ),
       );
 
-      final creditB = state.credits.firstWhere(
+      final creditB = credits.firstWhere(
         (credit) => credit.ownerId == b.id,
         orElse: () => HUCreditModel(
           updatedAt: today,
