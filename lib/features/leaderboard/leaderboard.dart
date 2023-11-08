@@ -1,0 +1,106 @@
+import 'package:mobn/helpers/extensions.dart';
+import 'package:mobn/models/xmodels.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../models/habit_type.dart';
+import '../../services/database.dart';
+import 'leaderboard_model.dart';
+
+part 'leaderboard.g.dart';
+
+@riverpod
+class Leaderboard extends _$Leaderboard {
+  @override
+  LeaderboardModel build() => LeaderboardModel(
+        habitat: HUHabitatModel(
+          id: -1,
+          updatedAt: DateTime.now(),
+          creatorId: '',
+          type: HabitType.read,
+          teamGoalLastMet: DateTime.now(),
+        ),
+        loading: true,
+      );
+
+  void setHabitat(HUHabitatModel habitat) {
+    state = state.copyWith(habitat: habitat);
+    _reload();
+  }
+
+  Future<void> _reload() async {
+    await loadProfiles();
+    await loadCredits();
+  }
+
+  Future<void> loadHabitats() async {
+    try {
+      final habitats = await Database.habitats();
+      state = state.copyWith(habitats: habitats, loading: false);
+    } on Exception catch (_) {
+      state = state.copyWith(error: 'An error occurred', loading: false);
+    }
+
+    if (state.habitat.id == -1 && state.habitats.isNotEmpty) {
+      setHabitat(state.habitats.first);
+    }
+  }
+
+  Future<void> loadProfiles() async {
+    state = state.copyWith(loading: true);
+
+    final ids = [
+      state.habitat.creatorId,
+      ...state.habitat.admins,
+      ...state.habitat.members,
+    ];
+
+    final profiles = await Database.profilesWithIds(ids);
+
+    state = state.copyWith(profiles: profiles, loading: false);
+  }
+
+  Future<void> loadCredits() async {
+    state = state.copyWith(loading: true);
+
+    final credits = await Database.creditsWithHabitatId(id: state.habitat.id);
+
+    // Sort profiles by most points to fewest
+    final today = DateTime.now();
+
+    List<HUProfileModel> profiles = List.from(state.profiles);
+
+    profiles.sort((a, b) {
+      final creditA = state.credits.firstWhere(
+        (credit) => credit.ownerId == a.id,
+        orElse: () => HUCreditModel(
+          updatedAt: today,
+          ownerId: a.id,
+          habitatId: state.habitat.id,
+          year: today.year,
+          weekNumber: today.weekNumber(),
+          credits: 0,
+        ),
+      );
+
+      final creditB = state.credits.firstWhere(
+        (credit) => credit.ownerId == b.id,
+        orElse: () => HUCreditModel(
+          updatedAt: today,
+          ownerId: b.id,
+          habitatId: state.habitat.id,
+          year: today.year,
+          weekNumber: today.weekNumber(),
+          credits: 0,
+        ),
+      );
+
+      return creditA.credits > creditB.credits ? 0 : 1;
+    });
+
+    state = state.copyWith(
+      credits: credits,
+      profiles: profiles,
+      loading: false,
+    );
+  }
+}

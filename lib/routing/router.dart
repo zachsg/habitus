@@ -9,6 +9,7 @@ import '../features/habitat/habitat_view.dart';
 import '../features/habitat_settings/habitat_settings_view.dart';
 import '../features/habitats/habitats_view.dart';
 import '../features/join_habitat/join_habitat_view.dart';
+import '../features/leaderboard/leaderboard_view.dart';
 import '../features/profile/profile_view.dart';
 import '../features/settings/settings_view.dart';
 import '../features/splash/splash_view.dart';
@@ -78,6 +79,11 @@ final router = GoRouter(
               },
             ),
           ],
+        ),
+        GoRoute(
+          path: LeaderboardView.routeName,
+          name: LeaderboardView.routeName,
+          builder: (context, state) => const LeaderboardView(),
         ),
         GoRoute(
           path: CalendarView.routeName,

@@ -13,6 +13,7 @@ import '../../services/database.dart';
 import '../auth/sign_in_view.dart';
 import '../calendar/calendar_view.dart';
 import '../habitat/habitat_view.dart';
+import '../leaderboard/leaderboard_view.dart';
 import '../profile/profile.dart';
 import '../profile/profile_view.dart';
 import '../settings/settings_view.dart';
@@ -107,12 +108,23 @@ class _HabitatsViewState extends ConsumerState<HabitatsView>
         ? Scaffold(
             appBar: AppBar(
               title: provider.habitats.isNotEmpty
-                  ? IconButton(
-                      onPressed: () => context.pushNamed(
-                        CalendarView.routeName,
-                        extra: provider.habitats,
-                      ),
-                      icon: const Icon(Icons.roofing),
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          onPressed: () => context.pushNamed(
+                            LeaderboardView.routeName,
+                          ),
+                          icon: const Icon(Icons.emoji_events_outlined),
+                        ),
+                        IconButton(
+                          onPressed: () => context.pushNamed(
+                            CalendarView.routeName,
+                            extra: provider.habitats,
+                          ),
+                          icon: const Icon(Icons.roofing),
+                        ),
+                      ],
                     )
                   : null,
               leading: IconButton(
