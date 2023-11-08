@@ -19,6 +19,9 @@ class Leaderboard extends _$Leaderboard {
           type: HabitType.read,
           teamGoalLastMet: DateTime.now(),
         ),
+        habitats: [],
+        profiles: [],
+        credits: [],
         loading: true,
       );
 

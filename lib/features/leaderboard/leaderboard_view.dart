@@ -42,7 +42,12 @@ class _LeaderboardViewState extends ConsumerState<LeaderboardView> {
         children: [
           const LeaderboardHabitatPickerWidget(),
           provider.loading
-              ? const CircularProgressIndicator.adaptive()
+              ? const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator.adaptive(),
+                  ],
+                )
               : Expanded(
                   child: provider.byCredit
                       ? const LeaderboardByCreditsListWidget()
