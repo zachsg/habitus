@@ -59,10 +59,40 @@ class _LeaderboardViewState extends ConsumerState<LeaderboardView> {
                         ),
                       );
 
+                      bool isFirst = index == 0 && credit.credits > 0;
+                      bool isSecond = index == 1 && credit.credits > 0;
+                      bool isThird = index == 2 && credit.credits > 0;
+                      bool isUnranked = index > 2 || credit.credits == 0;
+
                       return ListTile(
                         leading: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            if (isFirst)
+                              Icon(
+                                Icons.emoji_events,
+                                color: Colors.yellow.shade800,
+                                size: 32,
+                              ),
+                            if (isSecond)
+                              Icon(
+                                Icons.emoji_events,
+                                color: Theme.of(context).colorScheme.secondary,
+                                size: 32,
+                              ),
+                            if (isThird)
+                              Icon(
+                                Icons.emoji_events,
+                                color: Theme.of(context).colorScheme.tertiary,
+                                size: 32,
+                              ),
+                            if (isUnranked)
+                              Icon(
+                                Icons.emoji_events,
+                                color: Theme.of(context).colorScheme.background,
+                                size: 32,
+                              ),
+                            const SizedBox(width: 12.0),
                             Text(
                               '${credit.credits}',
                               style: Theme.of(context).textTheme.titleLarge,
