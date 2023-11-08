@@ -128,7 +128,7 @@ class Grow extends _$Grow {
       if (habitat.teamGoalLastMet
           .isBefore(DateTime.now().copyWith(hour: 0, minute: 0))) {
         final actions = ref.read(habitatProvider(state.habitat)).actions;
-        int accomplished = elapsed;
+        int accomplished = 0;
         for (final action in actions) {
           accomplished += action.goal.value;
         }
