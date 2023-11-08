@@ -2,7 +2,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
-import '../profile/profile.dart';
 import 'habitat_model.dart';
 
 part 'habitat.g.dart';

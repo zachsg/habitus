@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobn/helpers/extensions.dart';
-import 'package:mobn/models/xmodels.dart';
 
 import 'leaderboard.dart';
 import 'widgets/xwidgets.dart';
