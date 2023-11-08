@@ -19,8 +19,16 @@ class SettingsHandleTextButtonRowWidget extends ConsumerWidget {
             return SettingsBottomSheetWidget(
               title: editHandleString,
               child: const SettingsHandleTextFieldWidget(),
-              onPressed: () async =>
-                  await ref.read(settingsProvider.notifier).saveHandle(context),
+              onPressed: () async {
+                final success =
+                    await ref.read(settingsProvider.notifier).saveHandle();
+
+                if (success) {
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
+                }
+              },
             );
           },
         );

@@ -19,8 +19,16 @@ class SettingsBioTextButtonRowWidget extends ConsumerWidget {
             return SettingsBottomSheetWidget(
               title: editBioString,
               child: const SettingsBioTextFieldWidget(),
-              onPressed: () async =>
-                  await ref.read(settingsProvider.notifier).saveBio(context),
+              onPressed: () async {
+                final success =
+                    await ref.read(settingsProvider.notifier).saveBio();
+
+                if (success) {
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
+                }
+              },
             );
           },
         );

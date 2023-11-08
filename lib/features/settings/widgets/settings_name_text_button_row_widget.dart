@@ -19,8 +19,16 @@ class SettingsNameTextButtonRowWidget extends ConsumerWidget {
             return SettingsBottomSheetWidget(
               title: editNameString,
               child: const SettingsNameTextFieldWidget(),
-              onPressed: () async =>
-                  await ref.read(settingsProvider.notifier).saveName(context),
+              onPressed: () async {
+                final success =
+                    await ref.read(settingsProvider.notifier).saveName();
+
+                if (success) {
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
+                }
+              },
             );
           },
         );

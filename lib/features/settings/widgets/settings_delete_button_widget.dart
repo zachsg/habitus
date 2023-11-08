@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mobn/helpers/extensions.dart';
 
 import '../../../helpers/strings.dart';
+import '../../auth/sign_in_view.dart';
 import '../settings.dart';
 
 class SettingsDeleteButtonWidget extends ConsumerWidget {
@@ -72,9 +75,21 @@ class SettingsDeleteButtonWidget extends ConsumerWidget {
                                   color: Theme.of(context).colorScheme.error),
                         ),
                         onPressed: () async {
-                          ref
+                          final success = await ref
                               .read(settingsProvider.notifier)
-                              .deleteAccount(context);
+                              .deleteAccount();
+
+                          if (success) {
+                            if (context.mounted) {
+                              context.showSnackBar(
+                                message: deletionRequestInProgressString,
+                                seconds: 15,
+                              );
+
+                              ref.read(settingsProvider.notifier).signOut();
+                              context.goNamed(SignInView.routeName);
+                            }
+                          }
 
                           if (context.mounted) {
                             Navigator.of(context).pop();

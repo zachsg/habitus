@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../helpers/strings.dart';
+import '../../auth/sign_in_view.dart';
 import '../settings.dart';
 
 class SettingsSignOutButtonWidget extends ConsumerWidget {
@@ -72,7 +74,8 @@ class SettingsSignOutButtonWidget extends ConsumerWidget {
                                   color: Theme.of(context).colorScheme.error),
                         ),
                         onPressed: () async {
-                          ref.read(settingsProvider.notifier).signOut(context);
+                          ref.read(settingsProvider.notifier).signOut();
+                          context.goNamed(SignInView.routeName);
 
                           if (context.mounted) {
                             Navigator.of(context).pop();
