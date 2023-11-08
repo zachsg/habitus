@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'day.dart';
 import 'xmodels.dart';
 
 part 'h_u_goal_model.freezed.dart';
