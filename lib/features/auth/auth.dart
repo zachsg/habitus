@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobn/helpers/extensions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -7,7 +5,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../helpers/strings.dart';
 import '../../models/xmodels.dart';
 import '../../services/database.dart';
-import '../habitats/habitats_view.dart';
 import 'auth_model.dart';
 
 part 'auth.g.dart';
