@@ -33,7 +33,7 @@ class _LeaderboardViewState extends ConsumerState<LeaderboardView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Week\'s Leaders'),
+        title: const Text('Weekly Leaderboard'),
         actions: const [
           LeaderboardByCreditsToggleWidget(),
         ],
