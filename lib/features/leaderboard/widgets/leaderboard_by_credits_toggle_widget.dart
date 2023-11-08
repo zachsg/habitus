@@ -36,7 +36,11 @@ class _LeaderboardByCreditsToggleWidgetState
     final provider = ref.watch(leaderboardProvider);
     return Row(
       children: [
-        const Icon(Icons.schedule),
+        GestureDetector(
+            onTap: () => ref
+                .read(leaderboardProvider.notifier)
+                .setIsByCredit(!provider.byCredit),
+            child: const Icon(Icons.schedule)),
         AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
