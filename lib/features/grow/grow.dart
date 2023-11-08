@@ -73,9 +73,10 @@ class Grow extends _$Grow {
       goal: goal,
     );
 
+    int creditsToday = 0;
     final success = await Database.saveAction(state.habitat, action);
     if (success) {
-      await _addCredits(elapsed);
+      creditsToday = await _addCredits(elapsed);
 
       if (state.calloutId.isNotEmpty) {
         final callout = HUCalloutModel(
@@ -134,12 +135,13 @@ class Grow extends _$Grow {
         }
 
         if (accomplished >= habitat.teamGoal) {
-          await _giveTeamCredit();
+          creditsToday += await _giveTeamCredit();
         }
       }
     }
 
     state = state.copyWith(
+      creditsToday: creditsToday,
       loading: false,
       error: success ? null : 'Failed to save. Check network and try again.',
     );
@@ -151,7 +153,7 @@ class Grow extends _$Grow {
     state = state.copyWith(calloutId: id);
   }
 
-  Future<bool> _addCredits(int elapsed) async {
+  Future<int> _addCredits(int elapsed) async {
     final profile = ref.read(profileProvider).profile;
     final credits = ref.read(habitatProvider(habitatAndAction.habitat)).credits;
     final today = DateTime.now();
@@ -174,7 +176,7 @@ class Grow extends _$Grow {
     // If user already received credit today, do nothing
     if (credit.id != -1 &&
         credit.updatedAt.isAfter(today.copyWith(hour: 0, minute: 0))) {
-      return true;
+      return credit.credits;
     }
 
     final goal = profile.goals
@@ -192,17 +194,17 @@ class Grow extends _$Grow {
       credits: credit.credits + creditsEarned,
       updatedAt: DateTime.now().toUtc(),
     );
-    final success = await Database.addCredits(credit: updatedCredit);
+    await Database.addCredits(credit: updatedCredit);
 
-    return success;
+    return credit.credits + creditsEarned;
   }
 
-  Future<void> _giveTeamCredit() async {
+  Future<int> _giveTeamCredit() async {
     final habitatP = ref.read(habitatProvider(state.habitat));
     final today = DateTime.now();
     if (habitatP.habitat.teamGoalLastMet
         .isAfter(today.copyWith(hour: 0, minute: 0))) {
-      return;
+      return 0;
     }
 
     for (final profile in habitatP.profiles) {
@@ -233,5 +235,10 @@ class Grow extends _$Grow {
     final updatedHabitat =
         habitatP.habitat.copyWith(teamGoalLastMet: DateTime.now().toUtc());
     await Database.updateHabitat(updatedHabitat);
+
+    return 5;
   }
+
+  void setCreditsToday(int credits) =>
+      state = state.copyWith(creditsToday: credits);
 }

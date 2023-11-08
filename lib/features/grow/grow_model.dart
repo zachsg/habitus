@@ -15,6 +15,7 @@ class GrowModel with _$GrowModel {
     @Default(false) bool goalMet,
     @Default(false) bool isPaused,
     @Default('') String calloutId,
+    @Default(0) int creditsToday,
     String? error,
   }) = _GrowModel;
 

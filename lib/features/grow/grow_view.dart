@@ -385,6 +385,14 @@ class _GrowViewState extends ConsumerState<GrowView>
                                     _notifyNewAction();
 
                                     if (context.mounted) {
+                                      final credits = ref
+                                          .read(growProvider(habitatAndAction))
+                                          .creditsToday;
+
+                                      context.showSnackBar(
+                                          message:
+                                              'You\'ve earned $credits points this week!');
+
                                       Navigator.of(context).pop();
                                       Navigator.of(context).pop();
                                     }

@@ -27,6 +27,7 @@ mixin _$GrowModel {
   bool get goalMet => throw _privateConstructorUsedError;
   bool get isPaused => throw _privateConstructorUsedError;
   String get calloutId => throw _privateConstructorUsedError;
+  int get creditsToday => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,6 +49,7 @@ abstract class $GrowModelCopyWith<$Res> {
       bool goalMet,
       bool isPaused,
       String calloutId,
+      int creditsToday,
       String? error});
 
   $HUHabitatModelCopyWith<$Res> get habitat;
@@ -73,6 +75,7 @@ class _$GrowModelCopyWithImpl<$Res, $Val extends GrowModel>
     Object? goalMet = null,
     Object? isPaused = null,
     Object? calloutId = null,
+    Object? creditsToday = null,
     Object? error = freezed,
   }) {
     return _then(_value.copyWith(
@@ -104,6 +107,10 @@ class _$GrowModelCopyWithImpl<$Res, $Val extends GrowModel>
           ? _value.calloutId
           : calloutId // ignore: cast_nullable_to_non_nullable
               as String,
+      creditsToday: null == creditsToday
+          ? _value.creditsToday
+          : creditsToday // ignore: cast_nullable_to_non_nullable
+              as int,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -136,6 +143,7 @@ abstract class _$$GrowModelImplCopyWith<$Res>
       bool goalMet,
       bool isPaused,
       String calloutId,
+      int creditsToday,
       String? error});
 
   @override
@@ -160,6 +168,7 @@ class __$$GrowModelImplCopyWithImpl<$Res>
     Object? goalMet = null,
     Object? isPaused = null,
     Object? calloutId = null,
+    Object? creditsToday = null,
     Object? error = freezed,
   }) {
     return _then(_$GrowModelImpl(
@@ -191,6 +200,10 @@ class __$$GrowModelImplCopyWithImpl<$Res>
           ? _value.calloutId
           : calloutId // ignore: cast_nullable_to_non_nullable
               as String,
+      creditsToday: null == creditsToday
+          ? _value.creditsToday
+          : creditsToday // ignore: cast_nullable_to_non_nullable
+              as int,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -210,6 +223,7 @@ class _$GrowModelImpl implements _GrowModel {
       this.goalMet = false,
       this.isPaused = false,
       this.calloutId = '',
+      this.creditsToday = 0,
       this.error});
 
   factory _$GrowModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -236,11 +250,14 @@ class _$GrowModelImpl implements _GrowModel {
   @JsonKey()
   final String calloutId;
   @override
+  @JsonKey()
+  final int creditsToday;
+  @override
   final String? error;
 
   @override
   String toString() {
-    return 'GrowModel(habitat: $habitat, loading: $loading, elapsed: $elapsed, alreadyElapsed: $alreadyElapsed, goalMet: $goalMet, isPaused: $isPaused, calloutId: $calloutId, error: $error)';
+    return 'GrowModel(habitat: $habitat, loading: $loading, elapsed: $elapsed, alreadyElapsed: $alreadyElapsed, goalMet: $goalMet, isPaused: $isPaused, calloutId: $calloutId, creditsToday: $creditsToday, error: $error)';
   }
 
   @override
@@ -258,13 +275,15 @@ class _$GrowModelImpl implements _GrowModel {
                 other.isPaused == isPaused) &&
             (identical(other.calloutId, calloutId) ||
                 other.calloutId == calloutId) &&
+            (identical(other.creditsToday, creditsToday) ||
+                other.creditsToday == creditsToday) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, habitat, loading, elapsed,
-      alreadyElapsed, goalMet, isPaused, calloutId, error);
+      alreadyElapsed, goalMet, isPaused, calloutId, creditsToday, error);
 
   @JsonKey(ignore: true)
   @override
@@ -289,6 +308,7 @@ abstract class _GrowModel implements GrowModel {
       final bool goalMet,
       final bool isPaused,
       final String calloutId,
+      final int creditsToday,
       final String? error}) = _$GrowModelImpl;
 
   factory _GrowModel.fromJson(Map<String, dynamic> json) =
@@ -308,6 +328,8 @@ abstract class _GrowModel implements GrowModel {
   bool get isPaused;
   @override
   String get calloutId;
+  @override
+  int get creditsToday;
   @override
   String? get error;
   @override
