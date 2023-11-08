@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../helpers/strings.dart';
+import '../habitats/habitats_view.dart';
 import 'auth.dart';
 import 'sign_in_view.dart';
 import 'widgets/xwidgets.dart';
@@ -45,7 +46,14 @@ class SignUpView extends ConsumerWidget {
                   ? AuthSignInUpButtonWidget(
                       text: signUpTitleString,
                       onPressed: () async {
-                        await ref.read(authProvider.notifier).signUp(context);
+                        final success =
+                            await ref.read(authProvider.notifier).signUp();
+
+                        if (success) {
+                          if (context.mounted) {
+                            context.goNamed(HabitatsView.routeName);
+                          }
+                        }
                       },
                     )
                   : const SizedBox(),

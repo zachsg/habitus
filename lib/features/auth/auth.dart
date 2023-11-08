@@ -44,7 +44,7 @@ class Auth extends _$Auth {
     state = state.copyWith(confirmPassword: password);
   }
 
-  Future<void> signUp(BuildContext context) async {
+  Future<bool> signUp() async {
     state = state.copyWith(loading: true, error: null);
 
     // Check whether handle is available
@@ -59,18 +59,15 @@ class Auth extends _$Auth {
           password: state.password,
         );
         await _createProfile();
+        state = state.copyWith(loading: false);
+        return true;
       } on AuthException catch (error) {
         state = state.copyWith(error: error.message, loading: false);
-        return;
-      }
-
-      state = state.copyWith(loading: false);
-
-      if (context.mounted) {
-        context.goNamed(HabitatsView.routeName);
+        return false;
       }
     } else {
       state = state.copyWith(loading: false, error: handleIsTakenErrorString);
+      return false;
     }
   }
 
@@ -95,7 +92,7 @@ class Auth extends _$Auth {
     }
   }
 
-  Future<void> signIn(BuildContext context) async {
+  Future<bool> signIn() async {
     state = state.copyWith(loading: true, error: null);
 
     try {
@@ -103,15 +100,11 @@ class Auth extends _$Auth {
         email: state.email,
         password: state.password,
       );
+      state = state.copyWith(loading: false);
+      return true;
     } on AuthException catch (error) {
       state = state.copyWith(error: error.message, loading: false);
-      return;
-    }
-
-    state = state.copyWith(loading: false);
-
-    if (context.mounted) {
-      context.goNamed(HabitatsView.routeName);
+      return false;
     }
   }
 
