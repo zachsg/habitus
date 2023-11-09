@@ -17,7 +17,7 @@ class LeaderboardByAccomplishedListWidget extends ConsumerWidget {
         dataRowMaxHeight: 60,
         columns: const [
           DataColumn(label: Text('Rank')),
-          DataColumn(label: Text('Points')),
+          DataColumn(label: Text('Time')),
           DataColumn(label: Text('Habitmate')),
         ],
         rows: _tableRows(context, ref),

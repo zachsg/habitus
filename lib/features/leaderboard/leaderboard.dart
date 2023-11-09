@@ -107,6 +107,8 @@ class Leaderboard extends _$Leaderboard {
     );
   }
 
-  void setIsByCredit(bool byCredit) =>
-      state = state.copyWith(byCredit: byCredit);
+  void setIsByCredit(bool byCredit) {
+    state = state.copyWith(byCredit: byCredit);
+    loadCredits();
+  }
 }
