@@ -182,11 +182,12 @@ class HabitatSettings extends _$HabitatSettings {
         // Promote an admin to owner
 
         final newCreator = habitat.admins.first;
-        habitat.admins.removeAt(0);
+        final List<String> admins = List.from(habitat.admins);
+        admins.removeAt(0);
 
         final updatedHabitat = habitat.copyWith(
           creatorId: newCreator,
-          admins: habitat.admins,
+          admins: admins,
           teamGoal: newTeamGoal,
         );
 

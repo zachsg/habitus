@@ -109,7 +109,13 @@ class LeaderboardByCreditsListWidget extends ConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(profile.name),
+                Text(
+                  profile.name,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
                 Text('@${profile.handle}'),
               ],
             ),
