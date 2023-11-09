@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobn/helpers/extensions.dart';
 
 import '../../../models/xmodels.dart';
+import '../../profile/profile.dart';
 import '../leaderboard.dart';
 
 class LeaderboardByAccomplishedListWidget extends ConsumerWidget {
@@ -10,68 +11,108 @@ class LeaderboardByAccomplishedListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(leaderboardProvider);
-
-    return ListView.builder(
-      itemCount: provider.profiles.length,
-      itemBuilder: (context, index) {
-        final profile = provider.profiles[index];
-        final credit = provider.credits.firstWhere(
-          (credit) => credit.ownerId == profile.id,
-          orElse: () => HUCreditModel(
-            updatedAt: DateTime.now(),
-            ownerId: profile.id,
-            habitatId: provider.habitat.id,
-            year: DateTime.now().year,
-            weekNumber: DateTime.now().weekNumber(),
-            credits: 0,
-          ),
-        );
-
-        bool isFirst = index == 0 && credit.accomplished > 0;
-        bool isSecond = index == 1 && credit.accomplished > 0;
-        bool isThird = index == 2 && credit.accomplished > 0;
-        bool isUnranked = index > 2 || credit.accomplished == 0;
-
-        return ListTile(
-          leading: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (isFirst)
-                Icon(
-                  Icons.emoji_events,
-                  color: Colors.yellow.shade800,
-                  size: 32,
-                ),
-              if (isSecond)
-                Icon(
-                  Icons.emoji_events,
-                  color: Theme.of(context).colorScheme.secondary,
-                  size: 32,
-                ),
-              if (isThird)
-                Icon(
-                  Icons.emoji_events,
-                  color: Theme.of(context).colorScheme.tertiary,
-                  size: 32,
-                ),
-              if (isUnranked)
-                Icon(
-                  Icons.emoji_events,
-                  color: Theme.of(context).colorScheme.background,
-                  size: 32,
-                ),
-              const SizedBox(width: 12.0),
-              Text(
-                credit.accomplished.toTimeShort(),
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ],
-          ),
-          title: Text(profile.name),
-          subtitle: Text('@${profile.handle}'),
-        );
-      },
+    return SingleChildScrollView(
+      child: DataTable(
+        dataRowMinHeight: 50,
+        dataRowMaxHeight: 60,
+        columns: const [
+          DataColumn(label: Text('Rank')),
+          DataColumn(label: Text('Points')),
+          DataColumn(label: Text('Habitmate')),
+        ],
+        rows: _tableRows(context, ref),
+      ),
     );
+  }
+
+  List<DataRow> _tableRows(BuildContext context, WidgetRef ref) {
+    final List<DataRow> children = [];
+
+    final provider = ref.watch(leaderboardProvider);
+    final myProfile = ref.watch(profileProvider).profile;
+
+    int index = 0;
+    for (final profile in provider.profiles) {
+      final credit = provider.credits.firstWhere(
+        (credit) => credit.ownerId == profile.id,
+        orElse: () => HUCreditModel(
+          updatedAt: DateTime.now(),
+          ownerId: profile.id,
+          habitatId: provider.habitat.id,
+          year: DateTime.now().year,
+          weekNumber: DateTime.now().weekNumber(),
+          credits: 0,
+        ),
+      );
+
+      bool isFirst = index == 0 && credit.accomplished > 0;
+      bool isSecond = index == 1 && credit.accomplished > 0;
+      bool isThird = index == 2 && credit.accomplished > 0;
+      bool isUnranked = index > 2 || credit.accomplished == 0;
+
+      final isMe = profile.id == myProfile.id;
+
+      final row = DataRow(
+        selected: isMe ? true : false,
+        cells: [
+          if (isFirst)
+            DataCell(
+              Icon(
+                Icons.emoji_events,
+                color: Colors.yellow.shade800,
+                size: 32,
+              ),
+            ),
+          if (isSecond)
+            DataCell(
+              Icon(
+                Icons.emoji_events,
+                color: Theme.of(context).colorScheme.secondary,
+                size: 32,
+              ),
+            ),
+          if (isThird)
+            DataCell(
+              Icon(
+                Icons.emoji_events,
+                color: Theme.of(context).colorScheme.tertiary,
+                size: 32,
+              ),
+            ),
+          if (isUnranked)
+            DataCell(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  '${index + 1}.',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ),
+          DataCell(
+            Text(
+              credit.accomplished.toTimeShort(),
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          DataCell(
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(profile.name),
+                Text('@${profile.handle}'),
+              ],
+            ),
+          ),
+        ],
+      );
+
+      children.add(row);
+
+      index++;
+    }
+
+    return children;
   }
 }
