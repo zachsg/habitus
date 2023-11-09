@@ -92,7 +92,7 @@ class LeaderboardByAccomplishedListWidget extends ConsumerWidget {
           DataCell(
             Text(
               credit.accomplished.toTimeShort(),
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
           DataCell(
@@ -102,12 +102,12 @@ class LeaderboardByAccomplishedListWidget extends ConsumerWidget {
               children: [
                 Text(
                   profile.name,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
-                Text('@${profile.handle}'),
+                Text(
+                  '@${profile.handle}',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ],
             ),
           ),
