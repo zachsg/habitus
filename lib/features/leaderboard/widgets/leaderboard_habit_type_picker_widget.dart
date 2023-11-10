@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobn/helpers/extensions.dart';
 
 import '../../../models/habit_type.dart';
-import '../../../models/xmodels.dart';
 import '../../profile/profile.dart';
 import '../leaderboard.dart';
 

@@ -63,7 +63,7 @@ class Leaderboard extends _$Leaderboard {
     final goals = ref.read(profileProvider).profile.goals;
     final habitType = HabitType.values
         .firstWhere((type) => type.name == goals.first.habit.toLowerCase());
-    ref.read(leaderboardProvider.notifier).setHabitType(habitType);
+    state = state.copyWith(habitType: habitType);
   }
 
   Future<void> loadProfilesHabitats() async {

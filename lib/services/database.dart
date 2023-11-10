@@ -2,7 +2,6 @@ import 'package:mobn/helpers/extensions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../helpers/exceptions.dart';
-import '../models/habit_type.dart';
 import '../models/xmodels.dart';
 
 const supabaseUrl = 'https://avxqghvyhbpdggvuxaxh.supabase.co';

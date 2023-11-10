@@ -23,8 +23,8 @@ class _LeaderboardViewState extends ConsumerState<LeaderboardView> {
 
   Future<void> _loadData() async {
     await ref.read(leaderboardProvider.notifier).loadHabitatsHabitats();
-    await ref.read(leaderboardProvider.notifier).loadProfilesHabitats();
-    await ref.read(leaderboardProvider.notifier).loadCreditsHabitats();
+    // await ref.read(leaderboardProvider.notifier).loadProfilesHabitats();
+    // await ref.read(leaderboardProvider.notifier).loadCreditsHabitats();
   }
 
   @override
