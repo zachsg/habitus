@@ -22,7 +22,10 @@ _$LeaderboardModelImpl _$$LeaderboardModelImplFromJson(
               ?.map((e) => HUCreditModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      habitType: $enumDecodeNullable(_$HabitTypeEnumMap, json['habitType']) ??
+          HabitType.read,
       byCredit: json['byCredit'] as bool? ?? true,
+      byHabitat: json['byHabitat'] as bool? ?? true,
       loading: json['loading'] as bool? ?? false,
       error: json['error'] as String?,
     );
@@ -34,7 +37,17 @@ Map<String, dynamic> _$$LeaderboardModelImplToJson(
       'habitats': instance.habitats,
       'profiles': instance.profiles,
       'credits': instance.credits,
+      'habitType': _$HabitTypeEnumMap[instance.habitType]!,
       'byCredit': instance.byCredit,
+      'byHabitat': instance.byHabitat,
       'loading': instance.loading,
       'error': instance.error,
     };
+
+const _$HabitTypeEnumMap = {
+  HabitType.cook: 'cook',
+  HabitType.exercise: 'exercise',
+  HabitType.meditate: 'meditate',
+  HabitType.read: 'read',
+  HabitType.work: 'work',
+};

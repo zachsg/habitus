@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../models/habit_type.dart';
 import '../../models/xmodels.dart';
 
 part 'leaderboard_model.freezed.dart';
@@ -12,7 +13,9 @@ class LeaderboardModel with _$LeaderboardModel {
     @Default([]) List<HUHabitatModel> habitats,
     @Default([]) List<HUProfileModel> profiles,
     @Default([]) List<HUCreditModel> credits,
+    @Default(HabitType.read) HabitType habitType,
     @Default(true) bool byCredit,
+    @Default(true) bool byHabitat,
     @Default(false) bool loading,
     String? error,
   }) = _LeaderboardModel;

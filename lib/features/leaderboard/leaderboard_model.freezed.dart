@@ -24,7 +24,9 @@ mixin _$LeaderboardModel {
   List<HUHabitatModel> get habitats => throw _privateConstructorUsedError;
   List<HUProfileModel> get profiles => throw _privateConstructorUsedError;
   List<HUCreditModel> get credits => throw _privateConstructorUsedError;
+  HabitType get habitType => throw _privateConstructorUsedError;
   bool get byCredit => throw _privateConstructorUsedError;
+  bool get byHabitat => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -45,7 +47,9 @@ abstract class $LeaderboardModelCopyWith<$Res> {
       List<HUHabitatModel> habitats,
       List<HUProfileModel> profiles,
       List<HUCreditModel> credits,
+      HabitType habitType,
       bool byCredit,
+      bool byHabitat,
       bool loading,
       String? error});
 
@@ -69,7 +73,9 @@ class _$LeaderboardModelCopyWithImpl<$Res, $Val extends LeaderboardModel>
     Object? habitats = null,
     Object? profiles = null,
     Object? credits = null,
+    Object? habitType = null,
     Object? byCredit = null,
+    Object? byHabitat = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -90,9 +96,17 @@ class _$LeaderboardModelCopyWithImpl<$Res, $Val extends LeaderboardModel>
           ? _value.credits
           : credits // ignore: cast_nullable_to_non_nullable
               as List<HUCreditModel>,
+      habitType: null == habitType
+          ? _value.habitType
+          : habitType // ignore: cast_nullable_to_non_nullable
+              as HabitType,
       byCredit: null == byCredit
           ? _value.byCredit
           : byCredit // ignore: cast_nullable_to_non_nullable
+              as bool,
+      byHabitat: null == byHabitat
+          ? _value.byHabitat
+          : byHabitat // ignore: cast_nullable_to_non_nullable
               as bool,
       loading: null == loading
           ? _value.loading
@@ -127,7 +141,9 @@ abstract class _$$LeaderboardModelImplCopyWith<$Res>
       List<HUHabitatModel> habitats,
       List<HUProfileModel> profiles,
       List<HUCreditModel> credits,
+      HabitType habitType,
       bool byCredit,
+      bool byHabitat,
       bool loading,
       String? error});
 
@@ -150,7 +166,9 @@ class __$$LeaderboardModelImplCopyWithImpl<$Res>
     Object? habitats = null,
     Object? profiles = null,
     Object? credits = null,
+    Object? habitType = null,
     Object? byCredit = null,
+    Object? byHabitat = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -171,9 +189,17 @@ class __$$LeaderboardModelImplCopyWithImpl<$Res>
           ? _value._credits
           : credits // ignore: cast_nullable_to_non_nullable
               as List<HUCreditModel>,
+      habitType: null == habitType
+          ? _value.habitType
+          : habitType // ignore: cast_nullable_to_non_nullable
+              as HabitType,
       byCredit: null == byCredit
           ? _value.byCredit
           : byCredit // ignore: cast_nullable_to_non_nullable
+              as bool,
+      byHabitat: null == byHabitat
+          ? _value.byHabitat
+          : byHabitat // ignore: cast_nullable_to_non_nullable
               as bool,
       loading: null == loading
           ? _value.loading
@@ -195,7 +221,9 @@ class _$LeaderboardModelImpl implements _LeaderboardModel {
       final List<HUHabitatModel> habitats = const [],
       final List<HUProfileModel> profiles = const [],
       final List<HUCreditModel> credits = const [],
+      this.habitType = HabitType.read,
       this.byCredit = true,
+      this.byHabitat = true,
       this.loading = false,
       this.error})
       : _habitats = habitats,
@@ -236,7 +264,13 @@ class _$LeaderboardModelImpl implements _LeaderboardModel {
 
   @override
   @JsonKey()
+  final HabitType habitType;
+  @override
+  @JsonKey()
   final bool byCredit;
+  @override
+  @JsonKey()
+  final bool byHabitat;
   @override
   @JsonKey()
   final bool loading;
@@ -245,7 +279,7 @@ class _$LeaderboardModelImpl implements _LeaderboardModel {
 
   @override
   String toString() {
-    return 'LeaderboardModel(habitat: $habitat, habitats: $habitats, profiles: $profiles, credits: $credits, byCredit: $byCredit, loading: $loading, error: $error)';
+    return 'LeaderboardModel(habitat: $habitat, habitats: $habitats, profiles: $profiles, credits: $credits, habitType: $habitType, byCredit: $byCredit, byHabitat: $byHabitat, loading: $loading, error: $error)';
   }
 
   @override
@@ -257,8 +291,12 @@ class _$LeaderboardModelImpl implements _LeaderboardModel {
             const DeepCollectionEquality().equals(other._habitats, _habitats) &&
             const DeepCollectionEquality().equals(other._profiles, _profiles) &&
             const DeepCollectionEquality().equals(other._credits, _credits) &&
+            (identical(other.habitType, habitType) ||
+                other.habitType == habitType) &&
             (identical(other.byCredit, byCredit) ||
                 other.byCredit == byCredit) &&
+            (identical(other.byHabitat, byHabitat) ||
+                other.byHabitat == byHabitat) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
   }
@@ -271,7 +309,9 @@ class _$LeaderboardModelImpl implements _LeaderboardModel {
       const DeepCollectionEquality().hash(_habitats),
       const DeepCollectionEquality().hash(_profiles),
       const DeepCollectionEquality().hash(_credits),
+      habitType,
       byCredit,
+      byHabitat,
       loading,
       error);
 
@@ -296,7 +336,9 @@ abstract class _LeaderboardModel implements LeaderboardModel {
       final List<HUHabitatModel> habitats,
       final List<HUProfileModel> profiles,
       final List<HUCreditModel> credits,
+      final HabitType habitType,
       final bool byCredit,
+      final bool byHabitat,
       final bool loading,
       final String? error}) = _$LeaderboardModelImpl;
 
@@ -312,7 +354,11 @@ abstract class _LeaderboardModel implements LeaderboardModel {
   @override
   List<HUCreditModel> get credits;
   @override
+  HabitType get habitType;
+  @override
   bool get byCredit;
+  @override
+  bool get byHabitat;
   @override
   bool get loading;
   @override

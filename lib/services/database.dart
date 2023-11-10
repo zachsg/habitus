@@ -2,6 +2,7 @@ import 'package:mobn/helpers/extensions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../helpers/exceptions.dart';
+import '../models/habit_type.dart';
 import '../models/xmodels.dart';
 
 const supabaseUrl = 'https://avxqghvyhbpdggvuxaxh.supabase.co';
@@ -186,6 +187,27 @@ class Database {
     try {
       final profilesJson =
           await supabase.from(profilesTable).select().in_('id', ids);
+
+      List<HUProfileModel> profiles = [];
+      for (final profileJson in profilesJson) {
+        final profile = HUProfileModel.fromJson(profileJson);
+        profiles.add(profile);
+      }
+
+      return profiles;
+    } on Exception catch (e) {
+      throw GenericErrorException(e.toString());
+    }
+  }
+
+  static Future<List<HUProfileModel>> allProfiles() async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    try {
+      final profilesJson = await supabase.from(profilesTable).select();
 
       List<HUProfileModel> profiles = [];
       for (final profileJson in profilesJson) {
@@ -709,6 +731,39 @@ class Database {
           .from(creditsTable)
           .select()
           .eq('habitat_id', id)
+          .eq('week_number', weekNumber);
+
+      List<HUCreditModel> credits = [];
+      for (final creditJson in creditsJson) {
+        final credit = HUCreditModel.fromJson(creditJson);
+        credits.add(credit);
+      }
+
+      return credits;
+    } on Exception catch (_) {
+      return [];
+    }
+  }
+
+  static Future<List<HUCreditModel>> creditsWithHabitatIds({
+    required List<int> ids,
+    int weekNumber = 0,
+  }) async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw NoAuthException();
+    }
+
+    if (weekNumber == 0) {
+      final today = DateTime.now();
+      weekNumber = today.weekNumber();
+    }
+
+    try {
+      final creditsJson = await supabase
+          .from(creditsTable)
+          .select()
+          .in_('habitat_id', ids)
           .eq('week_number', weekNumber);
 
       List<HUCreditModel> credits = [];
