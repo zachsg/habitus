@@ -1,5 +1,5 @@
-# Mobn
-Mobn app.
+# Habitus
+Habitus: social habit formation.
 
 ## Screeshots
 <div>
